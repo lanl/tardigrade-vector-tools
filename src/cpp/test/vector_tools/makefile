@@ -12,7 +12,7 @@ include ../../../../config.mk
 # List of executables
 EXECUTABLES=test_vector_tools
 OBJECTS=test_vector_tools.o
-INC+=-I../..
+INC=-I../..
 LOCAL_CFLAGS=-ggdb
 
 #Set the mode due to the method variable
@@ -28,10 +28,10 @@ endif
 all: $(EXECUTABLES)
 
 test_vector_tools: $(OBJECTS)
-	$(CXX) $(LOCAL_CFLAGS) $(INC) $(LIB) $(DBG) $^ -o $@ $(CFLAGS) -lstdc++ -std=gnu++11
+	$(CXX) $(LOCAL_CFLAGS) $(INC) $^ -o $@ $(CFLAGS) -lstdc++ -std=gnu++11
 
 test_vector_tools.o: test_vector_tools.cpp ../../vector_tools.h ../../vector_tools.cpp
-	$(CXX) $(LOCAL_CFLAGS) $(EIGEN) $(INC) $(LIB) $(DBG) -c -o $@ $< $(CFLAGS) -lstdc++ -std=gnu++11
+	$(CXX) $(LOCAL_CFLAGS) $(EIGEN) $(INC) $(DBG) -c -o $@ $< $(CFLAGS) -lstdc++ -std=gnu++11
 
 clean:
 	rm -f $(EXECUTABLES)

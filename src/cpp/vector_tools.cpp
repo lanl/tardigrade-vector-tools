@@ -347,6 +347,34 @@ namespace vectorTools{
         return 0;
     }
 
+    template<typename T>
+    std::vector< std::vector< T > > eye(const unsigned int dim){
+        /*!
+         * Construct an identity tensor of the size indicated by dim
+         * 
+         * :param const unsigned int dim: The dimension of the matrix
+         */
+
+        std::vector< std::vector< T > > I(dim, std::vector< T >(dim, 0));
+        for (unsigned int i=0; i<dim; i++){
+            I[i][i] = 1;
+        }
+        return I;
+    }
+
+    template<typename T>
+    int eye(const unsigned int dim, std::vector< std::vector< T > > &I){
+        /*!
+         * Construct an identity tensor of the size indicated by dim
+         * 
+         * :param const unsigned int dim: The dimension of the matrix
+         */
+
+        I = eye<T>(dim);
+
+        return 0;
+    }
+
     //Comparison Utilities
     template< typename T >
     bool fuzzyEquals(const T &a, const T &b, double tolr, double tola){

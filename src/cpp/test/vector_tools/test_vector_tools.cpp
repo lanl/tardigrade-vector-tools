@@ -9,94 +9,6 @@ typedef double floatType;
 typedef std::vector< floatType > vectorType;
 typedef std::vector< vectorType > matrixType;
 
-//bool fuzzy_equals(double a, double b, double tolr=1e-6, double tola=1e-6){
-//    /*!
-//    Compare two doubles to determine if they are equal.
-//    */
-//
-//    floatType tol = fmin(tolr*fabs(a) + tola, tolr*fabs(b) + tola);
-//    return fabs(a-b)<tol;
-//}
-//
-//bool fuzzy_equals(vectorType a, vectorType b, double tolr=1e-6, double tola=1e-6){
-//    /*!
-//    Compare two vectors to determine if they are equal
-//    */
-//
-//    if (a.size() != b.size()){
-//        std::cout << "Error: vectors must have the same size.\n";
-//        assert(1==0);
-//    }
-//
-//    for (unsigned int i=0; i<a.size(); i++){
-//        if (!fuzzy_equals(a[i], b[i], tolr, tola)){
-//            return false;
-//        }
-//    }
-//    return true;
-//}
-//
-//bool fuzzy_equals(matrixType A, matrixType B, double tolr=1e-6, double tola=1e-6){
-//    /*!
-//    Compare two matrices to determine if they are equal
-//    */
-//
-//    if (A.size() != B.size()){
-//        std::cout << "Error: matrices must have the same size.\n";
-//        assert(1==0);
-//    }
-//
-//    for (unsigned int i=0; i<A.size(); i++){
-//        if (!fuzzy_equals(A[i], B[i], tolr, tola)){
-//            return false;
-//        }
-//    }
-//    return true;
-//}
-//
-//template<typename T>
-//bool equals(const T &a, const T &b){
-//    /*!
-//     * Compare two values for equality
-//     */
-//     return a == b;
-//}
-//
-//template<typename T>
-//bool equals(const std::vector< T > &a, const std::vector< T > &b){
-//    /*!
-//     * Compare two vectors for equality
-//     */
-//    unsigned int size = a.size();
-//    if (size != b.size()){
-//        return false;
-//    }
-//    for (unsigned int i=0; i<size; i++){
-//        if (!equals(a[i], b[i])){
-//            return false;
-//        }
-//    }
-//    return true;
-//}
-//
-//template<typename T>
-//bool equals(const std::vector< std::vector< T > > &a, const std::vector< std::vector< T > > &b){
-//    /*!
-//     * Compare two matrices for equality
-//     */
-//
-//    unsigned int size = a.size();
-//    if (size != b.size()){
-//        return false;
-//    }
-//    for (unsigned int i=0; i<size; i++){
-//        if (!equals(a[i], b[i])){
-//            return false;
-//        }
-//    }
-//    return true;
-//}
-
 void print(vectorType a){
     /*!
     Print the vector to the terminal
@@ -618,6 +530,39 @@ int test_dyadic(std::ofstream &results){
     return 0;
 }
 
+int test_eye(std::ofstream &results){
+    /*!
+     * Test the formation of an identity matrix
+     * 
+     * :param std::ofstream &results:
+     */
+
+    unsigned int dim = 4;
+    std::vector< std::vector< double > > I = vectorTools::eye< double >(dim);
+    
+    if (!vectorTools::fuzzyEquals(I, {{1, 0, 0, 0},
+                                      {0, 1, 0, 0},
+                                      {0, 0, 1, 0},
+                                      {0, 0, 0, 1}})){
+        results << "test_eye (test 1) & False\n";
+        return 1;
+    }
+
+    I.clear();
+    vectorTools::eye(dim, I);
+
+    if (!vectorTools::fuzzyEquals(I, {{1, 0, 0, 0},
+                                      {0, 1, 0, 0},
+                                      {0, 0, 1, 0},
+                                      {0, 0, 0, 1}})){
+        results << "test_eye (test 2) & False\n";
+        return 1;
+    }
+
+    results << "test_eye & True\n";
+    return 1;
+}
+
 int main(){
     /*!
     The main loop which runs the tests defined in the 
@@ -649,6 +594,7 @@ int main(){
     test_solveLinearSystem(results);
     test_isParallel(results);
     test_dyadic(results);
+    test_eye(results);
 
     //Close the results file
     results.close();

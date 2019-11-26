@@ -18,16 +18,7 @@ EIGEN=-I/projects/nathanm/usr/local/include/eigen-git-mirror
 # The python command
 PYTHON=/apps/anaconda3/bin/python
 
-# Location of the quickhull source code
-QHULL=/projects/nathanm/micromorphic/micromorphic_library/external_repositories/quickhull/
-
 # Additional includes
-ROOTDIR=/projects/nathanm/micromorphic/micromorphic_library
-INCDIR=$(ROOTDIR)/include
-LIBDIR=$(ROOTDIR)/lib
-INC=-I$(INCDIR)
-INC+=-I$(INCDIR)/voro++
-INC+=-I$(INCDIR)/overlap
-LIB=-L$(LIBDIR)
-LIB+=-L$(LIBDIR)/voro++
-LIB+=-L$(LIBDIR)/overlap
+ROOTDIR=/projects/nathanm/constitutive_tools/vector_tools
+SOURCE=$(ROOTDIR)/src/cpp
+HEADER=$(ROOTDIR)/src/cpp
