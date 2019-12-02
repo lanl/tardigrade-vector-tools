@@ -432,6 +432,16 @@ int test_appendVectors(std::ofstream &results){
         return 1;
     }
 
+    v.clear();
+    vectorType v1 = {1, 7, 5};
+    vectorType v2 = {4, 6, 2};
+    v = vectorTools::appendVectors({v1, v2});
+
+    if (!vectorTools::fuzzyEquals(v, {1, 7, 5, 4, 6, 2})){
+        results << "test_appendVectors (test 2) & False\n";
+        return 1;
+    }
+
     results << "test_appendVectors & True\n";
     return 0;
 }

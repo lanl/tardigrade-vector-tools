@@ -553,6 +553,21 @@ namespace vectorTools{
         return Avec;
     }
 
+    template<typename T>
+    std::vector< T > appendVectors(const std::initializer_list< std::vector< T > > &list){
+        /*!
+         * Append a brace-enclosed initializer list to a row-major vector
+         * 
+         * :param const std::initializer_list< std::vector< T > > list: The list of vectors to append
+         */
+
+        std::vector< T > Avec;
+        for (auto li=list.begin(); li!=list.end(); li++){
+            Avec.insert(Avec.end(), (*li).begin(), (*li).end());
+        }
+        return Avec;
+    }
+
     //Sorting Utilities
     template<typename T>
     std::vector< size_type > argsort(const std::vector< T > &v){
