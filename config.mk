@@ -19,6 +19,6 @@ EIGEN=-I/projects/nathanm/usr/local/include/eigen-git-mirror
 PYTHON=/apps/anaconda3/bin/python
 
 # Additional includes
-ROOTDIR=/projects/nathanm/constitutive_tools/vector_tools
-SOURCE=$(ROOTDIR)/src/cpp
-HEADER=$(ROOTDIR)/src/cpp
+ROOTDIR:=$(abspath $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))/../)
+SOURCE=$(ROOTDIR)/vector_tools/src/cpp
+HEADER=$(ROOTDIR)/vector_tools/src/cpp
