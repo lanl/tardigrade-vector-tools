@@ -11,6 +11,7 @@
 
 #include<stdio.h>
 #include<iostream>
+#include<stdexcept>
 #include<exception>
 #include<fstream>
 #include<vector>
