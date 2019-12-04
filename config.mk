@@ -7,10 +7,10 @@
 # This is the common configuration file for all of the included makefiles
 
 # C++ compiler
-CXX=/opt/moose/gcc-7.3.0/bin/g++
+CXX=icc
 
 # Flags for the C++ compiler
-CFLAGS=-std=gnu++11 -Wall -ansi -pedantic -O3 -I. -fmax-errors=5
+CFLAGS=-std=c++11 -Wall -ansi -pedantic -O3 -I. -fmax-errors=5
 
 # Location of the Eigen library
 EIGEN=-I/projects/nathanm/usr/local/include/eigen-git-mirror
