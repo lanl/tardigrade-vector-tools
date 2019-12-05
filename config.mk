@@ -13,7 +13,7 @@ CXX=icc
 CFLAGS=-std=c++11 -Wall -ansi -pedantic -O3 -I. -fmax-errors=5
 
 # Location of the Eigen library
-EIGEN=-I/projects/nathanm/usr/local/include/eigen-git-mirror
+EIGEN=-I$(abspath $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))/../eigen)
 
 # The python command
 PYTHON=/apps/anaconda3/bin/python
