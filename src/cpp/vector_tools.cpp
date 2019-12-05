@@ -681,5 +681,25 @@ namespace vectorTools{
             return x;
         }
 
+        template<typename T>
+        T determinant(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols){
+            /*!
+             * Compute the determinant of the matrix A
+             * 
+             * :param const std::vector< T > &Avec: The vector form of the A matrix (row major)
+             * :param const unsigned int nrows: The number of rows
+             * :param const unsigned int ncols: The number of columns
+             */
+
+            if (Avec.size() != (nrows*ncols)){
+                std::cerr << "Error: The size of Avec and the dimensions nrows and ncols do not align.\n";
+                assert(1==0);
+            }
+
+            //Set up the Eigen map for A
+            Eigen::Map < const Eigen::Matrix<T, -1, -1, Eigen::RowMajor> > Amat(Avec.data(), nrows, ncols);
+            return Amat.determinant();
+        }
+
     #endif
 }
