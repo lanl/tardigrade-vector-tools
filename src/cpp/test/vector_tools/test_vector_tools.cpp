@@ -573,6 +573,35 @@ int test_eye(std::ofstream &results){
     return 1;
 }
 
+int test_determinant(std::ofstream &results){
+    /*!
+     * Test the computation of the determinant of a matrix
+     * 
+     * :param std::ofstream &results:
+     */
+
+    std::vector< floatType > Avec = {1, 0, 0, 0, 1, 0, 0, 0, 1};
+    if (!vectorTools::fuzzyEquals(vectorTools::determinant(Avec, 3, 3), 1.)){
+        results << "test_determinant (test 1) & False\n";
+        return 1;
+    }
+
+    Avec = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    if (!vectorTools::fuzzyEquals(vectorTools::determinant(Avec, 3, 3), 0.)){
+        results << "test_determinant (test 2) & False\n";
+        return 1;
+    }
+
+    Avec = {1, 2, 3, 4};
+    if (!vectorTools::fuzzyEquals(vectorTools::determinant(Avec, 2, 2), -2.)){
+        results << "test_determinant (test 3) & False\n";
+        return 1;
+    }
+
+    results << "test_determinant & True\n";
+    return 0;
+}
+
 int main(){
     /*!
     The main loop which runs the tests defined in the 
@@ -605,6 +634,7 @@ int main(){
     test_isParallel(results);
     test_dyadic(results);
     test_eye(results);
+    test_determinant(results);
 
     //Close the results file
     results.close();

@@ -156,6 +156,9 @@ namespace vectorTools{
         std::vector< double > solveLinearSystem(const std::vector< T > &A, const std::vector< T > &b, 
             const unsigned int nrows, const unsigned int ncols, unsigned int &rank);
 
+        template<typename T>
+        T determinant(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
+
     #endif
 
 }
