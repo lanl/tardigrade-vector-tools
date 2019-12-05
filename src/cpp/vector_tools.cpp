@@ -729,9 +729,35 @@ namespace vectorTools{
             Eigen::Map< Eigen::MatrixXd > Ainv(Ainvvec.data(), ncols, nrows);
 
             //Compute the inverse
-            Ainv = Amat.inverse().transpose();
+            Ainv = Amat.inverse().transpose(); //Note transpose because of how Eigen works
 
             return Ainvvec;
+        }
+
+        template<typename T>
+        std::vector< double > computeDDetAdJ(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols){
+            /*!
+             * Compute the derivative of the determinant of a matrix w.r.t. the matrix
+             * 
+             * :param const std::vector< T > &Avec: The matrix in vector form.
+             * :param const unsigned int nrows: The number of rows in A
+             * :param const unsigned int ncols: The number of columns in A
+             */
+
+            //Set up the Eigen map for A
+            Eigen::Map < const Eigen::Matrix<T, -1, -1, Eigen::RowMajor> > Amat(Avec.data(), nrows, ncols);
+
+            T detA = Amat.determinant();
+
+            //Set up the Eigen map for the inverse
+            std::vector< double > ddetAdA(nrows*ncols);
+            Eigen::Map< Eigen::MatrixXd > ddetAdAmat(ddetAdA.data(), ncols, nrows);
+
+            //Compute the derivative
+            ddetAdAmat = Amat.determinant()*Amat.inverse(); //Note lack of transpose because of how Eigen works
+            
+            return ddetAdA;
+            
         }
 
     #endif
