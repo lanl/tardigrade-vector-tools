@@ -9,12 +9,17 @@ proxyout='proxyout.lanl.gov:8080'
 # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -Eeuxo pipefail
 
+# Source the Intel compilers
+source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
+
+# Clone dependencies
 cd ..
 if [ ! -d ${eigendir} ]; then
     all_proxy=${proxyout} git clone ${eigenrepo}
 else
     cd ${eigendir} && all_proxy=${proxyout} git pull
 fi
-cd ${workdir}
-cd src/cpp/test/vector_tools/
+
+# Perform repo tests
+cd ${workdir}/src/cpp/test/vector_tools/
 make
