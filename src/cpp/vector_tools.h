@@ -159,6 +159,9 @@ namespace vectorTools{
         template<typename T>
         T determinant(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
 
+        template<typename T>
+        std::vector< double > inverse(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
+
     #endif
 
 }

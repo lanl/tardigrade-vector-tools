@@ -701,5 +701,38 @@ namespace vectorTools{
             return Amat.determinant();
         }
 
+        template<typename T>
+        std::vector< double > inverse(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols){
+            /*!
+             * Compute the inverse of a matrix in row-major format
+             * 
+             * :param const std::vector< T > &Avec: The vector form of the A matirx (row major)
+             * :param const unsigned int nrows: The number of rows
+             * :param const unsigned int ncols: The number of columns
+             */
+
+            if (Avec.size() != (nrows*ncols)){
+                std::cerr << "Error: The size of Avec and the dimensions nrows and ncols do not align.\n";
+                assert(1==0);
+            }
+
+            if (nrows != ncols){
+                std::cerr << "Error: The number of rows must equal the number of columns.\n";
+                assert(1==0);
+            }
+
+            //Set up the Eigen map for A
+            Eigen::Map < const Eigen::Matrix<T, -1, -1, Eigen::RowMajor> > Amat(Avec.data(), nrows, ncols);
+            
+            //Set up the Eigen map for the inverse
+            std::vector< double > Ainvvec(nrows*ncols);
+            Eigen::Map< Eigen::MatrixXd > Ainv(Ainvvec.data(), ncols, nrows);
+
+            //Compute the inverse
+            Ainv = Amat.inverse().transpose();
+
+            return Ainvvec;
+        }
+
     #endif
 }
