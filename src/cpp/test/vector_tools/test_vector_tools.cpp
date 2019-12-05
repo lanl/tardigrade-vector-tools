@@ -577,7 +577,7 @@ int test_determinant(std::ofstream &results){
     /*!
      * Test the computation of the determinant of a matrix
      * 
-     * :param std::ofstream &results:
+     * :param std::ofstream &results: The output file
      */
 
     std::vector< floatType > Avec = {1, 0, 0, 0, 1, 0, 0, 0, 1};
@@ -601,6 +601,32 @@ int test_determinant(std::ofstream &results){
     results << "test_determinant & True\n";
     return 0;
 }
+
+int test_inverse(std::ofstream &results){
+    /*!
+     * Test the computation of the matrix inverse\n";
+     *
+     * :param std::ofstream &results: The output file
+     */
+
+    std::vector< floatType > A = {0.39874077,  0.11561812, -0.75485222,
+                                  0.14034205,  0.15851022,  1.29640525,
+                                  0.26235075, -0.26051883,  0.45378251};
+
+    std::vector< floatType > Ainv = vectorTools::inverse(A, 3, 3);
+
+    if (!vectorTools::fuzzyEquals(Ainv, {1.6109566 ,  0.56699734,  1.0599259 ,
+                                         1.08701345,  1.49027454, -2.44933462,
+                                        -0.30730183,  0.52776914,  0.18473576})){
+        vectorTools::print(Ainv);
+        results << "test_inverse (test 1) & False\n";
+        return 1;
+    }
+
+    results << "test_inverse & True\n";
+    return 0;
+}
+
 
 int main(){
     /*!
@@ -635,6 +661,7 @@ int main(){
     test_dyadic(results);
     test_eye(results);
     test_determinant(results);
+    test_inverse(results);
 
     //Close the results file
     results.close();
