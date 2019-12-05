@@ -10,7 +10,7 @@ set -Eeuxo pipefail
 
 cd ..
 if [ ! -d ${eigendir} ]; then
-    git clone ${eigenrepo}
+    all_proxy=proxyout.lanl.gov:8080 git clone ${eigenrepo}
 else
     cd ${eigendir} && git pull
 fi
