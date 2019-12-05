@@ -627,6 +627,39 @@ int test_inverse(std::ofstream &results){
     return 0;
 }
 
+int test_computeDDetAdJ(std::ofstream &results){
+    /*!
+     * Test the computation of the derivative of the determinant w.r.t. 
+     * the matrix.
+     * 
+     * :param std::ofstream &results: The output file
+     */
+
+    std::vector< floatType > A = {0.39874077,  0.11561812, -0.75485222,
+                                  0.14034205,  0.15851022,  1.29640525,
+                                  0.26235075, -0.26051883,  0.45378251};
+
+    std::vector< floatType > ddetAdA = vectorTools::computeDDetAdJ(A, 3, 3);
+
+    floatType eps = 1e-6;
+    floatType detA0 = vectorTools::determinant(A, 3, 3);
+    floatType detA;
+
+    for (unsigned int i=0; i<A.size(); i++){
+        std::vector< floatType > delta(A.size(), 0);
+        delta[i] = fabs(A[i]*eps);
+        detA = vectorTools::determinant(A + delta, 3, 3);
+
+        if (!vectorTools::fuzzyEquals((detA - detA0)/delta[i], ddetAdA[i])){
+            results << "test_computeDDetAdJ (test 1) & False\n";
+            return 1;
+        }
+
+    }
+
+    results << "test_computeDDetAdJ & True\n";
+    return 1;
+}
 
 int main(){
     /*!
@@ -662,6 +695,7 @@ int main(){
     test_eye(results);
     test_determinant(results);
     test_inverse(results);
+    test_computeDDetAdJ(results);
 
     //Close the results file
     results.close();
