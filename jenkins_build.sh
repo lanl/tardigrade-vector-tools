@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
+repo='vector_tools'
 workdir=${PWD}
-eigendir='eigen'
-eigenrepo='https://gitlab.com/libeigen/eigen.git'
+declare -A deprepo 
+deprepo['eigen']='https://gitlab.com/libeigen/eigen.git'
 proxyout='proxyout.lanl.gov:8080'
 
 # Source the Intel compilers
@@ -15,12 +16,18 @@ set -Eeuxo pipefail
 
 # Clone dependencies
 cd ..
-if [ ! -d ${eigendir} ]; then
-    all_proxy=${proxyout} git clone ${eigenrepo}
-else
-    cd ${eigendir} && all_proxy=${proxyout} git pull
-fi
+for deprepodir in "${!deprepo[@]}"; do
+    if [ ! -d ${deprepodir} ]; then
+        all_proxy=${proxyout} git clone ${deprepo[$deprepodir]}
+    else
+        cd ${deprepodir} && all_proxy=${proxyout} git pull
+        cd ..
+    fi
+done
 
 # Perform repo tests
-cd ${workdir}/src/cpp/test/vector_tools/
+cd ${workdir}/src/cpp/tests/${repo}/
+if [ -f ${repo}.o ]; then
+    make clean
+fi
 make
