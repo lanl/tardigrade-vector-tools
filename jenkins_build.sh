@@ -27,7 +27,7 @@ done
 
 # Perform repo tests
 cd ${workdir}/src/cpp/tests/${repo}/
-if [ -f ${repo}.o ]; then
+if [ -f ${repo}.o ] || [ -f test_${repo}.o ]; then
     make clean
 fi
 make
