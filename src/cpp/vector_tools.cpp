@@ -245,7 +245,7 @@ namespace vectorTools{
             throw std::length_error("vectors must be the same size to add");
         }
 
-        //Set v to null
+        //Set v to zero
         v = 0;
 
         for (size_type i=0; i<size; i++){
@@ -304,7 +304,7 @@ namespace vectorTools{
             throw std::length_error("The trace can only be computed for square matrices.");
         }
     
-        //Set v to null
+        //Set v to zero
         v = 0;
     
         //Compute the trace
