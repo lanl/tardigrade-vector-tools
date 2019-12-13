@@ -265,6 +265,40 @@ int test_dot(std::ofstream &results){
     return 0;
 }
 
+int test_trace(std::ofstream &results){
+    /*!
+     * Test the computation of the trace for a square matrix
+     *
+     * :param std::ofstream &results: The output file
+     */
+
+    matrixType A = {{1, 2, 3},
+                    {4, 5, 6},
+                    {7, 8, 9}};
+    floatType c;
+
+    vectorTools::trace(A, c);
+
+    if (!vectorTools::fuzzyEquals<floatType>(c, 1 + 5 + 9)){
+        results << "test_trace (test 1) & False\n";
+        return 1;
+    }
+
+    //TODO: Refactor with boost
+    matrixType B = {{1, 2, 3},
+                    {4, 5, 6},
+                    {4, 5, 6},
+                    {7, 8, 9}};
+
+    try{
+        vectorTools::trace(B, c);
+    }
+    catch( std::length_error ){
+    }
+
+    return 0;
+}
+
 int test_l2norm(std::ofstream &results){
     /*!
      * Test the computation of the l2norm of vectors and matrices
