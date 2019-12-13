@@ -284,7 +284,17 @@ int test_trace(std::ofstream &results){
         return 1;
     }
 
-    //TODO: add test for raised exception for non-square matrix
+    //TODO: Refactor with boost
+    matrixType B = {{1, 2, 3},
+                    {4, 5, 6},
+                    {4, 5, 6},
+                    {7, 8, 9}};
+
+    try{
+        vectorTools::trace(B, c);
+    }
+    catch( std::length_error ){
+    }
 
     return 0;
 }
