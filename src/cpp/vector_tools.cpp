@@ -289,6 +289,33 @@ namespace vectorTools{
     }
 
     template<typename T>
+    int trace(const std::vector< std::vector< T > > &A, T &v){
+        /*!
+         * Compute the trace of a square matrix T = sum(A_ii)
+         * 
+         * :param std::vector< std::vector< T > > &A: The matrix
+         * :param T &v: The output quantity
+         */
+    
+        //Get the size and perform error handing
+        size_type rows = A.size();
+        size_type cols = A[0].size();
+        if (rows != cols){
+            throw std::length_error("The trace can only be computed for square matrices.");
+        }
+    
+        //Set v to null
+        v = 0;
+    
+        //Compute the trace
+        for (size_type i=0; i<rows; i++){
+            v += A[i][i];
+        }
+    
+        return 0;
+    }
+
+    template<typename T>
     double l2norm(const std::vector< T > &v){
         /*!
          * Compute the l2 norm of the vector v i.e. (v_i v_i)^(0.5)

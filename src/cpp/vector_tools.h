@@ -84,6 +84,9 @@ namespace vectorTools{
     std::vector< T > dot(const std::vector< std::vector< T > > &A, const std::vector< T > &b);
 
     template<typename T>
+    int trace(const std::vector< std::vector< T > > &A, T &v);
+
+    template<typename T>
     double l2norm(const std::vector< T > &v);
 
     template<typename T>
