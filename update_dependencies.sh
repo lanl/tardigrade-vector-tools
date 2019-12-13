@@ -16,11 +16,11 @@ for deprepodir in "${!deprepo[@]}"; do
     else
         cd ${deprepodir} 
         if [ ${deprepodir} == "eigen" ]; then
-            all_proxy=${proxyout} git checkout master
+            all_proxy=${proxyout} git checkout ${eigen_version} 
         else
             all_proxy=${proxyout} git checkout dev
+            all_proxy=${proxyout} git pull --ff-only
         fi
-        all_proxy=${proxyout} git pull --ff-only
         cd ..
     fi
 done
