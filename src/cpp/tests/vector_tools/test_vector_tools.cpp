@@ -272,30 +272,60 @@ int test_trace(std::ofstream &results){
      * :param std::ofstream &results: The output file
      */
 
-    matrixType A = {{1, 2, 3},
-                    {4, 5, 6},
-                    {7, 8, 9}};
+    vectorType a = {1., 0., 0., 
+                    0., 1., 0.,
+                    0., 0., 1.};
     floatType c;
 
-    vectorTools::trace(A, c);
+    vectorTools::trace(a, c);
 
-    if (!vectorTools::fuzzyEquals<floatType>(c, 1 + 5 + 9)){
+    if (!vectorTools::fuzzyEquals<floatType>(c, 3.)){
         results << "test_trace (test 1) & False\n";
         return 1;
     }
 
-    //TODO: Refactor with boost
-    matrixType B = {{1, 2, 3},
-                    {4, 5, 6},
-                    {4, 5, 6},
-                    {7, 8, 9}};
+    //TODO: Refactor with boost or pytest
+    vectorType b = {1., 0., 0., 
+                    0., 1., 0.,
+                    0., 1., 0.,
+                    0., 0., 1.};
 
     try{
-        vectorTools::trace(B, c);
+        vectorTools::trace(b, c);
     }
     catch( std::length_error ){
     }
+    catch(...){
+        results << "test_trace (test 2) & False\n";
+        return 1;
+    }
 
+    c = 0.;
+    c = vectorTools::trace(a);
+    if (!vectorTools::fuzzyEquals<floatType>(c, 3.)){
+        results << "test_trace (test 3) & False\n";
+        return 1;
+    }
+
+    matrixType A = {{1., 0., 0.},
+                    {0., 1., 0.},
+                    {0., 0., 1.}};
+
+    c = 0.;
+    vectorTools::trace(A, c);
+    if (!vectorTools::fuzzyEquals<floatType>(c, 3.)){
+        results << "test_trace (test 4) & False\n";
+        return 1;
+    }
+
+    c = 0.;
+    c = vectorTools::trace(A);
+    if (!vectorTools::fuzzyEquals<floatType>(c, 3.)){
+        results << "test_trace (test 5) & False\n";
+        return 1;
+    }
+
+    results << "test_trace & True\n";
     return 0;
 }
 
@@ -717,6 +747,7 @@ int main(){
     test_computeMean(results);
     test_cross(results);
     test_dot(results);
+    test_trace(results);
     test_l2norm(results);
     test_argsort(results);
     test_fuzzyEquals(results);
