@@ -278,7 +278,6 @@ namespace vectorTools{
          */
 
         size_type size = A.size();
-        int test = std::sqrt(size);
 
         std::vector< T > c(size);
 
