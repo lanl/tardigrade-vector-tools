@@ -278,6 +278,7 @@ namespace vectorTools{
          */
 
         size_type size = A.size();
+        int test = std::sqrt(size);
 
         std::vector< T > c(size);
 
@@ -289,18 +290,18 @@ namespace vectorTools{
     }
 
     template<typename T>
-    int trace(const std::vector< std::vector< T > > &A, T &v){
+    int trace(const std::vector< T > &A, T &v){
         /*!
-         * Compute the trace of a square matrix T = sum(A_ii)
+         * Compute the trace of a square matrix in row major format: v = sum(A_ii)
          * 
-         * :param std::vector< std::vector< T > > &A: The matrix
-         * :param T &v: The output quantity
+         * :param std::vector< T > &A: The matrix in row major format
+         * :param T &v: The scalar output quantity
          */
     
         //Get the size and perform error handing
-        size_type rows = A.size();
-        size_type cols = A[0].size();
-        if (rows != cols){
+        int length = A.size();
+        int dimension = std::round(std::sqrt(length));
+        if (dimension*dimension != length){
             throw std::length_error("The trace can only be computed for square matrices.");
         }
     
@@ -308,11 +309,55 @@ namespace vectorTools{
         v = 0;
     
         //Compute the trace
-        for (size_type i=0; i<rows; i++){
-            v += A[i][i];
+        for (size_type i=0; i<dimension; i++){
+            v += A[dimension*i + i];
         }
     
         return 0;
+    }
+
+    template<typename T>
+    T trace(const std::vector< T > &A){
+        /*!
+         * Compute the trace of a square matrix in row major format: v = sum(A_ii)
+         * 
+         * :param std::vector< T > &A: The matrix in row major format
+         * :param T &v: The scalar output quantity
+         */
+
+        T v;
+        trace(A, v);
+        return v;
+    }
+
+    template<typename T>
+    int trace(const std::vector< std::vector< T > > &A, T &v){
+        /*!
+         * Compute the trace of a square matrix: v = sum(A_ii)
+         * 
+         * :param std::vector< std::vector< T > > &A: The matrix
+         * :param T &v: The scalar output quantity
+         */
+
+        //Convert matrix to row major vector format
+        std::vector< T > B = appendVectors(A);
+
+        trace(B, v);
+        return 0; 
+    }
+
+    template<typename T>
+    T trace(const std::vector< std::vector< T > > &A){
+        /*!
+         * Compute the trace of a square matrix: v = sum(A_ii)
+         * 
+         * :param std::vector< std::vector< T > > &A: The matrix
+         * :param T &v: The scalar output quantity
+         */
+
+        T v;
+        trace(A, v);
+        return v; 
     }
 
     template<typename T>
