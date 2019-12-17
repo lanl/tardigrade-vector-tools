@@ -419,6 +419,29 @@ namespace vectorTools{
     }
 
     template<typename T>
+    int eye(std::vector< T > &I){
+        /*!
+         * Construct an identity tensor in row major format
+         * 
+         * :param std::vector< T > &I: The identity matrix
+         */
+
+        //Get the size and perform error handing
+        int length = I.size();
+        int dimension = std::round(std::sqrt(length));
+        if (dimension*dimension != length){
+            throw std::length_error("The identity tensor can only be constructed for square matrices.");
+        }
+
+        //Construct the identity matrix
+        for (size_type i=0; i<dimension; i++){
+            I[dimension*i + i] = 1;
+        }
+
+        return 0;
+    }
+
+    template<typename T>
     std::vector< std::vector< T > > eye(const unsigned int dim){
         /*!
          * Construct an identity tensor of the size indicated by dim
