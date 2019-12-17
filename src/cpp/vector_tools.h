@@ -108,6 +108,9 @@ namespace vectorTools{
     int dyadic(const std::vector< T > &a, const std::vector< T > &b, std::vector< std::vector< T > > &A);
 
     template<typename T>
+    int eye(std::vector< T > &I);
+
+    template<typename T>
     std::vector< std::vector< T > > eye(const unsigned int dim);
 
     template<typename T>

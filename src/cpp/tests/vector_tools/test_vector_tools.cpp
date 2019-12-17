@@ -611,6 +611,16 @@ int test_eye(std::ofstream &results){
      * :param std::ofstream &results:
      */
 
+    std::vector< double > Ivec(9, 0.);
+    std::vector< double > IvecExpected = {1., 0., 0.,
+                                          0., 1., 0.,
+                                          0., 0., 1.};
+    int result = vectorTools::eye(Ivec);
+    if (!vectorTools::fuzzyEquals(Ivec,IvecExpected)){
+        results << "test_eye (test 1) & False\n";
+        return 1;
+    }
+
     unsigned int dim = 4;
     std::vector< std::vector< double > > I = vectorTools::eye< double >(dim);
     
@@ -618,7 +628,7 @@ int test_eye(std::ofstream &results){
                                       {0, 1, 0, 0},
                                       {0, 0, 1, 0},
                                       {0, 0, 0, 1}})){
-        results << "test_eye (test 1) & False\n";
+        results << "test_eye (test 2) & False\n";
         return 1;
     }
 
@@ -629,7 +639,7 @@ int test_eye(std::ofstream &results){
                                       {0, 1, 0, 0},
                                       {0, 0, 1, 0},
                                       {0, 0, 0, 1}})){
-        results << "test_eye (test 2) & False\n";
+        results << "test_eye (test 3) & False\n";
         return 1;
     }
 
