@@ -239,7 +239,7 @@ namespace vectorTools{
          * :param T &v: The output quantity
          */
 
-        //Get the size and perform error handing
+        //Get the size and perform error handling
         size_type size = a.size();
         if (size != b.size()){
             throw std::length_error("vectors must be the same size to add");
@@ -289,6 +289,88 @@ namespace vectorTools{
     }
 
     template<typename T>
+    int inner(const std::vector< T > &A, const std::vector< T > &B, T &result){
+        /*!
+         * Compute the inner product between two matrices stored in row major format 
+         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * :param std::vector< T > &A: The first matrix in row major format
+         * :param std::vector< T > &B: The second matrix in row major format
+         * :param T &result: The inner product scalar
+         */
+
+        result = 0.;
+        dot(A, B, result);
+
+        return 0;
+    }
+
+    template<typename T>
+    T inner(const std::vector< T > &A, const std::vector< T > &B){
+        /*!
+         * Compute the inner product between two matrices stored in row major format 
+         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * :param std::vector< T > &A: The first matrix in row major format
+         * :param std::vector< T > &B: The second matrix in row major format
+         * :return: The inner product scalar
+         * :rtype: T result
+         */
+
+        T result = 0.;
+        inner(A, B, result);
+
+        return result;
+    }
+
+    template<typename T>
+    int inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B, T &result){
+        /*!
+         * Compute the inner product between two matrices stored in matrix format 
+         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * :param std::vector< std::vector < T > > &A: The first matrix 
+         * :param std::vector< std::vector < T > > &B: The second matrix
+         * :param T &result: The inner product scalar
+         */
+
+        //Get the size and perform error handling
+        int Arows = A.size();
+        int Acols = A[0].size();
+        if (Arows != B.size() || Acols != B[0].size()){
+            throw std::length_error("Matrices must have the same dimensions to add.");
+        }
+
+        //Convert to row major matrices
+        std::vector< T > Avec = appendVectors(A);
+        std::vector< T > Bvec = appendVectors(B);
+
+        result = 0.;
+        inner(Avec, Bvec, result);
+
+        return 0;
+    }
+
+    template<typename T>
+    T inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
+        /*!
+         * Compute the inner product between two matrices stored in matrix format 
+         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * :param std::vector< std::vector < T > > &A: The first matrix 
+         * :param std::vector< std::vector < T > > &B: The second matrix
+         * :return: The inner product scalar
+         * :rtype: T result
+         */
+
+        T result = 0.;
+        inner(A, B, result);
+
+        return result;
+    }
+
+
+    template<typename T>
     int trace(const std::vector< T > &A, T &v){
         /*!
          * Compute the trace of a square matrix in row major format: v = sum(A_ii)
@@ -297,7 +379,7 @@ namespace vectorTools{
          * :param T &v: The scalar output quantity
          */
     
-        //Get the size and perform error handing
+        //Get the size and perform error handling
         int length = A.size();
         int dimension = std::round(std::sqrt(length));
         if (dimension*dimension != length){
@@ -339,9 +421,9 @@ namespace vectorTools{
          */
 
         //Convert matrix to row major vector format
-        std::vector< T > B = appendVectors(A);
+        std::vector< T > Avec = appendVectors(A);
 
-        trace(B, v);
+        trace(Avec, v);
         return 0; 
     }
 
@@ -426,7 +508,7 @@ namespace vectorTools{
          * :param std::vector< T > &I: The identity matrix
          */
 
-        //Get the size and perform error handing
+        //Get the size and perform error handling
         int length = I.size();
         int dimension = std::round(std::sqrt(length));
         if (dimension*dimension != length){

@@ -265,6 +265,54 @@ int test_dot(std::ofstream &results){
     return 0;
 }
 
+int test_inner(std::ofstream &results){
+
+    //Initialize test variables
+    vectorType Avec, Bvec ;
+    Avec = Bvec = {1., 0., 0., 
+                   0., 1., 0.,
+                   0., 0., 1.};
+    matrixType A, B;
+    A = B = {{1., 0., 0.}, 
+             {0., 1., 0.},
+             {0., 0., 1.}};
+    floatType expected = 3.;
+    floatType result;
+    
+    //Test inner product of row major matrices
+    result = 0.;
+    vectorTools::inner(Avec, Bvec, result);
+    if (!vectorTools::fuzzyEquals(result, expected)){
+        results << "test_inner (test 1) & False\n";
+        return 1;
+    }
+
+    result = 0.;
+    result = vectorTools::inner(Avec, Bvec);
+    if (!vectorTools::fuzzyEquals(result, expected)){
+        results << "test_inner (test 2) & False\n";
+        return 1;
+    }
+
+    //Test inner product of matrices
+    result = 0.;
+    vectorTools::inner(A, B, result);
+    if (!vectorTools::fuzzyEquals(result, expected)){
+        results << "test_inner (test 3) & False\n";
+        return 1;
+    }
+
+    result = 0.;
+    result = vectorTools::inner(A, B);
+    if (!vectorTools::fuzzyEquals(result, expected)){
+        results << "test_inner (test 4) & False\n";
+        return 1;
+    }
+
+    results << "test_inner & True\n";
+    return 0;
+}
+
 int test_trace(std::ofstream &results){
     /*!
      * Test the computation of the trace for a square matrix
@@ -757,6 +805,7 @@ int main(){
     test_computeMean(results);
     test_cross(results);
     test_dot(results);
+    test_inner(results);
     test_trace(results);
     test_l2norm(results);
     test_argsort(results);

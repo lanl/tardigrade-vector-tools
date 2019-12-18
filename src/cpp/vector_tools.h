@@ -84,6 +84,18 @@ namespace vectorTools{
     std::vector< T > dot(const std::vector< std::vector< T > > &A, const std::vector< T > &b);
 
     template<typename T>
+    int inner(const std::vector< T > &A, const std::vector< T > &B, T &result);
+
+    template<typename T>
+    T inner(const std::vector< T > &A, const std::vector< T > &B);
+
+    template<typename T>
+    int inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B, T &result);
+
+    template<typename T>
+    T inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B);
+
+    template<typename T>
     int trace(const std::vector< T > &A, T &v);
 
     template<typename T>
