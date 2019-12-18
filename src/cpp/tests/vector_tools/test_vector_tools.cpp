@@ -298,14 +298,14 @@ int test_inner(std::ofstream &results){
     result = 0.;
     vectorTools::inner(A, B, result);
     if (!vectorTools::fuzzyEquals(result, expected)){
-        results << "test_inner (test 1) & False\n";
+        results << "test_inner (test 3) & False\n";
         return 1;
     }
 
     result = 0.;
     result = vectorTools::inner(A, B);
     if (!vectorTools::fuzzyEquals(result, expected)){
-        results << "test_inner (test 2) & False\n";
+        results << "test_inner (test 4) & False\n";
         return 1;
     }
 
