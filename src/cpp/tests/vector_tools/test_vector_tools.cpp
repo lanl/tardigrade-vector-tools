@@ -659,7 +659,7 @@ int test_eye(std::ofstream &results){
      * :param std::ofstream &results:
      */
 
-    std::vector< double > Ivec(9, 0.);
+    std::vector< double > Ivec(9, 1.);
     std::vector< double > IvecExpected = {1., 0., 0.,
                                           0., 1., 0.,
                                           0., 0., 1.};

@@ -516,6 +516,7 @@ namespace vectorTools{
         }
 
         //Construct the identity matrix
+        I = std::vector< T >(I.size(), 0);
         for (size_type i=0; i<dimension; i++){
             I[dimension*i + i] = 1;
         }
