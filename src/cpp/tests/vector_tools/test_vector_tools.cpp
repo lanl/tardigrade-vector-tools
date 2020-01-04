@@ -261,6 +261,19 @@ int test_dot(std::ofstream &results){
         return 1;
     }
 
+    matrixType B = {{10, 11, 12},
+                    {13, 14, 15},
+                    {16, 17, 18}};
+
+    matrixType C = vectorTools::dot(A, B);
+
+    if (!vectorTools::fuzzyEquals(C, {{ 84,  90,  96},
+                                      {201, 216, 231},
+                                      {318, 342, 366}})){
+        results << "test_dot (test 4) & False\n";
+        return 1;
+    }
+
     results << "test_dot & True\n";
     return 0;
 }
