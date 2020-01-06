@@ -289,6 +289,53 @@ namespace vectorTools{
     }
 
     template<typename T>
+    std::vector< std::vector< T > > dot(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
+        /*!
+         * Compute the dot product between two matrices i.e. C_{ij} = A_{ik} B_{kj}
+         * 
+         * :param std::vector< std::vector< T > > &A: The first matrix
+         * :param std::vector< std::vector< T > > &B: The second matrix
+         */
+
+        size_type rows = A.size();
+
+        if (B.size() == 0){
+            throw std::length_error("B has no rows");
+        }
+
+        size_type inner = B.size();
+        size_type cols = B[0].size();
+
+        //Error handling
+        for (unsigned int I=0; I<rows; I++){
+            if (A[I].size() != inner){
+                throw std::length_error("A and B have incompatible shapes");
+            }
+        }
+
+        for (unsigned int I=0; I<inner; I++){
+            if (B[I].size() != cols){
+                throw std::length_error("B is not a regular matrix");
+            }
+        }
+
+        //Perform the matrix multiplication
+        std::vector< std::vector< T > > C(rows, std::vector< T >(cols, 0));
+
+        for (unsigned int I=0; I<rows; I++){
+
+            for (unsigned int J=0; J<cols; J++){
+
+                for (unsigned int K=0; K<inner; K++){
+
+                    C[I][J] += A[I][K] * B[K][J];
+                }
+            }
+        }
+        return C;
+    }
+
+    template<typename T>
     int inner(const std::vector< T > &A, const std::vector< T > &B, T &result){
         /*!
          * Compute the inner product between two matrices stored in row major format 
