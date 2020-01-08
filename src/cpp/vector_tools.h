@@ -197,7 +197,8 @@ namespace vectorTools{
 
         template<typename T>
         std::vector< T > matrixMultiply(const std::vector< T > &A, const std::vector< T > &B,
-                                        const unsigned int Arows, const unsigned int Acols);
+                                        const unsigned int Arows, const unsigned int Acols,
+                                        const bool Atranspose = false, const bool Btranspose = false);
 
     #endif
 

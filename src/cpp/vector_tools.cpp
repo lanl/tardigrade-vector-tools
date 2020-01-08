@@ -986,10 +986,15 @@ namespace vectorTools{
 
         template< typename T >
         std::vector< T > matrixMultiply(const std::vector< T > &A, const std::vector< T > &B,
-                                        const unsigned int Arows, const unsigned int Acols){
+                                        const unsigned int Arows, const unsigned int Acols,
+                                        const unsigned int Brows, const unsigned int Bcols,
+                                        const bool Atranspose, const bool Btranspose){
             /*!
              * Perform a matrix multiplication between two matrices stored in row-major format
-             * $C_{ij} = A_{ik} B_{kj}$
+             * $C_{ij} = A_{ik} B_{kj}$ if Atranspose = Btranspose = false
+             * $C_{ij} = A_{ki} B_{kj}$ if Atranspose = true, Btranspose = false
+             * $C_{ij} = A_{ik} B_{jk}$ if Atranspose = false, Btranspose = true
+             * $C_{ij} = A_{ki} B_{jk}$ if Atranspose = true, Btranspose = true
              * 
              * NOTE: The shape of B will be determined from the shape of A.
              * 
@@ -997,6 +1002,8 @@ namespace vectorTools{
              * :param const std::vector< T > &B: The B matrix in row-major format
              * :param const unsigned int Arows: The number of rows in A
              * :param const unsigned int Acols: The number of columns in A
+             * :param const unsigned int Brows: The number of rows in B
+             * :param const unsigned int Bcols: The number of columns in B
              */
 
             //Error handling
@@ -1004,17 +1011,42 @@ namespace vectorTools{
                 throw std::length_error("A has an incompatible shape");
             }
 
-            unsigned int Brows = Acols;
-            unsigned int Bcols = B.size() / Brows;
-            if (B.size() % Brows > 0){
-                throw std::length_error("B's size is incompatible with the shape of A");
+            if (B.size() != Brows*Bcols){
+                throw std::length_error("B has an incompatible shape");
             }
 
+            //Map A and B to Eigen matrices
             Eigen::Map < const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Amat(A.data(), Arows, Acols);
             Eigen::Map < const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Bmat(B.data(), Brows, Bcols);
+            std::vector< T > C;
 
-            std::Vector< double > C(Arows * Bcols);
-            Eigen::Map < Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Cmat = Amat * Bmat;
+            //Perform the multiplication
+            if ( Atranspose && Btranspose){
+                C = std::vector< T >( Acols * Brows, 0);
+                Eigen::Map < Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Cmat(C.data(), Acols, Brows);
+                
+                Cmat = Amat.transpose();
+                Cmat *= Bmat.transpose();
+            }
+            else if ( Atranspose && !Btranspose){
+                C = std::vector< T >( Acols * Bcols, 0);
+                Eigen::Map < Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Cmat(C.data(), Acols, Bcols);
+
+                Cmat = Amat.transpose() * Bmat;
+            }
+            else if ( !Atranspose && Btranspose){
+                C = std::vector< T >( Arows * Brows, 0);
+                Eigen::Map < Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Cmat(C.data(), Arows, Brows);
+
+                Cmat = Amat * Bmat.transpose();
+            }
+            else{
+                C  = std::vector< T >( Arows * Bcols, 0);
+                Eigen::Map < Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Cmat(C.data(), Arows, Bcols);
+
+                Cmat = Amat * Bmat;
+            }
+
             return C;
         }
 
