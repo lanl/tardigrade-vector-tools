@@ -984,5 +984,39 @@ namespace vectorTools{
             
         }
 
+        template< typename T >
+        std::vector< T > matrixMultiply(const std::vector< T > &A, const std::vector< T > &B,
+                                        const unsigned int Arows, const unsigned int Acols){
+            /*!
+             * Perform a matrix multiplication between two matrices stored in row-major format
+             * $C_{ij} = A_{ik} B_{kj}$
+             * 
+             * NOTE: The shape of B will be determined from the shape of A.
+             * 
+             * :param const std::vector< T > &A: The A matrix in row-major format
+             * :param const std::vector< T > &B: The B matrix in row-major format
+             * :param const unsigned int Arows: The number of rows in A
+             * :param const unsigned int Acols: The number of columns in A
+             */
+
+            //Error handling
+            if (A.size() != Arows*Acols){
+                throw std::length_error("A has an incompatible shape");
+            }
+
+            unsigned int Brows = Acols;
+            unsigned int Bcols = B.size() / Brows;
+            if (B.size() % Brows > 0){
+                throw std::length_error("B's size is incompatible with the shape of A");
+            }
+
+            Eigen::Map < const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Amat(A.data(), Arows, Acols);
+            Eigen::Map < const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Bmat(B.data(), Brows, Bcols);
+
+            std::Vector< double > C(Arows * Bcols);
+            Eigen::Map < Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Cmat = Amat * Bmat;
+            return C;
+        }
+
     #endif
 }
