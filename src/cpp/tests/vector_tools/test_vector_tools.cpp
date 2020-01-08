@@ -796,6 +796,49 @@ int test_computeDDetAdJ(std::ofstream &results){
     return 1;
 }
 
+int test_matrixMultiply(std::ofstream &results){
+    /*!
+     * Test the matrix multiplication function.
+     * 
+     * :param std::ofstream &results: The output file.
+     */
+
+    vectorType A = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    vectorType B = {10, 11, 12, 13, 14, 15, 16, 17, 18};
+    vectorType C;
+
+    C = vectorTools::matrixMultiply(A, B, 3, 3, 3, 3, 0, 0);
+
+    if (!vectorTools::fuzzyEquals(C, {84,  90,  96, 201, 216, 231, 318, 342, 366})){
+        results << "testMatrixMultiply (test 1) & False\n";
+        return 1;
+    }
+
+    C = vectorTools::matrixMultiply(A, B, 3, 3, 3, 3, 1, 0);
+
+    if (!vectorTools::fuzzyEquals(C, {174, 186, 198, 213, 228, 243, 252, 270, 288})){
+        results << "testMatrixMultiply (test 2) & False\n";
+        return 1;
+    }
+
+    C = vectorTools::matrixMultiply(A, B, 3, 3, 3, 3, 0, 1);
+
+    if (!vectorTools::fuzzyEquals(C, { 68,  86, 104, 167, 212, 257, 266, 338, 410})){
+        results << "testMatrixMultiply (test 3) & False\n";
+        return 1;
+    }
+
+    C = vectorTools::matrixMultiply(A, B, 3, 3, 3, 3, 1, 1);
+
+    if (!vectorTools::fuzzyEquals(C, {138, 174, 210, 171, 216, 261, 204, 258, 312})){
+        results << "testMatrixMultiply (test 4) & False\n";
+        return 1;
+    }
+
+    results << "testMatrixMultiply & True\n";
+    return 0;
+}
+
 int main(){
     /*!
     The main loop which runs the tests defined in the 
@@ -833,6 +876,7 @@ int main(){
     test_determinant(results);
     test_inverse(results);
     test_computeDDetAdJ(results);
+    test_matrixMultiply(results);
 
     //Close the results file
     results.close();
