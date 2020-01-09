@@ -1050,5 +1050,104 @@ namespace vectorTools{
             return C;
         }
 
+        int __matrixSqrtResidual(const std::vector< double > &A, const unsigned int Arows, 
+                                 const std::vector< double > &X,
+                                 std::vector< double > &R, std::vector< std::vector< double > > &J){
+            /*!
+             * Compute the residual equation for the square root of a matrix.
+             * This function is not intended to be accessed by the user.
+             * 
+             * :param const std::vector< double > &A: The matrix A in row major form.
+             * :param const unsigned int Arows: The number of rows in A.
+             * :param const std::vector< double > &X: The estimate of the square root of A
+             * :param const std::vector< double > &R: The value of the residual.
+             * :param const std::vector< std::vector< double > > &J: The value of the jacobian.
+             */
+
+            Eigen::Map < const Eigen::Matrix< double, -1, -1, Eigen::RowMajor > > Amat(A.data(), Arows, Arows);
+            Eigen::Map < const Eigen::Matrix< double, -1, -1, Eigen::RowMajor > > Xmat(X.data(), Arows, Arows);
+
+            R = std::vector< double >(Arows*Arows, 0);
+            Eigen::Map < Eigen::Matrix< double, -1, -1, Eigen::RowMajor > > Rmat(R.data(), Arows, Arows);
+
+            Eigen::Matrix< double, -1, -1 > temp;
+
+            std::vector< double > eyeVec(Arows*Arows);
+            eye(eyeVec);
+
+            J = std::vector< std::vector< double > >(Arows*Arows, std::vector< double >(Arows*Arows, 0 ) );
+            temp = Xmat;
+            temp *= Xmat;
+            Rmat = Amat - temp;
+ 
+            for (unsigned int i=0; i<Arows; i++){
+                for (unsigned int j=0; j<Arows; j++){
+                    for (unsigned int k=0; k<Arows; k++){
+                         for (unsigned int l=0; l<Arows; l++){
+                             J[Arows*i + j][Arows*k + l] = -eyeVec[Arows*i + k]*X[Arows*l + j]
+                                                           -X[Arows*i + k]*eyeVec[Arows*j + l];
+                         }
+                    }
+                }
+            }
+            return 0;
+        }
+
+        std::vector< double > matrixSqrt(const std::vector< double > &A, const unsigned int Arows, 
+                                    const double tolr, const double tola, const unsigned int maxIter){
+            /*!
+             * Solve for the square root of the square matrix A.
+             * 
+             * :param const std::vector< double > &A: The matrix A in row major form.
+             * :param const unsigned int Arows: The number of rows in A.
+             * :param const floatType tolr: The relative tolerance.
+             * :param const floatType tola: The absolute tolerance.
+             * :param const unsigned int maxIter: The maximum number of iterations
+             */
+
+            if (A.size() != Arows * Arows){
+                throw std::length_error("A has an incompatible shape");
+            }
+
+            //Initialize the output
+            std::vector< double > X(Arows*Arows);
+            eye(X);
+
+            //Compute the first residual and jacobian
+            std::vector< double > R;
+            std::vector< std::vector< double > > J;
+
+            __matrixSqrtResidual(A, Arows, X, R, J);
+
+            double R0 = sqrt(dot(R, R));
+            double tol = tolr * R0 + tola;
+
+            //Begin the Newton-Raphson loop
+            unsigned int niter = 0;
+            unsigned int rank;
+            std::vector< double > dX(Arows*Arows, 0);
+            while ((R0 > tol) && (niter < maxIter)){
+                dX = -solveLinearSystem(J, R, rank);
+                if (rank < dX.size()){
+                    std::cout << "niter: " << niter << "\n";
+                    vectorTools::print(J);
+                    throw std::invalid_argument("J is rank defficent");
+                }
+
+                X += dX;
+
+                __matrixSqrtResidual(A, Arows, X, R, J);
+
+                R0 = sqrt(dot(R, R));
+                niter++;
+
+            }
+
+            if (R0 > tol){
+                throw std::invalid_argument("Matrix square root did not converge");
+            }
+            return X;
+        }
+
     #endif
 }

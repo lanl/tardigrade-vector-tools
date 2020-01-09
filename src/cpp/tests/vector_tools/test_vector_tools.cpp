@@ -839,6 +839,28 @@ int test_matrixMultiply(std::ofstream &results){
     return 0;
 }
 
+int test_matrixSqrt(std::ofstream &results){
+    /*!
+     * Test the computation of the square root of a matrix.
+     * 
+     * :param std::ofstream &results: The output file.
+     * 
+     */
+
+    vectorType A = {3.,  3.,  5.,  3.,  7.,  7.,  5.,  7., 11.};
+    unsigned int dim = 3;
+
+    vectorType X = vectorTools::matrixSqrt(A, 3);
+
+    if (!vectorTools::fuzzyEquals(A, vectorTools::matrixMultiply(X, X, dim, dim, dim, dim, 0, 0)  )){
+        results << "testMatrixSqrt (test 1) & False\n";
+        return 1;
+    }
+
+    results << "testMatrixSqrt & True\n";
+    return 0;
+}
+
 int main(){
     /*!
     The main loop which runs the tests defined in the 
@@ -877,6 +899,7 @@ int main(){
     test_inverse(results);
     test_computeDDetAdJ(results);
     test_matrixMultiply(results);
+    test_matrixSqrt(results);
 
     //Close the results file
     results.close();
