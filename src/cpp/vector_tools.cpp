@@ -1093,13 +1093,32 @@ namespace vectorTools{
             return 0;
         }
 
-        std::vector< double > matrixSqrt(const std::vector< double > &A, const unsigned int Arows, 
+        std::vector< double > matrixSqrt(const std::vector< double > &A, const unsigned int Arows,
                                     const double tolr, const double tola, const unsigned int maxIter){
             /*!
              * Solve for the square root of the square matrix A.
              * 
              * :param const std::vector< double > &A: The matrix A in row major form.
              * :param const unsigned int Arows: The number of rows in A.
+             * :param const std::vector< std::vector< double > > &dAdX: The gradient of A w.r.t. X
+             * :param const floatType tolr: The relative tolerance.
+             * :param const floatType tola: The absolute tolerance.
+             * :param const unsigned int maxIter: The maximum number of iterations
+             */
+
+            std::vector< std::vector< double > > dAdX;
+            return matrixSqrt(A, Arows, dAdX, tolr, tola, maxIter);
+        }
+
+        std::vector< double > matrixSqrt(const std::vector< double > &A, const unsigned int Arows, 
+                                    std::vector< std::vector< double > > &dAdX,
+                                    const double tolr, const double tola, const unsigned int maxIter){
+            /*!
+             * Solve for the square root of the square matrix A.
+             * 
+             * :param const std::vector< double > &A: The matrix A in row major form.
+             * :param const unsigned int Arows: The number of rows in A.
+             * :param const std::vector< std::vector< double > > &dAdX: The gradient of A w.r.t. X
              * :param const floatType tolr: The relative tolerance.
              * :param const floatType tola: The absolute tolerance.
              * :param const unsigned int maxIter: The maximum number of iterations
@@ -1146,6 +1165,10 @@ namespace vectorTools{
             if (R0 > tol){
                 throw std::invalid_argument("Matrix square root did not converge");
             }
+ 
+            //Set the jacobian
+            dAdX = -J;           
+ 
             return X;
         }
 

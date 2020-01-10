@@ -849,12 +849,41 @@ int test_matrixSqrt(std::ofstream &results){
 
     vectorType A = {3.,  3.,  5.,  3.,  7.,  7.,  5.,  7., 11.};
     unsigned int dim = 3;
+    floatType eps = 1e-6;
+    vectorType gradCol;
 
     vectorType X = vectorTools::matrixSqrt(A, 3);
 
     if (!vectorTools::fuzzyEquals(A, vectorTools::matrixMultiply(X, X, dim, dim, dim, dim, 0, 0)  )){
         results << "testMatrixSqrt (test 1) & False\n";
         return 1;
+    }
+
+    //Test the jacobian
+    matrixType dAdX;
+    vectorType XJ = vectorTools::matrixSqrt(A, 3, dAdX);
+
+    if (!vectorTools::fuzzyEquals(XJ, X)){
+        results << "testMatrixSqrt (test 2) & False\n";
+        return 1;
+    }
+
+    vectorType dXdA = vectorTools::inverse(vectorTools::appendVectors(dAdX), A.size(), A.size());
+
+    for (unsigned int i=0; i<A.size(); i++){
+        vectorType delta(A.size(), 0);
+        delta[i] = eps*A[i] + eps;
+
+        XJ = vectorTools::matrixSqrt(A + delta, 3);
+
+        gradCol = (XJ - X)/delta[i];
+
+        for (unsigned int j=0; j<gradCol.size(); j++){
+            if (!vectorTools::fuzzyEquals(gradCol[j], dXdA[A.size()*j + i])){
+                results << "testMatrixSqrt (test 3) & False\n";
+                return 1;
+            }
+        }
     }
 
     results << "testMatrixSqrt & True\n";
