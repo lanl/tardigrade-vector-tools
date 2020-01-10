@@ -8,7 +8,6 @@
 
 #include "vector_tools.h"
 
-
 //Operator overloading
 template<typename T>
 std::vector<T>& operator+=(std::vector<T> &lhs, const std::vector<T> &rhs){
@@ -1050,8 +1049,9 @@ namespace vectorTools{
             return C;
         }
 
-        int __matrixSqrtResidual(const std::vector< double > &A, const unsigned int Arows, 
-                                 const std::vector< double > &X,
+        template< typename T >
+        int __matrixSqrtResidual(const std::vector< T > &A, const unsigned int Arows, 
+                                 const std::vector< T > &X,
                                  std::vector< double > &R, std::vector< std::vector< double > > &J){
             /*!
              * Compute the residual equation for the square root of a matrix.
@@ -1064,8 +1064,8 @@ namespace vectorTools{
              * :param const std::vector< std::vector< double > > &J: The value of the jacobian.
              */
 
-            Eigen::Map < const Eigen::Matrix< double, -1, -1, Eigen::RowMajor > > Amat(A.data(), Arows, Arows);
-            Eigen::Map < const Eigen::Matrix< double, -1, -1, Eigen::RowMajor > > Xmat(X.data(), Arows, Arows);
+            Eigen::Map < const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Amat(A.data(), Arows, Arows);
+            Eigen::Map < const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Xmat(X.data(), Arows, Arows);
 
             R = std::vector< double >(Arows*Arows, 0);
             Eigen::Map < Eigen::Matrix< double, -1, -1, Eigen::RowMajor > > Rmat(R.data(), Arows, Arows);
@@ -1093,7 +1093,8 @@ namespace vectorTools{
             return 0;
         }
 
-        std::vector< double > matrixSqrt(const std::vector< double > &A, const unsigned int Arows,
+        template< typename T >
+        std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
                                     const double tolr, const double tola, const unsigned int maxIter){
             /*!
              * Solve for the square root of the square matrix A.
@@ -1110,13 +1111,14 @@ namespace vectorTools{
             return matrixSqrt(A, Arows, dAdX, tolr, tola, maxIter);
         }
 
-        std::vector< double > matrixSqrt(const std::vector< double > &A, const unsigned int Arows, 
+        template< typename T >
+        std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows, 
                                     std::vector< std::vector< double > > &dAdX,
                                     const double tolr, const double tola, const unsigned int maxIter){
             /*!
              * Solve for the square root of the square matrix A.
              * 
-             * :param const std::vector< double > &A: The matrix A in row major form.
+             * :param const std::vector< T > &A: The matrix A in row major form.
              * :param const unsigned int Arows: The number of rows in A.
              * :param const std::vector< std::vector< double > > &dAdX: The gradient of A w.r.t. X
              * :param const floatType tolr: The relative tolerance.
