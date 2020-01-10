@@ -201,6 +201,10 @@ namespace vectorTools{
                                              const unsigned int Brows, const unsigned int Bcols,
                                              const bool Atranspose = false, const bool Btranspose = false);
 
+        int __matrixSqrtResidual(const std::vector< double > &A, const unsigned int Arows,
+                                 const std::vector< double > &X,
+                                 std::vector< double > &R, std::vector< std::vector< double > > &J);
+
         std::vector< double > matrixSqrt(const std::vector< double > &A, const unsigned int Arows,
                                          const double tolr = 1e-9, const double tola = 1e-9, const unsigned int maxIter = 20);
 

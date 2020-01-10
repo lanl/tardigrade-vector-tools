@@ -839,6 +839,43 @@ int test_matrixMultiply(std::ofstream &results){
     return 0;
 }
 
+int test_matrixSqrtResidual(std::ofstream &results){
+    /*!
+     * Test the computation of the residual used in solving for 
+     * the square root of a matrix.
+     * 
+     * :param std::ofstream &results: The output file.
+     */
+
+    vectorType A = {3., 3., 5., 3., 7., 7., 5., 7., 11.};
+    vectorType X = {1., 2., 3., 4., 5., 6., 7., 8.,  9.};
+
+    vectorType R, RJ;
+    matrixType J, JJ;
+    vectorTools::__matrixSqrtResidual(A, 3, X, R, J);
+
+    //Check that the Jacobian is consistent with the residual
+    floatType eps = 1e-6;
+    for (unsigned int i=0; i<X.size(); i++){
+        vectorType delta(X.size(), 0);
+        delta[i] = eps*fabs(X[i]) + eps;
+
+        vectorTools::__matrixSqrtResidual(A, 3, X + delta, RJ, JJ);
+
+        vectorType gradCol = (RJ - R)/delta[i];
+
+        for (unsigned int j=0; j<A.size(); j++){
+            if (!vectorTools::fuzzyEquals(gradCol[j], J[j][i])){
+                results << "test_matrixSqrtResidual (test 1) & False\n";
+                return 1;
+            }
+        }
+    }
+
+    results << "test_matrixSqrtResidual & True\n";
+    return 0;
+}
+
 int test_matrixSqrt(std::ofstream &results){
     /*!
      * Test the computation of the square root of a matrix.
@@ -929,6 +966,7 @@ int main(){
     test_computeDDetAdJ(results);
     test_matrixMultiply(results);
     test_matrixSqrt(results);
+    test_matrixSqrtResidual(results);
 
     //Close the results file
     results.close();
