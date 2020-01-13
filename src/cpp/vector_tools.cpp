@@ -1095,7 +1095,8 @@ namespace vectorTools{
 
         template< typename T >
         std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
-                                    const double tolr, const double tola, const unsigned int maxIter){
+                                    const double tolr, const double tola, const unsigned int maxIter,
+                                    const unsigned int maxLS){
             /*!
              * Solve for the square root of the square matrix A.
              * 
@@ -1105,6 +1106,7 @@ namespace vectorTools{
              * :param const floatType tolr: The relative tolerance.
              * :param const floatType tola: The absolute tolerance.
              * :param const unsigned int maxIter: The maximum number of iterations
+             * :param const unsigned int maxLS: The maximum number of line search iterations.
              */
 
             std::vector< std::vector< double > > dAdX;
@@ -1114,7 +1116,8 @@ namespace vectorTools{
         template< typename T >
         std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows, 
                                     std::vector< std::vector< double > > &dAdX,
-                                    const double tolr, const double tola, const unsigned int maxIter){
+                                    const double tolr, const double tola, const unsigned int maxIter, 
+                                    const unsigned int maxLS){
             /*!
              * Solve for the square root of the square matrix A.
              * 
@@ -1124,6 +1127,7 @@ namespace vectorTools{
              * :param const floatType tolr: The relative tolerance.
              * :param const floatType tola: The absolute tolerance.
              * :param const unsigned int maxIter: The maximum number of iterations
+             * :param const unsigned int maxLS: The maximum number of line search iterations.
              */
 
             if (A.size() != Arows * Arows){
@@ -1140,14 +1144,17 @@ namespace vectorTools{
 
             __matrixSqrtResidual(A, Arows, X, R, J);
 
-            double R0 = sqrt(dot(R, R));
-            double tol = tolr * R0 + tola;
+            double Rp = sqrt(dot(R, R));
+            double Rnorm = Rp;
+            double tol = tolr * Rp + tola;
 
             //Begin the Newton-Raphson loop
             unsigned int niter = 0;
             unsigned int rank;
+            unsigned int nlsiter = 0;
+            double lambda = 1.;
             std::vector< double > dX(Arows*Arows, 0);
-            while ((R0 > tol) && (niter < maxIter)){
+            while ((Rp > tol) && (niter < maxIter)){
                 dX = -solveLinearSystem(J, R, rank);
                 if (rank < dX.size()){
                     std::cout << "niter: " << niter << "\n";
@@ -1159,12 +1166,35 @@ namespace vectorTools{
 
                 __matrixSqrtResidual(A, Arows, X, R, J);
 
-                R0 = sqrt(dot(R, R));
+                Rnorm = sqrt(dot(R, R));
+
+                lambda = 1;
+                nlsiter = 0;
+                while ((Rnorm > (1 - 1e-4)*Rp) && (nlsiter < maxLS)){
+
+                    X -= lambda * dX;
+                    lambda *= 0.5;
+                    X += lambda * dX;
+
+                    __matrixSqrtResidual(A, Arows, X, R, J);
+                    Rnorm = sqrt(dot(R, R));
+
+                    nlsiter++;
+
+                }
+
+                if (Rnorm > (1 - 1e-4)*Rp){
+                    throw std::invalid_argument("Failure in line search");
+                }
+                else{
+                    Rp = Rnorm;
+                }
+
                 niter++;
 
             }
 
-            if (R0 > tol){
+            if (Rp > tol){
                 throw std::invalid_argument("Matrix square root did not converge");
             }
  
