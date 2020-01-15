@@ -1003,6 +1003,8 @@ namespace vectorTools{
              * :param const unsigned int Acols: The number of columns in A
              * :param const unsigned int Brows: The number of rows in B
              * :param const unsigned int Bcols: The number of columns in B
+             * :param const bool Atranspose: Boolean to indicate whether A should be transposed.
+             * :param const bool Btranspose: Boolean to indicate whether B should be transposed.
              */
 
             //Error handling
