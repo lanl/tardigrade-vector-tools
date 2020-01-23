@@ -6,11 +6,15 @@
 #
 # This is the common configuration file for all of the included makefiles
 
-# C++ compiler
-CXX=icc
-
-# Flags for the C++ compiler
-CFLAGS=-std=c++11 -Wall -ansi -pedantic -O3 -I. -fmax-errors=5
+# Check for icc compiler or default to g++
+ICC_EXIST:=$(shell which icc)
+ifdef ICC_EXIST
+    CXX=icc
+    CFLAGS=-std=c++11 -Wall -ansi -pedantic -O3 -I. -fmax-errors=5
+else
+    CXX=g++
+    CFLAGS=-std=gnu++11 -Wall -ansi -pedantic -O3 -I. -fmax-errors=5
+endif
 
 # Location of the Eigen library
 EIGEN=-I$(abspath $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))/../eigen)
