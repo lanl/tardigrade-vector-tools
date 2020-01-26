@@ -55,6 +55,25 @@ int test_addition_operators(std::ofstream &results){
         return 1;
     }
 
+    a += 1.;
+
+    if (!vectorTools::fuzzyEquals(a, {0, 10, 6})){
+        results << "test_addition_operators (test 3) & True\n";
+        return 1;
+    }
+
+    c = a + 2.;
+    if (!vectorTools::fuzzyEquals(c, {2, 12, 8}) && !vectorTools::fuzzyEquals(a, {0, 10, 6})){
+        results << "test_addition_operators (test 4) & True\n";
+        return 1;
+    }
+
+    c = 2. + a;
+    if (!vectorTools::fuzzyEquals(c, {2, 12, 8}) && !vectorTools::fuzzyEquals(a, {0, 10, 6})){
+        results << "test_addition_operators (test 4) & True\n";
+        return 1;
+    }
+
     //All tests passed    
     results << "test_addition_operators & True\n";
     return 0;

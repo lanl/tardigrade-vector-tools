@@ -31,7 +31,16 @@ template<typename T>
 std::vector<T>& operator+=(std::vector<T> &lhs, const std::vector<T> &rhs);
 
 template<typename T>
+std::vector<T>& operator+=(std::vector<T> &lhs, const T &rhs);
+
+template<typename T>
 std::vector<T> operator+(std::vector<T> lhs, const std::vector<T> &rhs);
+
+template<typename T>
+std::vector<T> operator+(std::vector<T> lhs, const T &rhs);
+
+template<typename T>
+std::vector<T> operator+(const T &lhs, std::vector<T> rhs);
 
 template<typename T>
 std::vector<T> operator-(std::vector<T> v);
