@@ -618,6 +618,21 @@ namespace vectorTools{
         }
     }
 
+    template< typename T >
+    std::vector< T > abs(const std::vector< T > &x){
+        /*!
+         * Compute the absolute value of every component of a vector.
+         * 
+         * :param const std::vector< T > &x: The vector to compute the absolute value of.
+         */
+
+        std::vector< T > xcopy = x;
+        for (unsigned int i=0; i<xcopy.size(); i++){
+            xcopy[i] = std::abs(xcopy[i]);
+        }
+        return xcopy;
+    }
+
     //Comparison Utilities
     template< typename T >
     bool fuzzyEquals(const T &a, const T &b, double tolr, double tola){

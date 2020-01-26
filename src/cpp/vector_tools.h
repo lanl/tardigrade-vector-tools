@@ -134,6 +134,9 @@ namespace vectorTools{
     template<typename T>
     T median(const std::vector< T > &x);
 
+    template<typename T>
+    std::vector< T > abs(const std::vector< T > &x);
+
     //Comparison Tools
     template<typename T>
     bool fuzzyEquals(const T &a, const T &b, double tolr=1e-6, double tola=1e-6);
