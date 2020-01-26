@@ -676,7 +676,7 @@ int test_eye(std::ofstream &results){
     std::vector< double > IvecExpected = {1., 0., 0.,
                                           0., 1., 0.,
                                           0., 0., 1.};
-    int result = vectorTools::eye(Ivec);
+    vectorTools::eye(Ivec);
     if (!vectorTools::fuzzyEquals(Ivec,IvecExpected)){
         results << "test_eye (test 1) & False\n";
         return 1;
