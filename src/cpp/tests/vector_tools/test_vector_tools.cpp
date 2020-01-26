@@ -109,6 +109,26 @@ int test_subtraction_operators(std::ofstream &results){
         return 1;
     }
 
+    a -= 1.;
+
+    if (!vectorTools::fuzzyEquals(a, {2, -6, 0})){
+        results << "test_subtraction_operators (test 4) & False\n";
+        return 1;
+    }
+
+    c = a - 2.;
+    if (!vectorTools::fuzzyEquals(c, {0, -8, -2}) && !vectorTools::fuzzyEquals(a, {2, -6, 0})){
+        results << "test_subtraction_operators (test 5) & False\n";
+        return 1;
+    }
+
+    c = 2. - a;
+    if (!vectorTools::fuzzyEquals(c, {0, 8, 2}) && !vectorTools::fuzzyEquals(a, {2, -6, 0})){
+        results << "test_subtraction_operators (test 6) & False\n";
+        return 1;
+    }
+
+
     //All tests passed    
     results << "test_subtraction_operators & True\n";
     return 0;

@@ -108,6 +108,17 @@ std::vector<T>& operator-=(std::vector<T> &lhs, const std::vector<T> &rhs){
 }
 
 template<typename T>
+std::vector<T>& operator-=(std::vector<T> &lhs, const T &rhs){
+    /*!
+     * Overload the subtraction operator for vector - scalar pairs
+     * 
+     * :param std::vector<T> &lhs: The left-hand side vector.
+     * :param const T &rhs: The right-hand side scalar.
+     */
+    return lhs += -rhs;
+}
+
+template<typename T>
 std::vector<T> operator-(std::vector<T> lhs, const std::vector<T> &rhs){
     /*!
      * Overload the subtraction operator for vectors
@@ -119,6 +130,30 @@ std::vector<T> operator-(std::vector<T> lhs, const std::vector<T> &rhs){
     return lhs -= rhs;
 }
 
+template<typename T>
+std::vector<T> operator-(std::vector<T> lhs, const T &rhs){
+    /*!
+     * Overload the subtraction operator for vector - scalar pairs
+     * 
+     * :param std::vector<T> lhs: The left-hand side vector
+     * :param const T &rhs: The right-hand side scalar
+     */
+
+    return lhs -= rhs;
+}
+
+template<typename T>
+std::vector<T> operator-(const T &lhs, std::vector<T> rhs){
+    /*!
+     * Overload the subtraction operator for vector - scalar pairs
+     * 
+     * :param const T &lhs: The left-hand side scalar
+     * :param std::vector<T> rhs: The right-hand side vector
+     */
+
+    rhs -= lhs;
+    return -rhs;
+}
 
 template<typename T, typename t>
 std::vector<T>& operator*=(std::vector<T> &lhs, const t rhs){
