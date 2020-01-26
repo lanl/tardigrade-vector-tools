@@ -131,6 +131,9 @@ namespace vectorTools{
     template<typename T>
     int eye(const unsigned int dim, std::vector< std::vector< T > > &I);
 
+    template<typename T>
+    T median(const std::vector< T > &x);
+
     //Comparison Tools
     template<typename T>
     bool fuzzyEquals(const T &a, const T &b, double tolr=1e-6, double tola=1e-6);

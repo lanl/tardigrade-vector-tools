@@ -598,6 +598,26 @@ namespace vectorTools{
         return 0;
     }
 
+    template< typename T >
+    T median(const std::vector< T > &x){
+        /*!
+         * Compute the median of a vector x
+         *  
+         * :param const std::vector< T > &x: The vector to compute the median of.
+         */
+
+        unsigned int n = x.size();
+        std::vector< T > xcopy = x;
+        std::sort(xcopy.begin(), xcopy.end());
+        
+        if ( (n & 2) == 0){
+            return xcopy[n / 2];
+        }
+        else{
+            return 0.5*( xcopy[(n - 1)/2] + xcopy[n / 2] );
+        }
+    }
+
     //Comparison Utilities
     template< typename T >
     bool fuzzyEquals(const T &a, const T &b, double tolr, double tola){
