@@ -381,8 +381,8 @@ namespace vectorTools{
          */
 
         //Get the size and perform error handling
-        int Arows = A.size();
-        int Acols = A[0].size();
+        unsigned int Arows = A.size();
+        unsigned int Acols = A[0].size();
         if (Arows != B.size() || Acols != B[0].size()){
             throw std::length_error("Matrices must have the same dimensions to add.");
         }
@@ -426,8 +426,8 @@ namespace vectorTools{
          */
     
         //Get the size and perform error handling
-        int length = A.size();
-        int dimension = std::round(std::sqrt(length));
+        unsigned int length = A.size();
+        unsigned int dimension = std::round(std::sqrt(length));
         if (dimension*dimension != length){
             throw std::length_error("The trace can only be computed for square matrices.");
         }
@@ -555,8 +555,8 @@ namespace vectorTools{
          */
 
         //Get the size and perform error handling
-        int length = I.size();
-        int dimension = std::round(std::sqrt(length));
+        unsigned int length = I.size();
+        unsigned int dimension = std::round(std::sqrt(length));
         if (dimension*dimension != length){
             throw std::length_error("The identity tensor can only be constructed for square matrices.");
         }
@@ -1012,7 +1012,7 @@ namespace vectorTools{
             Eigen::Map< Eigen::MatrixXd > ddetAdAmat(ddetAdA.data(), ncols, nrows);
 
             //Compute the derivative
-            ddetAdAmat = Amat.determinant()*Amat.inverse(); //Note lack of transpose because of how Eigen works
+            ddetAdAmat = detA * Amat.inverse(); //Note lack of transpose because of how Eigen works
             
             return ddetAdA;
             
