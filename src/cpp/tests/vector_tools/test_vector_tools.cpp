@@ -927,6 +927,29 @@ int test_matrixSqrt(std::ofstream &results){
     return 0;
 }
 
+int test_median(std::ofstream &results){
+    /*!
+     * Test the computation of the median of a vector
+     * 
+     * :param std::ofstream &results: The output file
+     */
+
+    vectorType x = {0.65353053, 0.97839806, 0.32387778, 0.13137077, 0.17253149, 0.03216338};
+    if (!vectorTools::fuzzyEquals(vectorTools::median(x), 0.24820463352966032)){
+        results << "test_median (test 1) & False\n";
+        return 1;
+    }
+
+    x = {0.82387829, 0.07615528, 0.89366009, 0.04843728, 0.81331188, 0.19575555, 0.02308312};
+    if (!vectorTools::fuzzyEquals(vectorTools::median(x), .19575554955487007)){
+        results << "test_median (test 2) & False\n";
+        return 1;
+    }
+
+    results << "test_median & True\n";
+    return 0;
+}
+
 int main(){
     /*!
     The main loop which runs the tests defined in the 
@@ -967,6 +990,7 @@ int main(){
     test_matrixMultiply(results);
     test_matrixSqrt(results);
     test_matrixSqrtResidual(results);
+    test_median(results);
 
     //Close the results file
     results.close();
