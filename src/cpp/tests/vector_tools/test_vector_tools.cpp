@@ -950,6 +950,29 @@ int test_median(std::ofstream &results){
     return 0;
 }
 
+int test_abs(std::ofstream &results){
+    /*!
+     * Test the computation of the absolute value of a vector.
+     * 
+     * :param std::ofstream &results: The output file.
+     */
+
+    std::vector< double > x = {-1, 2, 3, 4, -5, 6};
+    if (!vectorTools::fuzzyEquals(vectorTools::abs(x), {1., 2., 3., 4., 5., 6.})){
+        results << "test_abs (test 1) & False\n";
+        return 1;
+    }
+
+    std::vector< int > y = {-1, 2, 3, 4, -5, 6};
+    if (!vectorTools::fuzzyEquals(vectorTools::abs(y), {1, 2, 3, 4, 5, 6})){
+        results << "test_abs (test 2) & False\n";
+        return 1;
+    }
+
+    results << "test_abs & True\n";
+    return 0;
+}
+
 int main(){
     /*!
     The main loop which runs the tests defined in the 
@@ -991,6 +1014,7 @@ int main(){
     test_matrixSqrt(results);
     test_matrixSqrtResidual(results);
     test_median(results);
+    test_abs(results);
 
     //Close the results file
     results.close();
