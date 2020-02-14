@@ -317,6 +317,88 @@ int test_dot(std::ofstream &results){
     return 0;
 }
 
+int test_dotT(std::ofstream &results){
+    /*!
+     * Test the computation of the dot product of two matrices
+     * 
+     * :param std::ofstream &results: The output file
+     */
+
+    matrixType A = {{1, 2, 3},
+                    {4, 5, 6},
+                    {7, 8, 9}};
+
+    matrixType B = {{10, 11, 12},
+                    {13, 14, 15}};
+
+    matrixType answer = {{ 68,  86},
+                         {167, 212},
+                         {266, 338}};
+
+    if (!vectorTools::fuzzyEquals( vectorTools::dotT( A, B ), answer )){
+        results << "test_dotT (test 1) & False\n";
+        return 1;
+    }
+
+    results << "test_dotT & True\n";
+    return 0;
+}
+
+int test_Tdot(std::ofstream &results){
+    /*!
+     * Test the computation of the dot product of two matrices
+     * 
+     * :param std::ofstream &results: The output file
+     */
+
+    matrixType A = {{1, 2, 3},
+                    {4, 5, 6},
+                    {7, 8, 9}};
+
+    matrixType B = {{10, 11},
+                    {12, 13},
+                    {14, 15}};
+
+    matrixType answer = {{156, 168},
+                         {192, 207},
+                         {228, 246}};
+
+    if (!vectorTools::fuzzyEquals( vectorTools::Tdot( A, B ), answer )){
+        results << "test_Tdot (test 1) & False\n";
+        return 1;
+    }
+
+    results << "test_Tdot & True\n";
+    return 0;
+}
+
+int test_TdotT(std::ofstream &results){
+    /*!
+     * Test the computation of the dot product of two matrices
+     * 
+     * :param std::ofstream &results: The output file
+     */
+
+    matrixType A = {{1, 2, 3},
+                    {4, 5, 6},
+                    {7, 8, 9}};
+
+    matrixType B = {{10, 11, 12},
+                    {13, 14, 15}};
+
+    matrixType answer = {{138, 174},
+                         {171, 216},
+                         {204, 258}};
+
+    if (!vectorTools::fuzzyEquals( vectorTools::TdotT( A, B ), answer )){
+        results << "test_TdotT (test 1) & False\n";
+        return 1;
+    }
+
+    results << "test_TdotT & True\n";
+    return 0;
+}
+
 int test_inner(std::ofstream &results){
 
     //Initialize test variables
@@ -1034,6 +1116,9 @@ int main(){
     test_computeMean(results);
     test_cross(results);
     test_dot(results);
+    test_dotT(results);
+    test_Tdot(results);
+    test_TdotT(results);
     test_inner(results);
     test_trace(results);
     test_l2norm(results);
