@@ -41,6 +41,12 @@ int test_addition_operators(std::ofstream &results){
     vectorType b = {-2, 7, 2};
     vectorType c;
 
+    matrixType A = {{1, 2, 3},
+                    {4, 5, 6}};
+    matrixType B = {{-1, -3, -3},
+                    { 2,  5,  6}};
+    matrixType C;
+
     a += b;
 
     if (!vectorTools::fuzzyEquals(a, {-1, 9, 5})){
@@ -58,19 +64,33 @@ int test_addition_operators(std::ofstream &results){
     a += 1.;
 
     if (!vectorTools::fuzzyEquals(a, {0, 10, 6})){
-        results << "test_addition_operators (test 3) & True\n";
+        results << "test_addition_operators (test 3) & False\n";
         return 1;
     }
 
     c = a + 2.;
     if (!vectorTools::fuzzyEquals(c, {2, 12, 8}) && !vectorTools::fuzzyEquals(a, {0, 10, 6})){
-        results << "test_addition_operators (test 4) & True\n";
+        results << "test_addition_operators (test 4) & False\n";
         return 1;
     }
 
     c = 2. + a;
     if (!vectorTools::fuzzyEquals(c, {2, 12, 8}) && !vectorTools::fuzzyEquals(a, {0, 10, 6})){
-        results << "test_addition_operators (test 4) & True\n";
+        results << "test_addition_operators (test 4) & False\n";
+        return 1;
+    }
+
+    A += B;
+    if (!vectorTools::fuzzyEquals(A, {{0,-1, 0},
+                                      {6, 10, 12}})){
+        results << "test_addition_operators (test 5) & False\n";
+        return 1;
+    }
+
+    C = A + B;
+    if (!vectorTools::fuzzyEquals(C, {{-1, -4, -3},
+                                      { 8, 15, 18}})){
+        results << "test_addition_operators (test 6) & False\n";
         return 1;
     }
 
@@ -89,6 +109,13 @@ int test_subtraction_operators(std::ofstream &results){
     vectorType a = { 1, 2, 3};
     vectorType b = {-2, 7, 2};
     vectorType c;
+
+    matrixType A = {{1, 2, 3},
+                    {4, 5, 6}};
+    matrixType B = {{-1, -3, -3},
+                    { 2,  5,  6}};
+    matrixType C;
+
 
     if (!vectorTools::fuzzyEquals(-a, {-1, -2, -3})){
         results << "test_subtraction_operators (test 1) & False\n";
@@ -128,6 +155,24 @@ int test_subtraction_operators(std::ofstream &results){
         return 1;
     }
 
+    if (!vectorTools::fuzzyEquals( -A, {{-1, -2, -3},
+                                        {-4, -5, -6}})){
+        results << "test_subtraction_operators (test 7) & False\n";
+    }
+
+    A -= B;
+    if (!vectorTools::fuzzyEquals(A, {{2, 5, 6},
+                                      {2, 0, 0}})){
+        results << "test_addition_operators (test 7) & False\n";
+        return 1;
+    }
+
+    C = A - B;
+    if (!vectorTools::fuzzyEquals(C, {{ 3, 8,  9},
+                                      { 0,-5, -6}})){
+        results << "test_addition_operators (test 8) & False\n";
+        return 1;
+    }
 
     //All tests passed    
     results << "test_subtraction_operators & True\n";
