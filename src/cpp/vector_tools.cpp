@@ -214,6 +214,82 @@ std::vector<T> operator/(std::vector<T> lhs, const t rhs){
     return lhs/=rhs;
 }
 
+template<typename T>
+std::vector< std::vector< T > > operator+=(std::vector< std::vector< T > > &lhs, const std::vector< std::vector< T > > &rhs){
+    /*!
+     * Overload the += operator for matrices
+     * 
+     * :param std::vector< std::vector< T > > lhs: The left-hand side matrix
+     * :param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
+     */
+
+    if (lhs.size() != rhs.size()){
+        throw std::length_error("matrices must have the same numbers of rows to add");
+    }
+
+    for (unsigned int i=0; i<lhs.size(); i++){
+        lhs[i] += rhs[i];
+    }
+    return lhs;
+}
+
+template<typename T>
+std::vector< std::vector< T > > operator+(std::vector< std::vector< T > > lhs, const std::vector< std::vector< T > > &rhs){
+    /*!
+     * Overload the + operator for matrices
+     * 
+     * :param std::vector< std::vector< T > > lhs: The left-hand side matrix
+     * :param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
+     */
+
+    return lhs += rhs;
+}
+
+template<typename T>
+std::vector< std::vector< T > > operator-(std::vector< std::vector< T > > v){
+    /*!
+     * Overload the negation operator for matrices.
+     * 
+     * :param std::vector< std::vector< T > > v: The matrix to negate.
+     */
+
+    for (unsigned int i=0; i<v.size(); i++){
+        v[i] = -v[i];
+    }
+    return v;
+}
+
+template<typename T>
+std::vector< std::vector < T > >& operator-=(std::vector< std::vector< T > > &lhs, const std::vector< std::vector< T > > &rhs){
+    /*!
+     * Overload the -= operator for matrices
+     * 
+     * :param std::vector< std::vector< T > > lhs: The left-hand side matrix
+     * :param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
+     */
+
+    if (lhs.size() != rhs.size()){
+        throw std::length_error("matrices must have the same numbers of rows to add");
+    }
+
+    for (unsigned int i=0; i<lhs.size(); i++){
+        lhs[i] += -rhs[i];
+    }
+
+    return lhs;
+}
+
+template<typename T>
+std::vector< std::vector< T > > operator-(std::vector< std::vector< T > > lhs, const std::vector< std::vector< T > > &rhs){
+    /*!
+     * Overload the - operator for matrices
+     * 
+     * :param std::vector< std::vector< T > > lhs: The left-hand side matrix
+     * :param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
+     */
+    return lhs -= rhs;
+}
+
 namespace vectorTools{
 
     //Computation Utilities
