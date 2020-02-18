@@ -409,6 +409,131 @@ namespace vectorTools{
     }
 
     template<typename T>
+    std::vector< std::vector< T > > dotT(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
+        /*!
+         * Compute the dot product between two matrices where the second is transposed i.e. C_{ij} = A_{ik} B_{jk}
+         * 
+         * :param std::vector< std::vector< T > > &A: The first matrix
+         * :param std::vector< std::vector< T > > &B: The second matrix
+         */
+
+        size_type Arows = A.size();
+
+        if (B.size() == 0){
+            throw std::length_error("B has no rows");
+        }
+
+        size_type Brows = B.size();
+        size_type Bcols = B[0].size();
+
+        //Error handling
+        for (unsigned int I=0; I<Arows; I++){
+            if (A[I].size() != Bcols){
+                throw std::length_error("A and B have incompatible shapes");
+            }
+        }
+
+        for (unsigned int I=0; I<Brows; I++){
+            if (B[I].size() != Bcols){
+                throw std::length_error("B is not a regular matrix");
+            }
+        }
+
+        //Perform the matrix multiplication
+        std::vector< std::vector< T > > C(Arows, std::vector< T >(Brows, 0));
+
+        for (unsigned int I=0; I<Arows; I++){
+
+            for (unsigned int J=0; J<Brows; J++){
+
+                for (unsigned int K=0; K<Bcols; K++){
+
+                    C[I][J] += A[I][K] * B[J][K];
+                }
+            }
+        }
+        return C;
+    }
+
+    template<typename T>
+    std::vector< std::vector< T > > Tdot(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
+        /*!
+         * Compute the dot product between two matrices where the first is transposed i.e. C_{ij} = A_{ki} B_{kj}
+         * 
+         * :param std::vector< std::vector< T > > &A: The first matrix
+         * :param std::vector< std::vector< T > > &B: The second matrix
+         */
+
+        size_type Arows = A.size();
+
+        if (Arows == 0){
+            throw std::length_error("A has no rows");
+        }
+
+        size_type Acols = A[0].size();
+
+        if (B.size() == 0){
+            throw std::length_error("B has no rows");
+        }
+
+        size_type Brows = B.size();
+        size_type Bcols = B[0].size();
+
+        //Error handling
+        if (Arows != Brows){
+            throw std::length_error("A and B have incompatible shapes");
+        }
+
+        for (unsigned int I=0; I<Arows; I++){
+            if (A[I].size() != Acols){
+                throw std::length_error("A is not a regular matrix");
+            }
+        }
+
+        for (unsigned int I=0; I<Brows; I++){
+            if (B[I].size() != Bcols){
+                throw std::length_error("B is not a regular matrix");
+            }
+        }
+
+        //Perform the matrix multiplication
+        std::vector< std::vector< T > > C(Acols, std::vector< T >(Bcols, 0));
+
+        for (unsigned int I=0; I<Acols; I++){
+
+            for (unsigned int J=0; J<Bcols; J++){
+
+                for (unsigned int K=0; K<Brows; K++){
+
+                    C[I][J] += A[K][I] * B[K][J];
+                }
+            }
+        }
+        return C;
+    }
+
+    template<typename T>
+    std::vector< std::vector< T > > TdotT(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
+        /*!
+         * Compute the dot product between two matrices where both are transposed i.e. C_{ij} = A_{ki} B_{jk}
+         * 
+         * :param std::vector< std::vector< T > > &A: The first matrix
+         * :param std::vector< std::vector< T > > &B: The second matrix
+         */
+
+        std::vector< std::vector< T > > CT = dot(B, A);
+
+        std::vector< std::vector< T > > C(CT[0].size(), std::vector< T > (CT.size()));
+
+        for (unsigned int i=0; i<C.size(); i++){
+            for (unsigned int j=0; j<C[i].size(); j++){
+                C[i][j] = CT[j][i];
+            }
+        }
+        return C;
+    }
+
+    template<typename T>
     int inner(const std::vector< T > &A, const std::vector< T > &B, T &result){
         /*!
          * Compute the inner product between two matrices stored in row major format 
