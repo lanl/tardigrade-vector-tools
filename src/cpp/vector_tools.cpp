@@ -438,6 +438,35 @@ namespace vectorTools{
     }
 
     template<typename T>
+    std::vector< T > Tdot(const std::vector< std::vector< T > > &A, const std::vector< T > &b){
+        /*!
+         * Compute the dot product between a matrix and a vector resulting i.e. c_i = A_ji b_j
+         * 
+         * :param std::vector< std::vector< T > > &A: The matrix
+         * :param std::vector< T > &b: The vector
+         */
+
+        size_type size = A.size();
+
+        if ( size == 0 ){
+            throw std::length_error("A has no rows");
+        }
+
+        if ( size != b.size() ){
+            throw std::length_error("A and b are incompatible shapes");
+        }
+
+        std::vector< T > c(A[0].size(), 0);
+
+        for ( unsigned int i = 0; i < A[0].size(); i++ ){
+            for ( unsigned int j = 0; j < size; j++ ){
+                c[i] += A[j][i] * b[j];
+            }
+        }
+        return c;
+    }
+
+    template<typename T>
     std::vector< std::vector< T > > dot(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
         /*!
          * Compute the dot product between two matrices i.e. C_{ij} = A_{ik} B_{kj}
