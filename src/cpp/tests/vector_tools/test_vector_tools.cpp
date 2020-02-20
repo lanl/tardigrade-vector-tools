@@ -404,12 +404,21 @@ int test_Tdot(std::ofstream &results){
                     {12, 13},
                     {14, 15}};
 
-    matrixType answer = {{156, 168},
-                         {192, 207},
-                         {228, 246}};
+    vectorType b = {4, 5, 6};
 
-    if (!vectorTools::fuzzyEquals( vectorTools::Tdot( A, B ), answer )){
+    matrixType matrixAnswer = {{156, 168},
+                               {192, 207},
+                               {228, 246}};
+
+    vectorType vectorAnswer = { 66, 81, 96 };
+
+    if (!vectorTools::fuzzyEquals( vectorTools::Tdot( A, B ), matrixAnswer )){
         results << "test_Tdot (test 1) & False\n";
+        return 1;
+    }
+
+    if (!vectorTools::fuzzyEquals( vectorTools::Tdot( A, b ), vectorAnswer )){
+        results << "test_Tdot (test 2) & False\n";
         return 1;
     }
 
