@@ -215,7 +215,7 @@ std::vector<T> operator/(std::vector<T> lhs, const t rhs){
 }
 
 template<typename T>
-std::vector< std::vector< T > > operator+=(std::vector< std::vector< T > > &lhs, const std::vector< std::vector< T > > &rhs){
+std::vector< std::vector< T > >& operator+=(std::vector< std::vector< T > > &lhs, const std::vector< std::vector< T > > &rhs){
     /*!
      * Overload the += operator for matrices
      * 
