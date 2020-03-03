@@ -1311,13 +1311,13 @@ namespace vectorTools{
             Eigen::Map < const Eigen::Matrix<T, -1, -1, Eigen::RowMajor> > Amat(Avec.data(), nrows, ncols);
             
             //Set up the Eigen map for the inverse
-            std::vector< double > Ainvvec(nrows*ncols);
-            Eigen::Map< Eigen::MatrixXd > Ainv(Ainvvec.data(), ncols, nrows);
+            std::vector< double > AinvVec(nrows*ncols);
+            Eigen::Map< Eigen::MatrixXd > Ainv(AinvVec.data(), ncols, nrows);
 
             //Compute the inverse
             Ainv = Amat.inverse().transpose(); //Note transpose because of how Eigen works
 
-            return Ainvvec;
+            return AinvVec;
         }
 
         template<typename T>
@@ -1343,7 +1343,7 @@ namespace vectorTools{
             }
 
             std::vector< T > Avec = appendVectors( A );
-            std::vector< T > Ainvvec = inverse( A, nrows, ncols );
+            std::vector< double > Ainvvec = inverse( Avec, nrows, ncols );
             
             return inflate( Ainvvec, nrows, ncols );
         }
