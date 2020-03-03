@@ -1130,6 +1130,30 @@ namespace vectorTools{
         return Avec;
     }
 
+    template< typename T >
+    std::vector< std::vector< T > > inflate( const std::vector< T > &Avec, const unsigned int &nrows, const unsigned int &ncols ){
+        /*!
+         * Inflate the provided row-major vector into a 2D matrix.
+         * 
+         * :param const std::vector &Avec: The matrix in row-major form.
+         * :param const unsigned int &nrows: The number of rows in the matrix.
+         * :param const unsigned int &ncols: The number of columns in the matrix.
+         */
+
+        if ( Avec.size() != nrows * ncols ){
+            throw std::length_error("Avec is not a consistent size with the desired dimensions of the matrix");
+        }
+
+        std::vector< std::vector< T > > A( nrows, std::vector< T >( ncols ) );
+
+        for ( unsigned int i = 0; i < nrows; i++ ){
+            for ( unsigned int j = 0; j < ncols; j++ ){
+                A[i][j] = Avec[ i * ncols + j ];
+            }
+        }
+        return A;
+    }
+
     //Sorting Utilities
     template<typename T>
     std::vector< size_type > argsort(const std::vector< T > &v){

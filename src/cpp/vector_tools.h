@@ -217,6 +217,9 @@ namespace vectorTools{
     template<typename T>
     std::vector< T > appendVectors(const std::initializer_list< std::vector< T > > &list);
 
+    template< typename T >
+    std::vector< std::vector< T > > inflate( const std::vector< T > &Avec, unsigned int nrows, unsigned int ncols );
+
     //Sorting utilities
     template <typename T>
     std::vector< size_type > argsort(const std::vector< T > &v);
