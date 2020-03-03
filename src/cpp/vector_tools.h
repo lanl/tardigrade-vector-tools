@@ -244,6 +244,9 @@ namespace vectorTools{
         std::vector< double > inverse(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
 
         template<typename T>
+        std::vector< std::vector< double > > inverse( const std::vector< std::vector< T > > &A );
+
+        template<typename T>
         std::vector< double > computeDDetAdJ(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
 
         template< typename T >

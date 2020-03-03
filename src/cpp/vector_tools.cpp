@@ -1268,7 +1268,7 @@ namespace vectorTools{
             /*!
              * Compute the inverse of a matrix in row-major format
              * 
-             * :param const std::vector< T > &Avec: The vector form of the A matirx (row major)
+             * :param const std::vector< T > &Avec: The vector form of the A matrix (row major)
              * :param const unsigned int nrows: The number of rows
              * :param const unsigned int ncols: The number of columns
              */
@@ -1294,6 +1294,34 @@ namespace vectorTools{
             Ainv = Amat.inverse().transpose(); //Note transpose because of how Eigen works
 
             return Ainvvec;
+        }
+
+        template<typename T>
+        std::vector< std::vector< double > > inverse( const std::vector< std::vector< T > > &A ){
+            /*!
+             * Compute the inverse of a matrix
+             * 
+             * :param const std::vector< std::vector< T > > &A: The vector form of the A matrix
+             */
+
+            unsigned int nrows = A.size();
+            unsigned int ncols;
+
+            if ( nrows > 0 ){
+                ncols = A[0].size();
+            }
+            else{
+                throw std::length_error("A has no size");
+            }
+
+            if ( ncols == 0 ){
+                throw std::length_error("A has no columns");
+            }
+
+            std::vector< T > Avec = appendVectors( A );
+            std::vector< T > Ainvvec = inverse( A, nrows, ncols );
+            
+            return inflate( Ainvvec, nrows, ncols );
         }
 
         template<typename T>
