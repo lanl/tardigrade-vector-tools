@@ -912,28 +912,64 @@ int test_determinant(std::ofstream &results){
     return 0;
 }
 
-int test_inverse(std::ofstream &results){
+int test_inverse( std::ofstream &results ){
     /*!
-     * Test the computation of the matrix inverse\n";
+     * Test the computation of the matrix inverse;
      *
      * :param std::ofstream &results: The output file
      */
 
-    std::vector< floatType > A = {0.39874077,  0.11561812, -0.75485222,
-                                  0.14034205,  0.15851022,  1.29640525,
-                                  0.26235075, -0.26051883,  0.45378251};
+    std::vector< floatType > Avec = { 0.39874077,  0.11561812, -0.75485222,
+                                      0.14034205,  0.15851022,  1.29640525,
+                                      0.26235075, -0.26051883,  0.45378251 };
 
-    std::vector< floatType > Ainv = vectorTools::inverse(A, 3, 3);
+    std::vector< floatType > answer = { 1.6109566 ,  0.56699734,  1.0599259 ,
+                                        1.08701345,  1.49027454, -2.44933462,
+                                       -0.30730183,  0.52776914,  0.18473576 };
 
-    if (!vectorTools::fuzzyEquals(Ainv, {1.6109566 ,  0.56699734,  1.0599259 ,
-                                         1.08701345,  1.49027454, -2.44933462,
-                                        -0.30730183,  0.52776914,  0.18473576})){
-        vectorTools::print(Ainv);
+    std::vector< floatType > Avecinv = vectorTools::inverse( Avec, 3, 3 );
+
+    if (!vectorTools::fuzzyEquals( Avecinv, answer )){
         results << "test_inverse (test 1) & False\n";
         return 1;
     }
 
+    std::vector< std::vector< floatType > > A = vectorTools::inflate( Avec, 3, 3 );
+    std::vector< std::vector< double > > Ainv = vectorTools::inverse( A );
+
+    if ( !vectorTools::fuzzyEquals( vectorTools::appendVectors( Ainv ), answer ) ){
+        results << "test_inverse (test 2) & False\n";
+        return 1;
+    }
+
     results << "test_inverse & True\n";
+    return 0;
+}
+
+int test_inflate( std::ofstream &results ){
+    /*!
+     * Test the inflate command in vector_tools
+     * 
+     * :param std::ofstream &results: The output file
+     */
+
+    std::vector< floatType > Avec = { 1, 2, 3, 4,  5,
+                                      6, 7, 8, 9, 10 };
+
+    unsigned int nrows = 2;
+    unsigned int ncols = 5;
+
+    std::vector< std::vector< floatType > > answer = { { 1, 2, 3, 4,  5},
+                                                       { 6, 7, 8, 9, 10} };
+
+    std::vector< std::vector< floatType > > result = vectorTools::inflate( Avec, nrows, ncols );
+
+    if ( !vectorTools::fuzzyEquals( answer, result ) ){
+        results << "test_inflate (test 1) & False\n";
+        return 1;
+    }
+
+    results << "test_inflate & True\n";
     return 0;
 }
 
@@ -1193,6 +1229,7 @@ int main(){
     test_matrixSqrtResidual(results);
     test_median(results);
     test_abs(results);
+    test_inflate( results );
 
     //Close the results file
     results.close();

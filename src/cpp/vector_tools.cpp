@@ -1130,6 +1130,30 @@ namespace vectorTools{
         return Avec;
     }
 
+    template< typename T >
+    std::vector< std::vector< T > > inflate( const std::vector< T > &Avec, const unsigned int &nrows, const unsigned int &ncols ){
+        /*!
+         * Inflate the provided row-major vector into a 2D matrix.
+         * 
+         * :param const std::vector &Avec: The matrix in row-major form.
+         * :param const unsigned int &nrows: The number of rows in the matrix.
+         * :param const unsigned int &ncols: The number of columns in the matrix.
+         */
+
+        if ( Avec.size() != nrows * ncols ){
+            throw std::length_error("Avec is not a consistent size with the desired dimensions of the matrix");
+        }
+
+        std::vector< std::vector< T > > A( nrows, std::vector< T >( ncols ) );
+
+        for ( unsigned int i = 0; i < nrows; i++ ){
+            for ( unsigned int j = 0; j < ncols; j++ ){
+                A[i][j] = Avec[ i * ncols + j ];
+            }
+        }
+        return A;
+    }
+
     //Sorting Utilities
     template<typename T>
     std::vector< size_type > argsort(const std::vector< T > &v){
@@ -1268,7 +1292,7 @@ namespace vectorTools{
             /*!
              * Compute the inverse of a matrix in row-major format
              * 
-             * :param const std::vector< T > &Avec: The vector form of the A matirx (row major)
+             * :param const std::vector< T > &Avec: The vector form of the A matrix (row major)
              * :param const unsigned int nrows: The number of rows
              * :param const unsigned int ncols: The number of columns
              */
@@ -1287,13 +1311,41 @@ namespace vectorTools{
             Eigen::Map < const Eigen::Matrix<T, -1, -1, Eigen::RowMajor> > Amat(Avec.data(), nrows, ncols);
             
             //Set up the Eigen map for the inverse
-            std::vector< double > Ainvvec(nrows*ncols);
-            Eigen::Map< Eigen::MatrixXd > Ainv(Ainvvec.data(), ncols, nrows);
+            std::vector< double > AinvVec(nrows*ncols);
+            Eigen::Map< Eigen::MatrixXd > Ainv(AinvVec.data(), ncols, nrows);
 
             //Compute the inverse
             Ainv = Amat.inverse().transpose(); //Note transpose because of how Eigen works
 
-            return Ainvvec;
+            return AinvVec;
+        }
+
+        template<typename T>
+        std::vector< std::vector< double > > inverse( const std::vector< std::vector< T > > &A ){
+            /*!
+             * Compute the inverse of a matrix
+             * 
+             * :param const std::vector< std::vector< T > > &A: The vector form of the A matrix
+             */
+
+            unsigned int nrows = A.size();
+            unsigned int ncols;
+
+            if ( nrows > 0 ){
+                ncols = A[0].size();
+            }
+            else{
+                throw std::length_error("A has no size");
+            }
+
+            if ( ncols == 0 ){
+                throw std::length_error("A has no columns");
+            }
+
+            std::vector< T > Avec = appendVectors( A );
+            std::vector< double > Ainvvec = inverse( Avec, nrows, ncols );
+            
+            return inflate( Ainvvec, nrows, ncols );
         }
 
         template<typename T>
