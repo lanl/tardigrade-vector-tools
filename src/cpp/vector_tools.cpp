@@ -1225,8 +1225,7 @@ namespace vectorTools{
 
             unsigned int ncols = Avec.size()/nrows;
             if ((Avec.size() % nrows) > 0){
-                std::cerr << "Error: A is not a regular matrix.";
-                assert(1==0);
+                throw std::length_error("A is not a regular matrix");
             }
             return solveLinearSystem( Avec, b, nrows, ncols, rank);
 
@@ -1246,8 +1245,11 @@ namespace vectorTools{
              */
 
             if (Avec.size() != (nrows*ncols)){
-                std::cerr << "Error: The size of Avec and the dimensions nrows and ncols do not align.\n";
-                assert(1==0);
+                throw std::length_error("The size of Avec and the dimensions nrows and ncols do not align.");
+            }
+
+            if (b.size() != ncols ){
+                throw std::length_error("The b vector's size is not consistent with A's dimension");
             }
 
             //Set up the Eigen maps for A and b
