@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.14)
 project (vector_tools)
 
 # Find eigen
-set(Eigen_DIR "${PROJECT_SOURCE_DIR}/../eigen/cmake")
+set(Eigen3_DIR "${PROJECT_SOURCE_DIR}/../eigen_install")
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 
 # Add the cmake folder to locate the FindSphinx module
