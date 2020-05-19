@@ -2,7 +2,7 @@ find_package(Doxygen REQUIRED)
 find_package(Sphinx REQUIRED)
 
 # Find all the public headers
-get_target_property(VECTOR_TOOLS_PUBLIC_HEADER_DIR vector_tools INTERFACE_INCLUDE_DIRECTORIES)
+set(VECTOR_TOOLS_PUBLIC_HEADER_DIR ${PROJECT_SOURCE_DIR}/src/cpp)
 file(GLOB_RECURSE VECTOR_TOOLS_PUBLIC_HEADERS ${VECTOR_TOOLS_PUBLIC_HEADER_DIR}/*.h)
 
 # Set doxygen variables
