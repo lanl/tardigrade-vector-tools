@@ -4,6 +4,7 @@ project (vector_tools)
 
 # Find eigen
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+include_directories(${EIGEN3_INCLUDE_DIR})
 
 # Add the cmake folder to locate the FindSphinx module
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
@@ -12,7 +13,7 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 include_directories("src/cpp")
 # Add source code directories
 add_subdirectory ("src/cpp")
-#add_subdirectory ("src/cpp/tests/${CMAKE_PROJECT_DIR}")
+add_subdirectory ("src/cpp/tests/${CMAKE_PROJECT_NAME}")
 add_subdirectory ("docs")
 
 set(CMAKE_CXX_STANDARD 11)
