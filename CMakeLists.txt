@@ -8,7 +8,11 @@ find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 # Add the cmake folder to locate the FindSphinx module
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
+# Add source directory to help tests find library
+include_directories("src/cpp")
+# Add source code directories
 add_subdirectory ("src/cpp")
+add_subdirectory ("src/cpp/tests/error_tools")
 add_subdirectory ("docs")
 
 set(CMAKE_CXX_STANDARD 11)
