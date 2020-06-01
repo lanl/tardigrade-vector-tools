@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Source the Intel compilers
-source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
-
 # TODO: update the release environment and source that instead
 # NOTE: activation will fail if/when conda is updated to >=4.4
 # Activate the release-cpp environment

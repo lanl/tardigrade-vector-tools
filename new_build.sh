@@ -1,3 +1,11 @@
+# Source the Intel compilers
+case $(hostname) in
+    hamming.lanl.gov|sstelmo.lanl.gov)
+        source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
+        export CXX=$(which icc)
+        ;;
+esac
+
 set -Eeuxo pipefail
 
 # Find cmake3 executable
