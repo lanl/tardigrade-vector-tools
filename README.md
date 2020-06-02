@@ -57,7 +57,7 @@ $ cd eigen
 # Build eigen
 $ mkdir build
 $ cd build
-$ export CXX=$(which icc)
+$ export CXX=$(command -v icpc)
 $ cmake3 .. -DCMAKE_INSTALL_PREFIX=/home/<moniker>
 $ make install
 ```
