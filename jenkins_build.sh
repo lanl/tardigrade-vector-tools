@@ -23,11 +23,14 @@ source activate "${projects}/python/release-cpp"
 # Make bash script more like high-level languages.
 set -Eeuxo pipefail
 
+# Source common shell script variables
+source set_vars.sh
+
 # Check conda environment for debugging
 conda info | grep default
 
 # Clone and update dependencies
-source update_dependencies.sh
+./update_dependencies.sh
 
 # Clean and build repo tests
 ./new_build.sh
