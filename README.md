@@ -44,13 +44,13 @@ ssh -X sstelmo.lanl.gov
 source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
 # Create personal include file directory
 $ pwd
-/home/<moniker>
+/home/$USER
 $ mkdir include
 # Move to repository directory
 $ cd /preferred/path/to/repos
 # Example
 $ pwd
-/projects/<moniker>/e13repos
+/projects/$USER/e13repos
 # Clone eigen
 $ git clone https://gitlab.com/libeigen/eigen.git
 $ cd eigen
@@ -58,7 +58,7 @@ $ cd eigen
 $ mkdir build
 $ cd build
 $ export CXX=$(command -v icpc)
-$ cmake3 .. -DCMAKE_INSTALL_PREFIX=/home/<moniker>
+$ cmake3 .. -DCMAKE_INSTALL_PREFIX=/home/$USER
 $ make install
 ```
 
