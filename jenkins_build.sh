@@ -26,10 +26,10 @@ set -Eeuxo pipefail
 # Debugging
 whoami
 groups
-ll ~/include || true
-ll ~/include/eigen3 || true
-ll ~/include/eigen3/Eigen || true
-ll ~/include/eigen3/Eigen/Dense || true
+ls -l ~/include || true
+ls -l ~/include/eigen3 || true
+ls -l ~/include/eigen3/Eigen || true
+ls -l ~/include/eigen3/Eigen/Dense || true
 
 # Source common shell script variables
 source set_vars.sh
