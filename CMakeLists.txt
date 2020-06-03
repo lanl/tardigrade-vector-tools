@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.14)
 project (vector_tools)
 
 # Find eigen
-set(CMAKE_PREFIX_PATH "$ENV{HOME}:$ENV{HOME}/local/:$ENV{HOME}/.local")
+set(CMAKE_PREFIX_PATH $ENV{HOME} $ENV{HOME}/local/ $ENV{HOME}/.local ${CMAKE_PREFIX_PATH})
 set(EIGEN_ROOT "$ENV{HOME}/include")
 set(EIGEN_ROOT_DIR "$ENV{HOME}/include")
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
