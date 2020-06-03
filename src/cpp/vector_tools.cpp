@@ -1,10 +1,11 @@
-/******************************************************************************
-*                               vector_tools.cpp                              *
-===============================================================================
-* A collection of functions and related utilities intended to help perform    *
-* vector operations in cpp.                                                   *
-*******************************************************************************
-*/
+/**
+  *****************************************************************************
+  * \file vector_tools.cpp
+  *****************************************************************************
+  * A collection of functions and related utilities intended to help perform
+  * vector operations in cpp.
+  *****************************************************************************
+  */
 
 #include "vector_tools.h"
 
@@ -13,7 +14,7 @@ template<typename T>
 std::vector<T>& operator+=(std::vector<T> &lhs, const std::vector<T> &rhs){
     /*!
      * Overload the += operator for vectors
-     * 
+     *
      * :param std::vector<T> &lhs: The left-hand side vector
      * :param std::vector<T> &rhs: The right-hand side vector
      */
@@ -32,7 +33,7 @@ template<typename T>
 std::vector<T>& operator+=(std::vector<T> &lhs, const T &rhs){
     /*!
      * Overload the += operator for vector scalar addition
-     * 
+     *
      * :param std::vector<T> &lhs: The left-hand side vector
      * :param const T &rhs: The scalar being added to the vector
      */
@@ -47,7 +48,7 @@ template<typename T>
 std::vector<T> operator+(std::vector<T> lhs, const std::vector<T> &rhs){
     /*!
      * Overload the + operator for vectors
-     * 
+     *
      * :param std::vector<T> &lhs: The left-hand side vector
      * :param std::vector<T> &rhs: The right-hand side vector
      */
@@ -62,7 +63,7 @@ template<typename T>
 std::vector<T> operator+(std::vector<T> lhs, const T &rhs){
     /*!
      * Overload the + operator for vector - scalar addition
-     * 
+     *
      * :param std::vector<T> &lhs: The left-hand side vector
      * :param const T &rhs: The right-hand side vector
      */
@@ -74,7 +75,7 @@ template<typename T>
 std::vector<T> operator+(const T &lhs, std::vector<T> rhs){
     /*!
      * Overload the + operator for vectors
-     * 
+     *
      * :param std::vector<T> &lhs: The left-hand side vector
      * :param const T &rhs: The right-hand side vector
      */
@@ -86,7 +87,7 @@ template<typename T>
 std::vector<T> operator-(std::vector<T> v){
     /*!
      * Overload the negative operator for vectors
-     * 
+     *
      * :param std::vector<T> &v: The vector in question
      */
 
@@ -100,7 +101,7 @@ template<typename T>
 std::vector<T>& operator-=(std::vector<T> &lhs, const std::vector<T> &rhs){
     /*!
      * Overload the -= operator for vectors
-     * 
+     *
      * :param std::vector<T> &lhs: The left-hand side vector
      * :param std::vector<T> &rhs: The right-hand side vector
      */
@@ -111,7 +112,7 @@ template<typename T>
 std::vector<T>& operator-=(std::vector<T> &lhs, const T &rhs){
     /*!
      * Overload the subtraction operator for vector - scalar pairs
-     * 
+     *
      * :param std::vector<T> &lhs: The left-hand side vector.
      * :param const T &rhs: The right-hand side scalar.
      */
@@ -122,11 +123,11 @@ template<typename T>
 std::vector<T> operator-(std::vector<T> lhs, const std::vector<T> &rhs){
     /*!
      * Overload the subtraction operator for vectors
-     * 
+     *
      * :param std::vector<T> &lhs: The left-hand side vector
      * :param std::vector<T> &rhs: The right-hand side vector
      */
-    
+
     return lhs -= rhs;
 }
 
@@ -134,7 +135,7 @@ template<typename T>
 std::vector<T> operator-(std::vector<T> lhs, const T &rhs){
     /*!
      * Overload the subtraction operator for vector - scalar pairs
-     * 
+     *
      * :param std::vector<T> lhs: The left-hand side vector
      * :param const T &rhs: The right-hand side scalar
      */
@@ -146,7 +147,7 @@ template<typename T>
 std::vector<T> operator-(const T &lhs, std::vector<T> rhs){
     /*!
      * Overload the subtraction operator for vector - scalar pairs
-     * 
+     *
      * :param const T &lhs: The left-hand side scalar
      * :param std::vector<T> rhs: The right-hand side vector
      */
@@ -159,7 +160,7 @@ template<typename T, typename t>
 std::vector<T>& operator*=(std::vector<T> &lhs, const t rhs){
     /*!
      * Overload the *= operator for vectors
-     * 
+     *
      * :param std::vector<T> lhs: The left-hand side vector
      * :param const t rhs: The right-hand side scalar
      */
@@ -173,7 +174,7 @@ template<typename T, typename t>
 std::vector<T> operator*(const t lhs, std::vector<T> rhs){
     /*!
      * Overload the / operator for vectors
-     * 
+     *
      * :param const t lhs: The left-hand side scalar
      * :param std::vector<T> rhs: The right-hand side vector
      */
@@ -185,7 +186,7 @@ template<typename T, typename t>
 std::vector<T> operator*(std::vector<T> lhs, const t rhs){
     /*!
      * Overload the / operator for vectors
-     * 
+     *
      * :param std::vector<T> lhs: The left-hand side vector
      * :param const t rhs: The right-hand side scalar
      */
@@ -196,7 +197,7 @@ template<typename T, typename t>
 std::vector<T>& operator/=(std::vector<T> &lhs, const t rhs){
     /*!
      * Overload the /= operator for vectors
-     * 
+     *
      * :param std::vector<T> lhs: The left-hand side vector
      * :param const t rhs: The right-hand side scalar
      */
@@ -207,7 +208,7 @@ template<typename T, typename t>
 std::vector<T> operator/(std::vector<T> lhs, const t rhs){
     /*!
      * Overload the / operator for vectors
-     * 
+     *
      * :param std::vector<T> lhs: The left-hand side vector
      * :param const t rhs: The right-hand side scalar
      */
@@ -218,7 +219,7 @@ template<typename T>
 std::vector< std::vector< T > >& operator+=(std::vector< std::vector< T > > &lhs, const std::vector< std::vector< T > > &rhs){
     /*!
      * Overload the += operator for matrices
-     * 
+     *
      * :param std::vector< std::vector< T > > lhs: The left-hand side matrix
      * :param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
      */
@@ -237,7 +238,7 @@ template<typename T>
 std::vector< std::vector< T > > operator+(std::vector< std::vector< T > > lhs, const std::vector< std::vector< T > > &rhs){
     /*!
      * Overload the + operator for matrices
-     * 
+     *
      * :param std::vector< std::vector< T > > lhs: The left-hand side matrix
      * :param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
      */
@@ -249,7 +250,7 @@ template<typename T>
 std::vector< std::vector< T > > operator-(std::vector< std::vector< T > > v){
     /*!
      * Overload the negation operator for matrices.
-     * 
+     *
      * :param std::vector< std::vector< T > > v: The matrix to negate.
      */
 
@@ -263,7 +264,7 @@ template<typename T>
 std::vector< std::vector < T > >& operator-=(std::vector< std::vector< T > > &lhs, const std::vector< std::vector< T > > &rhs){
     /*!
      * Overload the -= operator for matrices
-     * 
+     *
      * :param std::vector< std::vector< T > > lhs: The left-hand side matrix
      * :param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
      */
@@ -283,7 +284,7 @@ template<typename T>
 std::vector< std::vector< T > > operator-(std::vector< std::vector< T > > lhs, const std::vector< std::vector< T > > &rhs){
     /*!
      * Overload the - operator for matrices
-     * 
+     *
      * :param std::vector< std::vector< T > > lhs: The left-hand side matrix
      * :param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
      */
@@ -297,7 +298,7 @@ namespace vectorTools{
     int computeMean(const std::vector< std::vector< T > > &A, std::vector< T > &v){
         /*!
          * Compute the column-wise mean of A
-         * 
+         *
          * :param matrixType &A: The matrix of vectors
          * :param vectorType &v: The resulting mean
          */
@@ -321,7 +322,7 @@ namespace vectorTools{
     std::vector< T > computeMean(const std::vector< std::vector< T > > &A){
         /*!
          * Compute the column-wise mean of A
-         * 
+         *
          * :param matrixType &A: The matrix of vectors
          */
 
@@ -335,9 +336,9 @@ namespace vectorTools{
         /*!
          * Compute the cross product of two vectors i.e. a x b
          * Note that if a and b are 2D vectors a 3D vector for c will be returned.
-         * 
+         *
          * TODO: Generalize this to n dimensions.
-         * 
+         *
          * :param std::vector< T > &a: The first vector
          * :param std::vector< T > &b: The second vector
          */
@@ -366,9 +367,9 @@ namespace vectorTools{
         /*!
          * Compute the cross product of two vectors i.e. a x b
          * Note that if a and b are 2D vectors a 3D vector for c will be returned
-         * 
+         *
          * TODO: Generalize this to n dimensions
-         * 
+         *
          * :param std::vector< T > &a: The first vector
          * :param std::vector< T > &b: The second vector
          */
@@ -382,7 +383,7 @@ namespace vectorTools{
     int dot(const std::vector< T > &a, const std::vector< T > &b, T &v){
         /*!
          * Compute the dot product of two vectors i.e. v = a_i b_i
-         * 
+         *
          * :param std::vector< T > &a: The first vector
          * :param std::vector< T > &b: The second vector
          * :param T &v: The output quantity
@@ -407,7 +408,7 @@ namespace vectorTools{
     T dot(const std::vector< T > &a, const std::vector< T > &b){
         /*!
          * Compute the dot product of two vectors i.e. v = a_i b_i
-         * 
+         *
          * :param std::vector< T > &a: The first vector
          * :param std::vector< T > &b: The second vector
          */
@@ -421,7 +422,7 @@ namespace vectorTools{
     std::vector< T > dot(const std::vector< std::vector< T > > &A, const std::vector< T > &b){
         /*!
          * Compute the dot product between a matrix and a vector resulting i.e. c_i = A_ij b_j
-         * 
+         *
          * :param std::vector< std::vector< T > > &A: The matrix
          * :param std::vector< T > &b: The vector
          */
@@ -441,7 +442,7 @@ namespace vectorTools{
     std::vector< T > Tdot(const std::vector< std::vector< T > > &A, const std::vector< T > &b){
         /*!
          * Compute the dot product between a matrix and a vector resulting i.e. c_i = A_ji b_j
-         * 
+         *
          * :param std::vector< std::vector< T > > &A: The matrix
          * :param std::vector< T > &b: The vector
          */
@@ -470,7 +471,7 @@ namespace vectorTools{
     std::vector< std::vector< T > > dot(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
         /*!
          * Compute the dot product between two matrices i.e. C_{ij} = A_{ik} B_{kj}
-         * 
+         *
          * :param std::vector< std::vector< T > > &A: The first matrix
          * :param std::vector< std::vector< T > > &B: The second matrix
          */
@@ -517,7 +518,7 @@ namespace vectorTools{
     std::vector< std::vector< T > > dotT(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
         /*!
          * Compute the dot product between two matrices where the second is transposed i.e. C_{ij} = A_{ik} B_{jk}
-         * 
+         *
          * :param std::vector< std::vector< T > > &A: The first matrix
          * :param std::vector< std::vector< T > > &B: The second matrix
          */
@@ -564,7 +565,7 @@ namespace vectorTools{
     std::vector< std::vector< T > > Tdot(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
         /*!
          * Compute the dot product between two matrices where the first is transposed i.e. C_{ij} = A_{ki} B_{kj}
-         * 
+         *
          * :param std::vector< std::vector< T > > &A: The first matrix
          * :param std::vector< std::vector< T > > &B: The second matrix
          */
@@ -621,7 +622,7 @@ namespace vectorTools{
     std::vector< std::vector< T > > TdotT(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
         /*!
          * Compute the dot product between two matrices where both are transposed i.e. C_{ij} = A_{ki} B_{jk}
-         * 
+         *
          * :param std::vector< std::vector< T > > &A: The first matrix
          * :param std::vector< std::vector< T > > &B: The second matrix
          */
@@ -641,9 +642,9 @@ namespace vectorTools{
     template<typename T>
     int inner(const std::vector< T > &A, const std::vector< T > &B, T &result){
         /*!
-         * Compute the inner product between two matrices stored in row major format 
+         * Compute the inner product between two matrices stored in row major format
          * innerProduct = \sum{A_{ij}*B_{ij}}
-         * 
+         *
          * :param std::vector< T > &A: The first matrix in row major format
          * :param std::vector< T > &B: The second matrix in row major format
          * :param T &result: The inner product scalar
@@ -658,9 +659,9 @@ namespace vectorTools{
     template<typename T>
     T inner(const std::vector< T > &A, const std::vector< T > &B){
         /*!
-         * Compute the inner product between two matrices stored in row major format 
+         * Compute the inner product between two matrices stored in row major format
          * innerProduct = \sum{A_{ij}*B_{ij}}
-         * 
+         *
          * :param std::vector< T > &A: The first matrix in row major format
          * :param std::vector< T > &B: The second matrix in row major format
          * :return: The inner product scalar
@@ -676,10 +677,10 @@ namespace vectorTools{
     template<typename T>
     int inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B, T &result){
         /*!
-         * Compute the inner product between two matrices stored in matrix format 
+         * Compute the inner product between two matrices stored in matrix format
          * innerProduct = \sum{A_{ij}*B_{ij}}
-         * 
-         * :param std::vector< std::vector < T > > &A: The first matrix 
+         *
+         * :param std::vector< std::vector < T > > &A: The first matrix
          * :param std::vector< std::vector < T > > &B: The second matrix
          * :param T &result: The inner product scalar
          */
@@ -704,10 +705,10 @@ namespace vectorTools{
     template<typename T>
     T inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
         /*!
-         * Compute the inner product between two matrices stored in matrix format 
+         * Compute the inner product between two matrices stored in matrix format
          * innerProduct = \sum{A_{ij}*B_{ij}}
-         * 
-         * :param std::vector< std::vector < T > > &A: The first matrix 
+         *
+         * :param std::vector< std::vector < T > > &A: The first matrix
          * :param std::vector< std::vector < T > > &B: The second matrix
          * :return: The inner product scalar
          * :rtype: T result
@@ -724,26 +725,26 @@ namespace vectorTools{
     int trace(const std::vector< T > &A, T &v){
         /*!
          * Compute the trace of a square matrix in row major format: v = sum(A_ii)
-         * 
+         *
          * :param std::vector< T > &A: The matrix in row major format
          * :param T &v: The scalar output quantity
          */
-    
+
         //Get the size and perform error handling
         unsigned int length = A.size();
         unsigned int dimension = std::round(std::sqrt(length));
         if (dimension*dimension != length){
             throw std::length_error("The trace can only be computed for square matrices.");
         }
-    
+
         //Set v to zero
         v = 0;
-    
+
         //Compute the trace
         for (size_type i=0; i<dimension; i++){
             v += A[dimension*i + i];
         }
-    
+
         return 0;
     }
 
@@ -751,7 +752,7 @@ namespace vectorTools{
     T trace(const std::vector< T > &A){
         /*!
          * Compute the trace of a square matrix in row major format: v = sum(A_ii)
-         * 
+         *
          * :param std::vector< T > &A: The matrix in row major format
          * :param T &v: The scalar output quantity
          */
@@ -765,7 +766,7 @@ namespace vectorTools{
     int trace(const std::vector< std::vector< T > > &A, T &v){
         /*!
          * Compute the trace of a square matrix: v = sum(A_ii)
-         * 
+         *
          * :param std::vector< std::vector< T > > &A: The matrix
          * :param T &v: The scalar output quantity
          */
@@ -774,28 +775,28 @@ namespace vectorTools{
         std::vector< T > Avec = appendVectors(A);
 
         trace(Avec, v);
-        return 0; 
+        return 0;
     }
 
     template<typename T>
     T trace(const std::vector< std::vector< T > > &A){
         /*!
          * Compute the trace of a square matrix: v = sum(A_ii)
-         * 
+         *
          * :param std::vector< std::vector< T > > &A: The matrix
          * :param T &v: The scalar output quantity
          */
 
         T v;
         trace(A, v);
-        return v; 
+        return v;
     }
 
     template<typename T>
     double l2norm(const std::vector< T > &v){
         /*!
          * Compute the l2 norm of the vector v i.e. (v_i v_i)^(0.5)
-         * 
+         *
          * :param const std::vector< T > &v: The vector to compute the norm of
          */
 
@@ -806,7 +807,7 @@ namespace vectorTools{
     double l2norm(const std::vector< std::vector < T > > &A){
         /*!
          * Compute the l2 norm of the matrix A i.e. (A_ij A_ij)^(0.5)
-         * 
+         *
          * :param const std::vector< std::vector< T > > &A: The matrix to compute the norm of
          */
 
@@ -832,7 +833,7 @@ namespace vectorTools{
     int dyadic(const std::vector< T > &a, const std::vector< T > &b, std::vector< std::vector< T > > &A){
         /*!
          * Compute the dyadic product between two vectors return a matrix i.e. A_ij = a_i b_j
-         * 
+         *
          * :param const std::vector< T > &a: The first vector
          * :param const std::vector< T > &b: The second vector
          * :param std::vector< std::vector< T > > &A: The returned matrix
@@ -854,7 +855,7 @@ namespace vectorTools{
     int eye(std::vector< T > &I){
         /*!
          * Construct an identity tensor in row major format
-         * 
+         *
          * :param std::vector< T > &I: The identity matrix
          */
 
@@ -878,7 +879,7 @@ namespace vectorTools{
     std::vector< std::vector< T > > eye(const unsigned int dim){
         /*!
          * Construct an identity tensor of the size indicated by dim
-         * 
+         *
          * :param const unsigned int dim: The dimension of the matrix
          */
 
@@ -893,7 +894,7 @@ namespace vectorTools{
     int eye(const unsigned int dim, std::vector< std::vector< T > > &I){
         /*!
          * Construct an identity tensor of the size indicated by dim
-         * 
+         *
          * :param const unsigned int dim: The dimension of the matrix
          */
 
@@ -906,14 +907,14 @@ namespace vectorTools{
     T median(const std::vector< T > &x){
         /*!
          * Compute the median of a vector x
-         *  
+         *
          * :param const std::vector< T > &x: The vector to compute the median of.
          */
 
         unsigned int n = x.size();
         std::vector< T > xcopy = x;
         std::sort(xcopy.begin(), xcopy.end());
-        
+
         if ( (n & 2) == 0){
             return xcopy[n / 2];
         }
@@ -926,7 +927,7 @@ namespace vectorTools{
     std::vector< T > abs(const std::vector< T > &x){
         /*!
          * Compute the absolute value of every component of a vector.
-         * 
+         *
          * :param const std::vector< T > &x: The vector to compute the absolute value of.
          */
 
@@ -941,9 +942,9 @@ namespace vectorTools{
     template< typename T >
     bool fuzzyEquals(const T &a, const T &b, double tolr, double tola){
         /*!
-         * Compare two values to determine if they are equal within a 
+         * Compare two values to determine if they are equal within a
          * tolerance.
-         * 
+         *
          * :param const T &a: The first value to compare
          * :param const T &b: The second value to compare
          * :param double tolr: The relative tolerance
@@ -957,9 +958,9 @@ namespace vectorTools{
     template< typename T >
     bool fuzzyEquals(const std::vector< T > &a, const std::vector< T > &b, double tolr, double tola){
         /*!
-         * Compare two vectors to determine if they are equal within a 
+         * Compare two vectors to determine if they are equal within a
          * tolerance.
-         * 
+         *
          * :param const std::vector< T > &a: The first vector to compare
          * :param const std::vector< T > &b: The second vector to compare
          * :param double tolr: The relative tolerance
@@ -981,9 +982,9 @@ namespace vectorTools{
     template< typename T >
     bool fuzzyEquals(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B, double tolr, double tola){
         /*!
-         * Compare two matrices to determine if they are equal within a 
+         * Compare two matrices to determine if they are equal within a
          * tolerance.
-         * 
+         *
          * :param const std::vector< std::vector< T > > &a: The first matrix to compare
          * :param const std::vector< std::vector< T > > &b: The second matrix to compare
          * :param double tolr: The relative tolerance
@@ -1011,12 +1012,12 @@ namespace vectorTools{
          */
          return a == b;
     }
-    
+
     template<typename T>
     bool equals(const std::vector< T > &a, const std::vector< T > &b){
         /*!
          * Compare two vectors for exact equality
-         * 
+         *
          * :param const std::vector< T > &a: The first vector to compare
          * :param const std::vector< T > &b: The second vector to compare
          */
@@ -1031,16 +1032,16 @@ namespace vectorTools{
         }
         return true;
     }
-    
+
     template<typename T>
     bool equals(const std::vector< std::vector< T > > &a, const std::vector< std::vector< T > > &b){
         /*!
          * Compare two matrices for exact equality
-         * 
+         *
          * :param const std::vector< T > &a: The first matrix to compare
          * :param const std::vector< T > &b: The second matrix to compare
          */
-    
+
         unsigned int size = a.size();
         if (size != b.size()){
             return false;
@@ -1057,7 +1058,7 @@ namespace vectorTools{
     bool isParallel(const std::vector< T > &v1, const std::vector< T > &v2){
         /*!
          * Compare two vectors and determine if they are parallel
-         * 
+         *
          * :param std::vector< T > &v1: The first vector
          * :param std::vector< T > &v2: The second vector
          */
@@ -1082,7 +1083,7 @@ namespace vectorTools{
         std::vector< T > &subv){
         /*!
          * Get the values of a vector referenced by index
-         * 
+         *
          * :param const std::vector< T > &v: The vector from which to retrieve get a sub-vector
          * :param const std::vector< size_type > &indices: The indices to retrieve
          * :param std::vector< T > &subv: The subvector of values
@@ -1103,12 +1104,12 @@ namespace vectorTools{
     std::vector< T > appendVectors(const std::vector< std::vector< T > > &A){
         /*!
          * Append a matrix into a row-major vector.
-         * 
+         *
          * :param const std::vector< std::vector< T > > &A: The matrix to be appended
          */
 
         std::vector< T > Avec;
-        
+
         for (auto Ai=A.begin(); Ai!=A.end(); Ai++){
             Avec.insert(Avec.end(), (*Ai).begin(), (*Ai).end());
         }
@@ -1119,7 +1120,7 @@ namespace vectorTools{
     std::vector< T > appendVectors(const std::initializer_list< std::vector< T > > &list){
         /*!
          * Append a brace-enclosed initializer list to a row-major vector
-         * 
+         *
          * :param const std::initializer_list< std::vector< T > > list: The list of vectors to append
          */
 
@@ -1134,7 +1135,7 @@ namespace vectorTools{
     std::vector< std::vector< T > > inflate( const std::vector< T > &Avec, const unsigned int &nrows, const unsigned int &ncols ){
         /*!
          * Inflate the provided row-major vector into a 2D matrix.
-         * 
+         *
          * :param const std::vector &Avec: The matrix in row-major form.
          * :param const unsigned int &nrows: The number of rows in the matrix.
          * :param const unsigned int &ncols: The number of columns in the matrix.
@@ -1160,7 +1161,7 @@ namespace vectorTools{
         /*!
          * Find the indices required to sort a vector
          * Code from: https://stackoverflow.com/questions/1577475/c-sorting-and-keeping-track-of-indexes
-         * 
+         *
          * :param const std::vector< T > &v: The vector to get the index sorted properties.
          */
 
@@ -1180,7 +1181,7 @@ namespace vectorTools{
     int print(const std::vector< T > &v){
         /*!
          * Print the contents of the vector to the terminal assuming << has been defined for each component
-         * 
+         *
          * :param std::vector< T > &v: The vector to be displayed
          */
 
@@ -1195,7 +1196,7 @@ namespace vectorTools{
     int print(const std::vector< std::vector< T > > &A){
         /*!
          * Print the contents of the matrix to the terminal assuming << has been defined for each component
-         * 
+         *
          * :param std::vector< std::vector< T > > &A: The matrix to be displayed
          */
 
@@ -1211,7 +1212,7 @@ namespace vectorTools{
             unsigned int &rank){
             /*!
              * Solve a linear system of equations using Eigen. Note this uses a dense solver.
-             * 
+             *
              * :param const std::vector< std::vector< T > > &A: The A matrix
              * :param const std::vector< T > &b: The b vector
              * :param unsigned int &rank: The rank of A
@@ -1236,7 +1237,7 @@ namespace vectorTools{
             const unsigned int nrows, const unsigned int ncols, unsigned int &rank){
             /*!
              * Solve a linear system of equations using Eigen.
-             * 
+             *
              * :param const std::vector< T > &Avec: The vector form of the A matrix (row major)
              * :param const std::vector< T > &b: The b vector
              * :param const unsigned int nrows: The number of rows of A
@@ -1273,7 +1274,7 @@ namespace vectorTools{
         T determinant(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols){
             /*!
              * Compute the determinant of the matrix A
-             * 
+             *
              * :param const std::vector< T > &Avec: The vector form of the A matrix (row major)
              * :param const unsigned int nrows: The number of rows
              * :param const unsigned int ncols: The number of columns
@@ -1293,7 +1294,7 @@ namespace vectorTools{
         std::vector< double > inverse(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols){
             /*!
              * Compute the inverse of a matrix in row-major format
-             * 
+             *
              * :param const std::vector< T > &Avec: The vector form of the A matrix (row major)
              * :param const unsigned int nrows: The number of rows
              * :param const unsigned int ncols: The number of columns
@@ -1311,7 +1312,7 @@ namespace vectorTools{
 
             //Set up the Eigen map for A
             Eigen::Map < const Eigen::Matrix<T, -1, -1, Eigen::RowMajor> > Amat(Avec.data(), nrows, ncols);
-            
+
             //Set up the Eigen map for the inverse
             std::vector< double > AinvVec(nrows*ncols);
             Eigen::Map< Eigen::MatrixXd > Ainv(AinvVec.data(), ncols, nrows);
@@ -1326,7 +1327,7 @@ namespace vectorTools{
         std::vector< std::vector< double > > inverse( const std::vector< std::vector< T > > &A ){
             /*!
              * Compute the inverse of a matrix
-             * 
+             *
              * :param const std::vector< std::vector< T > > &A: The vector form of the A matrix
              */
 
@@ -1346,7 +1347,7 @@ namespace vectorTools{
 
             std::vector< T > Avec = appendVectors( A );
             std::vector< double > Ainvvec = inverse( Avec, nrows, ncols );
-            
+
             return inflate( Ainvvec, nrows, ncols );
         }
 
@@ -1354,7 +1355,7 @@ namespace vectorTools{
         std::vector< double > computeDDetAdJ(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols){
             /*!
              * Compute the derivative of the determinant of a matrix w.r.t. the matrix
-             * 
+             *
              * :param const std::vector< T > &Avec: The matrix in vector form.
              * :param const unsigned int nrows: The number of rows in A
              * :param const unsigned int ncols: The number of columns in A
@@ -1371,9 +1372,9 @@ namespace vectorTools{
 
             //Compute the derivative
             ddetAdAmat = detA * Amat.inverse(); //Note lack of transpose because of how Eigen works
-            
+
             return ddetAdA;
-            
+
         }
 
         template< typename T >
@@ -1387,9 +1388,9 @@ namespace vectorTools{
              * $C_{ij} = A_{ki} B_{kj}$ if Atranspose = true, Btranspose = false
              * $C_{ij} = A_{ik} B_{jk}$ if Atranspose = false, Btranspose = true
              * $C_{ij} = A_{ki} B_{jk}$ if Atranspose = true, Btranspose = true
-             * 
+             *
              * NOTE: The shape of B will be determined from the shape of A.
-             * 
+             *
              * :param const std::vector< T > &A: The A matrix in row-major format
              * :param const std::vector< T > &B: The B matrix in row-major format
              * :param const unsigned int Arows: The number of rows in A
@@ -1418,7 +1419,7 @@ namespace vectorTools{
             if ( Atranspose && Btranspose){
                 C = std::vector< T >( Acols * Brows, 0);
                 Eigen::Map < Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Cmat(C.data(), Acols, Brows);
-                
+
                 Cmat = Amat.transpose();
                 Cmat *= Bmat.transpose();
             }
@@ -1445,13 +1446,13 @@ namespace vectorTools{
         }
 
         template< typename T >
-        int __matrixSqrtResidual(const std::vector< T > &A, const unsigned int Arows, 
+        int __matrixSqrtResidual(const std::vector< T > &A, const unsigned int Arows,
                                  const std::vector< T > &X,
                                  std::vector< double > &R, std::vector< std::vector< double > > &J){
             /*!
              * Compute the residual equation for the square root of a matrix.
              * This function is not intended to be accessed by the user.
-             * 
+             *
              * :param const std::vector< double > &A: The matrix A in row major form.
              * :param const unsigned int Arows: The number of rows in A.
              * :param const std::vector< double > &X: The estimate of the square root of A
@@ -1474,7 +1475,7 @@ namespace vectorTools{
             temp = Xmat;
             temp *= Xmat;
             Rmat = Amat - temp;
- 
+
             for (unsigned int i=0; i<Arows; i++){
                 for (unsigned int j=0; j<Arows; j++){
                     for (unsigned int k=0; k<Arows; k++){
@@ -1494,7 +1495,7 @@ namespace vectorTools{
                                     const unsigned int maxLS){
             /*!
              * Solve for the square root of the square matrix A.
-             * 
+             *
              * :param const std::vector< double > &A: The matrix A in row major form.
              * :param const unsigned int Arows: The number of rows in A.
              * :param const std::vector< std::vector< double > > &dAdX: The gradient of A w.r.t. X
@@ -1509,13 +1510,13 @@ namespace vectorTools{
         }
 
         template< typename T >
-        std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows, 
+        std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
                                     std::vector< std::vector< double > > &dAdX,
-                                    const double tolr, const double tola, const unsigned int maxIter, 
+                                    const double tolr, const double tola, const unsigned int maxIter,
                                     const unsigned int maxLS){
             /*!
              * Solve for the square root of the square matrix A.
-             * 
+             *
              * :param const std::vector< T > &A: The matrix A in row major form.
              * :param const unsigned int Arows: The number of rows in A.
              * :param const std::vector< std::vector< double > > &dAdX: The gradient of A w.r.t. X
@@ -1592,10 +1593,10 @@ namespace vectorTools{
             if (Rp > tol){
                 throw std::invalid_argument("Matrix square root did not converge");
             }
- 
+
             //Set the jacobian
-            dAdX = -J;           
- 
+            dAdX = -J;
+
             return X;
         }
 
