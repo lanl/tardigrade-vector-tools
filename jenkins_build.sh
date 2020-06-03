@@ -1,24 +1,50 @@
 #!/usr/bin/env bash
 
-# Source the Intel compilers
-source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
+# TODO: update the release environment and source that instead
+# NOTE: activation will fail if/when conda is updated to >=4.4
+# Activate the release-cpp environment
+case $OSTYPE in
+    darwin*)
+        apps="/Users/apps"
+        projects="/Users/projects"
+        ;;
+    linux-gnu*)
+        apps="/apps"
+        projects="/projects"
+        ;;
+    *)
+        echo "Detected OS $OSTYPE is not supported. Exiting."
+        exit 3
+        ;;
+esac
+source "${apps}/anaconda/5.0.1-python-3.6/bin/activate" 
+source activate "${projects}/python/release-cpp"
 
 # Make bash script more like high-level languages.
-# https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
-# Have to do this after sourcing ifortvars.sh becuase the shell script has unbound variables
 set -Eeuxo pipefail
 
-# Clone and update dependencies
-source update_dependencies.sh
+# Debugging
+whoami
+groups
+ls -l ~/include || true
+ls -l ~/include/eigen3 || true
+ls -l ~/include/eigen3/Eigen || true
+ls -l ~/include/eigen3/Eigen/Dense || true
 
-# Build repo tests
-cd ${workdir}/src/cpp/tests/${repo}/
-if [ -f ${repo}.o ] || [ -f test_${repo}.o ]; then
-    make clean
-fi
-make
+# Source common shell script variables
+source set_vars.sh
+
+# Check conda environment for debugging
+conda info | grep default
+
+# Clone and update dependencies
+./update_dependencies.sh
+
+# Clean and build repo tests
+./new_build.sh
 
 # Perform repo tests
+cd "build/${tests}"
 ./test_${repo}
 
 # Check for failed tests

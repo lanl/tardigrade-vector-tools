@@ -30,6 +30,38 @@ directory as this repo.
 The project is transitioning from Make to Cmake. For cmake builds, Eigen must be
 "installed" following the ``eigen/INSTALL`` instructions. The Eigen dependence
 is easiest to resolve if eigen is installed in the default install directory.
+However, if you don't have admin privileges, you can also insall Eigen to your
+home directory in ``~/include`` (or possibly in ``~/.local/include``, but this
+is untested by this project).
+
+#### Non-admin Eigen install for vector_tools
+[Reference](https://unix.stackexchange.com/questions/36871/where-should-a-local-executable-be-placed)
+
+```
+# sstelmo
+ssh -X sstelmo.lanl.gov
+# source Intel compilers
+source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
+# Create personal include file directory
+$ pwd
+/home/$USER
+$ mkdir include
+# Move to repository directory
+$ cd /preferred/path/to/repos
+# Example
+$ pwd
+/projects/$USER/e13repos
+# Clone eigen
+$ git clone https://gitlab.com/libeigen/eigen.git
+$ cd eigen
+$ git checkout 3.3.7
+# Build eigen
+$ mkdir build
+$ cd build
+$ export CXX=$(command -v icpc)
+$ cmake3 .. -DCMAKE_INSTALL_PREFIX=/home/$USER
+$ make install
+```
 
 ---
 

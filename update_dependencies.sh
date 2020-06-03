@@ -24,3 +24,4 @@ for deprepodir in "${!deprepo[@]}"; do
         cd ..
     fi
 done
+cd ${workdir}
