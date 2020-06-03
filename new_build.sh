@@ -23,4 +23,4 @@ rm -rf build/
 mkdir build
 cd build
 ${cmake_exec} ..
-${cmake_exec} --build .
+${cmake_exec} --build . --verbose
