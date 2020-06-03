@@ -15,8 +15,8 @@ std::vector<T>& operator+=(std::vector<T> &lhs, const std::vector<T> &rhs){
     /*!
      * Overload the += operator for vectors
      *
-     * \param std::vector<T> &lhs: The left-hand side vector
-     * \param std::vector<T> &rhs: The right-hand side vector
+     * \param &lhs: The left-hand side vector
+     * \param &rhs: The right-hand side vector
      */
 
     if (lhs.size() != rhs.size()){
@@ -34,8 +34,8 @@ std::vector<T>& operator+=(std::vector<T> &lhs, const T &rhs){
     /*!
      * Overload the += operator for vector scalar addition
      *
-     * \param std::vector<T> &lhs: The left-hand side vector
-     * \param const T &rhs: The scalar being added to the vector
+     * \param &lhs: The left-hand side vector
+     * \param &rhs: The scalar being added to the vector
      */
 
     for (vectorTools::size_type i=0; i<lhs.size(); i++){
@@ -49,8 +49,8 @@ std::vector<T> operator+(std::vector<T> lhs, const std::vector<T> &rhs){
     /*!
      * Overload the + operator for vectors
      *
-     * \param std::vector<T> &lhs: The left-hand side vector
-     * \param std::vector<T> &rhs: The right-hand side vector
+     * \param &lhs: The left-hand side vector
+     * \param &rhs: The right-hand side vector
      */
 
     if (lhs.size() != rhs.size()){
@@ -64,8 +64,8 @@ std::vector<T> operator+(std::vector<T> lhs, const T &rhs){
     /*!
      * Overload the + operator for vector - scalar addition
      *
-     * \param std::vector<T> &lhs: The left-hand side vector
-     * \param const T &rhs: The right-hand side vector
+     * \param &lhs: The left-hand side vector
+     * \param &rhs: The right-hand side vector
      */
 
     return lhs += rhs;
@@ -76,8 +76,8 @@ std::vector<T> operator+(const T &lhs, std::vector<T> rhs){
     /*!
      * Overload the + operator for vectors
      *
-     * \param std::vector<T> &lhs: The left-hand side vector
-     * \param const T &rhs: The right-hand side vector
+     * \param &lhs: The left-hand side vector
+     * \param &rhs: The right-hand side vector
      */
 
     return rhs += lhs;
@@ -88,7 +88,7 @@ std::vector<T> operator-(std::vector<T> v){
     /*!
      * Overload the negative operator for vectors
      *
-     * \param std::vector<T> &v: The vector in question
+     * \param &v: The vector in question
      */
 
     for (vectorTools::size_type i=0; i<v.size(); i++){
@@ -102,8 +102,8 @@ std::vector<T>& operator-=(std::vector<T> &lhs, const std::vector<T> &rhs){
     /*!
      * Overload the -= operator for vectors
      *
-     * \param std::vector<T> &lhs: The left-hand side vector
-     * \param std::vector<T> &rhs: The right-hand side vector
+     * \param &lhs: The left-hand side vector
+     * \param &rhs: The right-hand side vector
      */
     return lhs += -rhs;
 }
@@ -113,8 +113,8 @@ std::vector<T>& operator-=(std::vector<T> &lhs, const T &rhs){
     /*!
      * Overload the subtraction operator for vector - scalar pairs
      *
-     * \param std::vector<T> &lhs: The left-hand side vector.
-     * \param const T &rhs: The right-hand side scalar.
+     * \param &lhs: The left-hand side vector.
+     * \param &rhs: The right-hand side scalar.
      */
     return lhs += -rhs;
 }
@@ -124,8 +124,8 @@ std::vector<T> operator-(std::vector<T> lhs, const std::vector<T> &rhs){
     /*!
      * Overload the subtraction operator for vectors
      *
-     * \param std::vector<T> &lhs: The left-hand side vector
-     * \param std::vector<T> &rhs: The right-hand side vector
+     * \param &lhs: The left-hand side vector
+     * \param &rhs: The right-hand side vector
      */
 
     return lhs -= rhs;
@@ -136,8 +136,8 @@ std::vector<T> operator-(std::vector<T> lhs, const T &rhs){
     /*!
      * Overload the subtraction operator for vector - scalar pairs
      *
-     * \param std::vector<T> lhs: The left-hand side vector
-     * \param const T &rhs: The right-hand side scalar
+     * \param lhs: The left-hand side vector
+     * \param &rhs: The right-hand side scalar
      */
 
     return lhs -= rhs;
@@ -148,8 +148,8 @@ std::vector<T> operator-(const T &lhs, std::vector<T> rhs){
     /*!
      * Overload the subtraction operator for vector - scalar pairs
      *
-     * \param const T &lhs: The left-hand side scalar
-     * \param std::vector<T> rhs: The right-hand side vector
+     * \param &lhs: The left-hand side scalar
+     * \param rhs: The right-hand side vector
      */
 
     rhs -= lhs;
@@ -161,8 +161,8 @@ std::vector<T>& operator*=(std::vector<T> &lhs, const t rhs){
     /*!
      * Overload the *= operator for vectors
      *
-     * \param std::vector<T> lhs: The left-hand side vector
-     * \param const t rhs: The right-hand side scalar
+     * \param lhs: The left-hand side vector
+     * \param rhs: The right-hand side scalar
      */
     for (vectorTools::size_type i=0; i<lhs.size(); i++){
         lhs[i] *= rhs;
@@ -175,8 +175,8 @@ std::vector<T> operator*(const t lhs, std::vector<T> rhs){
     /*!
      * Overload the / operator for vectors
      *
-     * \param const t lhs: The left-hand side scalar
-     * \param std::vector<T> rhs: The right-hand side vector
+     * \param lhs: The left-hand side scalar
+     * \param rhs: The right-hand side vector
      */
     return rhs*=lhs;
 }
@@ -187,8 +187,8 @@ std::vector<T> operator*(std::vector<T> lhs, const t rhs){
     /*!
      * Overload the / operator for vectors
      *
-     * \param std::vector<T> lhs: The left-hand side vector
-     * \param const t rhs: The right-hand side scalar
+     * \param lhs: The left-hand side vector
+     * \param rhs: The right-hand side scalar
      */
     return lhs*=rhs;
 }
@@ -198,8 +198,8 @@ std::vector<T>& operator/=(std::vector<T> &lhs, const t rhs){
     /*!
      * Overload the /= operator for vectors
      *
-     * \param std::vector<T> lhs: The left-hand side vector
-     * \param const t rhs: The right-hand side scalar
+     * \param lhs: The left-hand side vector
+     * \param rhs: The right-hand side scalar
      */
     return lhs*=(1./rhs);
 }
@@ -209,8 +209,8 @@ std::vector<T> operator/(std::vector<T> lhs, const t rhs){
     /*!
      * Overload the / operator for vectors
      *
-     * \param std::vector<T> lhs: The left-hand side vector
-     * \param const t rhs: The right-hand side scalar
+     * \param lhs: The left-hand side vector
+     * \param rhs: The right-hand side scalar
      */
     return lhs/=rhs;
 }
@@ -220,8 +220,8 @@ std::vector< std::vector< T > >& operator+=(std::vector< std::vector< T > > &lhs
     /*!
      * Overload the += operator for matrices
      *
-     * \param std::vector< std::vector< T > > lhs: The left-hand side matrix
-     * \param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
+     * \param lhs: The left-hand side matrix
+     * \param &rhs: The right-hand side matrix
      */
 
     if (lhs.size() != rhs.size()){
@@ -239,8 +239,8 @@ std::vector< std::vector< T > > operator+(std::vector< std::vector< T > > lhs, c
     /*!
      * Overload the + operator for matrices
      *
-     * \param std::vector< std::vector< T > > lhs: The left-hand side matrix
-     * \param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
+     * \param lhs: The left-hand side matrix
+     * \param &rhs: The right-hand side matrix
      */
 
     return lhs += rhs;
@@ -251,7 +251,7 @@ std::vector< std::vector< T > > operator-(std::vector< std::vector< T > > v){
     /*!
      * Overload the negation operator for matrices.
      *
-     * \param std::vector< std::vector< T > > v: The matrix to negate.
+     * \param v: The matrix to negate.
      */
 
     for (unsigned int i=0; i<v.size(); i++){
@@ -265,8 +265,8 @@ std::vector< std::vector < T > >& operator-=(std::vector< std::vector< T > > &lh
     /*!
      * Overload the -= operator for matrices
      *
-     * \param std::vector< std::vector< T > > lhs: The left-hand side matrix
-     * \param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
+     * \param lhs: The left-hand side matrix
+     * \param &rhs: The right-hand side matrix
      */
 
     if (lhs.size() != rhs.size()){
@@ -285,8 +285,8 @@ std::vector< std::vector< T > > operator-(std::vector< std::vector< T > > lhs, c
     /*!
      * Overload the - operator for matrices
      *
-     * \param std::vector< std::vector< T > > lhs: The left-hand side matrix
-     * \param const std::vector< std::vector< T > > &rhs: The right-hand side matrix
+     * \param lhs: The left-hand side matrix
+     * \param &rhs: The right-hand side matrix
      */
     return lhs -= rhs;
 }
@@ -299,8 +299,8 @@ namespace vectorTools{
         /*!
          * Compute the column-wise mean of A
          *
-         * \param matrixType &A: The matrix of vectors
-         * \param vectorType &v: The resulting mean
+         * \param &A: The matrix of vectors
+         * \param &v: The resulting mean
          */
 
         if (A.size() == 0){
@@ -323,7 +323,7 @@ namespace vectorTools{
         /*!
          * Compute the column-wise mean of A
          *
-         * \param matrixType &A: The matrix of vectors
+         * \param &A: The matrix of vectors
          */
 
         std::vector< T > v;
@@ -339,8 +339,8 @@ namespace vectorTools{
          *
          * TODO: Generalize this to n dimensions.
          *
-         * \param std::vector< T > &a: The first vector
-         * \param std::vector< T > &b: The second vector
+         * \param &a: The first vector
+         * \param &b: The second vector
          */
 
         size_type size = a.size();
@@ -370,8 +370,8 @@ namespace vectorTools{
          *
          * TODO: Generalize this to n dimensions
          *
-         * \param std::vector< T > &a: The first vector
-         * \param std::vector< T > &b: The second vector
+         * \param &a: The first vector
+         * \param &b: The second vector
          */
 
          std::vector< T > c;
@@ -384,9 +384,9 @@ namespace vectorTools{
         /*!
          * Compute the dot product of two vectors i.e. v = a_i b_i
          *
-         * \param std::vector< T > &a: The first vector
-         * \param std::vector< T > &b: The second vector
-         * \param T &v: The output quantity
+         * \param &a: The first vector
+         * \param &b: The second vector
+         * \param &v: The output quantity
          */
 
         //Get the size and perform error handling
@@ -409,8 +409,8 @@ namespace vectorTools{
         /*!
          * Compute the dot product of two vectors i.e. v = a_i b_i
          *
-         * \param std::vector< T > &a: The first vector
-         * \param std::vector< T > &b: The second vector
+         * \param &a: The first vector
+         * \param &b: The second vector
          */
 
         T v;
@@ -423,8 +423,8 @@ namespace vectorTools{
         /*!
          * Compute the dot product between a matrix and a vector resulting i.e. c_i = A_ij b_j
          *
-         * \param std::vector< std::vector< T > > &A: The matrix
-         * \param std::vector< T > &b: The vector
+         * \param &A: The matrix
+         * \param &b: The vector
          */
 
         size_type size = A.size();
@@ -443,8 +443,8 @@ namespace vectorTools{
         /*!
          * Compute the dot product between a matrix and a vector resulting i.e. c_i = A_ji b_j
          *
-         * \param std::vector< std::vector< T > > &A: The matrix
-         * \param std::vector< T > &b: The vector
+         * \param &A: The matrix
+         * \param &b: The vector
          */
 
         size_type size = A.size();
@@ -472,8 +472,8 @@ namespace vectorTools{
         /*!
          * Compute the dot product between two matrices i.e. C_{ij} = A_{ik} B_{kj}
          *
-         * \param std::vector< std::vector< T > > &A: The first matrix
-         * \param std::vector< std::vector< T > > &B: The second matrix
+         * \param &A: The first matrix
+         * \param &B: The second matrix
          */
 
         size_type rows = A.size();
@@ -519,8 +519,8 @@ namespace vectorTools{
         /*!
          * Compute the dot product between two matrices where the second is transposed i.e. C_{ij} = A_{ik} B_{jk}
          *
-         * \param std::vector< std::vector< T > > &A: The first matrix
-         * \param std::vector< std::vector< T > > &B: The second matrix
+         * \param &A: The first matrix
+         * \param &B: The second matrix
          */
 
         size_type Arows = A.size();
@@ -566,8 +566,8 @@ namespace vectorTools{
         /*!
          * Compute the dot product between two matrices where the first is transposed i.e. C_{ij} = A_{ki} B_{kj}
          *
-         * \param std::vector< std::vector< T > > &A: The first matrix
-         * \param std::vector< std::vector< T > > &B: The second matrix
+         * \param &A: The first matrix
+         * \param &B: The second matrix
          */
 
         size_type Arows = A.size();
@@ -623,8 +623,8 @@ namespace vectorTools{
         /*!
          * Compute the dot product between two matrices where both are transposed i.e. C_{ij} = A_{ki} B_{jk}
          *
-         * \param std::vector< std::vector< T > > &A: The first matrix
-         * \param std::vector< std::vector< T > > &B: The second matrix
+         * \param &A: The first matrix
+         * \param &B: The second matrix
          */
 
         std::vector< std::vector< T > > CT = dot(B, A);
@@ -645,9 +645,9 @@ namespace vectorTools{
          * Compute the inner product between two matrices stored in row major format
          * innerProduct = \sum{A_{ij}*B_{ij}}
          *
-         * \param std::vector< T > &A: The first matrix in row major format
-         * \param std::vector< T > &B: The second matrix in row major format
-         * \param T &result: The inner product scalar
+         * \param &A: The first matrix in row major format
+         * \param &B: The second matrix in row major format
+         * \param &result: The inner product scalar
          */
 
         result = 0.;
@@ -662,8 +662,8 @@ namespace vectorTools{
          * Compute the inner product between two matrices stored in row major format
          * innerProduct = \sum{A_{ij}*B_{ij}}
          *
-         * \param std::vector< T > &A: The first matrix in row major format
-         * \param std::vector< T > &B: The second matrix in row major format
+         * \param &A: The first matrix in row major format
+         * \param &B: The second matrix in row major format
          * :return: The inner product scalar
          * :rtype: T result
          */
@@ -680,9 +680,9 @@ namespace vectorTools{
          * Compute the inner product between two matrices stored in matrix format
          * innerProduct = \sum{A_{ij}*B_{ij}}
          *
-         * \param std::vector< std::vector < T > > &A: The first matrix
-         * \param std::vector< std::vector < T > > &B: The second matrix
-         * \param T &result: The inner product scalar
+         * \param &A: The first matrix
+         * \param &B: The second matrix
+         * \param &result: The inner product scalar
          */
 
         //Get the size and perform error handling
@@ -708,8 +708,8 @@ namespace vectorTools{
          * Compute the inner product between two matrices stored in matrix format
          * innerProduct = \sum{A_{ij}*B_{ij}}
          *
-         * \param std::vector< std::vector < T > > &A: The first matrix
-         * \param std::vector< std::vector < T > > &B: The second matrix
+         * \param &A: The first matrix
+         * \param &B: The second matrix
          * :return: The inner product scalar
          * :rtype: T result
          */
@@ -726,8 +726,8 @@ namespace vectorTools{
         /*!
          * Compute the trace of a square matrix in row major format: v = sum(A_ii)
          *
-         * \param std::vector< T > &A: The matrix in row major format
-         * \param T &v: The scalar output quantity
+         * \param &A: The matrix in row major format
+         * \param &v: The scalar output quantity
          */
 
         //Get the size and perform error handling
@@ -753,8 +753,8 @@ namespace vectorTools{
         /*!
          * Compute the trace of a square matrix in row major format: v = sum(A_ii)
          *
-         * \param std::vector< T > &A: The matrix in row major format
-         * \param T &v: The scalar output quantity
+         * \param &A: The matrix in row major format
+         * \param &v: The scalar output quantity
          */
 
         T v;
@@ -767,8 +767,8 @@ namespace vectorTools{
         /*!
          * Compute the trace of a square matrix: v = sum(A_ii)
          *
-         * \param std::vector< std::vector< T > > &A: The matrix
-         * \param T &v: The scalar output quantity
+         * \param &A: The matrix
+         * \param &v: The scalar output quantity
          */
 
         //Convert matrix to row major vector format
@@ -783,8 +783,8 @@ namespace vectorTools{
         /*!
          * Compute the trace of a square matrix: v = sum(A_ii)
          *
-         * \param std::vector< std::vector< T > > &A: The matrix
-         * \param T &v: The scalar output quantity
+         * \param &A: The matrix
+         * \param &v: The scalar output quantity
          */
 
         T v;
@@ -797,7 +797,7 @@ namespace vectorTools{
         /*!
          * Compute the l2 norm of the vector v i.e. (v_i v_i)^(0.5)
          *
-         * \param const std::vector< T > &v: The vector to compute the norm of
+         * \param &v: The vector to compute the norm of
          */
 
         return std::sqrt(dot(v, v));
@@ -808,7 +808,7 @@ namespace vectorTools{
         /*!
          * Compute the l2 norm of the matrix A i.e. (A_ij A_ij)^(0.5)
          *
-         * \param const std::vector< std::vector< T > > &A: The matrix to compute the norm of
+         * \param &A: The matrix to compute the norm of
          */
 
         double v=0;
@@ -834,9 +834,9 @@ namespace vectorTools{
         /*!
          * Compute the dyadic product between two vectors return a matrix i.e. A_ij = a_i b_j
          *
-         * \param const std::vector< T > &a: The first vector
-         * \param const std::vector< T > &b: The second vector
-         * \param std::vector< std::vector< T > > &A: The returned matrix
+         * \param &a: The first vector
+         * \param &b: The second vector
+         * \param &A: The returned matrix
          */
 
         A.resize(a.size());
@@ -856,7 +856,7 @@ namespace vectorTools{
         /*!
          * Construct an identity tensor in row major format
          *
-         * \param std::vector< T > &I: The identity matrix
+         * \param &I: The identity matrix
          */
 
         //Get the size and perform error handling
@@ -880,7 +880,7 @@ namespace vectorTools{
         /*!
          * Construct an identity tensor of the size indicated by dim
          *
-         * \param const unsigned int dim: The dimension of the matrix
+         * \param dim: The dimension of the matrix
          */
 
         std::vector< std::vector< T > > I(dim, std::vector< T >(dim, 0));
@@ -895,7 +895,7 @@ namespace vectorTools{
         /*!
          * Construct an identity tensor of the size indicated by dim
          *
-         * \param const unsigned int dim: The dimension of the matrix
+         * \param dim: The dimension of the matrix
          */
 
         I = eye<T>(dim);
@@ -908,7 +908,7 @@ namespace vectorTools{
         /*!
          * Compute the median of a vector x
          *
-         * \param const std::vector< T > &x: The vector to compute the median of.
+         * \param &x: The vector to compute the median of.
          */
 
         unsigned int n = x.size();
@@ -928,7 +928,7 @@ namespace vectorTools{
         /*!
          * Compute the absolute value of every component of a vector.
          *
-         * \param const std::vector< T > &x: The vector to compute the absolute value of.
+         * \param &x: The vector to compute the absolute value of.
          */
 
         std::vector< T > xcopy = x;
@@ -945,10 +945,10 @@ namespace vectorTools{
          * Compare two values to determine if they are equal within a
          * tolerance.
          *
-         * \param const T &a: The first value to compare
-         * \param const T &b: The second value to compare
-         * \param double tolr: The relative tolerance
-         * \param double tola: The absolute tolerance
+         * \param &a: The first value to compare
+         * \param &b: The second value to compare
+         * \param tolr: The relative tolerance
+         * \param tola: The absolute tolerance
          */
 
         double tol = fmin(tolr*fabs(a) + tola, tolr*fabs(b) + tola);
@@ -961,10 +961,10 @@ namespace vectorTools{
          * Compare two vectors to determine if they are equal within a
          * tolerance.
          *
-         * \param const std::vector< T > &a: The first vector to compare
-         * \param const std::vector< T > &b: The second vector to compare
-         * \param double tolr: The relative tolerance
-         * \param double tola: The absolute tolerance
+         * \param &a: The first vector to compare
+         * \param &b: The second vector to compare
+         * \param tolr: The relative tolerance
+         * \param tola: The absolute tolerance
          */
 
         if (a.size() != b.size()){
@@ -985,10 +985,10 @@ namespace vectorTools{
          * Compare two matrices to determine if they are equal within a
          * tolerance.
          *
-         * \param const std::vector< std::vector< T > > &a: The first matrix to compare
-         * \param const std::vector< std::vector< T > > &b: The second matrix to compare
-         * \param double tolr: The relative tolerance
-         * \param double tola: The absolute tolerance
+         * \param &a: The first matrix to compare
+         * \param &b: The second matrix to compare
+         * \param tolr: The relative tolerance
+         * \param tola: The absolute tolerance
          */
 
         if (A.size() != B.size()){
@@ -1007,8 +1007,8 @@ namespace vectorTools{
     bool equals(const T &a, const T &b){
         /*!
          * Compare two values for exact equality
-         * \param const T &a: The first value to compare
-         * \param const T &b: The second value to compare
+         * \param &a: The first value to compare
+         * \param &b: The second value to compare
          */
          return a == b;
     }
@@ -1018,8 +1018,8 @@ namespace vectorTools{
         /*!
          * Compare two vectors for exact equality
          *
-         * \param const std::vector< T > &a: The first vector to compare
-         * \param const std::vector< T > &b: The second vector to compare
+         * \param &a: The first vector to compare
+         * \param &b: The second vector to compare
          */
         unsigned int size = a.size();
         if (size != b.size()){
@@ -1038,8 +1038,8 @@ namespace vectorTools{
         /*!
          * Compare two matrices for exact equality
          *
-         * \param const std::vector< T > &a: The first matrix to compare
-         * \param const std::vector< T > &b: The second matrix to compare
+         * \param &a: The first matrix to compare
+         * \param &b: The second matrix to compare
          */
 
         unsigned int size = a.size();
@@ -1059,8 +1059,8 @@ namespace vectorTools{
         /*!
          * Compare two vectors and determine if they are parallel
          *
-         * \param std::vector< T > &v1: The first vector
-         * \param std::vector< T > &v2: The second vector
+         * \param &v1: The first vector
+         * \param &v2: The second vector
          */
 
         //Recast the incoming vectors as double
@@ -1084,9 +1084,9 @@ namespace vectorTools{
         /*!
          * Get the values of a vector referenced by index
          *
-         * \param const std::vector< T > &v: The vector from which to retrieve get a sub-vector
-         * \param const std::vector< size_type > &indices: The indices to retrieve
-         * \param std::vector< T > &subv: The subvector of values
+         * \param &v: The vector from which to retrieve get a sub-vector
+         * \param &indices: The indices to retrieve
+         * \param &subv: The subvector of values
          */
 
         //Resize subv
@@ -1105,7 +1105,7 @@ namespace vectorTools{
         /*!
          * Append a matrix into a row-major vector.
          *
-         * \param const std::vector< std::vector< T > > &A: The matrix to be appended
+         * \param &A: The matrix to be appended
          */
 
         std::vector< T > Avec;
@@ -1121,7 +1121,7 @@ namespace vectorTools{
         /*!
          * Append a brace-enclosed initializer list to a row-major vector
          *
-         * \param const std::initializer_list< std::vector< T > > list: The list of vectors to append
+         * \param list: The list of vectors to append
          */
 
         std::vector< T > Avec;
@@ -1136,9 +1136,9 @@ namespace vectorTools{
         /*!
          * Inflate the provided row-major vector into a 2D matrix.
          *
-         * \param const std::vector &Avec: The matrix in row-major form.
-         * \param const unsigned int &nrows: The number of rows in the matrix.
-         * \param const unsigned int &ncols: The number of columns in the matrix.
+         * \param &Avec: The matrix in row-major form.
+         * \param &nrows: The number of rows in the matrix.
+         * \param &ncols: The number of columns in the matrix.
          */
 
         if ( Avec.size() != nrows * ncols ){
@@ -1162,7 +1162,7 @@ namespace vectorTools{
          * Find the indices required to sort a vector
          * Code from: https://stackoverflow.com/questions/1577475/c-sorting-and-keeping-track-of-indexes
          *
-         * \param const std::vector< T > &v: The vector to get the index sorted properties.
+         * \param &v: The vector to get the index sorted properties.
          */
 
         // initialize original index locations
@@ -1182,7 +1182,7 @@ namespace vectorTools{
         /*!
          * Print the contents of the vector to the terminal assuming << has been defined for each component
          *
-         * \param std::vector< T > &v: The vector to be displayed
+         * \param &v: The vector to be displayed
          */
 
         for (auto it = v.begin(); it!=v.end(); it++){
@@ -1197,7 +1197,7 @@ namespace vectorTools{
         /*!
          * Print the contents of the matrix to the terminal assuming << has been defined for each component
          *
-         * \param std::vector< std::vector< T > > &A: The matrix to be displayed
+         * \param &A: The matrix to be displayed
          */
 
         for (auto it = A.begin(); it!=A.end(); it++){
@@ -1213,9 +1213,9 @@ namespace vectorTools{
             /*!
              * Solve a linear system of equations using Eigen. Note this uses a dense solver.
              *
-             * \param const std::vector< std::vector< T > > &A: The A matrix
-             * \param const std::vector< T > &b: The b vector
-             * \param unsigned int &rank: The rank of A
+             * \param &A: The A matrix
+             * \param &b: The b vector
+             * \param &rank: The rank of A
              */
 
             //Get the number of rows in A
@@ -1238,11 +1238,11 @@ namespace vectorTools{
             /*!
              * Solve a linear system of equations using Eigen.
              *
-             * \param const std::vector< T > &Avec: The vector form of the A matrix (row major)
-             * \param const std::vector< T > &b: The b vector
-             * \param const unsigned int nrows: The number of rows of A
-             * \param const unsigned int ncols: The number of columns of A
-             * \param unsigned int &rank: The rank of A
+             * \param &Avec: The vector form of the A matrix (row major)
+             * \param &b: The b vector
+             * \param nrows: The number of rows of A
+             * \param ncols: The number of columns of A
+             * \param &rank: The rank of A
              */
 
             if (Avec.size() != (nrows*ncols)){
@@ -1275,9 +1275,9 @@ namespace vectorTools{
             /*!
              * Compute the determinant of the matrix A
              *
-             * \param const std::vector< T > &Avec: The vector form of the A matrix (row major)
-             * \param const unsigned int nrows: The number of rows
-             * \param const unsigned int ncols: The number of columns
+             * \param &Avec: The vector form of the A matrix (row major)
+             * \param nrows: The number of rows
+             * \param ncols: The number of columns
              */
 
             if (Avec.size() != (nrows*ncols)){
@@ -1295,9 +1295,9 @@ namespace vectorTools{
             /*!
              * Compute the inverse of a matrix in row-major format
              *
-             * \param const std::vector< T > &Avec: The vector form of the A matrix (row major)
-             * \param const unsigned int nrows: The number of rows
-             * \param const unsigned int ncols: The number of columns
+             * \param &Avec: The vector form of the A matrix (row major)
+             * \param nrows: The number of rows
+             * \param ncols: The number of columns
              */
 
             if (Avec.size() != (nrows*ncols)){
@@ -1328,7 +1328,7 @@ namespace vectorTools{
             /*!
              * Compute the inverse of a matrix
              *
-             * \param const std::vector< std::vector< T > > &A: The vector form of the A matrix
+             * \param &A: The vector form of the A matrix
              */
 
             unsigned int nrows = A.size();
@@ -1356,9 +1356,9 @@ namespace vectorTools{
             /*!
              * Compute the derivative of the determinant of a matrix w.r.t. the matrix
              *
-             * \param const std::vector< T > &Avec: The matrix in vector form.
-             * \param const unsigned int nrows: The number of rows in A
-             * \param const unsigned int ncols: The number of columns in A
+             * \param &Avec: The matrix in vector form.
+             * \param nrows: The number of rows in A
+             * \param ncols: The number of columns in A
              */
 
             //Set up the Eigen map for A
@@ -1391,14 +1391,14 @@ namespace vectorTools{
              *
              * NOTE: The shape of B will be determined from the shape of A.
              *
-             * \param const std::vector< T > &A: The A matrix in row-major format
-             * \param const std::vector< T > &B: The B matrix in row-major format
-             * \param const unsigned int Arows: The number of rows in A
-             * \param const unsigned int Acols: The number of columns in A
-             * \param const unsigned int Brows: The number of rows in B
-             * \param const unsigned int Bcols: The number of columns in B
-             * \param const bool Atranspose: Boolean to indicate whether A should be transposed.
-             * \param const bool Btranspose: Boolean to indicate whether B should be transposed.
+             * \param &A: The A matrix in row-major format
+             * \param &B: The B matrix in row-major format
+             * \param Arows: The number of rows in A
+             * \param Acols: The number of columns in A
+             * \param Brows: The number of rows in B
+             * \param Bcols: The number of columns in B
+             * \param Atranspose: Boolean to indicate whether A should be transposed.
+             * \param Btranspose: Boolean to indicate whether B should be transposed.
              */
 
             //Error handling
@@ -1453,11 +1453,11 @@ namespace vectorTools{
              * Compute the residual equation for the square root of a matrix.
              * This function is not intended to be accessed by the user.
              *
-             * \param const std::vector< double > &A: The matrix A in row major form.
-             * \param const unsigned int Arows: The number of rows in A.
-             * \param const std::vector< double > &X: The estimate of the square root of A
-             * \param const std::vector< double > &R: The value of the residual.
-             * \param const std::vector< std::vector< double > > &J: The value of the jacobian.
+             * \param &A: The matrix A in row major form.
+             * \param Arows: The number of rows in A.
+             * \param &X: The estimate of the square root of A
+             * \param &R: The value of the residual.
+             * \param &J: The value of the jacobian.
              */
 
             Eigen::Map < const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Amat(A.data(), Arows, Arows);
@@ -1496,13 +1496,13 @@ namespace vectorTools{
             /*!
              * Solve for the square root of the square matrix A.
              *
-             * \param const std::vector< double > &A: The matrix A in row major form.
-             * \param const unsigned int Arows: The number of rows in A.
-             * \param const std::vector< std::vector< double > > &dAdX: The gradient of A w.r.t. X
-             * \param const floatType tolr: The relative tolerance.
-             * \param const floatType tola: The absolute tolerance.
-             * \param const unsigned int maxIter: The maximum number of iterations
-             * \param const unsigned int maxLS: The maximum number of line search iterations.
+             * \param &A: The matrix A in row major form.
+             * \param Arows: The number of rows in A.
+             * \param &dAdX: The gradient of A w.r.t. X
+             * \param tolr: The relative tolerance.
+             * \param tola: The absolute tolerance.
+             * \param maxIter: The maximum number of iterations
+             * \param maxLS: The maximum number of line search iterations.
              */
 
             std::vector< std::vector< double > > dAdX;
@@ -1517,13 +1517,13 @@ namespace vectorTools{
             /*!
              * Solve for the square root of the square matrix A.
              *
-             * \param const std::vector< T > &A: The matrix A in row major form.
-             * \param const unsigned int Arows: The number of rows in A.
-             * \param const std::vector< std::vector< double > > &dAdX: The gradient of A w.r.t. X
-             * \param const floatType tolr: The relative tolerance.
-             * \param const floatType tola: The absolute tolerance.
-             * \param const unsigned int maxIter: The maximum number of iterations
-             * \param const unsigned int maxLS: The maximum number of line search iterations.
+             * \param &A: The matrix A in row major form.
+             * \param Arows: The number of rows in A.
+             * \param &dAdX: The gradient of A w.r.t. X
+             * \param tolr: The relative tolerance.
+             * \param tola: The absolute tolerance.
+             * \param maxIter: The maximum number of iterations
+             * \param maxLS: The maximum number of line search iterations.
              */
 
             if (A.size() != Arows * Arows){
