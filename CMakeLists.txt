@@ -4,6 +4,8 @@ project (vector_tools)
 
 # Find eigen
 set(CMAKE_PREFIX_PATH "$ENV{HOME}:$ENV{HOME}/local/:$ENV{HOME}/.local")
+set(EIGEN_ROOT "$ENV{HOME}/include")
+set(EIGEN_ROOT_DIR "$ENV{HOME}/include")
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 include_directories(${EIGEN3_INCLUDE_DIR})
 
