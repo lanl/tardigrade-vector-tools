@@ -1,10 +1,11 @@
-/******************************************************************************
-*                              vector_tools.h                                 *
-===============================================================================
-* A collection of functions and related utilities intended to help perform    *
-* vector operations in cpp.                                                   *
-*******************************************************************************
-*/
+/**
+  *****************************************************************************
+  * \file vector_tools.h
+  *****************************************************************************
+  * A collection of functions and related utilities intended to help perform
+  * vector operations in cpp.
+  *****************************************************************************
+  */
 
 #ifndef VECTOR_TOOLS_H
 #define VECTOR_TOOLS_H
@@ -237,7 +238,7 @@ namespace vectorTools{
         std::vector< double > solveLinearSystem(const std::vector< std::vector< T > > &A, const std::vector< T > &b, unsigned int &rank);
 
         template<typename T>
-        std::vector< double > solveLinearSystem(const std::vector< T > &A, const std::vector< T > &b, 
+        std::vector< double > solveLinearSystem(const std::vector< T > &A, const std::vector< T > &b,
             const unsigned int nrows, const unsigned int ncols, unsigned int &rank);
 
         template<typename T>
@@ -265,13 +266,13 @@ namespace vectorTools{
 
         template< typename T >
         std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
-                                         const double tolr = 1e-9, const double tola = 1e-9, const unsigned int maxIter = 20, 
+                                         const double tolr = 1e-9, const double tola = 1e-9, const unsigned int maxIter = 20,
                                          const unsigned int maxLS = 5);
 
         template< typename T >
         std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
                                          std::vector< std::vector< double > > &dAdX,
-                                         const double tolr = 1e-9, const double tola = 1e-9, const unsigned int maxIter = 20, 
+                                         const double tolr = 1e-9, const double tola = 1e-9, const unsigned int maxIter = 20,
                                          const unsigned int maxLS = 5);
 
     #endif

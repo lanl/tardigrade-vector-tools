@@ -18,6 +18,12 @@ this command will change on different platforms.
 
 ## Dependencies:
 
+* CMake
+* Doxygen
+* Sphinx
+* Breathe
+* sphinx\_rtd\_theme
+
 ### Make
 
 These tools have several dependencies that must be available in the same parent
@@ -67,24 +73,66 @@ $ make install
 
 ---
 
-## Documentation
+## Building the documentation
 
-The documentation for this project is built with cmake, sphinx, doxygen, and
-breathe.
+> **API Health Note**: The sphinx API docs are a work-in-progress. The doxygen
+> API is much more useful
 
-The documentation was built with these [microsoft developer blog
-instructions](https://devblogs.microsoft.com/cppblog/clear-functional-c-documentation-with-sphinx-breathe-doxygen-cmake/)
-for c++ projects. The one caveat is the ``vector_tools`` project is used as a
-header only project, so no libraries are built.
+A build script has been created for convenience, ``new_build.sh``. It will build
+everything including the library binary, the test binary, and the documentation.
+This is the same build script used by ``jenkins_build.sh`` for CI builds and
+testing.
 
-To build the documentation run the following from the project root directory,
-``vector_tools``:
+### sstelmo
+
+1) Activate the correct python environment
+
+```
+$ source /apps/anaconda/5.0.1-python-3.6/bin/activate
+$ source activate /projects/python/release-cpp
+```
+
+2) Create the build directory and move there
 
 ```
 $ pwd
-path/to/vector_tools
-$ mkdir build
-$ cd build
+/path/to/vector_tools/
+$ mkdir build/
+$ cd build/
+```
+
+3) Run cmake3 configuration
+
+```
+$ pwd
+/path/to/vector_tools/build/
 $ cmake3 ..
-$ cmake --build docs
+```
+
+4) Build the docs
+
+```
+$ cmake3 --build docs
+```
+
+5) Documentation builds to: 
+
+```
+vector_tools/build/docs/sphinx/index.html
+```
+
+6) Display docs
+
+```
+$ pwd
+/path/to/vector_tools/build/
+firefox docs/sphinx/index.html &
+```
+
+7) While the Sphinx API is still a WIP, try the doxygen API
+
+```
+$ pwd
+/path/to/vector_tools/build/
+firefox docs/doxygen/html/index.html &
 ```
