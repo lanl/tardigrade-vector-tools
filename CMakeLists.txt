@@ -14,10 +14,13 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 # Add source directory to help tests find library
 include_directories("src/cpp")
+
 # Add source code directories
 add_subdirectory ("src/cpp")
-#add_subdirectory ("src/cpp/tests/${CMAKE_PROJECT_NAME}")
-#add_subdirectory ("docs")
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    add_subdirectory ("src/cpp/tests/${PROJECT_NAME}")
+    add_subdirectory ("docs")
+endif()
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
