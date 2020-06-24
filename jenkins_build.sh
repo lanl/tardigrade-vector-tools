@@ -17,8 +17,15 @@ case $OSTYPE in
         exit 3
         ;;
 esac
-source "${apps}/anaconda/5.0.1-python-3.6/bin/activate" 
-source activate "${projects}/python/release-cpp"
+if [ -f "${apps}/anaconda/2019.10-python-3.7/etc/profile.d/conda.sh" ]; then
+    . "${apps}/anaconda/2019.10-python-3.7/etc/profile.d/conda.sh"
+    conda activate
+    conda activate "${projects}/python/develop"
+else
+    export PATH="${apps}/anaconda/5.0.1-python-3.6/bin:$PATH"
+    source activate
+    source activate "${projects}/python/develop"
+fi
 
 # Make bash script more like high-level languages.
 set -Eeuxo pipefail
