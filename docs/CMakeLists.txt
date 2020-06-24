@@ -21,7 +21,7 @@ add_custom_command(OUTPUT ${DOXYGEN_INDEX_FILE}
                    DEPENDS ${VECTOR_TOOLS_PUBLIC_HEADERS}
                    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
                    MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
-                   COMMENT "Generating vector_tools docs"
+                   COMMENT "Generating ${PROJECT_NAME} docs"
                    VERBATIM)
 
 # Add doxygen target
@@ -43,10 +43,10 @@ add_custom_command(OUTPUT ${SPHINX_INDEX_FILE}
                    DEPENDS
                        # Other docs files you want to track should go here (or in some variable)
                        ${CMAKE_CURRENT_SOURCE_DIR}/index.rst
-                       ${CMAKE_CURRENT_SOURCE_DIR}/vector_tools.rst
+                       ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.rst
                        ${DOXYGEN_INDEX_FILE}
                    MAIN_DEPENDENCY ${SPHINX_SOURCE}/conf.py
-                   COMMENT "Generating vector_tools documentation with Sphinx")
+                   COMMENT "Generating ${PROJECT_NAME} documentation with Sphinx")
 
 # Add sphinx target
 add_custom_target(Sphinx ALL DEPENDS ${SPHINX_INDEX_FILE})
