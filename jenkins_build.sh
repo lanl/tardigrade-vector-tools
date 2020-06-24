@@ -42,9 +42,6 @@ ls -l ~/include/eigen3/Eigen/Dense || true
 # Source common shell script variables
 source set_vars.sh
 
-# Clone and update dependencies
-./update_dependencies.sh
-
 # Clean and build repo tests
 ./new_build.sh
 
