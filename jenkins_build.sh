@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-# TODO: update the release environment and source that instead
-# NOTE: activation will fail if/when conda is updated to >=4.4
-# Activate the release-cpp environment
+# Identify common paths automatically
 case $OSTYPE in
     darwin*)
         apps="/Users/apps"
@@ -17,14 +15,17 @@ case $OSTYPE in
         exit 3
         ;;
 esac
+
+# Activate conda environment
+rel='develop'
 if [ -f "${apps}/anaconda/2019.10-python-3.7/etc/profile.d/conda.sh" ]; then
     . "${apps}/anaconda/2019.10-python-3.7/etc/profile.d/conda.sh"
     conda activate
-    conda activate "${projects}/python/develop"
+    conda activate "${projects}/python/${rel}"
 else
     export PATH="${apps}/anaconda/5.0.1-python-3.6/bin:$PATH"
     source activate
-    source activate "${projects}/python/develop"
+    source activate "${projects}/python/${rel}"
 fi
 
 # Make bash script more like high-level languages.
@@ -40,9 +41,6 @@ ls -l ~/include/eigen3/Eigen/Dense || true
 
 # Source common shell script variables
 source set_vars.sh
-
-# Check conda environment for debugging
-conda info | grep default
 
 # Clone and update dependencies
 ./update_dependencies.sh
