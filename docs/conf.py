@@ -10,9 +10,10 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import os
+import re
 
 
 # -- Project information -----------------------------------------------------
@@ -22,7 +23,18 @@ copyright = '2020, Nathan A. Miller and Kyle A. Brindley'
 author = 'Nathan A. Miller and Kyle A. Brindley'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+git_describe = os.popen('git describe --always --dirty --tags').read().strip()
+with open("../CMakeLists.txt") as config:
+    contents = config.read()
+pattern = f"{project} VERSION ([0-9]+\.[0-9]+\.[0-9])"
+version_search = re.search(pattern, contents)
+if version_search:
+    release = version_search.group(1)
+else:
+    release = git_describe
+if release != git_describe:
+    release = release + f"+{git_describe}"
+version = release
 
 
 # -- General configuration ---------------------------------------------------
