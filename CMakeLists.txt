@@ -6,9 +6,7 @@ project (vector_tools VERSION 0.0.1)
 configure_file("src/cpp/config.h.in" "${PROJECT_BINARY_DIR}/config.h")
 
 # Find eigen
-set(CMAKE_PREFIX_PATH $ENV{HOME} $ENV{HOME}/local/ $ENV{HOME}/.local ${CMAKE_PREFIX_PATH})
-set(ENV{EIGEN_ROOT} "$ENV{HOME}/include")
-set(ENV{EIGEN_ROOT_DIR} "$ENV{HOME}/include")
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} $ENV{HOME}/.local $ENV{HOME}/local/ $ENV{HOME})
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 include_directories(${EIGEN3_INCLUDE_DIR})
 

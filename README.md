@@ -51,7 +51,7 @@ source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
 # Create personal include file directory
 $ pwd
 /home/$USER
-$ mkdir include
+$ mkdir .local/include
 # Move to repository directory
 $ cd /preferred/path/to/repos
 # Example
@@ -65,7 +65,7 @@ $ git checkout 3.3.7
 $ mkdir build
 $ cd build
 $ export CXX=$(command -v icpc)
-$ cmake3 .. -DCMAKE_INSTALL_PREFIX=/home/$USER
+$ cmake3 .. -DCMAKE_INSTALL_PREFIX=$HOME/.local
 $ make install
 ```
 
