@@ -17,7 +17,7 @@ case $OSTYPE in
 esac
 
 # Activate conda environment
-rel='develop'
+rel='release'
 if [ -f "${apps}/anaconda/2019.10-python-3.7/etc/profile.d/conda.sh" ]; then
     . "${apps}/anaconda/2019.10-python-3.7/etc/profile.d/conda.sh"
     conda activate
@@ -30,6 +30,9 @@ fi
 
 # Make bash script more like high-level languages.
 set -Eeuxo pipefail
+
+# report conda environment
+conda info
 
 # Debugging
 whoami
