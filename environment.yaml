@@ -1,0 +1,10 @@
+name: environment
+channels:
+  - defaults
+dependencies:
+  - python>=3.7
+  - sphinx>=3.0.4
+  - sphinx_rtd_theme>=0.4.3
+  - pip
+  - pip:
+    - --requirement requirements.txt
