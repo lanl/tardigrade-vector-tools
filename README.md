@@ -44,9 +44,11 @@ $ conda env create --file environment.yaml
 
 ### Libraries
 
+* eigen >= 3.3.7 
+
 #### Eigen
 
-* eigen: https://gitlab.com/libeigen/eigen
+https://gitlab.com/libeigen/eigen
 
 Eigen must be "installed" following the ``eigen/INSTALL`` instructions. The
 Eigen dependence is easiest to resolve if eigen is installed in the default
@@ -60,7 +62,7 @@ insall Eigen to your home directory in ``~/include`` (or possibly in
 ```
 # sstelmo
 ssh -X sstelmo.lanl.gov
-# source Intel compilers
+# (OPTIONAL) source Intel compilers. c++/g++ compilers from GNU 4.8.5 also work.
 source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
 # Create personal include file directory
 $ pwd
@@ -78,7 +80,7 @@ $ git checkout 3.3.7
 # Build eigen
 $ mkdir build
 $ cd build
-$ export CXX=$(command -v icpc)
+$ export CXX=$(command -v icpc) # OPTIONAL
 $ cmake3 .. -DCMAKE_INSTALL_PREFIX=$HOME/.local
 $ make install
 ```
