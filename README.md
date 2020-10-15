@@ -5,9 +5,12 @@ less prone to error. These tools also allow the user access to the powerful
 Eigen library which provides matrix utilities in such a way that Eigen does
 not need to be used explicitly in the user's code.
 
-Note: In order to use the Intel compiler one must run the following command
-in a bash prompt:
+Note: In order to use the Intel compiler one must run the following command in a
+bash prompt:
+
+```
 source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
+```
 
 This is the same command that the abaqus command issues. It may be that
 this command will change on different platforms.
@@ -18,27 +21,40 @@ this command will change on different platforms.
 
 ## Dependencies:
 
-* CMake
-* Doxygen
-* Sphinx
-* Breathe
-* sphinx\_rtd\_theme
+### Executables
 
-### Make
+* CMake >= 3.14
+* Doxygen >= 1.8.5
 
-These tools have several dependencies that must be available in the same parent
-directory as this repo.
+### Python Modules (for documentation)
 
-* eigen: https://gitlab.com/libeigen/eigen
+* Sphinx >= 3.0.4
+* Breathe >= 4.18.1
+* sphinx\_rtd\_theme >= 0.4.3
 
-### CMake
+For convenience, the minimal Python environment requirements for the
+documentation build are included in ``environment.yaml`` and
+``requirements.txt``. A minimal anaconda environment for building the
+documentation can be created from an existing anaconda installation with the
+following commands.
 
-The project is transitioning from Make to Cmake. For cmake builds, Eigen must be
-"installed" following the ``eigen/INSTALL`` instructions. The Eigen dependence
-is easiest to resolve if eigen is installed in the default install directory.
-However, if you don't have admin privileges, you can also insall Eigen to your
-home directory in ``~/include`` (or possibly in ``~/.local/include``, but this
-is untested by this project).
+```
+$ conda env create --file environment.yaml
+```
+
+### Libraries
+
+* eigen >= 3.3.7 
+
+#### Eigen
+
+https://gitlab.com/libeigen/eigen
+
+Eigen must be "installed" following the ``eigen/INSTALL`` instructions. The
+Eigen dependence is easiest to resolve if eigen is installed in the default
+install directory.  However, if you don't have admin privileges, you can also
+insall Eigen to your home directory in ``~/include`` (or possibly in
+``~/.local/include``, but this is untested by this project).
 
 #### Non-admin Eigen install for vector_tools
 [Reference](https://unix.stackexchange.com/questions/36871/where-should-a-local-executable-be-placed)
@@ -46,7 +62,7 @@ is untested by this project).
 ```
 # sstelmo
 ssh -X sstelmo.lanl.gov
-# source Intel compilers
+# (OPTIONAL) source Intel compilers. c++/g++ compilers from GNU 4.8.5 also work.
 source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
 # Create personal include file directory
 $ pwd
@@ -64,7 +80,7 @@ $ git checkout 3.3.7
 # Build eigen
 $ mkdir build
 $ cd build
-$ export CXX=$(command -v icpc)
+$ export CXX=$(command -v icpc) # OPTIONAL
 $ cmake3 .. -DCMAKE_INSTALL_PREFIX=$HOME/.local
 $ make install
 ```
@@ -85,11 +101,11 @@ testing.
 
 ### sstelmo
 
-1) Activate the correct python environment
+1) Activate a [W-13 Python Environment](https://xcp-confluence.lanl.gov/display/PYT/The+W-13+Python+3+environment)
 
 ```
-$ source /apps/anaconda/5.0.1-python-3.6/bin/activate
-$ source activate /projects/python/release-cpp
+$ module load python/2019.10-python-3.7
+$ sv3r
 ```
 
 2) Create the build directory and move there
@@ -115,7 +131,7 @@ $ cmake3 ..
 $ cmake3 --build docs
 ```
 
-5) Documentation builds to: 
+5) Documentation builds to:
 
 ```
 vector_tools/build/docs/sphinx/index.html
@@ -126,7 +142,7 @@ vector_tools/build/docs/sphinx/index.html
 ```
 $ pwd
 /path/to/vector_tools/build/
-firefox docs/sphinx/index.html &
+$ firefox docs/sphinx/index.html &
 ```
 
 7) While the Sphinx API is still a WIP, try the doxygen API
@@ -134,5 +150,5 @@ firefox docs/sphinx/index.html &
 ```
 $ pwd
 /path/to/vector_tools/build/
-firefox docs/doxygen/html/index.html &
+$ firefox docs/doxygen/html/index.html &
 ```
