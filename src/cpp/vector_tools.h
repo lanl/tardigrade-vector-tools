@@ -234,12 +234,24 @@ namespace vectorTools{
 
     //Utilities which require Eigen
     #ifdef USE_EIGEN
-        template<typename T>
-        std::vector< double > solveLinearSystem(const std::vector< std::vector< T > > &A, const std::vector< T > &b, unsigned int &rank);
+        //Eigen specific type definitions
+        template< typename T >
+        using solverType = Eigen::ColPivHouseholderQR< Eigen::Matrix< T, -1, -1, Eigen::RowMajor > >; //!Define the matrix solver
 
         template<typename T>
-        std::vector< double > solveLinearSystem(const std::vector< T > &A, const std::vector< T > &b,
+        std::vector< double > solveLinearSystem( const std::vector< std::vector< T > > &A, const std::vector< T > &b, unsigned int &rank );
+
+        template<typename T>
+        std::vector< double > solveLinearSystem( const std::vector< std::vector< T > > &A, const std::vector< T > &b, unsigned int &rank,
+                                                solverType< T > &linearSolver );
+
+        template<typename T>
+        std::vector< double > solveLinearSystem( const std::vector< T > &A, const std::vector< T > &b,
             const unsigned int nrows, const unsigned int ncols, unsigned int &rank);
+
+        template<typename T>
+        std::vector< double > solveLinearSystem( const std::vector< T > &A, const std::vector< T > &b,
+            const unsigned int nrows, const unsigned int ncols, unsigned int &rank, solverType< T > &linearSolver );
 
         template<typename T>
         T determinant(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
