@@ -1207,66 +1207,127 @@ namespace vectorTools{
     }
 
     #ifdef USE_EIGEN
-        template<typename T>
-        std::vector< double > solveLinearSystem(const std::vector< std::vector< T > > &A, const std::vector< T > &b,
-            unsigned int &rank){
+        template< typename T >
+        std::vector< double > solveLinearSystem( const std::vector< std::vector< T > > &A, const std::vector< T > &b,
+            unsigned int &rank ){
             /*!
              * Solve a linear system of equations using Eigen. Note this uses a dense solver.
+             * 
+             * \f$Ax = b\f$
              *
-             * \param &A: The A matrix
-             * \param &b: The b vector
-             * \param &rank: The rank of A
+             * \param &A: The \f$A\f$ matrix
+             * \param &b: The \f$b\f$ vector
+             * \param &rank: The rank of \f$A\f$
              */
 
             //Get the number of rows in A
-            unsigned int nrows = A.size();
+            unsigned int nrows = A.size( );
 
             //Append all of the vectors into one long vector
             const std::vector< T > Avec = appendVectors( A );
 
-            unsigned int ncols = Avec.size()/nrows;
-            if ((Avec.size() % nrows) > 0){
-                throw std::length_error("A is not a regular matrix");
+            unsigned int ncols = Avec.size( ) / nrows;
+            if ( ( Avec.size( ) % nrows ) > 0 ){
+                throw std::length_error( "A is not a regular matrix" );
             }
-            return solveLinearSystem( Avec, b, nrows, ncols, rank);
+            return solveLinearSystem( Avec, b, nrows, ncols, rank );
 
         }
 
-        template<typename T>
-        std::vector< double > solveLinearSystem(const std::vector< T > &Avec, const std::vector< T > &b,
-            const unsigned int nrows, const unsigned int ncols, unsigned int &rank){
+        template< typename T >
+        std::vector< double > solveLinearSystem(const std::vector< std::vector< T > > &A, const std::vector< T > &b,
+            unsigned int &rank, solverType< T > &linearSolver ){
             /*!
-             * Solve a linear system of equations using Eigen.
+             * Solve a linear system of equations using Eigen. Note this uses a dense solver.
+             * 
+             * \f$Ax = b\f$
              *
-             * \param &Avec: The vector form of the A matrix (row major)
-             * \param &b: The b vector
-             * \param nrows: The number of rows of A
-             * \param ncols: The number of columns of A
-             * \param &rank: The rank of A
+             * \param &A: The \f$A\f$ matrix
+             * \param &b: The \f$b\f$ vector
+             * \param &rank: The rank of \f$A\f$
+             * \param &linearSolver: The linear solver which contains the decomposed
+             *     A matrix ( after the solve ). This is useful for when further
+             *     non-linear solves are required such as in the construction
+             *     of Jacobians of non-linear equaquations which were solved
+             *     using Newton methods.
              */
 
-            if (Avec.size() != (nrows*ncols)){
-                throw std::length_error("The size of Avec and the dimensions nrows and ncols do not align.");
+            //Get the number of rows in A
+            unsigned int nrows = A.size( );
+
+            //Append all of the vectors into one long vector
+            const std::vector< T > Avec = appendVectors( A );
+
+            unsigned int ncols = Avec.size( ) / nrows;
+            if ( ( Avec.size( ) % nrows ) > 0 ){
+                throw std::length_error( "A is not a regular matrix" );
+            }
+            return solveLinearSystem( Avec, b, nrows, ncols, rank, linearSolver );
+
+        }
+
+        template< typename T >
+        std::vector< double > solveLinearSystem( const std::vector< T > &Avec, const std::vector< T > &b,
+            const unsigned int nrows, const unsigned int ncols, unsigned int &rank ){
+            /*!
+             * Solve a linear system of equations using Eigen. Note this uses a dense solver.
+             * 
+             * \f$Ax = b\f$
+             *
+             * \param &Avec: The vector form of the \f$A\f$ matrix ( row major )
+             * \param &b: The \f$b\f$ vector
+             * \param nrows: The number of rows of \f$A\f$
+             * \param ncols: The number of columns of \f$A\f$
+             * \param &rank: The rank of \f$A\f$
+             */
+
+            solverType< T > linearSolver;
+            return solveLinearSystem( Avec, b, nrows, ncols, rank, linearSolver );
+        }
+
+        template< typename T >
+        std::vector< double > solveLinearSystem( const std::vector< T > &Avec, const std::vector< T > &b,
+            const unsigned int nrows, const unsigned int ncols, unsigned int &rank,
+            solverType< T > &linearSolver ){
+            /*!
+             * Solve a linear system of equations using Eigen. Note this uses a dense solver.
+             * 
+             * \f$Ax = b\f$
+             *
+             * \param &Avec: The vector form of the \f$A\f$ matrix ( row major )
+             * \param &b: The \f$b\f$ vector
+             * \param nrows: The number of rows of \f$A\f$
+             * \param ncols: The number of columns of \f$A\f$
+             * \param &rank: The rank of \f$A\f$
+             * \param &linearSolver: The linear solver which contains the decomposed
+             *     A matrix ( after the solve ). This is useful for when further
+             *     non-linear solves are required such as in the construction
+             *     of Jacobians of non-linear equaquations which were solved
+             *     using Newton methods.
+             */
+
+            if ( Avec.size( ) != ( nrows * ncols ) ){
+                throw std::length_error( "The size of Avec and the dimensions nrows and ncols do not align." );
             }
 
-            if (b.size() != ncols ){
-                throw std::length_error("The b vector's size is not consistent with A's dimension");
+            if ( b.size( ) != ncols ){
+                throw std::length_error( "The b vector's size is not consistent with A's dimension" );
             }
 
             //Set up the Eigen maps for A and b
-            Eigen::Map< const Eigen::Matrix<T, -1, -1, Eigen::RowMajor> > Amat(Avec.data(), nrows, ncols);
-            Eigen::Map< const Eigen::Matrix<T, -1,  1> > bmat(b.data(), nrows, 1);
+            Eigen::Map< const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Amat( Avec.data( ), nrows, ncols );
+            Eigen::Map< const Eigen::Matrix< T, -1,  1 > > bmat( b.data( ), nrows, 1 );
 
             //Set up the Eigen maps for the solution vector
-            std::vector< double > x(nrows);
-            Eigen::Map< Eigen::MatrixXd > xmat(x.data(), nrows, 1);
+            std::vector< double > x( nrows );
+            Eigen::Map< Eigen::MatrixXd > xmat( x.data( ), nrows, 1 );
 
             //Perform the decomposition
-            Eigen::ColPivHouseholderQR<Eigen::Matrix<T, -1, -1, Eigen::RowMajor>> qrSolver(Amat);
+            linearSolver = solverType< T >( Amat );
 
-            rank = qrSolver.rank();
+            rank = linearSolver.rank( );
 
-            xmat = qrSolver.solve(bmat);
+            xmat = linearSolver.solve( bmat );
             return x;
         }
 
