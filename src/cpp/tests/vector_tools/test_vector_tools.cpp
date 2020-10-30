@@ -771,7 +771,42 @@ int test_solveLinearSystem(std::ofstream &results){
     }
 
     if (!vectorTools::equals<unsigned int>(rank, 3)){
-        results << "test_solveLinearSystem (test 1) & False\n";
+        results << "test_solveLinearSystem (test 2) & False\n";
+        return 1;
+    }
+
+    vectorTools::solverType< floatType > linearSolver;
+    xAnswer = vectorTools::solveLinearSystem( A, b, rank, linearSolver );
+
+    if ( !vectorTools::fuzzyEquals( xSolution, xAnswer ) ){
+        results << "test_solveLinearSystem (test 3) & False\n";
+        return 1;
+    }
+
+    if ( !vectorTools::equals< unsigned int >( rank, 3 ) ){
+        results << "test_solveLinearSystem (test 4) & False\n";
+        return 1;
+    }
+
+    xAnswer = vectorType( 3, 0 );
+    Eigen::Map< Eigen::MatrixXd > xmat( xAnswer.data( ), 3, 1 );
+    Eigen::Map< const Eigen::MatrixXd > bmat( b.data( ), 3, 1 );
+    xmat = linearSolver.solve( bmat );
+
+    if ( !vectorTools::fuzzyEquals( xSolution, xAnswer ) ){
+        results << "test_solveLinearSystem (test 5) & False\n";
+        return 1;
+    }
+
+    A = { { 2 } };
+    b = { 7 };
+
+    xSolution = { 3.5 };
+
+    xAnswer = vectorTools::solveLinearSystem( A, b, rank );
+
+    if ( !vectorTools::fuzzyEquals( xAnswer, xSolution ) ){
+        results << "test_solveLinearSystem (test 6) & False\n";
         return 1;
     }
 

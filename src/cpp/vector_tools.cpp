@@ -341,6 +341,7 @@ namespace vectorTools{
          *
          * \param &a: The first vector
          * \param &b: The second vector
+         * \param &c: The resulting vector
          */
 
         size_type size = a.size();
@@ -643,7 +644,8 @@ namespace vectorTools{
     int inner(const std::vector< T > &A, const std::vector< T > &B, T &result){
         /*!
          * Compute the inner product between two matrices stored in row major format
-         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix in row major format
          * \param &B: The second matrix in row major format
@@ -660,7 +662,8 @@ namespace vectorTools{
     T inner(const std::vector< T > &A, const std::vector< T > &B){
         /*!
          * Compute the inner product between two matrices stored in row major format
-         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix in row major format
          * \param &B: The second matrix in row major format
@@ -678,7 +681,8 @@ namespace vectorTools{
     int inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B, T &result){
         /*!
          * Compute the inner product between two matrices stored in matrix format
-         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix
          * \param &B: The second matrix
@@ -706,7 +710,8 @@ namespace vectorTools{
     T inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
         /*!
          * Compute the inner product between two matrices stored in matrix format
-         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix
          * \param &B: The second matrix
@@ -724,10 +729,12 @@ namespace vectorTools{
     template<typename T>
     int trace(const std::vector< T > &A, T &v){
         /*!
-         * Compute the trace of a square matrix in row major format: v = sum(A_ii)
+         * Compute the trace of a square matrix ( \f$A\f$ ) in row major format:
+         * 
+         * \f$v = A_{ii}\f$
          *
-         * \param &A: The matrix in row major format
-         * \param &v: The scalar output quantity
+         * \param &A: The matrix in row major format ( \f$A\f$ )
+         * \param &v: The scalar output quantity ( \f$v\f$ )
          */
 
         //Get the size and perform error handling
@@ -751,10 +758,11 @@ namespace vectorTools{
     template<typename T>
     T trace(const std::vector< T > &A){
         /*!
-         * Compute the trace of a square matrix in row major format: v = sum(A_ii)
+         * Compute the trace of a square matrix in row major format
+         * 
+         * \f$v = A_{ii}\f$
          *
-         * \param &A: The matrix in row major format
-         * \param &v: The scalar output quantity
+         * \param &A: The matrix in row major format ( \f$A\f$ )
          */
 
         T v;
@@ -765,7 +773,9 @@ namespace vectorTools{
     template<typename T>
     int trace(const std::vector< std::vector< T > > &A, T &v){
         /*!
-         * Compute the trace of a square matrix: v = sum(A_ii)
+         * Compute the trace of a square matrix
+         * 
+         * \f$v = A_{ii}\f$
          *
          * \param &A: The matrix
          * \param &v: The scalar output quantity
@@ -781,10 +791,11 @@ namespace vectorTools{
     template<typename T>
     T trace(const std::vector< std::vector< T > > &A){
         /*!
-         * Compute the trace of a square matrix: v = sum(A_ii)
+         * Compute the trace of a square matrix
+         * 
+         * \f$v = A_{ii}\f$
          *
          * \param &A: The matrix
-         * \param &v: The scalar output quantity
          */
 
         T v;
@@ -896,6 +907,7 @@ namespace vectorTools{
          * Construct an identity tensor of the size indicated by dim
          *
          * \param dim: The dimension of the matrix
+         * \param &I: The resulting identity matrix
          */
 
         I = eye<T>(dim);
@@ -985,8 +997,8 @@ namespace vectorTools{
          * Compare two matrices to determine if they are equal within a
          * tolerance.
          *
-         * \param &a: The first matrix to compare
-         * \param &b: The second matrix to compare
+         * \param &A: The first matrix to compare
+         * \param &B: The second matrix to compare
          * \param tolr: The relative tolerance
          * \param tola: The absolute tolerance
          */
@@ -1207,66 +1219,127 @@ namespace vectorTools{
     }
 
     #ifdef USE_EIGEN
-        template<typename T>
-        std::vector< double > solveLinearSystem(const std::vector< std::vector< T > > &A, const std::vector< T > &b,
-            unsigned int &rank){
+        template< typename T >
+        std::vector< double > solveLinearSystem( const std::vector< std::vector< T > > &A, const std::vector< T > &b,
+            unsigned int &rank ){
             /*!
              * Solve a linear system of equations using Eigen. Note this uses a dense solver.
+             * 
+             * \f$Ax = b\f$
              *
-             * \param &A: The A matrix
-             * \param &b: The b vector
-             * \param &rank: The rank of A
+             * \param &A: The \f$A\f$ matrix
+             * \param &b: The \f$b\f$ vector
+             * \param &rank: The rank of \f$A\f$
              */
 
             //Get the number of rows in A
-            unsigned int nrows = A.size();
+            unsigned int nrows = A.size( );
 
             //Append all of the vectors into one long vector
             const std::vector< T > Avec = appendVectors( A );
 
-            unsigned int ncols = Avec.size()/nrows;
-            if ((Avec.size() % nrows) > 0){
-                throw std::length_error("A is not a regular matrix");
+            unsigned int ncols = Avec.size( ) / nrows;
+            if ( ( Avec.size( ) % nrows ) > 0 ){
+                throw std::length_error( "A is not a regular matrix" );
             }
-            return solveLinearSystem( Avec, b, nrows, ncols, rank);
+            return solveLinearSystem( Avec, b, nrows, ncols, rank );
 
         }
 
-        template<typename T>
-        std::vector< double > solveLinearSystem(const std::vector< T > &Avec, const std::vector< T > &b,
-            const unsigned int nrows, const unsigned int ncols, unsigned int &rank){
+        template< typename T >
+        std::vector< double > solveLinearSystem(const std::vector< std::vector< T > > &A, const std::vector< T > &b,
+            unsigned int &rank, solverType< T > &linearSolver ){
             /*!
-             * Solve a linear system of equations using Eigen.
+             * Solve a linear system of equations using Eigen. Note this uses a dense solver.
+             * 
+             * \f$Ax = b\f$
              *
-             * \param &Avec: The vector form of the A matrix (row major)
-             * \param &b: The b vector
-             * \param nrows: The number of rows of A
-             * \param ncols: The number of columns of A
-             * \param &rank: The rank of A
+             * \param &A: The \f$A\f$ matrix
+             * \param &b: The \f$b\f$ vector
+             * \param &rank: The rank of \f$A\f$
+             * \param &linearSolver: The linear solver which contains the decomposed
+             *     A matrix ( after the solve ). This is useful for when further
+             *     non-linear solves are required such as in the construction
+             *     of Jacobians of non-linear equaquations which were solved
+             *     using Newton methods.
              */
 
-            if (Avec.size() != (nrows*ncols)){
-                throw std::length_error("The size of Avec and the dimensions nrows and ncols do not align.");
+            //Get the number of rows in A
+            unsigned int nrows = A.size( );
+
+            //Append all of the vectors into one long vector
+            const std::vector< T > Avec = appendVectors( A );
+
+            unsigned int ncols = Avec.size( ) / nrows;
+            if ( ( Avec.size( ) % nrows ) > 0 ){
+                throw std::length_error( "A is not a regular matrix" );
+            }
+            return solveLinearSystem( Avec, b, nrows, ncols, rank, linearSolver );
+
+        }
+
+        template< typename T >
+        std::vector< double > solveLinearSystem( const std::vector< T > &Avec, const std::vector< T > &b,
+            const unsigned int nrows, const unsigned int ncols, unsigned int &rank ){
+            /*!
+             * Solve a linear system of equations using Eigen. Note this uses a dense solver.
+             * 
+             * \f$Ax = b\f$
+             *
+             * \param &Avec: The vector form of the \f$A\f$ matrix ( row major )
+             * \param &b: The \f$b\f$ vector
+             * \param nrows: The number of rows of \f$A\f$
+             * \param ncols: The number of columns of \f$A\f$
+             * \param &rank: The rank of \f$A\f$
+             */
+
+            solverType< T > linearSolver;
+            return solveLinearSystem( Avec, b, nrows, ncols, rank, linearSolver );
+        }
+
+        template< typename T >
+        std::vector< double > solveLinearSystem( const std::vector< T > &Avec, const std::vector< T > &b,
+            const unsigned int nrows, const unsigned int ncols, unsigned int &rank,
+            solverType< T > &linearSolver ){
+            /*!
+             * Solve a linear system of equations using Eigen. Note this uses a dense solver.
+             * 
+             * \f$Ax = b\f$
+             *
+             * \param &Avec: The vector form of the \f$A\f$ matrix ( row major )
+             * \param &b: The \f$b\f$ vector
+             * \param nrows: The number of rows of \f$A\f$
+             * \param ncols: The number of columns of \f$A\f$
+             * \param &rank: The rank of \f$A\f$
+             * \param &linearSolver: The linear solver which contains the decomposed
+             *     A matrix ( after the solve ). This is useful for when further
+             *     non-linear solves are required such as in the construction
+             *     of Jacobians of non-linear equaquations which were solved
+             *     using Newton methods.
+             */
+
+            if ( Avec.size( ) != ( nrows * ncols ) ){
+                throw std::length_error( "The size of Avec and the dimensions nrows and ncols do not align." );
             }
 
-            if (b.size() != ncols ){
-                throw std::length_error("The b vector's size is not consistent with A's dimension");
+            if ( b.size( ) != ncols ){
+                throw std::length_error( "The b vector's size is not consistent with A's dimension" );
             }
 
             //Set up the Eigen maps for A and b
-            Eigen::Map< const Eigen::Matrix<T, -1, -1, Eigen::RowMajor> > Amat(Avec.data(), nrows, ncols);
-            Eigen::Map< const Eigen::Matrix<T, -1,  1> > bmat(b.data(), nrows, 1);
+            Eigen::Map< const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > Amat( Avec.data( ), nrows, ncols );
+            Eigen::Map< const Eigen::Matrix< T, -1,  1 > > bmat( b.data( ), nrows, 1 );
 
             //Set up the Eigen maps for the solution vector
-            std::vector< double > x(nrows);
-            Eigen::Map< Eigen::MatrixXd > xmat(x.data(), nrows, 1);
+            std::vector< double > x( nrows );
+            Eigen::Map< Eigen::MatrixXd > xmat( x.data( ), nrows, 1 );
 
             //Perform the decomposition
-            Eigen::ColPivHouseholderQR<Eigen::Matrix<T, -1, -1, Eigen::RowMajor>> qrSolver(Amat);
+            linearSolver = solverType< T >( Amat );
 
-            rank = qrSolver.rank();
+            rank = linearSolver.rank( );
 
-            xmat = qrSolver.solve(bmat);
+            xmat = linearSolver.solve( bmat );
             return x;
         }
 
