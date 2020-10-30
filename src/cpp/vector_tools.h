@@ -93,6 +93,8 @@ std::vector<T> operator/(std::vector<T> lhs, const t rhs);
 
 namespace vectorTools{
     //Type definitions
+
+    /** Definition of the standard size type */
     typedef unsigned int size_type;
 
     //Computation Utilities

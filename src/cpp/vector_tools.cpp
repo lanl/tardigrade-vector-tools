@@ -341,6 +341,7 @@ namespace vectorTools{
          *
          * \param &a: The first vector
          * \param &b: The second vector
+         * \param &c: The resulting vector
          */
 
         size_type size = a.size();
@@ -643,7 +644,8 @@ namespace vectorTools{
     int inner(const std::vector< T > &A, const std::vector< T > &B, T &result){
         /*!
          * Compute the inner product between two matrices stored in row major format
-         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix in row major format
          * \param &B: The second matrix in row major format
@@ -660,7 +662,8 @@ namespace vectorTools{
     T inner(const std::vector< T > &A, const std::vector< T > &B){
         /*!
          * Compute the inner product between two matrices stored in row major format
-         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix in row major format
          * \param &B: The second matrix in row major format
@@ -678,7 +681,8 @@ namespace vectorTools{
     int inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B, T &result){
         /*!
          * Compute the inner product between two matrices stored in matrix format
-         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix
          * \param &B: The second matrix
@@ -706,7 +710,8 @@ namespace vectorTools{
     T inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
         /*!
          * Compute the inner product between two matrices stored in matrix format
-         * innerProduct = \sum{A_{ij}*B_{ij}}
+         * 
+         * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix
          * \param &B: The second matrix
@@ -724,10 +729,12 @@ namespace vectorTools{
     template<typename T>
     int trace(const std::vector< T > &A, T &v){
         /*!
-         * Compute the trace of a square matrix in row major format: v = sum(A_ii)
+         * Compute the trace of a square matrix ( \f$A\f$ ) in row major format:
+         * 
+         * \f$v = A_{ii}\f$
          *
-         * \param &A: The matrix in row major format
-         * \param &v: The scalar output quantity
+         * \param &A: The matrix in row major format ( \f$A\f$ )
+         * \param &v: The scalar output quantity ( \f$v\f$ )
          */
 
         //Get the size and perform error handling
@@ -751,10 +758,11 @@ namespace vectorTools{
     template<typename T>
     T trace(const std::vector< T > &A){
         /*!
-         * Compute the trace of a square matrix in row major format: v = sum(A_ii)
+         * Compute the trace of a square matrix in row major format
+         * 
+         * \f$v = A_{ii}\f$
          *
-         * \param &A: The matrix in row major format
-         * \param &v: The scalar output quantity
+         * \param &A: The matrix in row major format ( \f$A\f$ )
          */
 
         T v;
@@ -765,7 +773,9 @@ namespace vectorTools{
     template<typename T>
     int trace(const std::vector< std::vector< T > > &A, T &v){
         /*!
-         * Compute the trace of a square matrix: v = sum(A_ii)
+         * Compute the trace of a square matrix
+         * 
+         * \f$v = A_{ii}\f$
          *
          * \param &A: The matrix
          * \param &v: The scalar output quantity
@@ -781,10 +791,11 @@ namespace vectorTools{
     template<typename T>
     T trace(const std::vector< std::vector< T > > &A){
         /*!
-         * Compute the trace of a square matrix: v = sum(A_ii)
+         * Compute the trace of a square matrix
+         * 
+         * \f$v = A_{ii}\f$
          *
          * \param &A: The matrix
-         * \param &v: The scalar output quantity
          */
 
         T v;
@@ -896,6 +907,7 @@ namespace vectorTools{
          * Construct an identity tensor of the size indicated by dim
          *
          * \param dim: The dimension of the matrix
+         * \param &I: The resulting identity matrix
          */
 
         I = eye<T>(dim);
@@ -985,8 +997,8 @@ namespace vectorTools{
          * Compare two matrices to determine if they are equal within a
          * tolerance.
          *
-         * \param &a: The first matrix to compare
-         * \param &b: The second matrix to compare
+         * \param &A: The first matrix to compare
+         * \param &B: The second matrix to compare
          * \param tolr: The relative tolerance
          * \param tola: The absolute tolerance
          */
