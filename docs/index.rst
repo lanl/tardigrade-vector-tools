@@ -11,7 +11,7 @@ Welcome to vector_tools's documentation!
    :maxdepth: 2
    :caption: Contents
 
-   vector_tools
+   api
 
 ==================
 Indices and tables

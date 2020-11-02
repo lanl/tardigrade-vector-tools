@@ -1,6 +1,6 @@
-================
-vector_tools API
-================
+=============
+|project| API
+=============
 
 .. toctree::
     :maxdepth: 2
