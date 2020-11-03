@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 3.14)
 project (vector_tools VERSION 0.0.1)
+enable_testing()
 
 # Configure version
 configure_file("src/cpp/config.h.in" "${PROJECT_BINARY_DIR}/config.h")
