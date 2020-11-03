@@ -552,16 +552,16 @@ BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
     vectorTools::solverType< floatType > linearSolver;
     xAnswer = vectorTools::solveLinearSystem( A, b, rank, linearSolver );
 
-    BOOST_CHECK(  !vectorTools::fuzzyEquals( xSolution, xAnswer )  );
+    BOOST_CHECK( vectorTools::fuzzyEquals( xSolution, xAnswer )  );
 
-    BOOST_CHECK(  !vectorTools::equals< unsigned int >( rank, 3 )  );
+    BOOST_CHECK( vectorTools::equals< unsigned int >( rank, 3 )  );
 
     xAnswer = vectorType( 3, 0 );
     Eigen::Map< Eigen::MatrixXd > xmat( xAnswer.data( ), 3, 1 );
     Eigen::Map< const Eigen::MatrixXd > bmat( b.data( ), 3, 1 );
     xmat = linearSolver.solve( bmat );
 
-    BOOST_CHECK(  !vectorTools::fuzzyEquals( xSolution, xAnswer )  );
+    BOOST_CHECK( vectorTools::fuzzyEquals( xSolution, xAnswer )  );
 
     A = { { 2 } };
     b = { 7 };
@@ -570,7 +570,7 @@ BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
 
     xAnswer = vectorTools::solveLinearSystem( A, b, rank );
 
-    BOOST_CHECK(  !vectorTools::fuzzyEquals( xAnswer, xSolution )  );
+    BOOST_CHECK( vectorTools::fuzzyEquals( xAnswer, xSolution )  );
 
 }
 
@@ -594,7 +594,7 @@ BOOST_AUTO_TEST_CASE( test_isParallel ){
     BOOST_CHECK( vectorTools::isParallel(v3, v4) );
 
     v3[0] = 0;
-    BOOST_CHECK( vectorTools::isParallel(v3, v4) );
+    BOOST_CHECK( !vectorTools::isParallel(v3, v4) );
 
 }
 
@@ -683,7 +683,7 @@ BOOST_AUTO_TEST_CASE( test_inverse ){
     std::vector< std::vector< floatType > > A = vectorTools::inflate( Avec, 3, 3 );
     std::vector< std::vector< double > > Ainv = vectorTools::inverse( A );
 
-    BOOST_CHECK(  !vectorTools::fuzzyEquals( vectorTools::appendVectors( Ainv ), answer )  );
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::appendVectors( Ainv ), answer )  );
 
 }
 
@@ -704,7 +704,7 @@ BOOST_AUTO_TEST_CASE( test_inflate ){
 
     std::vector< std::vector< floatType > > result = vectorTools::inflate( Avec, nrows, ncols );
 
-    BOOST_CHECK(  !vectorTools::fuzzyEquals( answer, result )  );
+    BOOST_CHECK( vectorTools::fuzzyEquals( answer, result )  );
 
 }
 
