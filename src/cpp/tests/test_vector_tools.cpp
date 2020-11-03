@@ -650,7 +650,6 @@ BOOST_AUTO_TEST_CASE( test_eye ){
                                               {0, 0, 1, 0},
                                               {0, 0, 0, 1}}) );
 
-    return 1;
 }
 
 BOOST_AUTO_TEST_CASE( test_determinant ){
@@ -742,7 +741,6 @@ BOOST_AUTO_TEST_CASE( test_computeDDetAdJ ){
 
     }
 
-    return 1;
 }
 
 BOOST_AUTO_TEST_CASE( test_matrixMultiply ){
