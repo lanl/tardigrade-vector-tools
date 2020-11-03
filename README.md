@@ -56,7 +56,7 @@ install directory.  However, if you don't have admin privileges, you can also
 insall Eigen to your home directory in ``~/include`` (or possibly in
 ``~/.local/include``, but this is untested by this project).
 
-#### Non-admin Eigen install for
+#### Non-admin Eigen install
 [Reference](https://unix.stackexchange.com/questions/36871/where-should-a-local-executable-be-placed)
 
 ```
