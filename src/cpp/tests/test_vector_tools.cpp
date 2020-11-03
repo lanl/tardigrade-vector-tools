@@ -11,7 +11,7 @@
 #define USE_EIGEN
 #include<vector_tools.h>
 
-#define BOOST_TEST_MODULE test_error_tools
+#define BOOST_TEST_MODULE test_vector_tools
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/output_test_stream.hpp>
 
@@ -386,14 +386,7 @@ BOOST_AUTO_TEST_CASE( test_trace ){
                     0., 1., 0.,
                     0., 0., 1.};
 
-    try{
-        vectorTools::trace(b, c);
-    }
-    catch( std::length_error ){
-    }
-    catch(...){
-        return 1;
-    }
+    BOOST_CHECK_THROW( vectorTools::trace(b, c), std::length_error );
 
     c = 0.;
     c = vectorTools::trace(a);
