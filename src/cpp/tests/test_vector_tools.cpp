@@ -69,10 +69,10 @@ BOOST_AUTO_TEST_CASE( test_addition_operators ){
     BOOST_CHECK( vectorTools::fuzzyEquals(a, {0, 10, 6}) );
 
     c = a + 2.;
-    BOOST_CHECK( vectorTools::fuzzyEquals(c, {2, 12, 8}) && !vectorTools::fuzzyEquals(a, {0, 10, 6}) );
+    BOOST_CHECK( vectorTools::fuzzyEquals(c, {2, 12, 8}) && vectorTools::fuzzyEquals(a, {0, 10, 6}) );
 
     c = 2. + a;
-    BOOST_CHECK( vectorTools::fuzzyEquals(c, {2, 12, 8}) && !vectorTools::fuzzyEquals(a, {0, 10, 6}) );
+    BOOST_CHECK( vectorTools::fuzzyEquals(c, {2, 12, 8}) && vectorTools::fuzzyEquals(a, {0, 10, 6}) );
 
     A += B;
     BOOST_CHECK( vectorTools::fuzzyEquals(A, {{0,-1, 0},
@@ -116,10 +116,10 @@ BOOST_AUTO_TEST_CASE( test_subtraction_operators ){
     BOOST_CHECK( vectorTools::fuzzyEquals(a, {2, -6, 0}) );
 
     c = a - 2.;
-    BOOST_CHECK( vectorTools::fuzzyEquals(c, {0, -8, -2}) && !vectorTools::fuzzyEquals(a, {2, -6, 0}) );
+    BOOST_CHECK( vectorTools::fuzzyEquals(c, {0, -8, -2}) && vectorTools::fuzzyEquals(a, {2, -6, 0}) );
 
     c = 2. - a;
-    BOOST_CHECK( vectorTools::fuzzyEquals(c, {0, 8, 2}) && !vectorTools::fuzzyEquals(a, {2, -6, 0}) );
+    BOOST_CHECK( vectorTools::fuzzyEquals(c, {0, 8, 2}) && vectorTools::fuzzyEquals(a, {2, -6, 0}) );
 
     BOOST_CHECK( vectorTools::fuzzyEquals( -A, {{-1, -2, -3},
                                                 {-4, -5, -6}}) );
@@ -151,7 +151,7 @@ BOOST_AUTO_TEST_CASE( test_multiplication_operators ){
     b = 3*a;
     c = a*3;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals(b, c) && !vectorTools::fuzzyEquals(b, {6, 12, 18}) );
+    BOOST_CHECK( vectorTools::fuzzyEquals(b, c) && vectorTools::fuzzyEquals(b, {6, 12, 18}) );
 
 }
 
