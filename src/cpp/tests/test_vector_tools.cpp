@@ -1,3 +1,9 @@
+/**
+  * \file test_vector_tools.cpp
+  *
+  * Tests for vector_tools
+  */
+
 #include<vector>
 #include<iostream>
 #include<fstream>
@@ -5,14 +11,18 @@
 #define USE_EIGEN
 #include<vector_tools.h>
 
+#define BOOST_TEST_MODULE test_error_tools
+#include <boost/test/included/unit_test.hpp>
+#include <boost/test/output_test_stream.hpp>
+
 typedef double floatType;
 typedef std::vector< floatType > vectorType;
 typedef std::vector< vectorType > matrixType;
 
 void print(vectorType a){
     /*!
-    Print the vector to the terminal
-    */
+     * Print the vector to the terminal
+     */
 
     for (unsigned int i=0; i<a.size(); i++){
         std::cout << a[i] << " ";
@@ -22,15 +32,15 @@ void print(vectorType a){
 
 void print(matrixType A){
     /*!
-    Print the matrix to the terminal
-    */
+     * Print the matrix to the terminal
+     */
 
     for (unsigned int i=0; i<A.size(); i++){
         print(A[i]);
     }
 }
 
-int test_addition_operators(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_addition_operators ){
     /*!
      * Test the addition operators
      * 
@@ -99,7 +109,7 @@ int test_addition_operators(std::ofstream &results){
     return 0;
 }
 
-int test_subtraction_operators(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_subtraction_operators ){
     /*!
      * Test the subtraction operators
      * 
@@ -179,7 +189,7 @@ int test_subtraction_operators(std::ofstream &results){
     return 0;
 }
 
-int test_multiplication_operators(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_multiplication_operators ){
     /*!
      * Test the multiplication operators
      * 
@@ -210,7 +220,7 @@ int test_multiplication_operators(std::ofstream &results){
     return 0;
 }
 
-int test_division_operators(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_division_operators ){
     /*!
      * Test the division operators
      * 
@@ -240,7 +250,7 @@ int test_division_operators(std::ofstream &results){
     return 0;
 }
 
-int test_computeMean(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_computeMean ){
     /*!
      * Test the computation of the mean of a vector of vectors
      * 
@@ -270,7 +280,7 @@ int test_computeMean(std::ofstream &results){
     return 0;
 }
 
-int test_cross(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_cross ){
     /*!
      * Test the computation of the cross product of two vectors
      * 
@@ -309,7 +319,7 @@ int test_cross(std::ofstream &results){
     return 0;
 }
 
-int test_dot(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_dot ){
     /*!
      * Test the computation of the dot product of two vectors
      * 
@@ -362,7 +372,7 @@ int test_dot(std::ofstream &results){
     return 0;
 }
 
-int test_dotT(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_dotT ){
     /*!
      * Test the computation of the dot product of two matrices
      * 
@@ -389,7 +399,7 @@ int test_dotT(std::ofstream &results){
     return 0;
 }
 
-int test_Tdot(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_Tdot ){
     /*!
      * Test the computation of the dot product of two matrices
      * 
@@ -426,7 +436,7 @@ int test_Tdot(std::ofstream &results){
     return 0;
 }
 
-int test_TdotT(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_TdotT ){
     /*!
      * Test the computation of the dot product of two matrices
      * 
@@ -453,7 +463,7 @@ int test_TdotT(std::ofstream &results){
     return 0;
 }
 
-int test_inner(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_inner ){
 
     //Initialize test variables
     vectorType Avec, Bvec ;
@@ -501,7 +511,7 @@ int test_inner(std::ofstream &results){
     return 0;
 }
 
-int test_trace(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_trace ){
     /*!
      * Test the computation of the trace for a square matrix
      *
@@ -565,7 +575,7 @@ int test_trace(std::ofstream &results){
     return 0;
 }
 
-int test_l2norm(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_l ){
     /*!
      * Test the computation of the l2norm of vectors and matrices
      *
@@ -592,7 +602,7 @@ int test_l2norm(std::ofstream &results){
     return 0;
 }
 
-int test_argsort(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_argsort ){
     /*!
      * Test the utility that returns the indices required to sort a vector
      * 
@@ -611,7 +621,7 @@ int test_argsort(std::ofstream &results){
     return 0;
 }
 
-int test_fuzzyEquals(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_fuzzyEquals ){
     /*!
      * Test the tolerant compare function
      * 
@@ -631,7 +641,7 @@ int test_fuzzyEquals(std::ofstream &results){
     return 0;
 }
 
-int test_equals(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_equals ){
     /*!
      * Test the exact equality function
      * 
@@ -682,7 +692,7 @@ int test_equals(std::ofstream &results){
     return 0;
 }
 
-int test_getValuesByIndex(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_getValuesByIndex ){
     /*!
      * Test the retrieval of values of a vector as 
      * indicated by vector of indices.
@@ -717,7 +727,7 @@ int test_getValuesByIndex(std::ofstream &results){
     return 0;
 }
 
-int test_appendVectors(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_appendVectors ){
     /*!
      * Test the utility to append a vector of vectors into a row-major vector.
      * 
@@ -746,7 +756,7 @@ int test_appendVectors(std::ofstream &results){
     return 0;
 }
 
-int test_solveLinearSystem(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
     /*!
      * Test the utility to solve a linear system of equations.
      * 
@@ -814,7 +824,7 @@ int test_solveLinearSystem(std::ofstream &results){
     return 0;
 }
 
-int test_isParallel(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_isParallel ){
     /*!
      * Test the utility that tests if two vectors are parallel or not
      * 
@@ -853,7 +863,7 @@ int test_isParallel(std::ofstream &results){
     return 0;
 }
 
-int test_dyadic(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_dyadic ){
     /*!
      * Test the computation of the dyadic product between two vectors
      * 
@@ -875,7 +885,7 @@ int test_dyadic(std::ofstream &results){
     return 0;
 }
 
-int test_eye(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_eye ){
     /*!
      * Test the formation of an identity matrix
      * 
@@ -918,7 +928,7 @@ int test_eye(std::ofstream &results){
     return 1;
 }
 
-int test_determinant(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_determinant ){
     /*!
      * Test the computation of the determinant of a matrix
      * 
@@ -947,7 +957,7 @@ int test_determinant(std::ofstream &results){
     return 0;
 }
 
-int test_inverse( std::ofstream &results ){
+BOOST_AUTO_TEST_CASE( test_inverse ){
     /*!
      * Test the computation of the matrix inverse;
      *
@@ -981,7 +991,7 @@ int test_inverse( std::ofstream &results ){
     return 0;
 }
 
-int test_inflate( std::ofstream &results ){
+BOOST_AUTO_TEST_CASE( test_inflate ){
     /*!
      * Test the inflate command in vector_tools
      * 
@@ -1008,7 +1018,7 @@ int test_inflate( std::ofstream &results ){
     return 0;
 }
 
-int test_computeDDetAdJ(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_computeDDetAdJ ){
     /*!
      * Test the computation of the derivative of the determinant w.r.t. 
      * the matrix.
@@ -1042,7 +1052,7 @@ int test_computeDDetAdJ(std::ofstream &results){
     return 1;
 }
 
-int test_matrixMultiply(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_matrixMultiply ){
     /*!
      * Test the matrix multiplication function.
      * 
@@ -1085,7 +1095,7 @@ int test_matrixMultiply(std::ofstream &results){
     return 0;
 }
 
-int test_matrixSqrtResidual(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
     /*!
      * Test the computation of the residual used in solving for 
      * the square root of a matrix.
@@ -1122,7 +1132,7 @@ int test_matrixSqrtResidual(std::ofstream &results){
     return 0;
 }
 
-int test_matrixSqrt(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
     /*!
      * Test the computation of the square root of a matrix.
      * 
@@ -1173,7 +1183,7 @@ int test_matrixSqrt(std::ofstream &results){
     return 0;
 }
 
-int test_median(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_median ){
     /*!
      * Test the computation of the median of a vector
      * 
@@ -1196,7 +1206,7 @@ int test_median(std::ofstream &results){
     return 0;
 }
 
-int test_abs(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_abs ){
     /*!
      * Test the computation of the absolute value of a vector.
      * 
@@ -1217,58 +1227,4 @@ int test_abs(std::ofstream &results){
 
     results << "test_abs & True\n";
     return 0;
-}
-
-int main(){
-    /*!
-    The main loop which runs the tests defined in the 
-    accompanying functions. Each function should output
-    the function name followed by & followed by True or False 
-    if the test passes or fails respectively.
-    */
-
-    //Open the results file
-    std::ofstream results;
-    results.open("results.tex");
-
-    //Test the operator overloading
-    test_addition_operators(results);
-    test_subtraction_operators(results);
-    test_multiplication_operators(results);
-    test_division_operators(results);
-
-    //Test the utility functions
-    test_computeMean(results);
-    test_cross(results);
-    test_dot(results);
-    test_dotT(results);
-    test_Tdot(results);
-    test_TdotT(results);
-    test_inner(results);
-    test_trace(results);
-    test_l2norm(results);
-    test_argsort(results);
-    test_fuzzyEquals(results);
-    test_equals(results);
-    test_getValuesByIndex(results);
-    test_appendVectors(results);
-    test_solveLinearSystem(results);
-    test_isParallel(results);
-    test_dyadic(results);
-    test_eye(results);
-    test_determinant(results);
-    test_inverse(results);
-    test_computeDDetAdJ(results);
-    test_matrixMultiply(results);
-    test_matrixSqrt(results);
-    test_matrixSqrtResidual(results);
-    test_median(results);
-    test_abs(results);
-    test_inflate( results );
-
-    //Close the results file
-    results.close();
-
-    return 0;
-
 }
