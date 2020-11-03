@@ -76,18 +76,12 @@ BOOST_AUTO_TEST_CASE( test_addition_operators ){
     BOOST_CHECK( vectorTools::fuzzyEquals(c, {2, 12, 8}) && !vectorTools::fuzzyEquals(a, {0, 10, 6}) );
 
     A += B;
-    if (!vectorTools::fuzzyEquals(A, {{0,-1, 0},
-                                      {6, 10, 12}})){
-        results << "test_addition_operators (test 5) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals(A, {{0,-1, 0},
+                                              {6, 10, 12}}) );
 
     C = A + B;
-    if (!vectorTools::fuzzyEquals(C, {{-1, -4, -3},
-                                      { 8, 15, 18}})){
-        results << "test_addition_operators (test 6) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals(C, {{-1, -4, -3},
+                                              { 8, 15, 18}}) );
 
     //All tests passed    
     results << "test_addition_operators & True\n";
@@ -132,24 +126,16 @@ BOOST_AUTO_TEST_CASE( test_subtraction_operators ){
     c = 2. - a;
     BOOST_CHECK( vectorTools::fuzzyEquals(c, {0, 8, 2}) && !vectorTools::fuzzyEquals(a, {2, -6, 0}) );
 
-    if (!vectorTools::fuzzyEquals( -A, {{-1, -2, -3},
-                                        {-4, -5, -6}})){
-        results << "test_subtraction_operators (test 7) & False\n";
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( -A, {{-1, -2, -3},
+                                                {-4, -5, -6}}) );
 
     A -= B;
-    if (!vectorTools::fuzzyEquals(A, {{2, 5, 6},
-                                      {2, 0, 0}})){
-        results << "test_addition_operators (test 7) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals(A, {{2, 5, 6},
+                                              {2, 0, 0}}) );
 
     C = A - B;
-    if (!vectorTools::fuzzyEquals(C, {{ 3, 8,  9},
-                                      { 0,-5, -6}})){
-        results << "test_addition_operators (test 8) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals(C, {{ 3, 8,  9},
+                                              { 0,-5, -6}}) );
 
     //All tests passed    
     results << "test_subtraction_operators & True\n";
@@ -292,12 +278,9 @@ BOOST_AUTO_TEST_CASE( test_dot ){
 
     matrixType C = vectorTools::dot(A, B);
 
-    if (!vectorTools::fuzzyEquals(C, {{ 84,  90,  96},
-                                      {201, 216, 231},
-                                      {318, 342, 366}})){
-        results << "test_dot (test 4) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals(C, {{ 84,  90,  96},
+                                              {201, 216, 231},
+                                              {318, 342, 366}}) );
 
     results << "test_dot & True\n";
     return 0;
@@ -548,12 +531,9 @@ BOOST_AUTO_TEST_CASE( test_equals ){
 
     BOOST_CHECK( !vectorTools::equals(v, {1, 2, 2, 4}) );
 
-    if (!vectorTools::equals(m, {{1, 2, 3},
-                                 {4, 5, 6},
-                                 {7, 8, 9}})){
-        results << "test_equals (test 5) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::equals(m, {{1, 2, 3},
+                                         {4, 5, 6},
+                                         {7, 8, 9}}) );
 
     if (vectorTools::equals(m, {{1, 2, 3},
                                 {4, 5, 4},
@@ -706,12 +686,9 @@ BOOST_AUTO_TEST_CASE( test_dyadic ){
     vectorType v2 = {4, 5, 6};
     matrixType A = vectorTools::dyadic(v1, v2);
 
-    if (!vectorTools::fuzzyEquals(A, {{ 4,  5,  6},
-                                      { 8, 10, 12},
-                                      {12, 15, 18}})){
-        results << "test_dyadic (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals(A, {{ 4,  5,  6},
+                                              { 8, 10, 12},
+                                              {12, 15, 18}}) );
 
     results << "test_dyadic & True\n";
     return 0;
