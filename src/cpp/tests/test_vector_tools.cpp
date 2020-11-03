@@ -1,3 +1,9 @@
+/**
+  * \file test_vector_tools.cpp
+  *
+  * Tests for vector_tools
+  */
+
 #include<vector>
 #include<iostream>
 #include<fstream>
@@ -5,798 +11,539 @@
 #define USE_EIGEN
 #include<vector_tools.h>
 
+#define BOOST_TEST_MODULE test_vector_tools
+#include <boost/test/included/unit_test.hpp>
+#include <boost/test/output_test_stream.hpp>
+
 typedef double floatType;
 typedef std::vector< floatType > vectorType;
 typedef std::vector< vectorType > matrixType;
 
-void print(vectorType a){
+void print( vectorType a ){
     /*!
-    Print the vector to the terminal
-    */
+     * Print the vector to the terminal
+     */
 
-    for (unsigned int i=0; i<a.size(); i++){
-        std::cout << a[i] << " ";
+    for ( unsigned int i=0; i<a.size( ); i++ ){
+        std::cout << a[ i ] << " ";
     }
     std::cout << "\n";
 }
 
-void print(matrixType A){
+void print( matrixType A ){
     /*!
-    Print the matrix to the terminal
-    */
+     * Print the matrix to the terminal
+     */
 
-    for (unsigned int i=0; i<A.size(); i++){
-        print(A[i]);
+    for ( unsigned int i=0; i<A.size( ); i++ ){
+        print( A[ i ] );
     }
 }
 
-int test_addition_operators(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_addition_operators ){
     /*!
      * Test the addition operators
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType a = { 1, 2, 3};
-    vectorType b = {-2, 7, 2};
+    vectorType a = {  1, 2, 3 };
+    vectorType b = { -2, 7, 2 };
     vectorType c;
 
-    matrixType A = {{1, 2, 3},
-                    {4, 5, 6}};
-    matrixType B = {{-1, -3, -3},
-                    { 2,  5,  6}};
+    matrixType A = { { 1, 2, 3 },
+                     { 4, 5, 6 } };
+    matrixType B = { { -1, -3, -3 },
+                     {  2,  5,  6 } };
     matrixType C;
 
     a += b;
 
-    if (!vectorTools::fuzzyEquals(a, {-1, 9, 5})){
-        results << "test_addition_operators (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { -1, 9, 5 } ) );
 
     c = a + b;
 
-    if (!vectorTools::fuzzyEquals(c, {-3, 16, 7})){
-        results << "test_addition_operators (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { -3, 16, 7 } ) );
 
     a += 1.;
 
-    if (!vectorTools::fuzzyEquals(a, {0, 10, 6})){
-        results << "test_addition_operators (test 3) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
 
     c = a + 2.;
-    if (!vectorTools::fuzzyEquals(c, {2, 12, 8}) && !vectorTools::fuzzyEquals(a, {0, 10, 6})){
-        results << "test_addition_operators (test 4) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 2, 12, 8 } ) && vectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
 
     c = 2. + a;
-    if (!vectorTools::fuzzyEquals(c, {2, 12, 8}) && !vectorTools::fuzzyEquals(a, {0, 10, 6})){
-        results << "test_addition_operators (test 4) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 2, 12, 8 } ) && vectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
 
     A += B;
-    if (!vectorTools::fuzzyEquals(A, {{0,-1, 0},
-                                      {6, 10, 12}})){
-        results << "test_addition_operators (test 5) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( A, { { 0,  -1,  0 },
+                                                { 6,  10, 12 } } ) );
 
     C = A + B;
-    if (!vectorTools::fuzzyEquals(C, {{-1, -4, -3},
-                                      { 8, 15, 18}})){
-        results << "test_addition_operators (test 6) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { { -1, -4, -3 },
+                                                {  8, 15, 18 } } ) );
 
-    //All tests passed    
-    results << "test_addition_operators & True\n";
-    return 0;
 }
 
-int test_subtraction_operators(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_subtraction_operators ){
     /*!
      * Test the subtraction operators
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType a = { 1, 2, 3};
-    vectorType b = {-2, 7, 2};
+    vectorType a = {  1, 2, 3 };
+    vectorType b = { -2, 7, 2 };
     vectorType c;
 
-    matrixType A = {{1, 2, 3},
-                    {4, 5, 6}};
-    matrixType B = {{-1, -3, -3},
-                    { 2,  5,  6}};
+    matrixType A = { {  1, 2, 3 },
+                     {  4, 5, 6 } };
+    matrixType B = { { -1, -3, -3 },
+                     {  2,  5,  6 } };
     matrixType C;
 
 
-    if (!vectorTools::fuzzyEquals(-a, {-1, -2, -3})){
-        results << "test_subtraction_operators (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( -a, { -1, -2, -3 } ) );
 
     a -= b;
 
-    if (!vectorTools::fuzzyEquals(a, {3, -5, 1})){
-        results << "test_subtraction_operators (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 3, -5, 1 } ) );
 
     c = a - b;
 
-    if (!vectorTools::fuzzyEquals(c, {5,-12, -1})){
-        results << "test_subtraction_operators (test 3) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 5, -12, -1 } ) );
 
     a -= 1.;
 
-    if (!vectorTools::fuzzyEquals(a, {2, -6, 0})){
-        results << "test_subtraction_operators (test 4) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
 
     c = a - 2.;
-    if (!vectorTools::fuzzyEquals(c, {0, -8, -2}) && !vectorTools::fuzzyEquals(a, {2, -6, 0})){
-        results << "test_subtraction_operators (test 5) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, -8, -2 } ) && vectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
 
     c = 2. - a;
-    if (!vectorTools::fuzzyEquals(c, {0, 8, 2}) && !vectorTools::fuzzyEquals(a, {2, -6, 0})){
-        results << "test_subtraction_operators (test 6) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, 8, 2 } ) && vectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
 
-    if (!vectorTools::fuzzyEquals( -A, {{-1, -2, -3},
-                                        {-4, -5, -6}})){
-        results << "test_subtraction_operators (test 7) & False\n";
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( -A, { { -1, -2, -3 },
+                                                 { -4, -5, -6 } } ) );
 
     A -= B;
-    if (!vectorTools::fuzzyEquals(A, {{2, 5, 6},
-                                      {2, 0, 0}})){
-        results << "test_addition_operators (test 7) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( A, { { 2, 5, 6 },
+                                                { 2, 0, 0 } } ) );
 
     C = A - B;
-    if (!vectorTools::fuzzyEquals(C, {{ 3, 8,  9},
-                                      { 0,-5, -6}})){
-        results << "test_addition_operators (test 8) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { { 3,  8,  9 },
+                                                { 0, -5, -6 } } ) );
 
-    //All tests passed    
-    results << "test_subtraction_operators & True\n";
-    return 0;
 }
 
-int test_multiplication_operators(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_multiplication_operators ){
     /*!
      * Test the multiplication operators
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType a = { 1, 2, 3};
+    vectorType a = { 1, 2, 3 };
     vectorType b, c;
 
 
     a *= 2;
 
-    if (!vectorTools::fuzzyEquals(a, {2, 4, 6})){
-        results << "test_multiplication_operators (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 2, 4, 6 } ) );
 
     b = 3*a;
     c = a*3;
 
-    if (!vectorTools::fuzzyEquals(b, c) && !vectorTools::fuzzyEquals(b, {6, 12, 18})){
-        results << "test_multiplication_operators (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( b, c ) && vectorTools::fuzzyEquals( b, { 6, 12, 18 } ) );
 
-    //All tests passed    
-    results << "test_multiplication_operators & True\n";
-    return 0;
 }
 
-int test_division_operators(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_division_operators ){
     /*!
      * Test the division operators
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType a = { 1, 2, 3};
+    vectorType a = { 1, 2, 3 };
     vectorType b;
 
 
     a /= 2;
 
-    if (!vectorTools::fuzzyEquals(a, {0.5, 1, 1.5})){
-        results << "test_division_operators (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 0.5, 1, 1.5 } ) );
 
     b = a/2;
 
-    if (!vectorTools::fuzzyEquals(b, {0.25, 0.5, 0.75})){
-        results << "test_division_operators (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( b, { 0.25, 0.5, 0.75 } ) );
 
-    //All tests passed    
-    results << "test_division_operators & True\n";
-    return 0;
 }
 
-int test_computeMean(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_computeMean ){
     /*!
      * Test the computation of the mean of a vector of vectors
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    matrixType A = {{ 1,  2, 3.0, 4},
-                    {-4, 13, 0.4, 5},
-                    { 2,  6, 1.0, 7}};
+    matrixType A = { {  1,  2, 3.0, 4 },
+                     { -4, 13, 0.4, 5 },
+                     {  2,  6, 1.0, 7 } };
 
-    vectorType answer = {-1./3, 7, 8.8/6, 5 + 1/3.};
+    vectorType answer = { -1./3, 7, 8.8/6, 5 + 1/3. };
     vectorType result;
-    vectorTools::computeMean(A, result);
+    vectorTools::computeMean( A, result );
 
-    if (!vectorTools::fuzzyEquals(result, answer)){
-        results << "test_computeMean (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( result, answer ) );
 
-    result = vectorTools::computeMean(A);
-    if (!vectorTools::fuzzyEquals(result, answer)){
-        results << "test_computeMean (test 2) & False\n";
-        return 1;
-    }
+    result = vectorTools::computeMean( A );
+    BOOST_CHECK( vectorTools::fuzzyEquals( result, answer ) );
 
-    results << "test_computeMean & True\n";
-    return 0;
 }
 
-int test_cross(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_cross ){
     /*!
      * Test the computation of the cross product of two vectors
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType a = { 1, 2};
-    vectorType b = {-1, 7};
+    vectorType a = {  1, 2 };
+    vectorType b = { -1, 7 };
     vectorType c;
 
-    vectorTools::cross(a, b, c);
+    vectorTools::cross( a, b, c );
 
-    if (!vectorTools::fuzzyEquals(c, {0, 0, 9})){
-        results << "test_cross (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, 0, 9 } ) );
 
-    a = {1, 2, 3};
-    b = {-1, 7, -3};
+    a = {  1, 2, 3 };
+    b = { -1, 7, -3 };
 
-    vectorTools::cross(a, b, c);
+    vectorTools::cross( a, b, c );
 
-    if (!vectorTools::fuzzyEquals(c, {-27, 0, 9})){
-        results << "test_cross (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { -27, 0, 9 } ) );
 
-    c = vectorTools::cross(a, b);
+    c = vectorTools::cross( a, b );
 
-    if (!vectorTools::fuzzyEquals(c, {-27, 0, 9})){
-        results << "test_cross (test 3) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { -27, 0, 9 } ) );
 
-    results << "test_cross & True\n";
-    return 0;
 }
 
-int test_dot(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_dot ){
     /*!
      * Test the computation of the dot product of two vectors
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType a = { 1, 2, 3};
-    vectorType b = {-1, 7, 6};
+    vectorType a = {  1, 2, 3 };
+    vectorType b = { -1, 7, 6 };
     floatType c;
-    
-    vectorTools::dot(a, b, c);
 
-    if (!vectorTools::fuzzyEquals<floatType>(c, -1 + 14 + 18)){
-        results << "test_dot (test 1) & False\n";
-        return 1;
-    }
+    vectorTools::dot( a, b, c );
 
-    c = vectorTools::dot(a, b);
-    if (!vectorTools::fuzzyEquals<floatType>(c, -1 + 14 + 18)){
-        results << "test_dot (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, -1 + 14 + 18 ) );
 
-    matrixType A = {{1, 2, 3},
-                    {4, 5, 6},
-                    {7, 8, 9}};
+    c = vectorTools::dot( a, b );
+    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, -1 + 14 + 18 ) );
+
+    matrixType A = { { 1, 2, 3 },
+                     { 4, 5, 6 },
+                     { 7, 8, 9 } };
     vectorType d;
 
-    d = vectorTools::dot(A, a);
+    d = vectorTools::dot( A, a );
 
-    if (!vectorTools::fuzzyEquals(d, {14, 32, 50})){
-        results << "test_dot (test 3) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( d, { 14, 32, 50 } ) );
 
-    matrixType B = {{10, 11, 12},
-                    {13, 14, 15},
-                    {16, 17, 18}};
+    matrixType B = { { 10, 11, 12 },
+                     { 13, 14, 15 },
+                     { 16, 17, 18 } };
 
-    matrixType C = vectorTools::dot(A, B);
+    matrixType C = vectorTools::dot( A, B );
 
-    if (!vectorTools::fuzzyEquals(C, {{ 84,  90,  96},
-                                      {201, 216, 231},
-                                      {318, 342, 366}})){
-        results << "test_dot (test 4) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { {  84,  90,  96 },
+                                                { 201, 216, 231 },
+                                                { 318, 342, 366 } } ) );
 
-    results << "test_dot & True\n";
-    return 0;
 }
 
-int test_dotT(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_dotT ){
     /*!
      * Test the computation of the dot product of two matrices
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    matrixType A = {{1, 2, 3},
-                    {4, 5, 6},
-                    {7, 8, 9}};
+    matrixType A = { { 1, 2, 3 },
+                     { 4, 5, 6 },
+                     { 7, 8, 9 } };
 
-    matrixType B = {{10, 11, 12},
-                    {13, 14, 15}};
+    matrixType B = { { 10, 11, 12 },
+                     { 13, 14, 15 } };
 
-    matrixType answer = {{ 68,  86},
-                         {167, 212},
-                         {266, 338}};
+    matrixType answer = { {  68,  86 },
+                          { 167, 212 },
+                          { 266, 338 } };
 
-    if (!vectorTools::fuzzyEquals( vectorTools::dotT( A, B ), answer )){
-        results << "test_dotT (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::dotT( A, B ), answer ) );
 
-    results << "test_dotT & True\n";
-    return 0;
 }
 
-int test_Tdot(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_Tdot ){
     /*!
      * Test the computation of the dot product of two matrices
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    matrixType A = {{1, 2, 3},
-                    {4, 5, 6},
-                    {7, 8, 9}};
+    matrixType A = { { 1, 2, 3 },
+                     { 4, 5, 6 },
+                     { 7, 8, 9 } };
 
-    matrixType B = {{10, 11},
-                    {12, 13},
-                    {14, 15}};
+    matrixType B = { { 10, 11 },
+                     { 12, 13 },
+                     { 14, 15 } };
 
-    vectorType b = {4, 5, 6};
+    vectorType b = { 4, 5, 6 };
 
-    matrixType matrixAnswer = {{156, 168},
-                               {192, 207},
-                               {228, 246}};
+    matrixType matrixAnswer = { { 156, 168 },
+                                { 192, 207 },
+                                { 228, 246 } };
 
     vectorType vectorAnswer = { 66, 81, 96 };
 
-    if (!vectorTools::fuzzyEquals( vectorTools::Tdot( A, B ), matrixAnswer )){
-        results << "test_Tdot (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::Tdot( A, B ), matrixAnswer ) );
 
-    if (!vectorTools::fuzzyEquals( vectorTools::Tdot( A, b ), vectorAnswer )){
-        results << "test_Tdot (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::Tdot( A, b ), vectorAnswer ) );
 
-    results << "test_Tdot & True\n";
-    return 0;
 }
 
-int test_TdotT(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_TdotT ){
     /*!
      * Test the computation of the dot product of two matrices
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    matrixType A = {{1, 2, 3},
-                    {4, 5, 6},
-                    {7, 8, 9}};
+    matrixType A = { { 1, 2, 3 },
+                     { 4, 5, 6 },
+                     { 7, 8, 9 } };
 
-    matrixType B = {{10, 11, 12},
-                    {13, 14, 15}};
+    matrixType B = { { 10, 11, 12 },
+                     { 13, 14, 15 } };
 
-    matrixType answer = {{138, 174},
-                         {171, 216},
-                         {204, 258}};
+    matrixType answer = { { 138, 174 },
+                          { 171, 216 },
+                          { 204, 258 } };
 
-    if (!vectorTools::fuzzyEquals( vectorTools::TdotT( A, B ), answer )){
-        results << "test_TdotT (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::TdotT( A, B ), answer ) );
 
-    results << "test_TdotT & True\n";
-    return 0;
 }
 
-int test_inner(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_inner ){
 
     //Initialize test variables
     vectorType Avec, Bvec ;
-    Avec = Bvec = {1., 0., 0., 
-                   0., 1., 0.,
-                   0., 0., 1.};
+    Avec = Bvec = { 1., 0., 0.,
+                    0., 1., 0.,
+                    0., 0., 1. };
     matrixType A, B;
-    A = B = {{1., 0., 0.}, 
-             {0., 1., 0.},
-             {0., 0., 1.}};
+    A = B = { { 1., 0., 0. },
+              { 0., 1., 0. },
+              { 0., 0., 1. } };
     floatType expected = 3.;
     floatType result;
-    
+
     //Test inner product of row major matrices
     result = 0.;
-    vectorTools::inner(Avec, Bvec, result);
-    if (!vectorTools::fuzzyEquals(result, expected)){
-        results << "test_inner (test 1) & False\n";
-        return 1;
-    }
+    vectorTools::inner( Avec, Bvec, result );
+    BOOST_CHECK( vectorTools::fuzzyEquals( result, expected ) );
 
     result = 0.;
-    result = vectorTools::inner(Avec, Bvec);
-    if (!vectorTools::fuzzyEquals(result, expected)){
-        results << "test_inner (test 2) & False\n";
-        return 1;
-    }
+    result = vectorTools::inner( Avec, Bvec );
+    BOOST_CHECK( vectorTools::fuzzyEquals( result, expected ) );
 
     //Test inner product of matrices
     result = 0.;
-    vectorTools::inner(A, B, result);
-    if (!vectorTools::fuzzyEquals(result, expected)){
-        results << "test_inner (test 3) & False\n";
-        return 1;
-    }
+    vectorTools::inner( A, B, result );
+    BOOST_CHECK( vectorTools::fuzzyEquals( result, expected ) );
 
     result = 0.;
-    result = vectorTools::inner(A, B);
-    if (!vectorTools::fuzzyEquals(result, expected)){
-        results << "test_inner (test 4) & False\n";
-        return 1;
-    }
+    result = vectorTools::inner( A, B );
+    BOOST_CHECK( vectorTools::fuzzyEquals( result, expected ) );
 
-    results << "test_inner & True\n";
-    return 0;
 }
 
-int test_trace(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_trace ){
     /*!
      * Test the computation of the trace for a square matrix
-     *
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType a = {1., 0., 0., 
-                    0., 1., 0.,
-                    0., 0., 1.};
+    vectorType a = { 1., 0., 0.,
+                     0., 1., 0.,
+                     0., 0., 1. };
     floatType c;
 
-    vectorTools::trace(a, c);
+    vectorTools::trace( a, c );
 
-    if (!vectorTools::fuzzyEquals<floatType>(c, 3.)){
-        results << "test_trace (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
     //TODO: Refactor with boost or pytest
-    vectorType b = {1., 0., 0., 
-                    0., 1., 0.,
-                    0., 1., 0.,
-                    0., 0., 1.};
+    vectorType b = { 1., 0., 0.,
+                     0., 1., 0.,
+                     0., 1., 0.,
+                     0., 0., 1. };
 
-    try{
-        vectorTools::trace(b, c);
-    }
-    catch( std::length_error ){
-    }
-    catch(...){
-        results << "test_trace (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK_THROW( vectorTools::trace( b, c ), std::length_error );
 
     c = 0.;
-    c = vectorTools::trace(a);
-    if (!vectorTools::fuzzyEquals<floatType>(c, 3.)){
-        results << "test_trace (test 3) & False\n";
-        return 1;
-    }
+    c = vectorTools::trace( a );
+    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
-    matrixType A = {{1., 0., 0.},
-                    {0., 1., 0.},
-                    {0., 0., 1.}};
+    matrixType A = { { 1., 0., 0. },
+                     { 0., 1., 0. },
+                     { 0., 0., 1. } };
 
     c = 0.;
-    vectorTools::trace(A, c);
-    if (!vectorTools::fuzzyEquals<floatType>(c, 3.)){
-        results << "test_trace (test 4) & False\n";
-        return 1;
-    }
+    vectorTools::trace( A, c );
+    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
     c = 0.;
-    c = vectorTools::trace(A);
-    if (!vectorTools::fuzzyEquals<floatType>(c, 3.)){
-        results << "test_trace (test 5) & False\n";
-        return 1;
-    }
+    c = vectorTools::trace( A );
+    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
-    results << "test_trace & True\n";
-    return 0;
 }
 
-int test_l2norm(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_l2norm ){
     /*!
      * Test the computation of the l2norm of vectors and matrices
-     *
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType a = {1, 2, 3};
-    matrixType A = {{1, 2, 3, 4},
-                    {5, 6, 7, 8}};
+    vectorType a = { 1, 2, 3 };
+    matrixType A = { { 1, 2, 3, 4 },
+                     { 5, 6, 7, 8 } };
 
-    double r = vectorTools::l2norm(a);
-    if (!vectorTools::fuzzyEquals(r, 3.7416573867739413)){
-        results << "test_l2norm (test 1) & False\n";
-        return 1;
-    }
+    double r = vectorTools::l2norm( a );
+    BOOST_CHECK( vectorTools::fuzzyEquals( r, 3.7416573867739413 ) );
 
-    r = vectorTools::l2norm(A);
-    if (!vectorTools::fuzzyEquals(r, 14.2828568570857)){
-        results << "test_l2norm (test 2) & False\n";
-        return 1;
-    }
+    r = vectorTools::l2norm( A );
+    BOOST_CHECK( vectorTools::fuzzyEquals( r, 14.2828568570857 ) );
 
-    results << "test_l2norm & True\n";
-    return 0;
 }
 
-int test_argsort(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_argsort ){
     /*!
      * Test the utility that returns the indices required to sort a vector
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType a = {1, -2, 7, 3, 9, 11};
-    std::vector< unsigned int > idx = vectorTools::argsort(a);
+    vectorType a = { 1, -2, 7, 3, 9, 11 };
+    std::vector< unsigned int > idx = vectorTools::argsort( a );
 
-    if (!vectorTools::equals(idx, {1, 0, 3, 2, 4, 5})){
-        results << "test_argsort (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::equals( idx, { 1, 0, 3, 2, 4, 5 } ) );
 
-    results << "test_argsort & True\n";
-    return 0;
 }
 
-int test_fuzzyEquals(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_fuzzyEquals ){
     /*!
      * Test the tolerant compare function
-     * 
-     * :param std::ofstream &results
      */
 
-    matrixType a = {{1, -2, 3, 2.4, 1e-9, -1e-7},
-                    {1.4, 8.5, 1 + 1e-9, 4, -2+1e-3, 100}};
+    matrixType a = { {   1,  -2,        3, 2.4,    1e-9, -1e-7 },
+                     { 1.4, 8.5, 1 + 1e-9,   4, -2+1e-3,   100 } };
 
-    if(!vectorTools::fuzzyEquals(a, {{1, -2, 3, 2.4, 0, 0},
-                                     {1.4, 8.5, 1, 4, -2+1e-3+1e-9, 100+1e-4}})){
-        results << "test_fuzzyEquals (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { {   1,  -2, 3, 2.4,            0,        0 },
+                                                { 1.4, 8.5, 1,   4, -2+1e-3+1e-9, 100+1e-4 } } ) );
 
-    results << "test_fuzzyEquals & True\n";
-    return 0;
 }
 
-int test_equals(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_equals ){
     /*!
      * Test the exact equality function
-     * 
-     * :param std::ofstream &results:
      */
 
     unsigned int a = 1;
-    std::vector< unsigned int > v = {1, 2, 3, 4};
-    std::vector< std::vector< unsigned int > > m = {{1, 2, 3},
-                                                    {4, 5, 6},
-                                                    {7, 8, 9}};
+    std::vector< unsigned int > v = { 1, 2, 3, 4 };
+    std::vector< std::vector< unsigned int > > m = { { 1, 2, 3 },
+                                                     { 4, 5, 6 },
+                                                     { 7, 8, 9 } };
 
-    if (!vectorTools::equals<unsigned int>(a, 1)){
-        results << "test_equals (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::equals<unsigned int>( a, 1 ) );
 
-    if (vectorTools::equals<unsigned int>(a, 2)){
-        results << "test_equals (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( !vectorTools::equals<unsigned int>( a, 2 ) );
 
-    if (!vectorTools::equals(v, {1, 2, 3, 4})){
-        results << "test_equals (test 3) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::equals( v, { 1, 2, 3, 4 } ) );
 
-    if (vectorTools::equals(v, {1, 2, 2, 4})){
-        results << "test_equals (test 4) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( !vectorTools::equals( v, { 1, 2, 2, 4 } ) );
 
-    if (!vectorTools::equals(m, {{1, 2, 3},
-                                 {4, 5, 6},
-                                 {7, 8, 9}})){
-        results << "test_equals (test 5) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::equals( m, { { 1, 2, 3 },
+                                           { 4, 5, 6 },
+                                           { 7, 8, 9 } } ) );
 
-    if (vectorTools::equals(m, {{1, 2, 3},
-                                {4, 5, 4},
-                                {7, 8, 9}})){
-        results << "test_equals (test 6) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( !vectorTools::equals( m, { { 1, 2, 3 },
+                                            { 4, 5, 4 },
+                                            { 7, 8, 9 } } ) );
 
-    results << "test_equals & True\n";
-    return 0;
 }
 
-int test_getValuesByIndex(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_getValuesByIndex ){
     /*!
-     * Test the retrieval of values of a vector as 
+     * Test the retrieval of values of a vector as
      * indicated by vector of indices.
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType v = {1, 2, 3, 4, 5, 6};
-    matrixType m = {{ 1,  2,  3},
-                    { 4,  5,  6},
-                    { 7,  8,  9},
-                    {10, 11, 12},
-                    {13, 14, 15}};
+    vectorType v = { 1, 2, 3, 4, 5, 6 };
+    matrixType m = { { 1,  2,   3 },
+                     { 4,  5,   6 },
+                     { 7,  8,   9 },
+                     { 10, 11, 12 },
+                     { 13, 14, 15 } };
 
-    std::vector< vectorTools::size_type > indices = {1, 3, 0};
+    std::vector< vectorTools::size_type > indices = { 1, 3, 0 };
 
     vectorType rv;
-    vectorTools::getValuesByIndex(v, indices, rv);
-    if (!vectorTools::fuzzyEquals(rv, {2, 4, 1})){
-        results << "test_getValuesByIndex (test 1) & False\n";
-        return 1;
-    }
+    vectorTools::getValuesByIndex( v, indices, rv );
+    BOOST_CHECK( vectorTools::fuzzyEquals( rv, { 2, 4, 1 } ) );
 
     matrixType rm;
-    vectorTools::getValuesByIndex(m, indices, rm);
-    if (!vectorTools::fuzzyEquals(rm, {{4, 5, 6},{10, 11, 12},{1, 2, 3}})){
-        results << "test_getValuesByIndex (test 2) & False\n";
-        return 1;
-    }
+    vectorTools::getValuesByIndex( m, indices, rm );
+    BOOST_CHECK( vectorTools::fuzzyEquals( rm, { { 4, 5, 6 }, { 10, 11, 12 }, { 1, 2, 3 } } ) );
 
-    results << "test_getValuesByIndex & True\n";
-    return 0;
 }
 
-int test_appendVectors(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_appendVectors ){
     /*!
      * Test the utility to append a vector of vectors into a row-major vector.
-     * 
-     * :param const std::ofstream &results: The output file
      */
 
-    matrixType m = {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
-    vectorType v = vectorTools::appendVectors(m);
-    
-    if (!vectorTools::fuzzyEquals(v, {1, 2, 3, 4, 5, 6, 7, 8, 9})){
-        results << "test_appendVectors (test 1) & False\n";
-        return 1;
-    }
+    matrixType m = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    vectorType v = vectorTools::appendVectors( m );
 
-    v.clear();
-    vectorType v1 = {1, 7, 5};
-    vectorType v2 = {4, 6, 2};
-    v = vectorTools::appendVectors({v1, v2});
+    BOOST_CHECK( vectorTools::fuzzyEquals( v, { 1, 2, 3, 4, 5, 6, 7, 8, 9 } ) );
 
-    if (!vectorTools::fuzzyEquals(v, {1, 7, 5, 4, 6, 2})){
-        results << "test_appendVectors (test 2) & False\n";
-        return 1;
-    }
+    v.clear( );
+    vectorType v1 = { 1, 7, 5 };
+    vectorType v2 = { 4, 6, 2 };
+    v = vectorTools::appendVectors( { v1, v2 } );
 
-    results << "test_appendVectors & True\n";
-    return 0;
+    BOOST_CHECK( vectorTools::fuzzyEquals( v, { 1, 7, 5, 4, 6, 2 } ) );
+
 }
 
-int test_solveLinearSystem(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
     /*!
      * Test the utility to solve a linear system of equations.
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    matrixType A = {{0.95617934, 0.41311152, 0.25812163},
-                    {0.13346546, 0.12864080, 0.65152997},
-                    {0.15425579, 0.35444563, 0.43177476}};
+    matrixType A = { { 0.95617934, 0.41311152, 0.25812163 },
+                     { 0.13346546, 0.12864080, 0.65152997 },
+                     { 0.15425579, 0.35444563, 0.43177476 } };
 
-    vectorType b = {0.92263585, 0.96720703, 0.72477723};
+    vectorType b = { 0.92263585, 0.96720703, 0.72477723 };
 
-    vectorType xSolution = {0.52372037, 0.18327279, 1.34104665};
+    vectorType xSolution = { 0.52372037, 0.18327279, 1.34104665 };
 
     unsigned int rank;
 
-    vectorType xAnswer = vectorTools::solveLinearSystem(A, b, rank);
+    vectorType xAnswer = vectorTools::solveLinearSystem( A, b, rank );
 
-    if (!vectorTools::fuzzyEquals(xSolution, xAnswer)){
-        results << "test_solveLinearSystem (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( xSolution, xAnswer ) );
 
-    if (!vectorTools::equals<unsigned int>(rank, 3)){
-        results << "test_solveLinearSystem (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::equals<unsigned int>( rank, 3 ) );
 
     vectorTools::solverType< floatType > linearSolver;
     xAnswer = vectorTools::solveLinearSystem( A, b, rank, linearSolver );
 
-    if ( !vectorTools::fuzzyEquals( xSolution, xAnswer ) ){
-        results << "test_solveLinearSystem (test 3) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( xSolution, xAnswer )  );
 
-    if ( !vectorTools::equals< unsigned int >( rank, 3 ) ){
-        results << "test_solveLinearSystem (test 4) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::equals< unsigned int >( rank, 3 )  );
 
     xAnswer = vectorType( 3, 0 );
     Eigen::Map< Eigen::MatrixXd > xmat( xAnswer.data( ), 3, 1 );
     Eigen::Map< const Eigen::MatrixXd > bmat( b.data( ), 3, 1 );
     xmat = linearSolver.solve( bmat );
 
-    if ( !vectorTools::fuzzyEquals( xSolution, xAnswer ) ){
-        results << "test_solveLinearSystem (test 5) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( xSolution, xAnswer )  );
 
     A = { { 2 } };
     b = { 7 };
@@ -805,153 +552,97 @@ int test_solveLinearSystem(std::ofstream &results){
 
     xAnswer = vectorTools::solveLinearSystem( A, b, rank );
 
-    if ( !vectorTools::fuzzyEquals( xAnswer, xSolution ) ){
-        results << "test_solveLinearSystem (test 6) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( xAnswer, xSolution )  );
 
-    results << "test_solveLinearSystem & True\n";
-    return 0;
 }
 
-int test_isParallel(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_isParallel ){
     /*!
      * Test the utility that tests if two vectors are parallel or not
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType v1 = {1, 2, 3};
-    vectorType v2 = {2, 4, 6};
+    vectorType v1 = { 1, 2, 3 };
+    vectorType v2 = { 2, 4, 6 };
 
-    if (!vectorTools::isParallel(v1, v2)){
-        results << "test_isParallel (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::isParallel( v1, v2 ) );
 
-    v1 = {0, 2, 3};
-    if (vectorTools::isParallel(v1, v2)){
-        results << "test_isParallel (test 2) & False\n";
-        return 1;
-    }
+    v1 = { 0, 2, 3 };
+    BOOST_CHECK( !vectorTools::isParallel( v1, v2 ) );
 
-    std::vector< int > v3 = {1, 2, 3};
-    std::vector< int > v4 = {2, 4, 6};
+    std::vector< int > v3 = { 1, 2, 3 };
+    std::vector< int > v4 = { 2, 4, 6 };
 
-    if (!vectorTools::isParallel(v3, v4)){
-        results << "test_isParallel (test 3) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::isParallel( v3, v4 ) );
 
-    v3[0] = 0;
-    if (vectorTools::isParallel(v3, v4)){
-        results << "test_isParallel (test 4) & False\n";
-        return 1;
-    }
+    v3[ 0 ] = 0;
+    BOOST_CHECK( !vectorTools::isParallel( v3, v4 ) );
 
-    results << "test_isParallel & True\n";
-    return 0;
 }
 
-int test_dyadic(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_dyadic ){
     /*!
      * Test the computation of the dyadic product between two vectors
-     * 
-     * :param std::ofstream &results:
      */
 
-    vectorType v1 = {1, 2, 3};
-    vectorType v2 = {4, 5, 6};
-    matrixType A = vectorTools::dyadic(v1, v2);
+    vectorType v1 = { 1, 2, 3 };
+    vectorType v2 = { 4, 5, 6 };
+    matrixType A = vectorTools::dyadic( v1, v2 );
 
-    if (!vectorTools::fuzzyEquals(A, {{ 4,  5,  6},
-                                      { 8, 10, 12},
-                                      {12, 15, 18}})){
-        results << "test_dyadic (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( A, { { 4,  5,  6 },
+                                                { 8, 10, 12 },
+                                                { 12, 15, 18 } } ) );
 
-    results << "test_dyadic & True\n";
-    return 0;
 }
 
-int test_eye(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_eye ){
     /*!
      * Test the formation of an identity matrix
-     * 
-     * :param std::ofstream &results:
      */
 
-    std::vector< double > Ivec(9, 1.);
-    std::vector< double > IvecExpected = {1., 0., 0.,
-                                          0., 1., 0.,
-                                          0., 0., 1.};
-    vectorTools::eye(Ivec);
-    if (!vectorTools::fuzzyEquals(Ivec,IvecExpected)){
-        results << "test_eye (test 1) & False\n";
-        return 1;
-    }
+    std::vector< double > Ivec( 9, 1. );
+    std::vector< double > IvecExpected = { 1., 0., 0.,
+                                           0., 1., 0.,
+                                           0., 0., 1. };
+    vectorTools::eye( Ivec );
+    BOOST_CHECK( vectorTools::fuzzyEquals( Ivec, IvecExpected ) );
 
     unsigned int dim = 4;
-    std::vector< std::vector< double > > I = vectorTools::eye< double >(dim);
-    
-    if (!vectorTools::fuzzyEquals(I, {{1, 0, 0, 0},
-                                      {0, 1, 0, 0},
-                                      {0, 0, 1, 0},
-                                      {0, 0, 0, 1}})){
-        results << "test_eye (test 2) & False\n";
-        return 1;
-    }
+    std::vector< std::vector< double > > I = vectorTools::eye< double >( dim );
 
-    I.clear();
-    vectorTools::eye(dim, I);
+    BOOST_CHECK( vectorTools::fuzzyEquals( I, { { 1, 0, 0, 0 },
+                                                { 0, 1, 0, 0 },
+                                                { 0, 0, 1, 0 },
+                                                { 0, 0, 0, 1 } } ) );
 
-    if (!vectorTools::fuzzyEquals(I, {{1, 0, 0, 0},
-                                      {0, 1, 0, 0},
-                                      {0, 0, 1, 0},
-                                      {0, 0, 0, 1}})){
-        results << "test_eye (test 3) & False\n";
-        return 1;
-    }
+    I.clear( );
+    vectorTools::eye( dim, I );
 
-    results << "test_eye & True\n";
-    return 1;
+    BOOST_CHECK( vectorTools::fuzzyEquals( I, { { 1, 0, 0, 0 },
+                                                { 0, 1, 0, 0 },
+                                                { 0, 0, 1, 0 },
+                                                { 0, 0, 0, 1 } } ) );
+
 }
 
-int test_determinant(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_determinant ){
     /*!
      * Test the computation of the determinant of a matrix
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    std::vector< floatType > Avec = {1, 0, 0, 0, 1, 0, 0, 0, 1};
-    if (!vectorTools::fuzzyEquals(vectorTools::determinant(Avec, 3, 3), 1.)){
-        results << "test_determinant (test 1) & False\n";
-        return 1;
-    }
+    std::vector< floatType > Avec = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 3, 3 ), 1. ) );
 
-    Avec = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    if (!vectorTools::fuzzyEquals(vectorTools::determinant(Avec, 3, 3), 0.)){
-        results << "test_determinant (test 2) & False\n";
-        return 1;
-    }
+    Avec = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 3, 3 ), 0. ) );
 
-    Avec = {1, 2, 3, 4};
-    if (!vectorTools::fuzzyEquals(vectorTools::determinant(Avec, 2, 2), -2.)){
-        results << "test_determinant (test 3) & False\n";
-        return 1;
-    }
+    Avec = { 1, 2, 3, 4 };
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 2, 2 ), -2. ) );
 
-    results << "test_determinant & True\n";
-    return 0;
 }
 
-int test_inverse( std::ofstream &results ){
+BOOST_AUTO_TEST_CASE( test_inverse ){
     /*!
      * Test the computation of the matrix inverse;
-     *
-     * :param std::ofstream &results: The output file
      */
 
     std::vector< floatType > Avec = { 0.39874077,  0.11561812, -0.75485222,
@@ -964,28 +655,18 @@ int test_inverse( std::ofstream &results ){
 
     std::vector< floatType > Avecinv = vectorTools::inverse( Avec, 3, 3 );
 
-    if (!vectorTools::fuzzyEquals( Avecinv, answer )){
-        results << "test_inverse (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( Avecinv, answer ) );
 
     std::vector< std::vector< floatType > > A = vectorTools::inflate( Avec, 3, 3 );
     std::vector< std::vector< double > > Ainv = vectorTools::inverse( A );
 
-    if ( !vectorTools::fuzzyEquals( vectorTools::appendVectors( Ainv ), answer ) ){
-        results << "test_inverse (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::appendVectors( Ainv ), answer ) );
 
-    results << "test_inverse & True\n";
-    return 0;
 }
 
-int test_inflate( std::ofstream &results ){
+BOOST_AUTO_TEST_CASE( test_inflate ){
     /*!
      * Test the inflate command in vector_tools
-     * 
-     * :param std::ofstream &results: The output file
      */
 
     std::vector< floatType > Avec = { 1, 2, 3, 4,  5,
@@ -994,281 +675,158 @@ int test_inflate( std::ofstream &results ){
     unsigned int nrows = 2;
     unsigned int ncols = 5;
 
-    std::vector< std::vector< floatType > > answer = { { 1, 2, 3, 4,  5},
-                                                       { 6, 7, 8, 9, 10} };
+    std::vector< std::vector< floatType > > answer = { { 1, 2, 3, 4,  5 },
+                                                       { 6, 7, 8, 9, 10 } };
 
     std::vector< std::vector< floatType > > result = vectorTools::inflate( Avec, nrows, ncols );
 
-    if ( !vectorTools::fuzzyEquals( answer, result ) ){
-        results << "test_inflate (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( answer, result ) );
 
-    results << "test_inflate & True\n";
-    return 0;
 }
 
-int test_computeDDetAdJ(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_computeDDetAdJ ){
     /*!
-     * Test the computation of the derivative of the determinant w.r.t. 
+     * Test the computation of the derivative of the determinant w.r.t.
      * the matrix.
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    std::vector< floatType > A = {0.39874077,  0.11561812, -0.75485222,
-                                  0.14034205,  0.15851022,  1.29640525,
-                                  0.26235075, -0.26051883,  0.45378251};
+    std::vector< floatType > A = { 0.39874077,  0.11561812, -0.75485222,
+                                   0.14034205,  0.15851022,  1.29640525,
+                                   0.26235075, -0.26051883,  0.45378251 };
 
-    std::vector< floatType > ddetAdA = vectorTools::computeDDetAdJ(A, 3, 3);
+    std::vector< floatType > ddetAdA = vectorTools::computeDDetAdJ( A, 3, 3 );
 
     floatType eps = 1e-6;
-    floatType detA0 = vectorTools::determinant(A, 3, 3);
+    floatType detA0 = vectorTools::determinant( A, 3, 3 );
     floatType detA;
 
-    for (unsigned int i=0; i<A.size(); i++){
-        std::vector< floatType > delta(A.size(), 0);
-        delta[i] = fabs(A[i]*eps);
-        detA = vectorTools::determinant(A + delta, 3, 3);
+    for ( unsigned int i=0; i<A.size( ); i++ ){
+        std::vector< floatType > delta( A.size( ), 0 );
+        delta[ i ] = fabs( A[ i ]*eps );
+        detA = vectorTools::determinant( A + delta, 3, 3 );
 
-        if (!vectorTools::fuzzyEquals((detA - detA0)/delta[i], ddetAdA[i])){
-            results << "test_computeDDetAdJ (test 1) & False\n";
-            return 1;
-        }
+        BOOST_CHECK( vectorTools::fuzzyEquals( ( detA - detA0 )/delta[ i ], ddetAdA[ i ] ) );
 
     }
 
-    results << "test_computeDDetAdJ & True\n";
-    return 1;
 }
 
-int test_matrixMultiply(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_matrixMultiply ){
     /*!
      * Test the matrix multiplication function.
-     * 
-     * :param std::ofstream &results: The output file.
      */
 
-    vectorType A = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    vectorType B = {10, 11, 12, 13, 14, 15, 16, 17, 18};
+    vectorType A = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    vectorType B = { 10, 11, 12, 13, 14, 15, 16, 17, 18 };
     vectorType C;
 
-    C = vectorTools::matrixMultiply(A, B, 3, 3, 3, 3, 0, 0);
+    C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 0, 0 );
 
-    if (!vectorTools::fuzzyEquals(C, {84,  90,  96, 201, 216, 231, 318, 342, 366})){
-        results << "testMatrixMultiply (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 84,  90,  96, 201, 216, 231, 318, 342, 366 } ) );
 
-    C = vectorTools::matrixMultiply(A, B, 3, 3, 3, 3, 1, 0);
+    C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 1, 0 );
 
-    if (!vectorTools::fuzzyEquals(C, {174, 186, 198, 213, 228, 243, 252, 270, 288})){
-        results << "testMatrixMultiply (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 174, 186, 198, 213, 228, 243, 252, 270, 288 } ) );
 
-    C = vectorTools::matrixMultiply(A, B, 3, 3, 3, 3, 0, 1);
+    C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 0, 1 );
 
-    if (!vectorTools::fuzzyEquals(C, { 68,  86, 104, 167, 212, 257, 266, 338, 410})){
-        results << "testMatrixMultiply (test 3) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 68,  86, 104, 167, 212, 257, 266, 338, 410 } ) );
 
-    C = vectorTools::matrixMultiply(A, B, 3, 3, 3, 3, 1, 1);
+    C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 1, 1 );
 
-    if (!vectorTools::fuzzyEquals(C, {138, 174, 210, 171, 216, 261, 204, 258, 312})){
-        results << "testMatrixMultiply (test 4) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 138, 174, 210, 171, 216, 261, 204, 258, 312 } ) );
 
-    results << "testMatrixMultiply & True\n";
-    return 0;
 }
 
-int test_matrixSqrtResidual(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
     /*!
-     * Test the computation of the residual used in solving for 
+     * Test the computation of the residual used in solving for
      * the square root of a matrix.
-     * 
-     * :param std::ofstream &results: The output file.
      */
 
-    vectorType A = {3., 3., 5., 3., 7., 7., 5., 7., 11.};
-    vectorType X = {1., 2., 3., 4., 5., 6., 7., 8.,  9.};
+    vectorType A = { 3., 3., 5., 3., 7., 7., 5., 7., 11. };
+    vectorType X = { 1., 2., 3., 4., 5., 6., 7., 8.,  9. };
 
     vectorType R, RJ;
     matrixType J, JJ;
-    vectorTools::__matrixSqrtResidual(A, 3, X, R, J);
+    vectorTools::__matrixSqrtResidual( A, 3, X, R, J );
 
     //Check that the Jacobian is consistent with the residual
     floatType eps = 1e-6;
-    for (unsigned int i=0; i<X.size(); i++){
-        vectorType delta(X.size(), 0);
-        delta[i] = eps*fabs(X[i]) + eps;
+    for ( unsigned int i=0; i<X.size( ); i++ ){
+        vectorType delta( X.size( ), 0 );
+        delta[ i ] = eps*fabs( X[ i ] ) + eps;
 
-        vectorTools::__matrixSqrtResidual(A, 3, X + delta, RJ, JJ);
+        vectorTools::__matrixSqrtResidual( A, 3, X + delta, RJ, JJ );
 
-        vectorType gradCol = (RJ - R)/delta[i];
+        vectorType gradCol = ( RJ - R )/delta[ i ];
 
-        for (unsigned int j=0; j<A.size(); j++){
-            if (!vectorTools::fuzzyEquals(gradCol[j], J[j][i])){
-                results << "test_matrixSqrtResidual (test 1) & False\n";
-                return 1;
-            }
+        for ( unsigned int j=0; j<A.size( ); j++ ){
+            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], J[ j ][ i ] ) );
         }
     }
 
-    results << "test_matrixSqrtResidual & True\n";
-    return 0;
 }
 
-int test_matrixSqrt(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
     /*!
      * Test the computation of the square root of a matrix.
-     * 
-     * :param std::ofstream &results: The output file.
-     * 
      */
 
-    vectorType A = {3.,  3.,  5.,  3.,  7.,  7.,  5.,  7., 11.};
+    vectorType A = { 3.,  3.,  5.,  3.,  7.,  7.,  5.,  7., 11. };
     unsigned int dim = 3;
     floatType eps = 1e-6;
     vectorType gradCol;
 
-    vectorType X = vectorTools::matrixSqrt(A, 3);
+    vectorType X = vectorTools::matrixSqrt( A, 3 );
 
-    if (!vectorTools::fuzzyEquals(A, vectorTools::matrixMultiply(X, X, dim, dim, dim, dim, 0, 0)  )){
-        results << "testMatrixSqrt (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( A, vectorTools::matrixMultiply( X, X, dim, dim, dim, dim, 0, 0 ) ) );
 
     //Test the jacobian
     matrixType dAdX;
-    vectorType XJ = vectorTools::matrixSqrt(A, 3, dAdX);
+    vectorType XJ = vectorTools::matrixSqrt( A, 3, dAdX );
 
-    if (!vectorTools::fuzzyEquals(XJ, X)){
-        results << "testMatrixSqrt (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals( XJ, X ) );
 
-    vectorType dXdA = vectorTools::inverse(vectorTools::appendVectors(dAdX), A.size(), A.size());
+    vectorType dXdA = vectorTools::inverse( vectorTools::appendVectors( dAdX ), A.size( ), A.size( ) );
 
-    for (unsigned int i=0; i<A.size(); i++){
-        vectorType delta(A.size(), 0);
-        delta[i] = eps*A[i] + eps;
+    for ( unsigned int i=0; i<A.size( ); i++ ){
+        vectorType delta( A.size( ), 0 );
+        delta[ i ] = eps*A[ i ] + eps;
 
-        XJ = vectorTools::matrixSqrt(A + delta, 3);
+        XJ = vectorTools::matrixSqrt( A + delta, 3 );
 
-        gradCol = (XJ - X)/delta[i];
+        gradCol = ( XJ - X )/delta[ i ];
 
-        for (unsigned int j=0; j<gradCol.size(); j++){
-            if (!vectorTools::fuzzyEquals(gradCol[j], dXdA[A.size()*j + i])){
-                results << "testMatrixSqrt (test 3) & False\n";
-                return 1;
-            }
+        for ( unsigned int j=0; j<gradCol.size( ); j++ ){
+            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], dXdA[ A.size( )*j + i ] ) );
         }
     }
 
-    results << "testMatrixSqrt & True\n";
-    return 0;
 }
 
-int test_median(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_median ){
     /*!
      * Test the computation of the median of a vector
-     * 
-     * :param std::ofstream &results: The output file
      */
 
-    vectorType x = {0.65353053, 0.97839806, 0.32387778, 0.13137077, 0.17253149, 0.03216338};
-    if (!vectorTools::fuzzyEquals(vectorTools::median(x), 0.24820463352966032)){
-        results << "test_median (test 1) & False\n";
-        return 1;
-    }
+    vectorType x = { 0.65353053, 0.97839806, 0.32387778, 0.13137077, 0.17253149, 0.03216338 };
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::median( x ), 0.24820463352966032 ) );
 
-    x = {0.82387829, 0.07615528, 0.89366009, 0.04843728, 0.81331188, 0.19575555, 0.02308312};
-    if (!vectorTools::fuzzyEquals(vectorTools::median(x), .19575554955487007)){
-        results << "test_median (test 2) & False\n";
-        return 1;
-    }
+    x = { 0.82387829, 0.07615528, 0.89366009, 0.04843728, 0.81331188, 0.19575555, 0.02308312 };
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::median( x ), .19575554955487007 ) );
 
-    results << "test_median & True\n";
-    return 0;
 }
 
-int test_abs(std::ofstream &results){
+BOOST_AUTO_TEST_CASE( test_abs ){
     /*!
      * Test the computation of the absolute value of a vector.
-     * 
-     * :param std::ofstream &results: The output file.
      */
 
-    std::vector< double > x = {-1, 2, 3, 4, -5, 6};
-    if (!vectorTools::fuzzyEquals(vectorTools::abs(x), {1., 2., 3., 4., 5., 6.})){
-        results << "test_abs (test 1) & False\n";
-        return 1;
-    }
+    std::vector< double > x = { -1, 2, 3, 4, -5, 6 };
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( x ), { 1., 2., 3., 4., 5., 6. } ) );
 
-    std::vector< int > y = {-1, 2, 3, 4, -5, 6};
-    if (!vectorTools::fuzzyEquals(vectorTools::abs(y), {1, 2, 3, 4, 5, 6})){
-        results << "test_abs (test 2) & False\n";
-        return 1;
-    }
-
-    results << "test_abs & True\n";
-    return 0;
-}
-
-int main(){
-    /*!
-    The main loop which runs the tests defined in the 
-    accompanying functions. Each function should output
-    the function name followed by & followed by True or False 
-    if the test passes or fails respectively.
-    */
-
-    //Open the results file
-    std::ofstream results;
-    results.open("results.tex");
-
-    //Test the operator overloading
-    test_addition_operators(results);
-    test_subtraction_operators(results);
-    test_multiplication_operators(results);
-    test_division_operators(results);
-
-    //Test the utility functions
-    test_computeMean(results);
-    test_cross(results);
-    test_dot(results);
-    test_dotT(results);
-    test_Tdot(results);
-    test_TdotT(results);
-    test_inner(results);
-    test_trace(results);
-    test_l2norm(results);
-    test_argsort(results);
-    test_fuzzyEquals(results);
-    test_equals(results);
-    test_getValuesByIndex(results);
-    test_appendVectors(results);
-    test_solveLinearSystem(results);
-    test_isParallel(results);
-    test_dyadic(results);
-    test_eye(results);
-    test_determinant(results);
-    test_inverse(results);
-    test_computeDDetAdJ(results);
-    test_matrixMultiply(results);
-    test_matrixSqrt(results);
-    test_matrixSqrtResidual(results);
-    test_median(results);
-    test_abs(results);
-    test_inflate( results );
-
-    //Close the results file
-    results.close();
-
-    return 0;
+    std::vector< int > y = { -1, 2, 3, 4, -5, 6 };
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( y ), { 1, 2, 3, 4, 5, 6 } ) );
 
 }

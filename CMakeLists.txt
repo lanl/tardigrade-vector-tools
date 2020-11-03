@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.14)
-
 project (vector_tools VERSION 0.0.1)
+enable_testing()
 
 # Configure version
 configure_file("src/cpp/config.h.in" "${PROJECT_BINARY_DIR}/config.h")
@@ -19,7 +19,10 @@ include_directories("src/cpp")
 # Add source code directories
 add_subdirectory ("src/cpp")
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    add_subdirectory ("src/cpp/tests/")
+    # Find Boost. Required for tests
+    find_package(Boost 1.53.0 REQUIRED COMPONENTS unit_test_framework)
+    # Add tests and docs
+    add_subdirectory ("src/cpp/tests")
     add_subdirectory ("docs")
 endif()
 
