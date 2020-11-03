@@ -25,7 +25,7 @@ void print( vectorType a ){
      */
 
     for ( unsigned int i=0; i<a.size(); i++){
-        std::cout << a[i] << " ";
+        std::cout << a[ i ] << " ";
     }
     std::cout << "\n";
 }
@@ -36,7 +36,7 @@ void print( matrixType A ){
      */
 
     for ( unsigned int i=0; i<A.size(); i++){
-        print( A[i]);
+        print( A[ i ]);
     }
 }
 
@@ -574,7 +574,7 @@ BOOST_AUTO_TEST_CASE( test_isParallel ){
 
     BOOST_CHECK( vectorTools::isParallel( v3, v4 ) );
 
-    v3[0] = 0;
+    v3[ 0 ] = 0;
     BOOST_CHECK( !vectorTools::isParallel( v3, v4 ) );
 
 }
@@ -702,10 +702,10 @@ BOOST_AUTO_TEST_CASE( test_computeDDetAdJ ){
 
     for ( unsigned int i=0; i<A.size(); i++){
         std::vector< floatType > delta( A.size(), 0 );
-        delta[i] = fabs( A[i]*eps );
+        delta[ i ] = fabs( A[ i ]*eps );
         detA = vectorTools::determinant( A + delta, 3, 3 );
 
-        BOOST_CHECK( vectorTools::fuzzyEquals(( detA - detA0 )/delta[i], ddetAdA[i]) );
+        BOOST_CHECK( vectorTools::fuzzyEquals(( detA - detA0 )/delta[ i ], ddetAdA[ i ]) );
 
     }
 
@@ -755,14 +755,14 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
     floatType eps = 1e-6;
     for ( unsigned int i=0; i<X.size(); i++){
         vectorType delta( X.size(), 0 );
-        delta[i] = eps*fabs( X[i]) + eps;
+        delta[ i ] = eps*fabs( X[ i ]) + eps;
 
         vectorTools::__matrixSqrtResidual( A, 3, X + delta, RJ, JJ );
 
-        vectorType gradCol = ( RJ - R )/delta[i];
+        vectorType gradCol = ( RJ - R )/delta[ i ];
 
         for ( unsigned int j=0; j<A.size(); j++){
-            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[j], J[j][i]) );
+            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], J[ j ][ i ]) );
         }
     }
 
@@ -792,14 +792,14 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
 
     for ( unsigned int i=0; i<A.size(); i++){
         vectorType delta( A.size(), 0 );
-        delta[i] = eps*A[i] + eps;
+        delta[ i ] = eps*A[ i ] + eps;
 
         XJ = vectorTools::matrixSqrt( A + delta, 3 );
 
-        gradCol = ( XJ - X )/delta[i];
+        gradCol = ( XJ - X )/delta[ i ];
 
         for ( unsigned int j=0; j<gradCol.size(); j++){
-            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[j], dXdA[A.size()*j + i]) );
+            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], dXdA[ A.size()*j + i ]) );
         }
     }
 
