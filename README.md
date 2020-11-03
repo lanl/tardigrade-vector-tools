@@ -45,6 +45,7 @@ $ conda env create --file environment.yaml
 ### Libraries
 
 * eigen >= 3.3.7
+* BOOST >= 1.53.0
 
 #### Eigen
 
