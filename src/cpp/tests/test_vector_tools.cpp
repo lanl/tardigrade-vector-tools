@@ -45,8 +45,8 @@ BOOST_AUTO_TEST_CASE( test_addition_operators ){
      * Test the addition operators
      */
 
-    vectorType a = { 1, 2, 3 };
-    vectorType b = {-2, 7, 2 };
+    vectorType a = {  1, 2, 3 };
+    vectorType b = { -2, 7, 2 };
     vectorType c;
 
     matrixType A = { { 1, 2, 3 },
@@ -57,11 +57,11 @@ BOOST_AUTO_TEST_CASE( test_addition_operators ){
 
     a += b;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, {-1, 9, 5 } ) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { -1, 9, 5 } ) );
 
     c = a + b;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, {-3, 16, 7 } ) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { -3, 16, 7 } ) );
 
     a += 1.;
 
@@ -74,12 +74,12 @@ BOOST_AUTO_TEST_CASE( test_addition_operators ){
     BOOST_CHECK( vectorTools::fuzzyEquals( c, { 2, 12, 8 } ) && vectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
 
     A += B;
-    BOOST_CHECK( vectorTools::fuzzyEquals( A, { { 0,-1, 0 },
-                                                { 6, 10, 12 } } ) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( A, { { 0,  -1,  0 },
+                                                { 6,  10, 12 } } ) );
 
     C = A + B;
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { {-1, -4, -3 },
-                                                { 8, 15, 18 } } ) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { { -1, -4, -3 },
+                                                {  8, 15, 18 } } ) );
 
 }
 
@@ -88,18 +88,18 @@ BOOST_AUTO_TEST_CASE( test_subtraction_operators ){
      * Test the subtraction operators
      */
 
-    vectorType a = { 1, 2, 3 };
-    vectorType b = {-2, 7, 2 };
+    vectorType a = {  1, 2, 3 };
+    vectorType b = { -2, 7, 2 };
     vectorType c;
 
-    matrixType A = { { 1, 2, 3 },
-                     { 4, 5, 6 } };
-    matrixType B = { {-1, -3, -3 },
-                     { 2,  5,  6 } };
+    matrixType A = { {  1, 2, 3 },
+                     {  4, 5, 6 } };
+    matrixType B = { { -1, -3, -3 },
+                     {  2,  5,  6 } };
     matrixType C;
 
 
-    BOOST_CHECK( vectorTools::fuzzyEquals(-a, {-1, -2, -3 } ) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( -a, { -1, -2, -3 } ) );
 
     a -= b;
 
@@ -196,8 +196,8 @@ BOOST_AUTO_TEST_CASE( test_cross ){
      * Test the computation of the cross product of two vectors
      */
 
-    vectorType a = { 1, 2 };
-    vectorType b = {-1, 7 };
+    vectorType a = {  1, 2 };
+    vectorType b = { -1, 7 };
     vectorType c;
 
     vectorTools::cross( a, b, c );
@@ -222,8 +222,8 @@ BOOST_AUTO_TEST_CASE( test_dot ){
      * Test the computation of the dot product of two vectors
      */
 
-    vectorType a = { 1, 2, 3 };
-    vectorType b = {-1, 7, 6 };
+    vectorType a = {  1, 2, 3 };
+    vectorType b = { -1, 7, 6 };
     floatType c;
 
     vectorTools::dot( a, b, c );
@@ -823,10 +823,10 @@ BOOST_AUTO_TEST_CASE( test_abs ){
      * Test the computation of the absolute value of a vector.
      */
 
-    std::vector< double > x = {-1, 2, 3, 4, -5, 6 };
+    std::vector< double > x = { -1, 2, 3, 4, -5, 6 };
     BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( x ), { 1., 2., 3., 4., 5., 6. } ) );
 
-    std::vector< int > y = {-1, 2, 3, 4, -5, 6 };
+    std::vector< int > y = { -1, 2, 3, 4, -5, 6 };
     BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( y ), { 1, 2, 3, 4, 5, 6 } ) );
 
 }
