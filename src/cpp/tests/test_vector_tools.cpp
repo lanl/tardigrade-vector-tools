@@ -367,7 +367,7 @@ BOOST_AUTO_TEST_CASE( test_trace ){
 
     vectorTools::trace( a, c );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3.) );
+    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
     //TODO: Refactor with boost or pytest
     vectorType b = { 1., 0., 0.,
@@ -379,7 +379,7 @@ BOOST_AUTO_TEST_CASE( test_trace ){
 
     c = 0.;
     c = vectorTools::trace( a );
-    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3.) );
+    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
     matrixType A = { { 1., 0., 0.},
                      { 0., 1., 0.},
@@ -387,11 +387,11 @@ BOOST_AUTO_TEST_CASE( test_trace ){
 
     c = 0.;
     vectorTools::trace( A, c );
-    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3.) );
+    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
     c = 0.;
     c = vectorTools::trace( A );
-    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3.) );
+    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
 }
 
@@ -599,7 +599,7 @@ BOOST_AUTO_TEST_CASE( test_eye ){
      * Test the formation of an identity matrix
      */
 
-    std::vector< double > Ivec( 9, 1.);
+    std::vector< double > Ivec( 9, 1. );
     std::vector< double > IvecExpected = { 1., 0., 0.,
                                            0., 1., 0.,
                                            0., 0., 1.};
@@ -630,13 +630,13 @@ BOOST_AUTO_TEST_CASE( test_determinant ){
      */
 
     std::vector< floatType > Avec = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 3, 3 ), 1.) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 3, 3 ), 1. ) );
 
     Avec = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 3, 3 ), 0.) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 3, 3 ), 0. ) );
 
     Avec = { 1, 2, 3, 4 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 2, 2 ), -2.) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 2, 2 ), -2. ) );
 
 }
 
