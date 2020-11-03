@@ -180,7 +180,7 @@ BOOST_AUTO_TEST_CASE( test_computeMean ){
                      { -4, 13, 0.4, 5 },
                      {  2,  6, 1.0, 7 } };
 
-    vectorType answer = { -1./3, 7, 8.8/6, 5 + 1/3.};
+    vectorType answer = { -1./3, 7, 8.8/6, 5 + 1/3. };
     vectorType result;
     vectorTools::computeMean( A, result );
 
@@ -327,11 +327,11 @@ BOOST_AUTO_TEST_CASE( test_inner ){
     vectorType Avec, Bvec ;
     Avec = Bvec = { 1., 0., 0.,
                     0., 1., 0.,
-                    0., 0., 1.};
+                    0., 0., 1. };
     matrixType A, B;
-    A = B = { { 1., 0., 0.},
-              { 0., 1., 0.},
-              { 0., 0., 1.} };
+    A = B = { { 1., 0., 0. },
+              { 0., 1., 0. },
+              { 0., 0., 1. } };
     floatType expected = 3.;
     floatType result;
 
@@ -362,7 +362,7 @@ BOOST_AUTO_TEST_CASE( test_trace ){
 
     vectorType a = { 1., 0., 0.,
                      0., 1., 0.,
-                     0., 0., 1.};
+                     0., 0., 1. };
     floatType c;
 
     vectorTools::trace( a, c );
@@ -373,7 +373,7 @@ BOOST_AUTO_TEST_CASE( test_trace ){
     vectorType b = { 1., 0., 0.,
                      0., 1., 0.,
                      0., 1., 0.,
-                     0., 0., 1.};
+                     0., 0., 1. };
 
     BOOST_CHECK_THROW( vectorTools::trace( b, c ), std::length_error );
 
@@ -381,9 +381,9 @@ BOOST_AUTO_TEST_CASE( test_trace ){
     c = vectorTools::trace( a );
     BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
-    matrixType A = { { 1., 0., 0.},
-                     { 0., 1., 0.},
-                     { 0., 0., 1.} };
+    matrixType A = { { 1., 0., 0. },
+                     { 0., 1., 0. },
+                     { 0., 0., 1. } };
 
     c = 0.;
     vectorTools::trace( A, c );
@@ -602,7 +602,7 @@ BOOST_AUTO_TEST_CASE( test_eye ){
     std::vector< double > Ivec( 9, 1. );
     std::vector< double > IvecExpected = { 1., 0., 0.,
                                            0., 1., 0.,
-                                           0., 0., 1.};
+                                           0., 0., 1. };
     vectorTools::eye( Ivec );
     BOOST_CHECK( vectorTools::fuzzyEquals( Ivec,IvecExpected ) );
 
@@ -744,8 +744,8 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
      * the square root of a matrix.
      */
 
-    vectorType A = { 3., 3., 5., 3., 7., 7., 5., 7., 11.};
-    vectorType X = { 1., 2., 3., 4., 5., 6., 7., 8.,  9.};
+    vectorType A = { 3., 3., 5., 3., 7., 7., 5., 7., 11. };
+    vectorType X = { 1., 2., 3., 4., 5., 6., 7., 8.,  9. };
 
     vectorType R, RJ;
     matrixType J, JJ;
@@ -773,7 +773,7 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
      * Test the computation of the square root of a matrix.
      */
 
-    vectorType A = { 3.,  3.,  5.,  3.,  7.,  7.,  5.,  7., 11.};
+    vectorType A = { 3.,  3.,  5.,  3.,  7.,  7.,  5.,  7., 11. };
     unsigned int dim = 3;
     floatType eps = 1e-6;
     vectorType gradCol;
@@ -824,7 +824,7 @@ BOOST_AUTO_TEST_CASE( test_abs ){
      */
 
     std::vector< double > x = {-1, 2, 3, 4, -5, 6 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( x ), { 1., 2., 3., 4., 5., 6.} ) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( x ), { 1., 2., 3., 4., 5., 6. } ) );
 
     std::vector< int > y = {-1, 2, 3, 4, -5, 6 };
     BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( y ), { 1, 2, 3, 4, 5, 6 } ) );
