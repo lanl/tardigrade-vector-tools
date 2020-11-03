@@ -500,11 +500,8 @@ BOOST_AUTO_TEST_CASE( test_fuzzyEquals ){
     matrixType a = {{1, -2, 3, 2.4, 1e-9, -1e-7},
                     {1.4, 8.5, 1 + 1e-9, 4, -2+1e-3, 100}};
 
-    if(!vectorTools::fuzzyEquals(a, {{1, -2, 3, 2.4, 0, 0},
-                                     {1.4, 8.5, 1, 4, -2+1e-3+1e-9, 100+1e-4}})){
-        results << "test_fuzzyEquals (test 1) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals(a, {{1, -2, 3, 2.4, 0, 0},
+                                              {1.4, 8.5, 1, 4, -2+1e-3+1e-9, 100+1e-4}}) );
 
     results << "test_fuzzyEquals & True\n";
     return 0;
@@ -535,12 +532,9 @@ BOOST_AUTO_TEST_CASE( test_equals ){
                                          {4, 5, 6},
                                          {7, 8, 9}}) );
 
-    if (vectorTools::equals(m, {{1, 2, 3},
-                                {4, 5, 4},
-                                {7, 8, 9}})){
-        results << "test_equals (test 6) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( !vectorTools::equals(m, {{1, 2, 3},
+                                          {4, 5, 4},
+                                          {7, 8, 9}}) );
 
     results << "test_equals & True\n";
     return 0;
@@ -711,24 +705,18 @@ BOOST_AUTO_TEST_CASE( test_eye ){
     unsigned int dim = 4;
     std::vector< std::vector< double > > I = vectorTools::eye< double >(dim);
     
-    if (!vectorTools::fuzzyEquals(I, {{1, 0, 0, 0},
-                                      {0, 1, 0, 0},
-                                      {0, 0, 1, 0},
-                                      {0, 0, 0, 1}})){
-        results << "test_eye (test 2) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals(I, {{1, 0, 0, 0},
+                                              {0, 1, 0, 0},
+                                              {0, 0, 1, 0},
+                                              {0, 0, 0, 1}}) );
 
     I.clear();
     vectorTools::eye(dim, I);
 
-    if (!vectorTools::fuzzyEquals(I, {{1, 0, 0, 0},
-                                      {0, 1, 0, 0},
-                                      {0, 0, 1, 0},
-                                      {0, 0, 0, 1}})){
-        results << "test_eye (test 3) & False\n";
-        return 1;
-    }
+    BOOST_CHECK( vectorTools::fuzzyEquals(I, {{1, 0, 0, 0},
+                                              {0, 1, 0, 0},
+                                              {0, 0, 1, 0},
+                                              {0, 0, 0, 1}}) );
 
     results << "test_eye & True\n";
     return 1;
