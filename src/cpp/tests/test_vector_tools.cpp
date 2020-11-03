@@ -36,7 +36,7 @@ void print( matrixType A ){
      */
 
     for ( unsigned int i=0; i<A.size(); i++){
-        print( A[ i ]);
+        print( A[ i ] );
     }
 }
 
@@ -50,36 +50,36 @@ BOOST_AUTO_TEST_CASE( test_addition_operators ){
     vectorType c;
 
     matrixType A = ( { 1, 2, 3 },
-                    { 4, 5, 6 }};
+                    { 4, 5, 6 } };
     matrixType B = ( {-1, -3, -3 },
-                    { 2,  5,  6 }};
+                    { 2,  5,  6 } };
     matrixType C;
 
     a += b;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, {-1, 9, 5 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, {-1, 9, 5 } ) );
 
     c = a + b;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, {-3, 16, 7 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, {-3, 16, 7 } ) );
 
     a += 1.;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 0, 10, 6 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
 
     c = a + 2.;
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 2, 12, 8 }) && vectorTools::fuzzyEquals( a, { 0, 10, 6 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 2, 12, 8 } ) && vectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
 
     c = 2. + a;
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 2, 12, 8 }) && vectorTools::fuzzyEquals( a, { 0, 10, 6 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 2, 12, 8 } ) && vectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
 
     A += B;
     BOOST_CHECK( vectorTools::fuzzyEquals( A, ( { 0,-1, 0 },
-                                              { 6, 10, 12 }}) );
+                                              { 6, 10, 12 } } ) );
 
     C = A + B;
     BOOST_CHECK( vectorTools::fuzzyEquals( C, ( {-1, -4, -3 },
-                                              { 8, 15, 18 }}) );
+                                              { 8, 15, 18 } } ) );
 
 }
 
@@ -93,42 +93,42 @@ BOOST_AUTO_TEST_CASE( test_subtraction_operators ){
     vectorType c;
 
     matrixType A = ( { 1, 2, 3 },
-                    { 4, 5, 6 }};
+                    { 4, 5, 6 } };
     matrixType B = ( {-1, -3, -3 },
-                    { 2,  5,  6 }};
+                    { 2,  5,  6 } };
     matrixType C;
 
 
-    BOOST_CHECK( vectorTools::fuzzyEquals(-a, {-1, -2, -3 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals(-a, {-1, -2, -3 } ) );
 
     a -= b;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 3, -5, 1 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 3, -5, 1 } ) );
 
     c = a - b;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 5,-12, -1 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 5,-12, -1 } ) );
 
     a -= 1.;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 2, -6, 0 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
 
     c = a - 2.;
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, -8, -2 }) && vectorTools::fuzzyEquals( a, { 2, -6, 0 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, -8, -2 } ) && vectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
 
     c = 2. - a;
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, 8, 2 }) && vectorTools::fuzzyEquals( a, { 2, -6, 0 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, 8, 2 } ) && vectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
 
     BOOST_CHECK( vectorTools::fuzzyEquals( -A, ( {-1, -2, -3 },
-                                                {-4, -5, -6 }}) );
+                                                {-4, -5, -6 } } ) );
 
     A -= B;
     BOOST_CHECK( vectorTools::fuzzyEquals( A, ( { 2, 5, 6 },
-                                              { 2, 0, 0 }}) );
+                                              { 2, 0, 0 } } ) );
 
     C = A - B;
     BOOST_CHECK( vectorTools::fuzzyEquals( C, ( { 3, 8,  9 },
-                                              { 0,-5, -6 }}) );
+                                              { 0,-5, -6 } } ) );
 
 }
 
@@ -143,12 +143,12 @@ BOOST_AUTO_TEST_CASE( test_multiplication_operators ){
 
     a *= 2;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 2, 4, 6 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 2, 4, 6 } ) );
 
     b = 3*a;
     c = a*3;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( b, c ) && vectorTools::fuzzyEquals( b, { 6, 12, 18 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( b, c ) && vectorTools::fuzzyEquals( b, { 6, 12, 18 } ) );
 
 }
 
@@ -163,11 +163,11 @@ BOOST_AUTO_TEST_CASE( test_division_operators ){
 
     a /= 2;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 0.5, 1, 1.5 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 0.5, 1, 1.5 } ) );
 
     b = a/2;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( b, { 0.25, 0.5, 0.75 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( b, { 0.25, 0.5, 0.75 } ) );
 
 }
 
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE( test_computeMean ){
 
     matrixType A = ( { 1,  2, 3.0, 4 },
                     {-4, 13, 0.4, 5 },
-                    { 2,  6, 1.0, 7 }};
+                    { 2,  6, 1.0, 7 } };
 
     vectorType answer = {-1./3, 7, 8.8/6, 5 + 1/3.};
     vectorType result;
@@ -202,18 +202,18 @@ BOOST_AUTO_TEST_CASE( test_cross ){
 
     vectorTools::cross( a, b, c );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, 0, 9 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, 0, 9 } ) );
 
     a = { 1, 2, 3 };
     b = {-1, 7, -3 };
 
     vectorTools::cross( a, b, c );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, {-27, 0, 9 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, {-27, 0, 9 } ) );
 
     c = vectorTools::cross( a, b );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, {-27, 0, 9 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( c, {-27, 0, 9 } ) );
 
 }
 
@@ -235,22 +235,22 @@ BOOST_AUTO_TEST_CASE( test_dot ){
 
     matrixType A = ( { 1, 2, 3 },
                     { 4, 5, 6 },
-                    { 7, 8, 9 }};
+                    { 7, 8, 9 } };
     vectorType d;
 
     d = vectorTools::dot( A, a );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( d, { 14, 32, 50 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( d, { 14, 32, 50 } ) );
 
     matrixType B = ( { 10, 11, 12 },
                     { 13, 14, 15 },
-                    { 16, 17, 18 }};
+                    { 16, 17, 18 } };
 
     matrixType C = vectorTools::dot( A, B );
 
     BOOST_CHECK( vectorTools::fuzzyEquals( C, ( { 84,  90,  96 },
                                               { 201, 216, 231 },
-                                              { 318, 342, 366 }}) );
+                                              { 318, 342, 366 } } ) );
 
 }
 
@@ -261,14 +261,14 @@ BOOST_AUTO_TEST_CASE( test_dotT ){
 
     matrixType A = ( { 1, 2, 3 },
                     { 4, 5, 6 },
-                    { 7, 8, 9 }};
+                    { 7, 8, 9 } };
 
     matrixType B = ( { 10, 11, 12 },
-                    { 13, 14, 15 }};
+                    { 13, 14, 15 } };
 
     matrixType answer = ( { 68,  86 },
                          { 167, 212 },
-                         { 266, 338 }};
+                         { 266, 338 } };
 
     BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::dotT( A, B ), answer ) );
 
@@ -281,17 +281,17 @@ BOOST_AUTO_TEST_CASE( test_Tdot ){
 
     matrixType A = ( { 1, 2, 3 },
                     { 4, 5, 6 },
-                    { 7, 8, 9 }};
+                    { 7, 8, 9 } };
 
     matrixType B = ( { 10, 11 },
                     { 12, 13 },
-                    { 14, 15 }};
+                    { 14, 15 } };
 
     vectorType b = { 4, 5, 6 };
 
     matrixType matrixAnswer = ( { 156, 168 },
                                { 192, 207 },
-                               { 228, 246 }};
+                               { 228, 246 } };
 
     vectorType vectorAnswer = { 66, 81, 96 };
 
@@ -308,14 +308,14 @@ BOOST_AUTO_TEST_CASE( test_TdotT ){
 
     matrixType A = ( { 1, 2, 3 },
                     { 4, 5, 6 },
-                    { 7, 8, 9 }};
+                    { 7, 8, 9 } };
 
     matrixType B = ( { 10, 11, 12 },
-                    { 13, 14, 15 }};
+                    { 13, 14, 15 } };
 
     matrixType answer = ( { 138, 174 },
                          { 171, 216 },
-                         { 204, 258 }};
+                         { 204, 258 } };
 
     BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::TdotT( A, B ), answer ) );
 
@@ -331,7 +331,7 @@ BOOST_AUTO_TEST_CASE( test_inner ){
     matrixType A, B;
     A = B = ( { 1., 0., 0.},
              { 0., 1., 0.},
-             { 0., 0., 1.}};
+             { 0., 0., 1.} };
     floatType expected = 3.;
     floatType result;
 
@@ -383,7 +383,7 @@ BOOST_AUTO_TEST_CASE( test_trace ){
 
     matrixType A = ( { 1., 0., 0.},
                     { 0., 1., 0.},
-                    { 0., 0., 1.}};
+                    { 0., 0., 1.} };
 
     c = 0.;
     vectorTools::trace( A, c );
@@ -402,7 +402,7 @@ BOOST_AUTO_TEST_CASE( test_l2norm ){
 
     vectorType a = { 1, 2, 3 };
     matrixType A = ( { 1, 2, 3, 4 },
-                    { 5, 6, 7, 8 }};
+                    { 5, 6, 7, 8 } };
 
     double r = vectorTools::l2norm( a );
     BOOST_CHECK( vectorTools::fuzzyEquals( r, 3.7416573867739413 ) );
@@ -420,7 +420,7 @@ BOOST_AUTO_TEST_CASE( test_argsort ){
     vectorType a = { 1, -2, 7, 3, 9, 11 };
     std::vector< unsigned int > idx = vectorTools::argsort( a );
 
-    BOOST_CHECK( vectorTools::equals( idx, { 1, 0, 3, 2, 4, 5 }) );
+    BOOST_CHECK( vectorTools::equals( idx, { 1, 0, 3, 2, 4, 5 } ) );
 
 }
 
@@ -430,10 +430,10 @@ BOOST_AUTO_TEST_CASE( test_fuzzyEquals ){
      */
 
     matrixType a = ( { 1, -2, 3, 2.4, 1e-9, -1e-7 },
-                    { 1.4, 8.5, 1 + 1e-9, 4, -2+1e-3, 100 }};
+                    { 1.4, 8.5, 1 + 1e-9, 4, -2+1e-3, 100 } };
 
     BOOST_CHECK( vectorTools::fuzzyEquals( a, ( { 1, -2, 3, 2.4, 0, 0 },
-                                              { 1.4, 8.5, 1, 4, -2+1e-3+1e-9, 100+1e-4 }}) );
+                                              { 1.4, 8.5, 1, 4, -2+1e-3+1e-9, 100+1e-4 } } ) );
 
 }
 
@@ -446,23 +446,23 @@ BOOST_AUTO_TEST_CASE( test_equals ){
     std::vector< unsigned int > v = { 1, 2, 3, 4 };
     std::vector< std::vector< unsigned int > > m = ( { 1, 2, 3 },
                                                     { 4, 5, 6 },
-                                                    { 7, 8, 9 }};
+                                                    { 7, 8, 9 } };
 
     BOOST_CHECK( vectorTools::equals<unsigned int>( a, 1 ) );
 
     BOOST_CHECK( !vectorTools::equals<unsigned int>( a, 2 ) );
 
-    BOOST_CHECK( vectorTools::equals( v, { 1, 2, 3, 4 }) );
+    BOOST_CHECK( vectorTools::equals( v, { 1, 2, 3, 4 } ) );
 
-    BOOST_CHECK( !vectorTools::equals( v, { 1, 2, 2, 4 }) );
+    BOOST_CHECK( !vectorTools::equals( v, { 1, 2, 2, 4 } ) );
 
     BOOST_CHECK( vectorTools::equals( m, ( { 1, 2, 3 },
                                          { 4, 5, 6 },
-                                         { 7, 8, 9 }}) );
+                                         { 7, 8, 9 } } ) );
 
     BOOST_CHECK( !vectorTools::equals( m, ( { 1, 2, 3 },
                                           { 4, 5, 4 },
-                                          { 7, 8, 9 }}) );
+                                          { 7, 8, 9 } } ) );
 
 }
 
@@ -477,17 +477,17 @@ BOOST_AUTO_TEST_CASE( test_getValuesByIndex ){
                     { 4,  5,  6 },
                     { 7,  8,  9 },
                     { 10, 11, 12 },
-                    { 13, 14, 15 }};
+                    { 13, 14, 15 } };
 
     std::vector< vectorTools::size_type > indices = { 1, 3, 0 };
 
     vectorType rv;
     vectorTools::getValuesByIndex( v, indices, rv );
-    BOOST_CHECK( vectorTools::fuzzyEquals( rv, { 2, 4, 1 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( rv, { 2, 4, 1 } ) );
 
     matrixType rm;
     vectorTools::getValuesByIndex( m, indices, rm );
-    BOOST_CHECK( vectorTools::fuzzyEquals( rm, ( { 4, 5, 6 },{ 10, 11, 12 },{ 1, 2, 3 }}) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( rm, ( { 4, 5, 6 },{ 10, 11, 12 },{ 1, 2, 3 } } ) );
 
 }
 
@@ -496,17 +496,17 @@ BOOST_AUTO_TEST_CASE( test_appendVectors ){
      * Test the utility to append a vector of vectors into a row-major vector.
      */
 
-    matrixType m = ( { 1, 2, 3 },{ 4, 5, 6 },{ 7, 8, 9 }};
+    matrixType m = ( { 1, 2, 3 },{ 4, 5, 6 },{ 7, 8, 9 } };
     vectorType v = vectorTools::appendVectors( m );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( v, { 1, 2, 3, 4, 5, 6, 7, 8, 9 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( v, { 1, 2, 3, 4, 5, 6, 7, 8, 9 } ) );
 
     v.clear();
     vectorType v1 = { 1, 7, 5 };
     vectorType v2 = { 4, 6, 2 };
-    v = vectorTools::appendVectors( { v1, v2 });
+    v = vectorTools::appendVectors( { v1, v2 } );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( v, { 1, 7, 5, 4, 6, 2 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( v, { 1, 7, 5, 4, 6, 2 } ) );
 
 }
 
@@ -517,7 +517,7 @@ BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
 
     matrixType A = ( { 0.95617934, 0.41311152, 0.25812163 },
                     { 0.13346546, 0.12864080, 0.65152997 },
-                    { 0.15425579, 0.35444563, 0.43177476 }};
+                    { 0.15425579, 0.35444563, 0.43177476 } };
 
     vectorType b = { 0.92263585, 0.96720703, 0.72477723 };
 
@@ -590,7 +590,7 @@ BOOST_AUTO_TEST_CASE( test_dyadic ){
 
     BOOST_CHECK( vectorTools::fuzzyEquals( A, ( { 4,  5,  6 },
                                               { 8, 10, 12 },
-                                              { 12, 15, 18 }}) );
+                                              { 12, 15, 18 } } ) );
 
 }
 
@@ -612,7 +612,7 @@ BOOST_AUTO_TEST_CASE( test_eye ){
     BOOST_CHECK( vectorTools::fuzzyEquals( I, ( { 1, 0, 0, 0 },
                                               { 0, 1, 0, 0 },
                                               { 0, 0, 1, 0 },
-                                              { 0, 0, 0, 1 }}) );
+                                              { 0, 0, 0, 1 } } ) );
 
     I.clear();
     vectorTools::eye( dim, I );
@@ -620,7 +620,7 @@ BOOST_AUTO_TEST_CASE( test_eye ){
     BOOST_CHECK( vectorTools::fuzzyEquals( I, ( { 1, 0, 0, 0 },
                                               { 0, 1, 0, 0 },
                                               { 0, 0, 1, 0 },
-                                              { 0, 0, 0, 1 }}) );
+                                              { 0, 0, 0, 1 } } ) );
 
 }
 
@@ -705,7 +705,7 @@ BOOST_AUTO_TEST_CASE( test_computeDDetAdJ ){
         delta[ i ] = fabs( A[ i ]*eps );
         detA = vectorTools::determinant( A + delta, 3, 3 );
 
-        BOOST_CHECK( vectorTools::fuzzyEquals( ( detA - detA0 )/delta[ i ], ddetAdA[ i ]) );
+        BOOST_CHECK( vectorTools::fuzzyEquals( ( detA - detA0 )/delta[ i ], ddetAdA[ i ] ) );
 
     }
 
@@ -722,19 +722,19 @@ BOOST_AUTO_TEST_CASE( test_matrixMultiply ){
 
     C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 0, 0 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 84,  90,  96, 201, 216, 231, 318, 342, 366 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 84,  90,  96, 201, 216, 231, 318, 342, 366 } ) );
 
     C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 1, 0 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 174, 186, 198, 213, 228, 243, 252, 270, 288 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 174, 186, 198, 213, 228, 243, 252, 270, 288 } ) );
 
     C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 0, 1 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 68,  86, 104, 167, 212, 257, 266, 338, 410 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 68,  86, 104, 167, 212, 257, 266, 338, 410 } ) );
 
     C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 1, 1 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 138, 174, 210, 171, 216, 261, 204, 258, 312 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 138, 174, 210, 171, 216, 261, 204, 258, 312 } ) );
 
 }
 
@@ -755,14 +755,14 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
     floatType eps = 1e-6;
     for ( unsigned int i=0; i<X.size(); i++){
         vectorType delta( X.size(), 0 );
-        delta[ i ] = eps*fabs( X[ i ]) + eps;
+        delta[ i ] = eps*fabs( X[ i ] ) + eps;
 
         vectorTools::__matrixSqrtResidual( A, 3, X + delta, RJ, JJ );
 
         vectorType gradCol = ( RJ - R )/delta[ i ];
 
         for ( unsigned int j=0; j<A.size(); j++){
-            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], J[ j ][ i ]) );
+            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], J[ j ][ i ] ) );
         }
     }
 
@@ -788,7 +788,7 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
 
     BOOST_CHECK( vectorTools::fuzzyEquals( XJ, X ) );
 
-    vectorType dXdA = vectorTools::inverse( vectorTools::appendVectors( dAdX ), A.size(), A.size());
+    vectorType dXdA = vectorTools::inverse( vectorTools::appendVectors( dAdX ), A.size(), A.size() );
 
     for ( unsigned int i=0; i<A.size(); i++){
         vectorType delta( A.size(), 0 );
@@ -799,7 +799,7 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
         gradCol = ( XJ - X )/delta[ i ];
 
         for ( unsigned int j=0; j<gradCol.size(); j++){
-            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], dXdA[ A.size()*j + i ]) );
+            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], dXdA[ A.size()*j + i ] ) );
         }
     }
 
@@ -824,9 +824,9 @@ BOOST_AUTO_TEST_CASE( test_abs ){
      */
 
     std::vector< double > x = {-1, 2, 3, 4, -5, 6 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( x ), { 1., 2., 3., 4., 5., 6.}) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( x ), { 1., 2., 3., 4., 5., 6.} ) );
 
     std::vector< int > y = {-1, 2, 3, 4, -5, 6 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( y ), { 1, 2, 3, 4, 5, 6 }) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( y ), { 1, 2, 3, 4, 5, 6 } ) );
 
 }
