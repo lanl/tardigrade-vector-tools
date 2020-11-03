@@ -34,19 +34,19 @@ set -Eeuxo pipefail
 # report conda environment
 conda info
 
-# Debugging
-whoami
-groups
-ls -l ~/include || true
-ls -l ~/include/eigen3 || true
-ls -l ~/include/eigen3/Eigen || true
-ls -l ~/include/eigen3/Eigen/Dense || true
-
-# Source common shell script variables
+# Set some common shell variables
 source set_vars.sh
 
 # Clean and build repo tests
-./new_build.sh
+case $OSTYPE in
+    darwin*)
+        compiler='c++'
+        ;;
+    linux-gnu*)
+        compiler='g++'
+        ;;
+esac
+./new_build.sh ${compiler}
 
 # Perform repo tests
 cd "build/${tests}"
