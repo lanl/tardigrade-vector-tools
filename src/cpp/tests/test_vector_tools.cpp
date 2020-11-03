@@ -127,8 +127,8 @@ BOOST_AUTO_TEST_CASE( test_subtraction_operators ){
                                                 { 2, 0, 0 } } ) );
 
     C = A - B;
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { { 3, 8,  9 },
-                                                { 0,-5, -6 } } ) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( C, { { 3,  8,  9 },
+                                                { 0, -5, -6 } } ) );
 
 }
 
@@ -487,7 +487,7 @@ BOOST_AUTO_TEST_CASE( test_getValuesByIndex ){
 
     matrixType rm;
     vectorTools::getValuesByIndex( m, indices, rm );
-    BOOST_CHECK( vectorTools::fuzzyEquals( rm, { { 4, 5, 6 },{ 10, 11, 12 },{ 1, 2, 3 } } ) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( rm, { { 4, 5, 6 }, { 10, 11, 12 }, { 1, 2, 3 } } ) );
 
 }
 
@@ -496,7 +496,7 @@ BOOST_AUTO_TEST_CASE( test_appendVectors ){
      * Test the utility to append a vector of vectors into a row-major vector.
      */
 
-    matrixType m = { { 1, 2, 3 },{ 4, 5, 6 },{ 7, 8, 9 } };
+    matrixType m = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
     vectorType v = vectorTools::appendVectors( m );
 
     BOOST_CHECK( vectorTools::fuzzyEquals( v, { 1, 2, 3, 4, 5, 6, 7, 8, 9 } ) );
@@ -604,7 +604,7 @@ BOOST_AUTO_TEST_CASE( test_eye ){
                                            0., 1., 0.,
                                            0., 0., 1. };
     vectorTools::eye( Ivec );
-    BOOST_CHECK( vectorTools::fuzzyEquals( Ivec,IvecExpected ) );
+    BOOST_CHECK( vectorTools::fuzzyEquals( Ivec, IvecExpected ) );
 
     unsigned int dim = 4;
     std::vector< std::vector< double > > I = vectorTools::eye< double >( dim );
