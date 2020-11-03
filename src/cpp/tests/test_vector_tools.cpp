@@ -24,7 +24,7 @@ void print( vectorType a ){
      * Print the vector to the terminal
      */
 
-    for ( unsigned int i=0; i<a.size(); i++){
+    for ( unsigned int i=0; i<a.size(); i++ ){
         std::cout << a[ i ] << " ";
     }
     std::cout << "\n";
@@ -35,7 +35,7 @@ void print( matrixType A ){
      * Print the matrix to the terminal
      */
 
-    for ( unsigned int i=0; i<A.size(); i++){
+    for ( unsigned int i=0; i<A.size(); i++ ){
         print( A[ i ] );
     }
 }
@@ -700,7 +700,7 @@ BOOST_AUTO_TEST_CASE( test_computeDDetAdJ ){
     floatType detA0 = vectorTools::determinant( A, 3, 3 );
     floatType detA;
 
-    for ( unsigned int i=0; i<A.size(); i++){
+    for ( unsigned int i=0; i<A.size(); i++ ){
         std::vector< floatType > delta( A.size(), 0 );
         delta[ i ] = fabs( A[ i ]*eps );
         detA = vectorTools::determinant( A + delta, 3, 3 );
@@ -753,7 +753,7 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
 
     //Check that the Jacobian is consistent with the residual
     floatType eps = 1e-6;
-    for ( unsigned int i=0; i<X.size(); i++){
+    for ( unsigned int i=0; i<X.size(); i++ ){
         vectorType delta( X.size(), 0 );
         delta[ i ] = eps*fabs( X[ i ] ) + eps;
 
@@ -761,7 +761,7 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
 
         vectorType gradCol = ( RJ - R )/delta[ i ];
 
-        for ( unsigned int j=0; j<A.size(); j++){
+        for ( unsigned int j=0; j<A.size(); j++ ){
             BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], J[ j ][ i ] ) );
         }
     }
@@ -790,7 +790,7 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
 
     vectorType dXdA = vectorTools::inverse( vectorTools::appendVectors( dAdX ), A.size(), A.size() );
 
-    for ( unsigned int i=0; i<A.size(); i++){
+    for ( unsigned int i=0; i<A.size(); i++ ){
         vectorType delta( A.size(), 0 );
         delta[ i ] = eps*A[ i ] + eps;
 
@@ -798,7 +798,7 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
 
         gradCol = ( XJ - X )/delta[ i ];
 
-        for ( unsigned int j=0; j<gradCol.size(); j++){
+        for ( unsigned int j=0; j<gradCol.size(); j++ ){
             BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], dXdA[ A.size()*j + i ] ) );
         }
     }
