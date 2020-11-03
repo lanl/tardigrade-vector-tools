@@ -406,7 +406,7 @@ BOOST_AUTO_TEST_CASE( test_trace ){
 
 }
 
-BOOST_AUTO_TEST_CASE( test_l ){
+BOOST_AUTO_TEST_CASE( test_l2norm ){
     /*!
      * Test the computation of the l2norm of vectors and matrices
      *
