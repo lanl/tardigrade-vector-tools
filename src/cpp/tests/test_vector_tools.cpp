@@ -43,7 +43,6 @@ void print(matrixType A){
 BOOST_AUTO_TEST_CASE( test_addition_operators ){
     /*!
      * Test the addition operators
-     *
      */
 
     vectorType a = { 1, 2, 3};
@@ -87,7 +86,6 @@ BOOST_AUTO_TEST_CASE( test_addition_operators ){
 BOOST_AUTO_TEST_CASE( test_subtraction_operators ){
     /*!
      * Test the subtraction operators
-     *
      */
 
     vectorType a = { 1, 2, 3};
@@ -137,7 +135,6 @@ BOOST_AUTO_TEST_CASE( test_subtraction_operators ){
 BOOST_AUTO_TEST_CASE( test_multiplication_operators ){
     /*!
      * Test the multiplication operators
-     *
      */
 
     vectorType a = { 1, 2, 3};
@@ -158,7 +155,6 @@ BOOST_AUTO_TEST_CASE( test_multiplication_operators ){
 BOOST_AUTO_TEST_CASE( test_division_operators ){
     /*!
      * Test the division operators
-     *
      */
 
     vectorType a = { 1, 2, 3};
@@ -178,7 +174,6 @@ BOOST_AUTO_TEST_CASE( test_division_operators ){
 BOOST_AUTO_TEST_CASE( test_computeMean ){
     /*!
      * Test the computation of the mean of a vector of vectors
-     *
      */
 
     matrixType A = {{ 1,  2, 3.0, 4},
@@ -199,7 +194,6 @@ BOOST_AUTO_TEST_CASE( test_computeMean ){
 BOOST_AUTO_TEST_CASE( test_cross ){
     /*!
      * Test the computation of the cross product of two vectors
-     *
      */
 
     vectorType a = { 1, 2};
@@ -226,7 +220,6 @@ BOOST_AUTO_TEST_CASE( test_cross ){
 BOOST_AUTO_TEST_CASE( test_dot ){
     /*!
      * Test the computation of the dot product of two vectors
-     *
      */
 
     vectorType a = { 1, 2, 3};
@@ -264,7 +257,6 @@ BOOST_AUTO_TEST_CASE( test_dot ){
 BOOST_AUTO_TEST_CASE( test_dotT ){
     /*!
      * Test the computation of the dot product of two matrices
-     *
      */
 
     matrixType A = {{1, 2, 3},
@@ -285,7 +277,6 @@ BOOST_AUTO_TEST_CASE( test_dotT ){
 BOOST_AUTO_TEST_CASE( test_Tdot ){
     /*!
      * Test the computation of the dot product of two matrices
-     *
      */
 
     matrixType A = {{1, 2, 3},
@@ -313,7 +304,6 @@ BOOST_AUTO_TEST_CASE( test_Tdot ){
 BOOST_AUTO_TEST_CASE( test_TdotT ){
     /*!
      * Test the computation of the dot product of two matrices
-     *
      */
 
     matrixType A = {{1, 2, 3},
@@ -368,7 +358,6 @@ BOOST_AUTO_TEST_CASE( test_inner ){
 BOOST_AUTO_TEST_CASE( test_trace ){
     /*!
      * Test the computation of the trace for a square matrix
-     *
      */
 
     vectorType a = {1., 0., 0.,
@@ -409,7 +398,6 @@ BOOST_AUTO_TEST_CASE( test_trace ){
 BOOST_AUTO_TEST_CASE( test_l2norm ){
     /*!
      * Test the computation of the l2norm of vectors and matrices
-     *
      */
 
     vectorType a = {1, 2, 3};
@@ -427,7 +415,6 @@ BOOST_AUTO_TEST_CASE( test_l2norm ){
 BOOST_AUTO_TEST_CASE( test_argsort ){
     /*!
      * Test the utility that returns the indices required to sort a vector
-     *
      */
 
     vectorType a = {1, -2, 7, 3, 9, 11};
@@ -440,7 +427,6 @@ BOOST_AUTO_TEST_CASE( test_argsort ){
 BOOST_AUTO_TEST_CASE( test_fuzzyEquals ){
     /*!
      * Test the tolerant compare function
-     *
      */
 
     matrixType a = {{1, -2, 3, 2.4, 1e-9, -1e-7},
@@ -454,7 +440,6 @@ BOOST_AUTO_TEST_CASE( test_fuzzyEquals ){
 BOOST_AUTO_TEST_CASE( test_equals ){
     /*!
      * Test the exact equality function
-     *
      */
 
     unsigned int a = 1;
@@ -485,7 +470,6 @@ BOOST_AUTO_TEST_CASE( test_getValuesByIndex ){
     /*!
      * Test the retrieval of values of a vector as
      * indicated by vector of indices.
-     *
      */
 
     vectorType v = {1, 2, 3, 4, 5, 6};
@@ -510,7 +494,6 @@ BOOST_AUTO_TEST_CASE( test_getValuesByIndex ){
 BOOST_AUTO_TEST_CASE( test_appendVectors ){
     /*!
      * Test the utility to append a vector of vectors into a row-major vector.
-     *
      */
 
     matrixType m = {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
@@ -530,7 +513,6 @@ BOOST_AUTO_TEST_CASE( test_appendVectors ){
 BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
     /*!
      * Test the utility to solve a linear system of equations.
-     *
      */
 
     matrixType A = {{0.95617934, 0.41311152, 0.25812163},
@@ -577,7 +559,6 @@ BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
 BOOST_AUTO_TEST_CASE( test_isParallel ){
     /*!
      * Test the utility that tests if two vectors are parallel or not
-     *
      */
 
     vectorType v1 = {1, 2, 3};
@@ -601,7 +582,6 @@ BOOST_AUTO_TEST_CASE( test_isParallel ){
 BOOST_AUTO_TEST_CASE( test_dyadic ){
     /*!
      * Test the computation of the dyadic product between two vectors
-     *
      */
 
     vectorType v1 = {1, 2, 3};
@@ -617,7 +597,6 @@ BOOST_AUTO_TEST_CASE( test_dyadic ){
 BOOST_AUTO_TEST_CASE( test_eye ){
     /*!
      * Test the formation of an identity matrix
-     *
      */
 
     std::vector< double > Ivec(9, 1.);
@@ -648,7 +627,6 @@ BOOST_AUTO_TEST_CASE( test_eye ){
 BOOST_AUTO_TEST_CASE( test_determinant ){
     /*!
      * Test the computation of the determinant of a matrix
-     *
      */
 
     std::vector< floatType > Avec = {1, 0, 0, 0, 1, 0, 0, 0, 1};
@@ -665,7 +643,6 @@ BOOST_AUTO_TEST_CASE( test_determinant ){
 BOOST_AUTO_TEST_CASE( test_inverse ){
     /*!
      * Test the computation of the matrix inverse;
-     *
      */
 
     std::vector< floatType > Avec = { 0.39874077,  0.11561812, -0.75485222,
@@ -683,14 +660,13 @@ BOOST_AUTO_TEST_CASE( test_inverse ){
     std::vector< std::vector< floatType > > A = vectorTools::inflate( Avec, 3, 3 );
     std::vector< std::vector< double > > Ainv = vectorTools::inverse( A );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::appendVectors( Ainv ), answer )  );
+    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::appendVectors( Ainv ), answer ) );
 
 }
 
 BOOST_AUTO_TEST_CASE( test_inflate ){
     /*!
      * Test the inflate command in vector_tools
-     *
      */
 
     std::vector< floatType > Avec = { 1, 2, 3, 4,  5,
@@ -704,7 +680,7 @@ BOOST_AUTO_TEST_CASE( test_inflate ){
 
     std::vector< std::vector< floatType > > result = vectorTools::inflate( Avec, nrows, ncols );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( answer, result )  );
+    BOOST_CHECK( vectorTools::fuzzyEquals( answer, result ) );
 
 }
 
@@ -712,7 +688,6 @@ BOOST_AUTO_TEST_CASE( test_computeDDetAdJ ){
     /*!
      * Test the computation of the derivative of the determinant w.r.t.
      * the matrix.
-     *
      */
 
     std::vector< floatType > A = {0.39874077,  0.11561812, -0.75485222,
@@ -739,7 +714,6 @@ BOOST_AUTO_TEST_CASE( test_computeDDetAdJ ){
 BOOST_AUTO_TEST_CASE( test_matrixMultiply ){
     /*!
      * Test the matrix multiplication function.
-     *
      */
 
     vectorType A = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -768,7 +742,6 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
     /*!
      * Test the computation of the residual used in solving for
      * the square root of a matrix.
-     *
      */
 
     vectorType A = {3., 3., 5., 3., 7., 7., 5., 7., 11.};
@@ -798,8 +771,6 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
 BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
     /*!
      * Test the computation of the square root of a matrix.
-     *
-     *
      */
 
     vectorType A = {3.,  3.,  5.,  3.,  7.,  7.,  5.,  7., 11.};
@@ -809,7 +780,7 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
 
     vectorType X = vectorTools::matrixSqrt(A, 3);
 
-    BOOST_CHECK( vectorTools::fuzzyEquals(A, vectorTools::matrixMultiply(X, X, dim, dim, dim, dim, 0, 0)  ) );
+    BOOST_CHECK( vectorTools::fuzzyEquals(A, vectorTools::matrixMultiply(X, X, dim, dim, dim, dim, 0, 0) ) );
 
     //Test the jacobian
     matrixType dAdX;
@@ -837,7 +808,6 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
 BOOST_AUTO_TEST_CASE( test_median ){
     /*!
      * Test the computation of the median of a vector
-     *
      */
 
     vectorType x = {0.65353053, 0.97839806, 0.32387778, 0.13137077, 0.17253149, 0.03216338};
@@ -851,7 +821,6 @@ BOOST_AUTO_TEST_CASE( test_median ){
 BOOST_AUTO_TEST_CASE( test_abs ){
     /*!
      * Test the computation of the absolute value of a vector.
-     *
      */
 
     std::vector< double > x = {-1, 2, 3, 4, -5, 6};
