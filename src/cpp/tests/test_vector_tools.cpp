@@ -476,8 +476,8 @@ BOOST_AUTO_TEST_CASE( test_getValuesByIndex ){
     matrixType m = { { 1,  2,   3 },
                      { 4,  5,   6 },
                      { 7,  8,   9 },
-                       { 10, 11, 12 },
-                       { 13, 14, 15 } };
+                     { 10, 11, 12 },
+                     { 13, 14, 15 } };
 
     std::vector< vectorTools::size_type > indices = { 1, 3, 0 };
 
