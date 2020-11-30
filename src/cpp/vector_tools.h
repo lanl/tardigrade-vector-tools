@@ -1,16 +1,18 @@
-/******************************************************************************
-*                              vector_tools.h                                 *
-===============================================================================
-* A collection of functions and related utilities intended to help perform    *
-* vector operations in cpp.                                                   *
-*******************************************************************************
-*/
+/**
+  *****************************************************************************
+  * \file vector_tools.h
+  *****************************************************************************
+  * A collection of functions and related utilities intended to help perform
+  * vector operations in cpp.
+  *****************************************************************************
+  */
 
 #ifndef VECTOR_TOOLS_H
 #define VECTOR_TOOLS_H
 
 #include<stdio.h>
 #include<iostream>
+#include<stdexcept>
 #include<exception>
 #include<fstream>
 #include<vector>
@@ -30,16 +32,49 @@ template<typename T>
 std::vector<T>& operator+=(std::vector<T> &lhs, const std::vector<T> &rhs);
 
 template<typename T>
+std::vector<T>& operator+=(std::vector<T> &lhs, const T &rhs);
+
+template<typename T>
 std::vector<T> operator+(std::vector<T> lhs, const std::vector<T> &rhs);
+
+template<typename T>
+std::vector<T> operator+(std::vector<T> lhs, const T &rhs);
+
+template<typename T>
+std::vector<T> operator+(const T &lhs, std::vector<T> rhs);
+
+template<typename T>
+std::vector< std::vector< T > >& operator+=(std::vector< std::vector< T > > &lhs, const std::vector< std::vector< T > > &rhs);
+
+template<typename T>
+std::vector< std::vector< T > > operator+(std::vector< std::vector< T > > lhs, const std::vector< std::vector< T > > &rhs);
 
 template<typename T>
 std::vector<T> operator-(std::vector<T> v);
 
 template<typename T>
+std::vector< std::vector< T > > operator-(std::vector< std::vector< T > > v);
+
+template<typename T>
 std::vector<T>& operator-=(std::vector<T> &lhs, const std::vector<T> &rhs);
 
 template<typename T>
+std::vector< std::vector < T > >& operator-=(std::vector< std::vector< T > > &lhs, const std::vector< std::vector< T > > &rhs);
+
+template<typename T>
+std::vector<T>& operator-=(std::vector<T> &lhs, const T &rhs);
+
+template<typename T>
 std::vector<T> operator-(std::vector<T> lhs, const std::vector<T> &rhs);
+
+template<typename T>
+std::vector< std::vector< T > > operator-(std::vector< std::vector< T > > lhs, const std::vector< std::vector< T > > &rhs);
+
+template<typename T>
+std::vector<T> operator-(std::vector<T> lhs, const T &rhs);
+
+template<typename T>
+std::vector<T> operator-(const T &lhs, std::vector<T> rhs);
 
 template<typename T, typename t>
 std::vector<T>& operator*=(std::vector<T> &lhs, const t rhs);
@@ -58,6 +93,8 @@ std::vector<T> operator/(std::vector<T> lhs, const t rhs);
 
 namespace vectorTools{
     //Type definitions
+
+    /** Definition of the standard size type */
     typedef unsigned int size_type;
 
     //Computation Utilities
@@ -83,6 +120,45 @@ namespace vectorTools{
     std::vector< T > dot(const std::vector< std::vector< T > > &A, const std::vector< T > &b);
 
     template<typename T>
+    std::vector< T > Tdot(const std::vector< std::vector< T > > &A, const std::vector< T > &b);
+
+    template<typename T>
+    std::vector< std::vector< T > > dot(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B);
+
+    template<typename T>
+    std::vector< std::vector< T > > dotT(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B);
+
+    template<typename T>
+    std::vector< std::vector< T > > Tdot(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B);
+
+    template<typename T>
+    std::vector< std::vector< T > > TdotT(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B);
+
+    template<typename T>
+    int inner(const std::vector< T > &A, const std::vector< T > &B, T &result);
+
+    template<typename T>
+    T inner(const std::vector< T > &A, const std::vector< T > &B);
+
+    template<typename T>
+    int inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B, T &result);
+
+    template<typename T>
+    T inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B);
+
+    template<typename T>
+    int trace(const std::vector< T > &A, T &v);
+
+    template<typename T>
+    T trace(const std::vector< T > &A);
+
+    template<typename T>
+    int trace(const std::vector< std::vector< T > > &A, T &v);
+
+    template<typename T>
+    T trace(const std::vector< std::vector< T > > &A);
+
+    template<typename T>
     double l2norm(const std::vector< T > &v);
 
     template<typename T>
@@ -95,10 +171,19 @@ namespace vectorTools{
     int dyadic(const std::vector< T > &a, const std::vector< T > &b, std::vector< std::vector< T > > &A);
 
     template<typename T>
+    int eye(std::vector< T > &I);
+
+    template<typename T>
     std::vector< std::vector< T > > eye(const unsigned int dim);
 
     template<typename T>
     int eye(const unsigned int dim, std::vector< std::vector< T > > &I);
+
+    template<typename T>
+    T median(const std::vector< T > &x);
+
+    template<typename T>
+    std::vector< T > abs(const std::vector< T > &x);
 
     //Comparison Tools
     template<typename T>
@@ -135,6 +220,9 @@ namespace vectorTools{
     template<typename T>
     std::vector< T > appendVectors(const std::initializer_list< std::vector< T > > &list);
 
+    template< typename T >
+    std::vector< std::vector< T > > inflate( const std::vector< T > &Avec, const unsigned int &nrows, const unsigned int &ncols );
+
     //Sorting utilities
     template <typename T>
     std::vector< size_type > argsort(const std::vector< T > &v);
@@ -148,12 +236,58 @@ namespace vectorTools{
 
     //Utilities which require Eigen
     #ifdef USE_EIGEN
-        template<typename T>
-        std::vector< double > solveLinearSystem(const std::vector< std::vector< T > > &A, const std::vector< T > &b, unsigned int &rank);
+        //Eigen specific type definitions
+        template< typename T >
+        using solverType = Eigen::ColPivHouseholderQR< Eigen::Matrix< T, -1, -1, Eigen::RowMajor > >; //!Define the matrix solver
 
         template<typename T>
-        std::vector< double > solveLinearSystem(const std::vector< T > &A, const std::vector< T > &b, 
+        std::vector< double > solveLinearSystem( const std::vector< std::vector< T > > &A, const std::vector< T > &b, unsigned int &rank );
+
+        template<typename T>
+        std::vector< double > solveLinearSystem( const std::vector< std::vector< T > > &A, const std::vector< T > &b, unsigned int &rank,
+                                                solverType< T > &linearSolver );
+
+        template<typename T>
+        std::vector< double > solveLinearSystem( const std::vector< T > &A, const std::vector< T > &b,
             const unsigned int nrows, const unsigned int ncols, unsigned int &rank);
+
+        template<typename T>
+        std::vector< double > solveLinearSystem( const std::vector< T > &A, const std::vector< T > &b,
+            const unsigned int nrows, const unsigned int ncols, unsigned int &rank, solverType< T > &linearSolver );
+
+        template<typename T>
+        T determinant(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
+
+        template<typename T>
+        std::vector< double > inverse(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
+
+        template<typename T>
+        std::vector< std::vector< double > > inverse( const std::vector< std::vector< T > > &A );
+
+        template<typename T>
+        std::vector< double > computeDDetAdJ(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
+
+        template< typename T >
+        std::vector< T > matrixMultiply(const std::vector< T > &A, const std::vector< T > &B,
+                                             const unsigned int Arows, const unsigned int Acols,
+                                             const unsigned int Brows, const unsigned int Bcols,
+                                             const bool Atranspose = false, const bool Btranspose = false);
+
+        template< typename T >
+        int __matrixSqrtResidual(const std::vector< T > &A, const unsigned int Arows,
+                                 const std::vector< T > &X,
+                                 std::vector< double > &R, std::vector< std::vector< double > > &J);
+
+        template< typename T >
+        std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
+                                         const double tolr = 1e-9, const double tola = 1e-9, const unsigned int maxIter = 20,
+                                         const unsigned int maxLS = 5);
+
+        template< typename T >
+        std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
+                                         std::vector< std::vector< double > > &dAdX,
+                                         const double tolr = 1e-9, const double tola = 1e-9, const unsigned int maxIter = 20,
+                                         const unsigned int maxLS = 5);
 
     #endif
 

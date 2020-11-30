@@ -1,1 +1,7 @@
 *.swp
+*.o
+
+build*/
+docs/html/
+docs/latex/
+docs/_build/
