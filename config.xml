@@ -34,7 +34,7 @@
       <hudson.plugins.git.extensions.impl.PreBuildMerge>
         <options>
           <mergeRemote>origin</mergeRemote>
-          <mergeTarget>dev</mergeTarget>
+          <mergeTarget>${targetBranch}</mergeTarget>
           <mergeStrategy>default</mergeStrategy>
           <fastForwardMode>FF</fastForwardMode>
         </options>
