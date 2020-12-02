@@ -20,8 +20,8 @@ not need to be used explicitly in the user's code.
 ### Python Modules
 
 For convenience, the minimal Python environment requirements for the
-documentation build are included in ``environment.yaml`` and
-``requirements.txt``. A minimal anaconda environment for building the
+documentation and python interface build are included in ``environment.yaml``
+and ``requirements.txt``. A minimal anaconda environment for building the
 documentation and the python interface can be created from an existing
 anaconda installation with the following commands.
 
@@ -63,7 +63,6 @@ $ git checkout 3.3.7
 # Build eigen
 $ mkdir build
 $ cd build
-$ export CXX=$(command -v icpc) # OPTIONAL
 $ cmake3 .. -DCMAKE_INSTALL_PREFIX=$HOME/.local
 $ make install
 ```
