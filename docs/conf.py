@@ -43,7 +43,7 @@ else:
     release = version
 
 # -- Project Variables -------------------------------------------------------
-rst_prolog = f'.. |project| replace:: {project}\n.. include:: targets.txt'
+rst_prolog = f'.. |project| replace:: {project}'
 
 # -- General configuration ---------------------------------------------------
 # Add custom style sheet to make the html docs wider
@@ -52,7 +52,7 @@ def setup(app):
 
 # Add any Sphinx extension module names here, as strings.
 extensions = ["breathe", 'sphinxcontrib.bibtex', 'sphinx.ext.extlinks']
-bibtex_bibfiles = ['software.bib']
+bibtex_bibfiles = []
 
 # Breathe Configuration
 breathe_projects = {project: "../build/docs/doxygen/xml"}
