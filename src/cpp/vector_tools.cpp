@@ -1728,5 +1728,59 @@ namespace vectorTools{
 
         }
 
+        template< typename T >
+        void polar_decomposition( const std::vector< T > &A, const unsigned int nrows, const unsigned int ncols,
+                                  std::vector< double > &R, std::vector< double > &U, const bool left ){
+            /*!
+             * Perform the polar decomposition of the matrix A. If left is false the decomposition will be:
+             * 
+             * A = R U
+             * 
+             * If left is true the decomposition will be:
+             * A = U R
+             * 
+             * /param &A: The matrix to be decomposed
+             * /param &nrows: The number of rows in A
+             * /param &ncols: The number of columns in A
+             * /param &R: The rotation tensor
+             * /param &U: The stretch tensor. Left or right stretch is determined by the parameter `left`
+             * /param &left: The flag indicating of the right decomposition (A = RU) or the left decomposition
+             *     (A = UR) is to be performed.
+             */
+
+            // Perform the singular value decomposition of A
+
+            std::vector< double > svd_U;
+            std::vector< double > svd_Sigma;
+            std::vector< double > svd_V;
+
+            svd( A, nrows, ncols, svd_U, svd_Sigma, svd_V );
+
+            // Inflate sigma
+            std::vector< double > Sigma( nrows * ncols, 0 );
+            for ( unsigned int i = 0; i < svd_Sigma.size( ); i++ ){
+
+                Sigma[ nrows * i + i ] = svd_Sigma[ i ];
+
+            }
+
+            if ( left ){
+
+                U = matrixMultiply( svd_U, Sigma, nrows, nrows, nrows, ncols, 0, 0 );
+
+                R = svd_V;
+
+            }
+            else {
+
+                U = matrixMultiply( Sigma, svd_V, nrows, ncols, ncols, ncols, 0, 1 );
+
+                R = svd_U;
+
+            }
+
+            return;
+        }
+
     #endif
 }
