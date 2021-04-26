@@ -1707,16 +1707,16 @@ namespace vectorTools{
             V.resize( ncols * ncols );
 
             // Construct the Eigen Maps
-            Eigen::Map< const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > _A( A.data(), nrows, ncols );
+            Eigen::Map< const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > _A( A.data(), nrows, ncols );
 
-            Eigen::Map< const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > _U( U.data(), nrows, nrows );
+            Eigen::Map< Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > _U( U.data(), nrows, nrows );
 
-            Eigen::Map< const Eigen::Matrix< T, -1, 1, Eigen::RowMajor > _Sigma( Sigma.data(), Sigma.size( ), 1 );
+            Eigen::Map< Eigen::Matrix< T, -1,  -1, Eigen::RowMajor > > _Sigma( Sigma.data(), Sigma.size( ), 1 );
 
-            Eigen::Map< const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > _V( V.data(), ncols, ncols );
+            Eigen::Map< Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > _V( V.data(), ncols, ncols );
 
             // Perform the singular value decomposition
-            Eigen::JacobiSVD< MatrixXd > _svd( A );
+            Eigen::JacobiSVD< Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > _svd( _A, Eigen::ComputeFullU | Eigen::ComputeFullV );
 
             _U = _svd.matrixU( );
 
