@@ -1673,5 +1673,60 @@ namespace vectorTools{
             return X;
         }
 
+        template< typename T >
+        void svd( const std::vector< T > &A, const unsigned int nrows, const unsigned int ncols,
+                  std::vector< double > &U, std::vector< double > &Sigma,
+                  std::vector< double > &V ){
+            /*!
+             * Compute the singular value decomposition of a real valued matrix A where A is of the form
+             * A = U Sigma VT
+             * where VT indicates the transpose.
+             * 
+             * \param &A: The matrix in row-major format
+             * \param nrows: The number of rows in A
+             * \param ncols: The number of columns in A
+             * \param &U: The returned left-hand side unitary matrix in row-major format
+             * \param &Sigma: The singular values
+             * \param &V: The returned right-hand side unitary matrix in row-major format
+             */
+
+            if ( A.size( ) != nrows * ncols ){
+
+                throw std::invalid_argument( "A's size is not consistent with the indicated number of rows and columns" );
+
+            }
+
+            // Clear and Re-size the output vectors
+            U.clear( );
+            U.resize( nrows * nrows );
+
+            Sigma.clear( );
+            Sigma.resize( std::min( nrows, ncols ) );
+
+            V.clear( );
+            V.resize( ncols * ncols );
+
+            // Construct the Eigen Maps
+            Eigen::Map< const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > _A( A.data(), nrows, ncols );
+
+            Eigen::Map< const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > _U( U.data(), nrows, nrows );
+
+            Eigen::Map< const Eigen::Matrix< T, -1, 1, Eigen::RowMajor > _Sigma( Sigma.data(), Sigma.size( ), 1 );
+
+            Eigen::Map< const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > _V( V.data(), ncols, ncols );
+
+            // Perform the singular value decomposition
+            Eigen::JacobiSVD< MatrixXd > _svd( A );
+
+            _U = _svd.matrixU( );
+
+            _Sigma = _svd.singularValues( );
+
+            _V = _svd.matrixV( );
+
+            return;
+
+        }
+
     #endif
 }
