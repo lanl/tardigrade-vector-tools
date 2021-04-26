@@ -292,6 +292,9 @@ namespace vectorTools{
         template< typename T >
         void svd( const std::vector< T > &A, std::vector< std::vector< double > > &U, std::vector< double > &Sigma, std::vector< std::vector< double > > &V );
 
+        template< typename T >
+        void polar_decomposition( const std::vector< T > &A, std::vector< double > &R, std::vector< double > &U, bool left = False );
+
     #endif
 
 }
