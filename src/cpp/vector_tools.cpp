@@ -1764,6 +1764,12 @@ namespace vectorTools{
 
             }
 
+            std::cerr << "svd_Sigma:\n";
+            vectorTools::print( svd_Sigma );
+
+            std::cerr << "Sigma:\n";
+            vectorTools::print( Sigma );
+
             if ( left ){
 
                 U = matrixMultiply( svd_U, Sigma, nrows, nrows, nrows, ncols, 0, 0 );
