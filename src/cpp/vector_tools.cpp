@@ -1748,40 +1748,37 @@ namespace vectorTools{
              *     (A = UR) is to be performed.
              */
 
-            // Perform the singular value decomposition of A
-
-            std::vector< double > svd_U;
-            std::vector< double > svd_Sigma;
-            std::vector< double > svd_V;
-
-            svd( A, nrows, ncols, svd_U, svd_Sigma, svd_V );
-
-            // Inflate sigma
-            std::vector< double > Sigma( nrows * ncols, 0 );
-            for ( unsigned int i = 0; i < svd_Sigma.size( ); i++ ){
-
-                Sigma[ nrows * i + i ] = svd_Sigma[ i ];
-
-            }
-
-            std::cerr << "svd_Sigma:\n";
-            vectorTools::print( svd_Sigma );
-
-            std::cerr << "Sigma:\n";
-            vectorTools::print( Sigma );
+            // Compute Usqrd
+            std::vector< double > Usqrd;
+            unsigned int Urows;
 
             if ( left ){
 
-                U = matrixMultiply( svd_U, Sigma, nrows, nrows, nrows, ncols, 0, 0 );
-
-                R = svd_V;
+                Usqrd = vectorTools::matrixMultiply( A, A, nrows, ncols, ncols, nrows, 0, 1 );
+                Urows = nrows;
 
             }
-            else {
+            else{
 
-                U = matrixMultiply( Sigma, svd_V, nrows, ncols, ncols, ncols, 0, 1 );
+                Usqrd = vectorTools::matrixMultiply( A, A, ncols, nrows, nrows, ncols, 1, 0 );
+                Urows = ncols;
 
-                R = svd_U;
+            }
+
+            // Perform the matrix square root of Usqrd
+            U = matrixSqrt( Usqrd, Urows );
+
+            // Compute the rotation matrix
+            std::vector< double > Uinv = vectorTools::inverse( U, nrows, ncols );
+
+            if ( left ){
+
+                R = vectorTools::matrixMultiply( Uinv, A, nrows, nrows, nrows, ncols, 0, 0 );
+
+            }
+            else{
+
+                R = vectorTools::matrixMultiply( A, Uinv, nrows, ncols, ncols, ncols, 0, 0 );
 
             }
 
