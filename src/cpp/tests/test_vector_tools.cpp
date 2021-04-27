@@ -887,3 +887,46 @@ BOOST_AUTO_TEST_CASE( test_svd ){
      BOOST_CHECK( vectorTools::fuzzyEquals( VAnswer2, vectorTools::matrixMultiply( VResult, VResult, 3, 3, 3, 3, 0, 1 ) ) );
 
 }
+
+BOOST_AUTO_TEST_CASE( test_polar_decomposition ){
+    /*!
+     * Test the polar decomposition function
+     */
+
+    vectorType A = { 2, 2, 3, 4, 6, 6, 7, 8, 10 };
+
+    vectorType UAnswer = { 4.10159295, 4.41090403, 5.72021511,
+                           4.41090403, 6.47138062, 6.5318572 ,
+                           5.72021511, 6.5318572 , 8.3434993 };
+
+    vectorType VAnswer = { 1.19923598,  1.8434344 ,  3.48763282,
+                           1.8434344 ,  5.5783477 ,  7.31326101,
+                           3.48763282,  7.31326101, 12.13888919 };
+
+    vectorType RAnswer = { -0.41938618, -0.27751878,  0.86434863,
+                           -0.27751878,  0.94573945,  0.16899768,
+                            0.86434863,  0.16899768,  0.47364673 };
+
+    vectorType UResult;
+ 
+    vectorType VResult;
+
+    vectorType RResult;
+
+    // Test the right polar decomposition
+
+    vectorTools::polar_decomposition( A, 3, 3, RResult, UResult, false );
+
+    BOOST_CHECK( vectorTools::fuzzyEquals( UResult, UAnswer ) );
+
+    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) ); 
+
+    // Test the left polar decomposition
+
+    vectorTools::polar_decomposition( A, 3, 3, RResult, VResult, true );
+
+    BOOST_CHECK( vectorTools::fuzzyEquals( VResult, VAnswer ) );
+
+    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) ); 
+
+} 
