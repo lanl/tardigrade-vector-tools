@@ -830,3 +830,60 @@ BOOST_AUTO_TEST_CASE( test_abs ){
     BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( y ), { 1, 2, 3, 4, 5, 6 } ) );
 
 }
+
+BOOST_AUTO_TEST_CASE( test_svd ){
+    /*!
+     * Test the singular value decomposition of a matrix.
+     */
+
+     const vectorType A = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+
+     vectorType UAnswer1( 9, 0 );
+     vectorTools::eye( UAnswer1 );
+
+     vectorType SigmaAnswer1 = { 2.54368356e+01, 1.72261225e+00, 2.64839734e-16 };
+
+     vectorType VAnswer1( 16, 0 );
+     vectorTools::eye( VAnswer1 );
+
+     vectorType UAnswer2( 16, 0 );
+     vectorTools::eye( UAnswer2 );
+
+     vectorType SigmaAnswer2 = { 2.54624074e+01, 1.29066168e+00, 1.38648772e-15 };
+
+     vectorType VAnswer2( 9, 0 );
+     vectorTools::eye( VAnswer2 );
+
+     vectorType UResult;
+     vectorType SigmaResult;
+     vectorType VResult;
+
+     // Test the first orientation of A
+
+     vectorTools::svd( A, 3, 4, UResult, SigmaResult, VResult ); 
+
+     // Check that the singular values are correct
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( SigmaAnswer1, SigmaResult ) );
+
+     // Check that the left and right singular values are orthogonal
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( UAnswer1, vectorTools::matrixMultiply( UResult, UResult, 3, 3, 3, 3, 0, 1 ) ) );
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( VAnswer1, vectorTools::matrixMultiply( VResult, VResult, 4, 4, 4, 4, 0, 1 ) ) );
+
+     // Test the second orientation of A
+
+     vectorTools::svd( A, 4, 3, UResult, SigmaResult, VResult ); 
+
+     // Check that the singular values are correct
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( SigmaAnswer2, SigmaResult ) );
+
+     // Check that the left and right singular values are orthogonal
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( UAnswer2, vectorTools::matrixMultiply( UResult, UResult, 4, 4, 4, 4, 0, 1 ) ) );
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( VAnswer2, vectorTools::matrixMultiply( VResult, VResult, 3, 3, 3, 3, 0, 1 ) ) );
+
+}

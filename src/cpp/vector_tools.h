@@ -289,6 +289,9 @@ namespace vectorTools{
                                          const double tolr = 1e-9, const double tola = 1e-9, const unsigned int maxIter = 20,
                                          const unsigned int maxLS = 5);
 
+        template< typename T >
+        void svd( const std::vector< T > &A, std::vector< std::vector< double > > &U, std::vector< double > &Sigma, std::vector< std::vector< double > > &V );
+
     #endif
 
 }
