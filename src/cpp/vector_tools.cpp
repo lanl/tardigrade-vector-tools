@@ -1732,20 +1732,21 @@ namespace vectorTools{
         void polar_decomposition( const std::vector< T > &A, const unsigned int nrows, const unsigned int ncols,
                                   std::vector< double > &R, std::vector< double > &U, const bool left ){
             /*!
-             * Perform the polar decomposition of the matrix A. If left is false the decomposition will be:
+             * Perform the polar decomposition of the matrix \f$A\f$. If left is false the decomposition will be:
              * 
-             * A = R U
+             * \f$A = R U\f$
              * 
              * If left is true the decomposition will be:
-             * A = U R
+             * 
+             * \f$A = U R\f$
              * 
              * /param &A: The matrix to be decomposed
              * /param &nrows: The number of rows in A
              * /param &ncols: The number of columns in A
              * /param &R: The rotation tensor
              * /param &U: The stretch tensor. Left or right stretch is determined by the parameter `left`
-             * /param &left: The flag indicating of the right decomposition (A = RU) or the left decomposition
-             *     (A = UR) is to be performed.
+             * /param &left: The flag indicating of the right decomposition (\f$A = RU\f$) or the left decomposition
+             *     (\f$A = UR\f$) is to be performed.
              */
 
             // Compute Usqrd
