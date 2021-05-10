@@ -326,6 +326,62 @@ namespace vectorTools{
     /** Definition of the standard size type */
     typedef unsigned int size_type;
 
+    //Appending Utilities
+    template<typename T>
+    std::vector< T > appendVectors(const std::vector< std::vector< T > > &A){
+        /*!
+         * Append a matrix into a row-major vector.
+         *
+         * \param &A: The matrix to be appended
+         */
+
+        std::vector< T > Avec;
+
+        for (auto Ai=A.begin(); Ai!=A.end(); Ai++){
+            Avec.insert(Avec.end(), (*Ai).begin(), (*Ai).end());
+        }
+        return Avec;
+    }
+
+    template<typename T>
+    std::vector< T > appendVectors(const std::initializer_list< std::vector< T > > &list){
+        /*!
+         * Append a brace-enclosed initializer list to a row-major vector
+         *
+         * \param list: The list of vectors to append
+         */
+
+        std::vector< T > Avec;
+        for (auto li=list.begin(); li!=list.end(); li++){
+            Avec.insert(Avec.end(), (*li).begin(), (*li).end());
+        }
+        return Avec;
+    }
+
+    template< typename T >
+    std::vector< std::vector< T > > inflate( const std::vector< T > &Avec, const unsigned int &nrows, const unsigned int &ncols ){
+        /*!
+         * Inflate the provided row-major vector into a 2D matrix.
+         *
+         * \param &Avec: The matrix in row-major form.
+         * \param &nrows: The number of rows in the matrix.
+         * \param &ncols: The number of columns in the matrix.
+         */
+
+        if ( Avec.size() != nrows * ncols ){
+            throw std::length_error("Avec is not a consistent size with the desired dimensions of the matrix");
+        }
+
+        std::vector< std::vector< T > > A( nrows, std::vector< T >( ncols ) );
+
+        for ( unsigned int i = 0; i < nrows; i++ ){
+            for ( unsigned int j = 0; j < ncols; j++ ){
+                A[i][j] = Avec[ i * ncols + j ];
+            }
+        }
+        return A;
+    }
+
     //Computation Utilities
     template<typename T>
     int computeMean(const std::vector< std::vector< T > > &A, std::vector< T > &v){
@@ -1142,62 +1198,6 @@ namespace vectorTools{
             subv[i] = v[*it];
         }
         return 0;
-    }
-
-    //Appending Utilities
-    template<typename T>
-    std::vector< T > appendVectors(const std::vector< std::vector< T > > &A){
-        /*!
-         * Append a matrix into a row-major vector.
-         *
-         * \param &A: The matrix to be appended
-         */
-
-        std::vector< T > Avec;
-
-        for (auto Ai=A.begin(); Ai!=A.end(); Ai++){
-            Avec.insert(Avec.end(), (*Ai).begin(), (*Ai).end());
-        }
-        return Avec;
-    }
-
-    template<typename T>
-    std::vector< T > appendVectors(const std::initializer_list< std::vector< T > > &list){
-        /*!
-         * Append a brace-enclosed initializer list to a row-major vector
-         *
-         * \param list: The list of vectors to append
-         */
-
-        std::vector< T > Avec;
-        for (auto li=list.begin(); li!=list.end(); li++){
-            Avec.insert(Avec.end(), (*li).begin(), (*li).end());
-        }
-        return Avec;
-    }
-
-    template< typename T >
-    std::vector< std::vector< T > > inflate( const std::vector< T > &Avec, const unsigned int &nrows, const unsigned int &ncols ){
-        /*!
-         * Inflate the provided row-major vector into a 2D matrix.
-         *
-         * \param &Avec: The matrix in row-major form.
-         * \param &nrows: The number of rows in the matrix.
-         * \param &ncols: The number of columns in the matrix.
-         */
-
-        if ( Avec.size() != nrows * ncols ){
-            throw std::length_error("Avec is not a consistent size with the desired dimensions of the matrix");
-        }
-
-        std::vector< std::vector< T > > A( nrows, std::vector< T >( ncols ) );
-
-        for ( unsigned int i = 0; i < nrows; i++ ){
-            for ( unsigned int j = 0; j < ncols; j++ ){
-                A[i][j] = Avec[ i * ncols + j ];
-            }
-        }
-        return A;
     }
 
     //Sorting Utilities
