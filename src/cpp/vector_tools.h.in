@@ -985,7 +985,7 @@ namespace vectorTools{
 
     //Comparison Utilities
     template< typename T >
-    bool fuzzyEquals(const T &a, const T &b, double tolr, double tola){
+    bool fuzzyEquals(const T &a, const T &b, double tolr=1e-6, double tola=1e-6){
         /*!
          * Compare two values to determine if they are equal within a
          * tolerance.
@@ -1001,7 +1001,7 @@ namespace vectorTools{
     }
 
     template< typename T >
-    bool fuzzyEquals(const std::vector< T > &a, const std::vector< T > &b, double tolr, double tola){
+    bool fuzzyEquals(const std::vector< T > &a, const std::vector< T > &b, double tolr=1e-6, double tola=1e-6){
         /*!
          * Compare two vectors to determine if they are equal within a
          * tolerance.
@@ -1025,7 +1025,7 @@ namespace vectorTools{
     }
 
     template< typename T >
-    bool fuzzyEquals(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B, double tolr, double tola){
+    bool fuzzyEquals(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B, double tolr=1e-6, double tola=1e-6){
         /*!
          * Compare two matrices to determine if they are equal within a
          * tolerance.
@@ -1598,7 +1598,7 @@ namespace vectorTools{
 
         template< typename T >
         std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
-                                    const double tolr, const double tola, const unsigned int maxIter,
+                                    const double tolr=1e-9, const double tola=1e-9, const unsigned int maxIter=20,
                                     const unsigned int maxLS){
             /*!
              * Solve for the square root of the square matrix A.
@@ -1619,7 +1619,7 @@ namespace vectorTools{
         template< typename T >
         std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
                                     std::vector< std::vector< double > > &dAdX,
-                                    const double tolr, const double tola, const unsigned int maxIter,
+                                    const double tolr=1e-9, const double tola=1e-9, const unsigned int maxIter=20,
                                     const unsigned int maxLS){
             /*!
              * Solve for the square root of the square matrix A.
