@@ -52,7 +52,7 @@ std::vector<T>& operator+=(std::vector<T> &lhs, const std::vector<T> &rhs){
         throw std::length_error("vectors must be the same size to add");
     }
 
-    for (vectorTools::size_type i=0; i<lhs.size(); i++){
+    for (unsigned int i=0; i<lhs.size(); i++){
         lhs[i] += rhs[i];
     }
     return lhs;
@@ -67,7 +67,7 @@ std::vector<T>& operator+=(std::vector<T> &lhs, const T &rhs){
      * \param &rhs: The scalar being added to the vector
      */
 
-    for (vectorTools::size_type i=0; i<lhs.size(); i++){
+    for (unsigned int i=0; i<lhs.size(); i++){
         lhs[i] += rhs;
     }
     return lhs;
@@ -120,7 +120,7 @@ std::vector<T> operator-(std::vector<T> v){
      * \param &v: The vector in question
      */
 
-    for (vectorTools::size_type i=0; i<v.size(); i++){
+    for (unsigned int i=0; i<v.size(); i++){
         v[i] = -v[i];
     }
     return v;
@@ -193,7 +193,7 @@ std::vector<T>& operator*=(std::vector<T> &lhs, const t rhs){
      * \param lhs: The left-hand side vector
      * \param rhs: The right-hand side scalar
      */
-    for (vectorTools::size_type i=0; i<lhs.size(); i++){
+    for (unsigned int i=0; i<lhs.size(); i++){
         lhs[i] *= rhs;
     }
     return lhs;
@@ -1491,10 +1491,10 @@ namespace vectorTools{
                                         const bool Atranspose, const bool Btranspose){
             /*!
              * Perform a matrix multiplication between two matrices stored in row-major format
-             * $C_{ij} = A_{ik} B_{kj}$ if Atranspose = Btranspose = false
-             * $C_{ij} = A_{ki} B_{kj}$ if Atranspose = true, Btranspose = false
-             * $C_{ij} = A_{ik} B_{jk}$ if Atranspose = false, Btranspose = true
-             * $C_{ij} = A_{ki} B_{jk}$ if Atranspose = true, Btranspose = true
+             * \f$ C_{ij} = A_{ik} B_{kj} \f$ if Atranspose = Btranspose = false
+             * \f$ C_{ij} = A_{ki} B_{kj} \f$ if Atranspose = true, Btranspose = false
+             * \f$ C_{ij} = A_{ik} B_{jk} \f$ if Atranspose = false, Btranspose = true
+             * \f$ C_{ij} = A_{ki} B_{jk} \f$ if Atranspose = true, Btranspose = true
              *
              * NOTE: The shape of B will be determined from the shape of A.
              *
