@@ -919,17 +919,6 @@ namespace vectorTools{
     }
 
     template<typename T>
-    std::vector< std::vector< T > > dyadic(const std::vector< T > &a, const std::vector< T > &b){
-        /*!
-         * Compute the dyadic product between two vectors returning a matrix i.e. A_ij = a_i b_j;
-         */
-
-        std::vector< std::vector< T > > A;
-        dyadic(a, b, A);
-        return A;
-    }
-
-    template<typename T>
     int dyadic(const std::vector< T > &a, const std::vector< T > &b, std::vector< std::vector< T > > &A){
         /*!
          * Compute the dyadic product between two vectors return a matrix i.e. A_ij = a_i b_j
@@ -949,6 +938,17 @@ namespace vectorTools{
             }
         }
         return 0;
+    }
+
+    template<typename T>
+    std::vector< std::vector< T > > dyadic(const std::vector< T > &a, const std::vector< T > &b){
+        /*!
+         * Compute the dyadic product between two vectors returning a matrix i.e. A_ij = a_i b_j;
+         */
+
+        std::vector< std::vector< T > > A;
+        dyadic(a, b, A);
+        return A;
     }
 
     template<typename T>
@@ -1601,26 +1601,6 @@ namespace vectorTools{
 
         template< typename T >
         std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
-                                    const double tolr=1e-9, const double tola=1e-9, const unsigned int maxIter=20,
-                                    const unsigned int maxLS=5){
-            /*!
-             * Solve for the square root of the square matrix A.
-             *
-             * \param &A: The matrix A in row major form.
-             * \param Arows: The number of rows in A.
-             * \param &dAdX: The gradient of A w.r.t. X
-             * \param tolr: The relative tolerance.
-             * \param tola: The absolute tolerance.
-             * \param maxIter: The maximum number of iterations
-             * \param maxLS: The maximum number of line search iterations.
-             */
-
-            std::vector< std::vector< double > > dAdX;
-            return matrixSqrt(A, Arows, dAdX, tolr, tola, maxIter);
-        }
-
-        template< typename T >
-        std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
                                     std::vector< std::vector< double > > &dAdX,
                                     const double tolr=1e-9, const double tola=1e-9, const unsigned int maxIter=20,
                                     const unsigned int maxLS=5){
@@ -1708,6 +1688,26 @@ namespace vectorTools{
             dAdX = -J;
 
             return X;
+        }
+
+        template< typename T >
+        std::vector< double > matrixSqrt(const std::vector< T > &A, const unsigned int Arows,
+                                    const double tolr=1e-9, const double tola=1e-9, const unsigned int maxIter=20,
+                                    const unsigned int maxLS=5){
+            /*!
+             * Solve for the square root of the square matrix A.
+             *
+             * \param &A: The matrix A in row major form.
+             * \param Arows: The number of rows in A.
+             * \param &dAdX: The gradient of A w.r.t. X
+             * \param tolr: The relative tolerance.
+             * \param tola: The absolute tolerance.
+             * \param maxIter: The maximum number of iterations
+             * \param maxLS: The maximum number of line search iterations.
+             */
+
+            std::vector< std::vector< double > > dAdX;
+            return matrixSqrt(A, Arows, dAdX, tolr, tola, maxIter);
         }
 
         template< typename T >
