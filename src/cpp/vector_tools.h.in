@@ -1253,6 +1253,9 @@ namespace vectorTools{
 
     //Utilities which require Eigen
     #ifdef USE_EIGEN
+        //Eigen specific type definitions
+        template< typename T >
+        using solverType = Eigen::ColPivHouseholderQR< Eigen::Matrix< T, -1, -1, Eigen::RowMajor > >; //!Define the matrix solver
         template< typename T >
         std::vector< double > solveLinearSystem( const std::vector< std::vector< T > > &A, const std::vector< T > &b,
             unsigned int &rank ){
