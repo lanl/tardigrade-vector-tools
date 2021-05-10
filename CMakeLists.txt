@@ -6,6 +6,9 @@ enable_testing()
 # Set common project paths relative to project root directory
 set(CPP_SRC_PATH "src/cpp")
 
+# Add installation directory variables
+include(GNUInstallDirs)
+
 # Configure version
 configure_file("src/cpp/config.h.in" "${PROJECT_BINARY_DIR}/config.h")
 
