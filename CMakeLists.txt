@@ -25,9 +25,8 @@ set(CMAKE_CXX_FLAGS "-Wall -ansi -pedantic -O3 -I. -fmax-errors=5")
 
 #=============================================================================================== ADD PROJECT TARGETS ===
 # MUST COME AFTER DEPENDENCY LOCATING
-# Configure version in project header and add to include directory for use by all libraries and executables in this project
-configure_file("${CPP_SRC_PATH}/${PROJECT_NAME}.h.in" "${PROJECT_BINARY_DIR}/${CPP_SRC_PATH}/${PROJECT_NAME}.h")
-include_directories("${PROJECT_BINARY_DIR}/${CPP_SRC_PATH}")
+# Add include directory for use by all libraries and executables in this project
+include_directories("${CPP_SRC_PATH}")
 
 # Add project source directories
 add_subdirectory("${CPP_SRC_PATH}")
