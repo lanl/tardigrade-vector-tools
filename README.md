@@ -9,66 +9,47 @@ not need to be used explicitly in the user's code.
 
 ## Dependencies:
 
+### Compilers
+
+* c++11 compiler (listed version number has been tested at some point)
+
+  * g++ >= GNU 4.8.5
+
 ### Executables
 
-* CMake >= 3.14
-* Doxygen >= 1.8.5
+* [CMake](https://cmake.org/cmake/help/v3.14/) >= 3.14
+* [Doxygen](https://www.doxygen.nl/manual/docblocks.html) >= 1.8.5
+* [LaTeX](https://www.latex-project.org/help/documentation/) >= 2017
 
 ### Python Modules (for documentation)
 
-* Sphinx >= 3.0.4
-* Breathe >= 4.18.1
-* sphinx\_rtd\_theme >= 0.4.3
-
 For convenience, the minimal Python environment requirements for the
-documentation build are included in ``environment.yaml`` and
-``requirements.txt``. A minimal anaconda environment for building the
-documentation can be created from an existing anaconda installation with the
-following commands.
+documentation build are included in ``configuration_files/environment.yaml``.
+This file was created from the [pipreqs](https://github.com/bndr/pipreqs)
+command line tool and Sphinx configuration inspection, e.g. the extension
+packages.
+
+    $ pwd
+    path/to/cpp_stub/
+    $ pipreqs --use-local --print --no-pin .
+
+A minimal anaconda environment for building the documentation can be created
+from an existing anaconda installation with the following commands.
 
     $ conda env create --file environment.yaml
 
-### Libraries
+You can learn more about Anaconda Python environment creation and management in
+the [Anaconda
+Documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 
-* eigen >= 3.3.7
-* BOOST >= 1.53.0
+### C++ Libraries
 
-#### Eigen
+> **NOTE: Non-admin installations for Eigen and Boost are no longer required.** This project is built and deployed
+> against C++ libraries managed in Conda. See the Conda environment file and README discussion for non-admin environment
+> management.
 
-https://gitlab.com/libeigen/eigen
-
-Eigen must be "installed" following the ``eigen/INSTALL`` instructions. The
-Eigen dependence is easiest to resolve if eigen is installed in the default
-install directory.  However, if you don't have admin privileges, you can also
-insall Eigen to your home directory in ``~/include`` (or possibly in
-``~/.local/include``, but this is untested by this project).
-
-#### Non-admin Eigen install
-[Reference](https://unix.stackexchange.com/questions/36871/where-should-a-local-executable-be-placed)
-
-    # sstelmo
-    ssh -X sstelmo.lanl.gov
-    # (OPTIONAL) source Intel compilers. c++/g++ compilers from GNU 4.8.5 also work.
-    source /apps/intel2016/bin/ifortvars.sh -arch intel64 -platform linux
-    # Create personal include file directory
-    $ pwd
-    /home/$USER
-    $ mkdir .local/include
-    # Move to repository directory
-    $ cd /preferred/path/to/repos
-    # Example
-    $ pwd
-    /projects/$USER/e13repos
-    # Clone eigen
-    $ git clone https://gitlab.com/libeigen/eigen.git
-    $ cd eigen
-    $ git checkout 3.3.7
-    # Build eigen
-    $ mkdir build
-    $ cd build
-    $ export CXX=$(command -v icpc) # OPTIONAL
-    $ cmake3 .. -DCMAKE_INSTALL_PREFIX=$HOME/.local
-    $ make install
+* [Eigen](https://eigen.tuxfamily.org/dox/) >= 3.3.7
+* [BOOST](https://www.boost.org/doc/libs/1_53_0/) >= 1.53.0
 
 ---
 
