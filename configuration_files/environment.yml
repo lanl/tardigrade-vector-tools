@@ -9,5 +9,3 @@ dependencies:
   - eigen>=3.3.7
   - boost>=1.53
   - pip
-  - pip:
-    - --requirement requirements.txt
