@@ -11,7 +11,6 @@ set(CMAKE_SRC_PATH "src/cmake")
 include(GNUInstallDirs)
 
 # Find eigen
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} $ENV{HOME}/.local $ENV{HOME}/local/ $ENV{HOME})
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 include_directories(${EIGEN3_INCLUDE_DIR})
 
