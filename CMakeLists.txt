@@ -11,9 +11,11 @@ set(CMAKE_SRC_PATH "src/cmake")
 include(GNUInstallDirs)
 
 # Find eigen
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} $ENV{HOME}/.local $ENV{HOME}/local/ $ENV{HOME})
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 include_directories(${EIGEN3_INCLUDE_DIR})
+if(EIGEN3_FOUND)
+    message(STATUS "Found Eigen3: ${EIGEN3_INCLUDE_DIR}")
+endif()
 
 # Add the cmake folder to locate the FindSphinx module
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/${CMAKE_SRC_PATH}" ${CMAKE_MODULE_PATH})
