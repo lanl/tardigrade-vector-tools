@@ -13,7 +13,7 @@
 
 #define BOOST_TEST_MODULE test_vector_tools
 #include <boost/test/included/unit_test.hpp>
-#include <boost/test/output_test_stream.hpp>
+#include <boost/test/tools/output_test_stream.hpp>
 
 typedef double floatType;
 typedef std::vector< floatType > vectorType;
