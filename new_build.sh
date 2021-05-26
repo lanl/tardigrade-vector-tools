@@ -1,28 +1,12 @@
 # USAGE:
 #
-# ./new_build.sh CXX_compiler
+# ./new_build.sh
 
 # Make bash script more like high-level languages.
 set -Eeuxo pipefail
 
 # Get this scripts file name
 script=`basename "$0"`
-
-# Parse arguments
-if [ "$#" -ne 1 ]; then
-    echo "${script} USAGE:"
-    echo "./${script} CXX_compiler"
-    echo "    CXX_compiler: desired c++ compiler"
-    exit 1
-fi
-cxx_path=$1  # Path to CXX compiler
-
-# Verify compiler command and set CXX env variable
-if [ -x "$(command -v ${cxx_path})" ]; then
-    export CXX="$(command -v ${cxx_path})"
-else
-    exit 2
-fi
 
 # Debugging
 whoami
