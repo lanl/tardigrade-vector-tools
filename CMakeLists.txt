@@ -1,6 +1,6 @@
 #===================================================================================================== PROJECT SETUP ===
-cmake_minimum_required (VERSION 3.14)
-project(vector_tools VERSION 0.1.0)
+cmake_minimum_required(VERSION 3.14)
+project(vector_tools VERSION 0.2.0)
 enable_testing()
 
 # Set common project paths relative to project root directory
