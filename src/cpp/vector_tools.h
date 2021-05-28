@@ -289,6 +289,14 @@ namespace vectorTools{
                                          const double tolr = 1e-9, const double tola = 1e-9, const unsigned int maxIter = 20,
                                          const unsigned int maxLS = 5);
 
+        template< typename T >
+        void svd( const std::vector< T > &A, std::vector< std::vector< double > > &U, std::vector< double > &Sigma,
+                  std::vector< std::vector< double > > &V );
+
+        template< typename T >
+        void polar_decomposition( const std::vector< T > &A, const unsigned int nrows, const unsigned int ncols,
+                                  std::vector< double > &R, std::vector< double > &U, const bool left = false );
+
     #endif
 
 }
