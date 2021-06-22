@@ -1,12 +1,21 @@
 # USAGE:
 #
-# ./new_build.sh
+# ./new_build.sh cmake_build_type
 
 # Make bash script more like high-level languages.
 set -Eeuxo pipefail
 
 # Get this scripts file name
 script=`basename "$0"`
+
+# Parse arguments
+if [ "$#" -ne 1 ]; then
+    echo "${script} USAGE:"
+    echo "./${script} cmake_build_type"
+    echo "    cmake_build_type: string for the CMake config -DCMAKE_BUILD_TYPE=<string> option"
+    exit 1
+fi
+cmake_build_type=$1
 
 # Debugging
 whoami
@@ -28,5 +37,5 @@ fi
 rm -rf build/
 mkdir build
 cd build
-${cmake_exec} ..
+${cmake_exec} .. -DCMAKE_BUILD_TYPE=${cmake_build_type}
 ${cmake_exec} --build . --verbose
