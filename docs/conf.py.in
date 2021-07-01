@@ -16,15 +16,15 @@ import os
 # -- Project information -----------------------------------------------------
 # Meta data from CMake configure()
 project = '@PROJECT_NAME@'
-RECENT_GIT_TAG = '@error_tools_RECENT_GIT_TAG@'
-VERSION_STRING_FULL = '@error_tools_VERSION_STRING_FULL@'
-VERSION = '@error_tools_VERSION@'
-VERSION_MAJOR = '@error_tools_VERSION_MAJOR@'
-VERSION_MINOR = '@error_tools_VERSION_MINOR@'
-VERSION_PATCH = '@error_tools_VERSION_PATCH@'
-VERSION_TWEAK = '@error_tools_VERSION_TWEAK@'
-VERSION_AHEAD = '@error_tools_VERSION_AHEAD@'
-VERSION_GIT_SHA = '@error_tools_VERSION_GIT_SHA@'
+RECENT_GIT_TAG = '@vector_tools_RECENT_GIT_TAG@'
+VERSION_STRING_FULL = '@vector_tools_VERSION_STRING_FULL@'
+VERSION = '@vector_tools_VERSION@'
+VERSION_MAJOR = '@vector_tools_VERSION_MAJOR@'
+VERSION_MINOR = '@vector_tools_VERSION_MINOR@'
+VERSION_PATCH = '@vector_tools_VERSION_PATCH@'
+VERSION_TWEAK = '@vector_tools_VERSION_TWEAK@'
+VERSION_AHEAD = '@vector_tools_VERSION_AHEAD@'
+VERSION_GIT_SHA = '@vector_tools_VERSION_GIT_SHA@'
 
 # Hardcoded project information
 copyright = '2020, Nathan A. Miller and Kyle A. Brindley'
