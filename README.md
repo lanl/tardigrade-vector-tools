@@ -30,7 +30,7 @@ command line tool and Sphinx configuration inspection, e.g. the extension
 packages.
 
     $ pwd
-    path/to/cpp_stub/
+    path/to/vector_tools/
     $ pipreqs --use-local --print --no-pin .
 
 A minimal anaconda environment for building the documentation can be created
@@ -55,7 +55,7 @@ Documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/m
 
 ## Building the documentation
 
-> **API Health Note**: The sphinx API docs are a work-in-progress. The doxygen
+> **API Health Note**: The Sphinx API docs are a work-in-progress. The doxygen
 > API is much more useful
 
 A build script has been created for convenience, ``new_build.sh``. It will build
@@ -67,7 +67,7 @@ testing.
 
 1) Activate a [W-13 Python Environment](https://xcp-confluence.lanl.gov/display/PYT/The+W-13+Python+3+environment)
 
-       $ module load python/2019.10-python-3.7
+       $ module load python/2020.07-python-3.8
        $ sv3r
 
 2) Create the build directory and move there
@@ -87,15 +87,15 @@ testing.
 
        $ cmake3 --build docs
 
-5) Documentation builds to:
+5) Sphinx HTML Documentation builds to:
 
-       vector_tools/build/docs/sphinx/index.html
+       vector_tools/build/docs/sphinx/html/index.html
 
 6) Display docs
 
        $ pwd
        /path/to/vector_tools/build/
-       $ firefox docs/sphinx/index.html &
+       $ firefox docs/sphinx/html/index.html &
 
 7) While the Sphinx API is still a WIP, try the doxygen API
 

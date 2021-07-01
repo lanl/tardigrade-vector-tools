@@ -1,6 +1,15 @@
-*.swp
-*.o
+# Project files
+# Managed by GetVersionFromGitTag.cmake
+VERSION
 
+# Temp files
+*.swp
+
+# C++ and temp files
+*.o
+*.so
+
+# Documentation and c++ build artifacts
 build*/
 docs/html/
 docs/latex/
