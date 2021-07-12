@@ -1,18 +1,19 @@
-#!/usr/bin/env bash
-
-set -x
-
 # Test dev branch against beta environment. All other branches against release
 environment='release'
 env_alias='sv3r'
-if [ ${targetBranch} == dev ]; then
+if [[ ${CI_MERGE_REQUEST_TARGET_BRANCH_NAME} == dev ]] || [[ ${CI_COMMIT_BRANCH} == dev ]]; then
     environment='beta'
     env_alias='sv3b'
+# Deploy master branch against release environment. All other branches against beta.
+elif [[ ${CI_COMMIT_BRANCH} == master ]]; then
+    environment='release'
+    env_alias='sv3r'
 fi
 
 # Activate W-13 Python environment
 case $(hostname) in
     sstelmo.lanl.gov|mayhem.lanl.gov)
+        projects="/projects"
         module load python/2020.07-python-3.8
         ${env_alias}
         export PATH=$PATH:/apps/abaqus/Commands/
@@ -22,16 +23,6 @@ case $(hostname) in
         source activate /usr/projects/ea/python/${environment}
         export PATH=$PATH:/usr/projects/ea/abaqus/Commands/
         ;;
+    *)
+        echo "Unknown or unsupported host $(hostname)."
 esac
-
-# Make bash script more like high-level languages.
-set -Eeuxo pipefail
-
-# report conda environment
-conda info
-
-# Clean and build project
-./BUILD.sh
-
-# Run project tests
-./TEST.sh
