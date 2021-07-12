@@ -1,11 +1,15 @@
 name: environment
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - python>=3.7
-  - sphinx>=3.0.4
-  - sphinx_rtd_theme>=0.4.3
+  - boost>=1.59
   - breathe>=4.30.0
   - eigen>=3.3.7
-  - boost>=1.59
   - pip
+  - pytest
+  - pytest-cov
+  - sphinx>=3.0.4
+  - sphinx_rtd_theme>=0.4.3
+  - sphinxcontrib-bibtex
