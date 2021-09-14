@@ -13,7 +13,7 @@
 
 #define BOOST_TEST_MODULE test_vector_tools
 #include <boost/test/included/unit_test.hpp>
-#include <boost/test/output_test_stream.hpp>
+#include <boost/test/tools/output_test_stream.hpp>
 
 typedef double floatType;
 typedef std::vector< floatType > vectorType;
@@ -830,3 +830,103 @@ BOOST_AUTO_TEST_CASE( test_abs ){
     BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( y ), { 1, 2, 3, 4, 5, 6 } ) );
 
 }
+
+BOOST_AUTO_TEST_CASE( test_svd ){
+    /*!
+     * Test the singular value decomposition of a matrix.
+     */
+
+     const vectorType A = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+
+     vectorType UAnswer1( 9, 0 );
+     vectorTools::eye( UAnswer1 );
+
+     vectorType SigmaAnswer1 = { 2.54368356e+01, 1.72261225e+00, 2.64839734e-16 };
+
+     vectorType VAnswer1( 16, 0 );
+     vectorTools::eye( VAnswer1 );
+
+     vectorType UAnswer2( 16, 0 );
+     vectorTools::eye( UAnswer2 );
+
+     vectorType SigmaAnswer2 = { 2.54624074e+01, 1.29066168e+00, 1.38648772e-15 };
+
+     vectorType VAnswer2( 9, 0 );
+     vectorTools::eye( VAnswer2 );
+
+     vectorType UResult;
+     vectorType SigmaResult;
+     vectorType VResult;
+
+     // Test the first orientation of A
+
+     vectorTools::svd( A, 3, 4, UResult, SigmaResult, VResult ); 
+
+     // Check that the singular values are correct
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( SigmaAnswer1, SigmaResult ) );
+
+     // Check that the left and right singular values are orthogonal
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( UAnswer1, vectorTools::matrixMultiply( UResult, UResult, 3, 3, 3, 3, 0, 1 ) ) );
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( VAnswer1, vectorTools::matrixMultiply( VResult, VResult, 4, 4, 4, 4, 0, 1 ) ) );
+
+     // Test the second orientation of A
+
+     vectorTools::svd( A, 4, 3, UResult, SigmaResult, VResult ); 
+
+     // Check that the singular values are correct
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( SigmaAnswer2, SigmaResult ) );
+
+     // Check that the left and right singular values are orthogonal
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( UAnswer2, vectorTools::matrixMultiply( UResult, UResult, 4, 4, 4, 4, 0, 1 ) ) );
+
+     BOOST_CHECK( vectorTools::fuzzyEquals( VAnswer2, vectorTools::matrixMultiply( VResult, VResult, 3, 3, 3, 3, 0, 1 ) ) );
+
+}
+
+BOOST_AUTO_TEST_CASE( test_polar_decomposition ){
+    /*!
+     * Test the polar decomposition function
+     */
+
+    vectorType A = { 2, 2, 3, 4, 6, 6, 7, 8, 10 };
+
+    vectorType UAnswer = { 4.10159295, 4.41090403, 5.72021511,
+                           4.41090403, 6.47138062, 6.5318572 ,
+                           5.72021511, 6.5318572 , 8.3434993 };
+
+    vectorType VAnswer = { 1.19923598,  1.8434344 ,  3.48763282,
+                           1.8434344 ,  5.5783477 ,  7.31326101,
+                           3.48763282,  7.31326101, 12.13888919 };
+
+    vectorType RAnswer = { -0.41938618, -0.27751878,  0.86434863,
+                           -0.27751878,  0.94573945,  0.16899768,
+                            0.86434863,  0.16899768,  0.47364673 };
+
+    vectorType UResult;
+ 
+    vectorType VResult;
+
+    vectorType RResult;
+
+    // Test the right polar decomposition
+
+    vectorTools::polar_decomposition( A, 3, 3, RResult, UResult, false );
+
+    BOOST_CHECK( vectorTools::fuzzyEquals( UResult, UAnswer ) );
+
+    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) ); 
+
+    // Test the left polar decomposition
+
+    vectorTools::polar_decomposition( A, 3, 3, RResult, VResult, true );
+
+    BOOST_CHECK( vectorTools::fuzzyEquals( VResult, VAnswer ) );
+
+    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) ); 
+
+} 

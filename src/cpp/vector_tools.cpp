@@ -1673,5 +1673,118 @@ namespace vectorTools{
             return X;
         }
 
+        template< typename T >
+        void svd( const std::vector< T > &A, const unsigned int nrows, const unsigned int ncols,
+                  std::vector< double > &U, std::vector< double > &Sigma,
+                  std::vector< double > &V ){
+            /*!
+             * Compute the singular value decomposition of a real valued matrix A where A is of the form
+             * A = U Sigma VT
+             * where VT indicates the transpose.
+             * 
+             * \param &A: The matrix in row-major format
+             * \param nrows: The number of rows in A
+             * \param ncols: The number of columns in A
+             * \param &U: The returned left-hand side unitary matrix in row-major format
+             * \param &Sigma: The singular values
+             * \param &V: The returned right-hand side unitary matrix in row-major format
+             */
+
+            if ( A.size( ) != nrows * ncols ){
+
+                throw std::invalid_argument( "A's size is not consistent with the indicated number of rows and columns" );
+
+            }
+
+            // Clear and Re-size the output vectors
+            U.clear( );
+            U.resize( nrows * nrows );
+
+            Sigma.clear( );
+            Sigma.resize( std::min( nrows, ncols ) );
+
+            V.clear( );
+            V.resize( ncols * ncols );
+
+            // Construct the Eigen Maps
+            Eigen::Map< const Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > _A( A.data(), nrows, ncols );
+
+            Eigen::Map< Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > _U( U.data(), nrows, nrows );
+
+            Eigen::Map< Eigen::Matrix< T, -1,  -1, Eigen::RowMajor > > _Sigma( Sigma.data(), Sigma.size( ), 1 );
+
+            Eigen::Map< Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > _V( V.data(), ncols, ncols );
+
+            // Perform the singular value decomposition
+            Eigen::JacobiSVD< Eigen::Matrix< T, -1, -1, Eigen::RowMajor > > _svd( _A, Eigen::ComputeFullU | Eigen::ComputeFullV );
+
+            _U = _svd.matrixU( );
+
+            _Sigma = _svd.singularValues( );
+
+            _V = _svd.matrixV( );
+
+            return;
+
+        }
+
+        template< typename T >
+        void polar_decomposition( const std::vector< T > &A, const unsigned int nrows, const unsigned int ncols,
+                                  std::vector< double > &R, std::vector< double > &U, const bool left ){
+            /*!
+             * Perform the polar decomposition of the matrix \f$A\f$. If left is false the decomposition will be:
+             * 
+             * \f$A = R U\f$
+             * 
+             * If left is true the decomposition will be:
+             * 
+             * \f$A = U R\f$
+             * 
+             * /param &A: The matrix to be decomposed
+             * /param &nrows: The number of rows in A
+             * /param &ncols: The number of columns in A
+             * /param &R: The rotation tensor
+             * /param &U: The stretch tensor. Left or right stretch is determined by the parameter `left`
+             * /param &left: The flag indicating of the right decomposition (\f$A = RU\f$) or the left decomposition
+             *     (\f$A = UR\f$) is to be performed.
+             */
+
+            // Compute Usqrd
+            std::vector< double > Usqrd;
+            unsigned int Urows;
+
+            if ( left ){
+
+                Usqrd = vectorTools::matrixMultiply( A, A, nrows, ncols, ncols, nrows, 0, 1 );
+                Urows = nrows;
+
+            }
+            else{
+
+                Usqrd = vectorTools::matrixMultiply( A, A, ncols, nrows, nrows, ncols, 1, 0 );
+                Urows = ncols;
+
+            }
+
+            // Perform the matrix square root of Usqrd
+            U = matrixSqrt( Usqrd, Urows );
+
+            // Compute the rotation matrix
+            std::vector< double > Uinv = vectorTools::inverse( U, nrows, ncols );
+
+            if ( left ){
+
+                R = vectorTools::matrixMultiply( Uinv, A, nrows, nrows, nrows, ncols, 0, 0 );
+
+            }
+            else{
+
+                R = vectorTools::matrixMultiply( A, Uinv, nrows, ncols, ncols, ncols, 0, 0 );
+
+            }
+
+            return;
+        }
+
     #endif
 }
