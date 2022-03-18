@@ -21,7 +21,6 @@ include(GNUInstallDirs)
 # Set the c++ standard
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_CXX_FLAGS "-Wall -ansi -pedantic -O3 -fmax-errors=5")
 
 # Enable CTest
 enable_testing()
