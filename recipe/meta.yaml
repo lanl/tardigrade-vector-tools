@@ -26,6 +26,7 @@ requirements:
     - cmake >=3.17
     - doxygen
     - eigen >=3.3.7
+    - error_tools
   host:
     - python
     - boost
@@ -35,6 +36,7 @@ requirements:
     - {{ compiler('cxx') }}
     - boost
     - eigen >=3.3.7
+    - error_tools
 
 test:
   source_files:
