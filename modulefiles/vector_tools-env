@@ -5,6 +5,8 @@ conflict aea-release
 conflict aea-beta
 conflict waves-env
 conflict error_tools-env
+conflict abaqus_tools-env
+conflict cpp_stub-env
 
 # Set AEA standard software version and environment names
 set cubit_version "Cubit-15.8"
