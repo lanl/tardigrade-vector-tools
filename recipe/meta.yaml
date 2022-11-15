@@ -28,7 +28,6 @@ requirements:
     - eigen >=3.3.7
   run:
     - {{ compiler('cxx') }}
-    - boost >=1.59
     - eigen >=3.3.7
 
 test:
