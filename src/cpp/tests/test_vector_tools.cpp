@@ -510,7 +510,7 @@ BOOST_AUTO_TEST_CASE( test_appendVectors ){
 
 }
 
-BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-6) ){
+BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-15) ){
     /*!
      * Test the Bunge-Euler rotation matrix construction: Z-X'-Z'.
      */
