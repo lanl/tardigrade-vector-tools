@@ -1219,7 +1219,7 @@ namespace vectorTools{
     }
 
     template<typename T>
-    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< T > &rotationMatrix ){
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< T > &directionCosines ){
         /*!
          * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
          *
@@ -1228,9 +1228,28 @@ namespace vectorTools{
          * 3. rotate around new z'-axis
          *
          * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
-         * \param &rotationMatrix: Row-major vector containing the 3x3 rotation matrix
+         * \param &directionCosines: Row-major vector containing the 3x3 rotation matrix
          */
 
+        std::vector< std::vector< T > > matrix;
+        int return_value;
+        return_value = rotationMatrix( bungeEulerAngles, matrix );
+        directionCosines = appendVectors( matrix );
+        return return_value;
+    }
+
+    template<typename T>
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines ){
+        /*!
+         * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
+         *
+         * 1. rotate around z-axis
+         * 2. rotate around new x'-axis
+         * 3. rotate around new z'-axis
+         *
+         * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
+         * \param &directionCosines: Matrix containing the 3x3 rotation matrix
+         */
         if ( bungeEulerAngles.size( ) != ( 3 ) ){
             throw std::length_error( "There must be exactly three (3) Bunge-Euler angles." );
         }
@@ -1242,10 +1261,9 @@ namespace vectorTools{
         double s3 = std::sin( bungeEulerAngles[ 2 ] );
         double c3 = std::cos( bungeEulerAngles[ 2 ] );
 
-        rotationMatrix = { c1*c3-c2*s1*s3, -c1*s3-c2*c3*s1,  s1*s2,
-                           c3*s1+c1*c2*s3, -s1*s3+c1*c2*c3, -c1*s2,
-                                    s2*s3,           c3*s2,     c2 };
-
+        directionCosines = { { c1*c3-c2*s1*s3, -c1*s3-c2*c3*s1,  s1*s2 },
+                             { c3*s1+c1*c2*s3, -s1*s3+c1*c2*c3, -c1*s2 },
+                             {          s2*s3,           c3*s2,     c2 } };
         return 0;
     }
 
