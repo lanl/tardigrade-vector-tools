@@ -523,6 +523,13 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-1
     vectorTools::rotationMatrix( bungeEulerAngles, rotationMatrix );
     BOOST_TEST( rotationMatrix == expected, boost::test_tools::per_element() );
 
+    bungeEulerAngles = { 0., M_PI, 0. };
+    expected = { 1.,  0.,  0.,
+                 0., -1.,  0.,
+                 0.,  0., -1. };
+    vectorTools::rotationMatrix( bungeEulerAngles, rotationMatrix );
+    BOOST_TEST( rotationMatrix == expected, boost::test_tools::per_element() );
+
 }
 
 BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
