@@ -1221,7 +1221,7 @@ namespace vectorTools{
     template<typename T>
     int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< T > &rotationMatrix ){
         /*!
-         * Calculate the direction cosines rotation matrix from Euler angles - Bunge convention:
+         * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
          *
          * 1. rotate around z-axis
          * 2. rotate around new x'-axis
