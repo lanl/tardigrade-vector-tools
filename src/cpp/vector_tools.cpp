@@ -1235,16 +1235,16 @@ namespace vectorTools{
             throw std::length_error( "There must be exactly three (3) Bunge-Euler angles." );
         }
 
-        double s1 = std::sin( bungeEulerAngles[ 0 ] )
-        double c1 = std::cos( bungeEulerAngles[ 0 ] )
-        double s2 = std::sin( bungeEulerAngles[ 1 ] )
-        double c2 = std::cos( bungeEulerAngles[ 1 ] )
-        double s3 = std::sin( bungeEulerAngles[ 3 ] )
-        double c3 = std::cos( bungeEulerAngles[ 3 ] )
+        double s1 = std::sin( bungeEulerAngles[ 0 ] );
+        double c1 = std::cos( bungeEulerAngles[ 0 ] );
+        double s2 = std::sin( bungeEulerAngles[ 1 ] );
+        double c2 = std::cos( bungeEulerAngles[ 1 ] );
+        double s3 = std::sin( bungeEulerAngles[ 2 ] );
+        double c3 = std::cos( bungeEulerAngles[ 2 ] );
 
         rotationMatrix = { c1*c3-c2*s1*s3, -c1*s3-c2*c3*s1,  s1*s2,
                            c3*s1+c1*c2*s3, -s1*s3+c1*c2*c3, -c1*s2,
-                                    s2*s3,           c3*s2,     c2};
+                                    s2*s3,           c3*s2,     c2 };
 
         return 0;
     }

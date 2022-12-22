@@ -510,6 +510,21 @@ BOOST_AUTO_TEST_CASE( test_appendVectors ){
 
 }
 
+BOOST_AUTO_TEST_CASE (test_rotationMatrix ){
+    /*!
+     * Test the Bunge-Euler rotation matrix construction: Z-X'-Z'.
+     */
+
+    std::vector< double > rotationMatrix;
+    std::vector< double > bungeEulerAngles = { M_PI, 0., 0. };
+    std::vector< double > expected = { -1.,  0.,  0.,
+                                        0., -1.,  0.,
+                                        0.,  0.,  1. };
+    vectorTools::rotationMatrix( bungeEulerAngles, rotationMatrix );
+    BOOST_TEST( rotationMatrix == expected, boost::test_tools::per_element() );
+
+}
+
 BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
     /*!
      * Test the utility to solve a linear system of equations.
