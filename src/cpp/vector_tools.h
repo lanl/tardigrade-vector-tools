@@ -234,6 +234,9 @@ namespace vectorTools{
     template<typename T>
     int print(const std::vector< std::vector< T > > &A);
 
+    template<typename T>
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< T > &rotationMatrix );
+
     //Utilities which require Eigen
     #ifdef USE_EIGEN
         //Eigen specific type definitions
