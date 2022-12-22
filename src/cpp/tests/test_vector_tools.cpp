@@ -523,10 +523,34 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-1
     vectorTools::rotationMatrix( bungeEulerAngles, rotationMatrix );
     BOOST_TEST( rotationMatrix == expected, boost::test_tools::per_element() );
 
+    bungeEulerAngles = { 0., 0., M_PI };
+    BOOST_TEST( rotationMatrix == expected, boost::test_tools::per_element() );
+
     bungeEulerAngles = { 0., M_PI, 0. };
     expected = { 1.,  0.,  0.,
                  0., -1.,  0.,
                  0.,  0., -1. };
+    vectorTools::rotationMatrix( bungeEulerAngles, rotationMatrix );
+    BOOST_TEST( rotationMatrix == expected, boost::test_tools::per_element() );
+
+    bungeEulerAngles = { M_PI, M_PI, 0. };
+    expected = { -1.,  0.,  0.,
+                  0.,  1.,  0.,
+                  0.,  0., -1. };
+    vectorTools::rotationMatrix( bungeEulerAngles, rotationMatrix );
+    BOOST_TEST( rotationMatrix == expected, boost::test_tools::per_element() );
+
+    bungeEulerAngles = { M_PI, M_PI_2, 0. };
+    expected = { -1.,  0.,  0.,
+                  0.,  0.,  1.,
+                  0.,  1.,  0. };
+    vectorTools::rotationMatrix( bungeEulerAngles, rotationMatrix );
+    BOOST_TEST( rotationMatrix == expected, boost::test_tools::per_element() );
+
+    bungeEulerAngles = { 0., M_PI_2, M_PI };
+    expected = { -1.,  0.,   0.,
+                  0.,  0.,  -1.,
+                  0., -1.,  0. };
     vectorTools::rotationMatrix( bungeEulerAngles, rotationMatrix );
     BOOST_TEST( rotationMatrix == expected, boost::test_tools::per_element() );
 
