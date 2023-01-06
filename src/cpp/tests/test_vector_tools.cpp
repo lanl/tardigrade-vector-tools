@@ -510,6 +510,67 @@ BOOST_AUTO_TEST_CASE( test_appendVectors ){
 
 }
 
+BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-15) ){
+    /*!
+     * Test the Bunge-Euler rotation matrix construction: Z-X'-Z'.
+     */
+
+    std::vector< double > directionCosines;
+    std::vector< double > bungeEulerAngles = { M_PI, 0., 0. };
+    std::vector< double > expected = { -1.,  0.,  0.,
+                                        0., -1.,  0.,
+                                        0.,  0.,  1. };
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
+    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
+
+    bungeEulerAngles = { 0., 0., M_PI };
+    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
+
+    bungeEulerAngles = { 0., M_PI, 0. };
+    expected = { 1.,  0.,  0.,
+                 0., -1.,  0.,
+                 0.,  0., -1. };
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
+    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
+
+    bungeEulerAngles = { M_PI, M_PI, 0. };
+    expected = { -1.,  0.,  0.,
+                  0.,  1.,  0.,
+                  0.,  0., -1. };
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
+    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
+
+    bungeEulerAngles = { M_PI, M_PI_2, 0. };
+    expected = { -1.,  0.,  0.,
+                  0.,  0.,  1.,
+                  0.,  1.,  0. };
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
+    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
+
+    bungeEulerAngles = { 0., M_PI_2, M_PI };
+    expected = { -1.,  0.,   0.,
+                  0.,  0.,  -1.,
+                  0., -1.,  0. };
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
+    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
+
+    double frac = 0.70710678118654757;
+    bungeEulerAngles = { M_PI_4, M_PI_4, 0. };
+    expected = { frac, -0.5,  0.5,
+                 frac,  0.5, -0.5,
+                  0.0, frac, frac };
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
+    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
+
+    bungeEulerAngles = { 0., M_PI_4, M_PI_4 };
+    expected = { frac, -frac,   0.0,
+                  0.5,   0.5, -frac,
+                  0.5,   0.5,  frac };
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
+    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
+
+}
+
 BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
     /*!
      * Test the utility to solve a linear system of equations.
@@ -860,7 +921,7 @@ BOOST_AUTO_TEST_CASE( test_svd ){
 
      // Test the first orientation of A
 
-     vectorTools::svd( A, 3, 4, UResult, SigmaResult, VResult ); 
+     vectorTools::svd( A, 3, 4, UResult, SigmaResult, VResult );
 
      // Check that the singular values are correct
 
@@ -874,7 +935,7 @@ BOOST_AUTO_TEST_CASE( test_svd ){
 
      // Test the second orientation of A
 
-     vectorTools::svd( A, 4, 3, UResult, SigmaResult, VResult ); 
+     vectorTools::svd( A, 4, 3, UResult, SigmaResult, VResult );
 
      // Check that the singular values are correct
 
@@ -908,7 +969,7 @@ BOOST_AUTO_TEST_CASE( test_polar_decomposition ){
                             0.86434863,  0.16899768,  0.47364673 };
 
     vectorType UResult;
- 
+
     vectorType VResult;
 
     vectorType RResult;
@@ -919,7 +980,7 @@ BOOST_AUTO_TEST_CASE( test_polar_decomposition ){
 
     BOOST_CHECK( vectorTools::fuzzyEquals( UResult, UAnswer ) );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) ); 
+    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) );
 
     // Test the left polar decomposition
 
@@ -927,6 +988,6 @@ BOOST_AUTO_TEST_CASE( test_polar_decomposition ){
 
     BOOST_CHECK( vectorTools::fuzzyEquals( VResult, VAnswer ) );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) ); 
+    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) );
 
-} 
+}
