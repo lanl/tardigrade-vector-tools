@@ -1227,6 +1227,12 @@ namespace vectorTools{
          * 2. rotate around new x'-axis
          * 3. rotate around new z'-axis
          *
+         * Conventions:
+         *
+         * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = R^Tv \f$
+         * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
+         *   system.
+         *
          * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
          * \param &directionCosines: Row-major vector containing the 3x3 rotation matrix
          */
