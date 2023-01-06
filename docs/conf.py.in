@@ -55,8 +55,8 @@ breathe_default_project = project
 
 # Links to PRs, Jira issues.
 extlinks = {
-     "pull": ("https://xcp-stash.lanl.gov/projects/MM/repos/vector_tools/pull-requests/%s/overview", "PR"),
-     "jira": ("https://xcp-jira.lanl.gov/browse/VIP-%s", "VIP-"),
+     "pull": ("https://xcp-stash.lanl.gov/projects/MM/repos/vector_tools/pull-requests/%s/overview", "PR%s"),
+     "jira": ("https://xcp-jira.lanl.gov/browse/VIP-%s", "VIP-%s"),
 }
 
 # Add any paths that contain templates here, relative to this directory.
