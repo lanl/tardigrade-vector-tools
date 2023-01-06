@@ -1229,7 +1229,7 @@ namespace vectorTools{
          *
          * Conventions:
          *
-         * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = R^Tv \f$
+         * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = vR \f$
          * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
          *   system.
          *
@@ -1255,7 +1255,7 @@ namespace vectorTools{
          *
          * Conventions:
          *
-         * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = R^Tv \f$
+         * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = vR \f$
          * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
          *   system.
          *
