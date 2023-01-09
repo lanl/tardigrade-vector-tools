@@ -510,176 +510,76 @@ BOOST_AUTO_TEST_CASE( test_appendVectors ){
 
 }
 
-BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-15) ){
+BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-15 ) ){
     /*!
      * Test the Bunge-Euler rotation matrix construction: Z-X'-Z'.
      */
 
-    std::vector< double > bungeEulerAngles;
-    std::vector< std:: vector< double > > directionCosines;
-    std::vector< std::vector< double > > expected;
+    std::vector< std::vector < double > > bungeEulerAngles;
+    std::vector< std::vector< double > > directionCosines;
+    std::vector< std::vector< std::vector< double > > > expected;
     std::vector< double > directionCosinesVector;
     std::vector< std::vector< double > > dDirectionCosinesdAlpha;
     std::vector< std::vector< double > > dDirectionCosinesdBeta;
     std::vector< std::vector< double > > dDirectionCosinesdGamma;
-
-    bungeEulerAngles = { M_PI, 0., 0. };
-    expected = { { -1.,  0.,  0. },
-                 {  0., -1.,  0. },
-                 {  0.,  0.,  1. } };
-    // Matrix directionCosines interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Row-major vector interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
-    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Matrix directionCosines and partial derivatives interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines,
-                                 dDirectionCosinesdAlpha,
-                                 dDirectionCosinesdBeta,
-                                 dDirectionCosinesdGamma );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-
-    bungeEulerAngles = { 0., 0., M_PI };
-    // Matrix directionCosines interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Row-major vector interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
-    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Matrix directionCosines and partial derivatives interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines,
-                                 dDirectionCosinesdAlpha,
-                                 dDirectionCosinesdBeta,
-                                 dDirectionCosinesdGamma );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-
-    bungeEulerAngles = { 0., M_PI, 0. };
-    expected = { { 1.,  0.,  0. },
-                 { 0., -1.,  0. },
-                 { 0.,  0., -1. } };
-    // Matrix directionCosines interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Row-major vector interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
-    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Matrix directionCosines and partial derivatives interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines,
-                                 dDirectionCosinesdAlpha,
-                                 dDirectionCosinesdBeta,
-                                 dDirectionCosinesdGamma );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-
-    bungeEulerAngles = { M_PI, M_PI, 0. };
-    expected = { { -1.,  0.,  0. },
-                 {  0.,  1.,  0. },
-                 {  0.,  0., -1. } };
-    // Matrix directionCosines interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Row-major vector interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
-    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Matrix directionCosines and partial derivatives interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines,
-                                 dDirectionCosinesdAlpha,
-                                 dDirectionCosinesdBeta,
-                                 dDirectionCosinesdGamma );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-
-    bungeEulerAngles = { M_PI, M_PI_2, 0. };
-    expected = { { -1.,  0.,  0. },
-                 {  0.,  0.,  1. },
-                 {  0.,  1.,  0. } };
-    // Matrix directionCosines interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Row-major vector interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
-    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Matrix directionCosines and partial derivatives interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines,
-                                 dDirectionCosinesdAlpha,
-                                 dDirectionCosinesdBeta,
-                                 dDirectionCosinesdGamma );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-
-    bungeEulerAngles = { 0., M_PI_2, M_PI };
-    expected = { { -1.,  0.,   0. },
-                 {  0.,  0.,  -1. },
-                 {  0., -1.,  0.  } };
-    // Matrix directionCosines interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Row-major vector interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
-    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Matrix directionCosines and partial derivatives interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines,
-                                 dDirectionCosinesdAlpha,
-                                 dDirectionCosinesdBeta,
-                                 dDirectionCosinesdGamma );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-
     double frac = 0.70710678118654757;
-    bungeEulerAngles = { M_PI_4, M_PI_4, 0. };
-    expected = { { frac, -0.5,  0.5 },
-                 { frac,  0.5, -0.5 },
-                 {  0.0, frac, frac } };
-    // Matrix directionCosines interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Row-major vector interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
-    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Matrix directionCosines and partial derivatives interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines,
-                                 dDirectionCosinesdAlpha,
-                                 dDirectionCosinesdBeta,
-                                 dDirectionCosinesdGamma );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
 
-    bungeEulerAngles = { 0., M_PI_4, M_PI_4 };
-    expected = { { frac, -frac,   0.0 },
-                 {  0.5,   0.5, -frac },
-                 {  0.5,   0.5,  frac } };
-    // Matrix directionCosines interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Row-major vector interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
-    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
-    // Matrix directionCosines and partial derivatives interface
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines,
-                                 dDirectionCosinesdAlpha,
-                                 dDirectionCosinesdBeta,
-                                 dDirectionCosinesdGamma );
-    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
-                boost::test_tools::per_element( ) );
+    bungeEulerAngles = {
+        {   M_PI,     0.,     0. },
+        {     0.,     0.,   M_PI },
+        {     0.,   M_PI,     0. },
+        {   M_PI,   M_PI,     0. },
+        {   M_PI, M_PI_2,     0. },
+        {     0., M_PI_2,   M_PI },
+        { M_PI_4, M_PI_4,     0. },
+        {     0., M_PI_4, M_PI_4 },
+    };
+    expected = {
+        { {  -1.,    0.,    0. },
+          {   0.,   -1.,    0. },
+          {   0.,    0.,    1. } },
+        { {  -1.,    0.,    0. },
+          {   0.,   -1.,    0. },
+          {   0.,    0.,    1. } },
+        { {   1.,    0.,    0. },
+          {   0.,   -1.,    0. },
+          {   0.,    0.,   -1. } },
+        { {  -1.,    0.,    0. },
+          {   0.,    1.,    0. },
+          {   0.,    0.,   -1. } },
+        { {  -1.,    0.,    0. },
+          {   0.,    0.,    1. },
+          {   0.,    1.,    0. } },
+        { {  -1.,    0.,    0. },
+          {   0.,    0.,   -1. },
+          {   0.,   -1.,    0. } },
+        { { frac,  -0.5,   0.5 },
+          { frac,   0.5,  -0.5 },
+          {  0.0,  frac,  frac } },
+        { { frac, -frac,   0.0 },
+          {  0.5,   0.5, -frac },
+          {  0.5,   0.5,  frac } },
+    };
+
+    for ( unsigned int i=0; i<bungeEulerAngles.size( ); i++ ){
+
+        // Matrix directionCosines interface
+        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosines );
+        BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected[ i ] ),
+                    boost::test_tools::per_element( ) );
+        // Row-major vector interface
+        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosinesVector );
+        BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected[ i ] ),
+                    boost::test_tools::per_element( ) );
+        // Matrix directionCosines and partial derivatives interface
+        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosines,
+                                     dDirectionCosinesdAlpha,
+                                     dDirectionCosinesdBeta,
+                                     dDirectionCosinesdGamma );
+        BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected[ i ] ),
+                    boost::test_tools::per_element( ) );
+
+    }
 
 }
 
