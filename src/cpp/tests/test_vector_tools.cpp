@@ -616,32 +616,32 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-
           {  -half, -half, -frac },
           {   half,  half, -frac } },
     };
-//    expected_dDirectionCosinesdGamma = {
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//    };
+    expected_dDirectionCosinesdGamma = {
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0., -1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  0.,  0.,  0. },
+          {  1.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  0.,  0.,  0. },
+          { -1.,  0.,  0. } },
+        { { -half, -frac, 0. },
+          {  half, -frac, 0. },
+          {  frac,    0., 0. } },
+        { { -frac, -frac, 0. },
+          {  half, -half, 0. },
+          {  half, -half, 0. } },
+    };
 
     for ( unsigned int i=0; i<bungeEulerAngles.size( ); i++ ){
 
@@ -665,6 +665,9 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-
                     boost::test_tools::per_element( ) );
         BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdBeta ) ==
                         vectorTools::appendVectors( expected_dDirectionCosinesdBeta[ i ] ),
+                    boost::test_tools::per_element( ) );
+        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdGamma ) ==
+                        vectorTools::appendVectors( expected_dDirectionCosinesdGamma[ i ] ),
                     boost::test_tools::per_element( ) );
 
     }
