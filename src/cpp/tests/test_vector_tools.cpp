@@ -517,11 +517,14 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-
 
     std::vector< std::vector < double > > bungeEulerAngles;
     std::vector< std::vector< double > > directionCosines;
-    std::vector< std::vector< std::vector< double > > > expectedDirectionCosines;
     std::vector< double > directionCosinesVector;
     std::vector< std::vector< double > > dDirectionCosinesdAlpha;
     std::vector< std::vector< double > > dDirectionCosinesdBeta;
     std::vector< std::vector< double > > dDirectionCosinesdGamma;
+    std::vector< std::vector< std::vector< double > > > expectedDirectionCosines;
+    std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdAlpha;
+    std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdBeta;
+    std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdGamma;
     double frac = 0.70710678118654757;
 
     bungeEulerAngles = {
@@ -559,6 +562,32 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-
         { { frac, -frac,   0.0 },
           {  0.5,   0.5, -frac },
           {  0.5,   0.5,  frac } },
+    };
+    expected_dDirectionCosinesdAlpha = {
+        { {  },
+          {  },
+          {  } },
+        { {  },
+          {  },
+          {  } },
+        { {  },
+          {  },
+          {  } },
+        { {  },
+          {  },
+          {  } },
+        { {  },
+          {  },
+          {  } },
+        { {  },
+          {  },
+          {  } },
+        { {  },
+          {  },
+          {  } },
+        { {  },
+          {  },
+          {  } },
     };
 
     for ( unsigned int i=0; i<bungeEulerAngles.size( ); i++ ){
