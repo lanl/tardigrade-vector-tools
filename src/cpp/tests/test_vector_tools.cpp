@@ -590,32 +590,32 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-
           {  frac, -frac,   0. },
           {    0.,    0.,   0. } },
     };
-//    expected_dDirectionCosinesdBeta = {
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//        { {  },
-//          {  },
-//          {  } },
-//    };
+    expected_dDirectionCosinesdBeta = {
+        { {  0.,  0.,  0. },
+          {  0.,  0.,  1. },
+          {  0.,  1.,  0. } },
+        { {  0.,  0.,  0. },
+          {  0.,  0., -1. },
+          {  0., -1.,  0.} },
+        { {  0.,  0.,  0. },
+          {  0.,  0.,  1. },
+          {  0., -1.,  0. } },
+        { {  0.,  0.,  0. },
+          {  0.,  0., -1. },
+          {  0., -1.,  0. } },
+        { {  0.,  0.,  0. },
+          {  0.,  1.,  0. },
+          {  0.,  0., -1. } },
+        { {  0.,  0.,  0. },
+          {  0.,  1.,  0. },
+          {  0.,  0., -1. } },
+        { {  0.,  half,  half },
+          {  0., -half, -half },
+          {  0.,  frac, -frac } },
+        { {     0.,    0.,    0. },
+          {  -half, -half, -frac },
+          {   half,  half, -frac } },
+    };
 //    expected_dDirectionCosinesdGamma = {
 //        { {  },
 //          {  },
@@ -662,6 +662,9 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-
                     boost::test_tools::per_element( ) );
         BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdAlpha ) ==
                         vectorTools::appendVectors( expected_dDirectionCosinesdAlpha[ i ] ),
+                    boost::test_tools::per_element( ) );
+        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdBeta ) ==
+                        vectorTools::appendVectors( expected_dDirectionCosinesdBeta[ i ] ),
                     boost::test_tools::per_element( ) );
 
     }
