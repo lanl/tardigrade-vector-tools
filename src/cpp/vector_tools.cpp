@@ -1308,6 +1308,19 @@ namespace vectorTools{
          */
         int return_value;
         return_value = rotationMatrix( bungeEulerAngles, directionCosines );
+
+        dDirectionCosinesdAlpha{ { -s1*c3-c1*c2*s3,  s1*s3-c1*c2*c3, c1*s2 },
+                                 {  c1*c3-s1*c2*s3, -s1*c2*c3-c1*s3, s1*s2 },
+                                 {              0.,              0.,    0. } };
+
+        dDirectionCosinesdBeta{ {  s2*s1*s3,  s2*c3*s1,  c2*s1 },
+                                { -s2*c1*s3, -s2*c1*c3, -c1*c2 },
+                                {     c2*s3,     c2*c3,    -s2 } };
+
+        dDirectionCosinesdGamma{ { -c1*s3-c2*s1*c3, -c1*c3+c2*s3*s1, 0. },
+                                 { -s3*s1+c1*c2*c3, -c1*c2*s3-s1*c3, 0. },
+                                 {           s2*c3,          -s3*s2, 0. } };
+
         return return_value;
     }
 
