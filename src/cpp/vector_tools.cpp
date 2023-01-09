@@ -1245,7 +1245,7 @@ namespace vectorTools{
     }
 
     template< typename T >
-    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines ){
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< std::vector< T > > &directionCosines ){
         /*!
          * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
          *
@@ -1280,7 +1280,7 @@ namespace vectorTools{
     }
 
     template< typename T >
-    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines,
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< std::vector< T > > &directionCosines,
                         std::vector< std::vector< T > > &dDirectionCosinesdAlpha,
                         std::vector< std::vector< T > > &dDirectionCosinesdBeta,
                         std::vector< std::vector< T > > &dDirectionCosinesdGamma ){
@@ -1306,20 +1306,28 @@ namespace vectorTools{
          * \param &dDirectionCosinesdGamma: Matrix partial derivative of the rotation matrix with respect to the third
          *     Euler angle: \f$ \gamma \f$.
          */
+
+        double s1 = std::sin( bungeEulerAngles[ 0 ] );
+        double c1 = std::cos( bungeEulerAngles[ 0 ] );
+        double s2 = std::sin( bungeEulerAngles[ 1 ] );
+        double c2 = std::cos( bungeEulerAngles[ 1 ] );
+        double s3 = std::sin( bungeEulerAngles[ 2 ] );
+        double c3 = std::cos( bungeEulerAngles[ 2 ] );
+
         int return_value;
         return_value = rotationMatrix( bungeEulerAngles, directionCosines );
 
-        dDirectionCosinesdAlpha{ { -s1*c3-c1*c2*s3,  s1*s3-c1*c2*c3, c1*s2 },
-                                 {  c1*c3-s1*c2*s3, -s1*c2*c3-c1*s3, s1*s2 },
-                                 {              0.,              0.,    0. } };
+        dDirectionCosinesdAlpha = { { -s1*c3-c1*c2*s3,  s1*s3-c1*c2*c3, c1*s2 },
+                                    {  c1*c3-s1*c2*s3, -s1*c2*c3-c1*s3, s1*s2 },
+                                    {              0.,              0.,    0. } };
 
-        dDirectionCosinesdBeta{ {  s2*s1*s3,  s2*c3*s1,  c2*s1 },
-                                { -s2*c1*s3, -s2*c1*c3, -c1*c2 },
-                                {     c2*s3,     c2*c3,    -s2 } };
+        dDirectionCosinesdBeta = { {  s2*s1*s3,  s2*c3*s1,  c2*s1 },
+                                   { -s2*c1*s3, -s2*c1*c3, -c1*c2 },
+                                   {     c2*s3,     c2*c3,    -s2 } };
 
-        dDirectionCosinesdGamma{ { -c1*s3-c2*s1*c3, -c1*c3+c2*s3*s1, 0. },
-                                 { -s3*s1+c1*c2*c3, -c1*c2*s3-s1*c3, 0. },
-                                 {           s2*c3,          -s3*s2, 0. } };
+        dDirectionCosinesdGamma = { { -c1*s3-c2*s1*c3, -c1*c3+c2*s3*s1, 0. },
+                                    { -s3*s1+c1*c2*c3, -c1*c2*s3-s1*c3, 0. },
+                                    {           s2*c3,          -s3*s2, 0. } };
 
         return return_value;
     }
