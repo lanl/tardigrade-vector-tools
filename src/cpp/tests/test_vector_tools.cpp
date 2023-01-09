@@ -518,17 +518,25 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-1
     std::vector< double > bungeEulerAngles;
     std::vector< std:: vector< double > > directionCosines;
     std::vector< std::vector< double > > expected;
+    std::vector< double > directionCosinesVector;
 
     bungeEulerAngles = { M_PI, 0., 0. };
     expected = { { -1.,  0.,  0. },
                  {  0., -1.,  0. },
                  {  0.,  0.,  1. } };
     vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors(directionCosines) == vectorTools::appendVectors(expected),
+    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
+                boost::test_tools::per_element() );
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
+    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
                 boost::test_tools::per_element() );
 
     bungeEulerAngles = { 0., 0., M_PI };
-    BOOST_TEST( vectorTools::appendVectors(directionCosines) == vectorTools::appendVectors(expected),
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
+    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
+                boost::test_tools::per_element() );
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
+    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
                 boost::test_tools::per_element() );
 
     bungeEulerAngles = { 0., M_PI, 0. };
@@ -536,7 +544,10 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-1
                  { 0., -1.,  0. },
                  { 0.,  0., -1. } };
     vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors(directionCosines) == vectorTools::appendVectors(expected),
+    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
+                boost::test_tools::per_element() );
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
+    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
                 boost::test_tools::per_element() );
 
     bungeEulerAngles = { M_PI, M_PI, 0. };
@@ -544,7 +555,10 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-1
                  {  0.,  1.,  0. },
                  {  0.,  0., -1. } };
     vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors(directionCosines) == vectorTools::appendVectors(expected),
+    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
+                boost::test_tools::per_element() );
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
+    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
                 boost::test_tools::per_element() );
 
     bungeEulerAngles = { M_PI, M_PI_2, 0. };
@@ -552,7 +566,10 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-1
                  {  0.,  0.,  1. },
                  {  0.,  1.,  0. } };
     vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors(directionCosines) == vectorTools::appendVectors(expected),
+    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
+                boost::test_tools::per_element() );
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
+    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
                 boost::test_tools::per_element() );
 
     bungeEulerAngles = { 0., M_PI_2, M_PI };
@@ -560,7 +577,10 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-1
                  {  0.,  0.,  -1. },
                  {  0., -1.,  0.  } };
     vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors(directionCosines) == vectorTools::appendVectors(expected),
+    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
+                boost::test_tools::per_element() );
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
+    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
                 boost::test_tools::per_element() );
 
     double frac = 0.70710678118654757;
@@ -569,7 +589,10 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-1
                  { frac,  0.5, -0.5 },
                  {  0.0, frac, frac } };
     vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors(directionCosines) == vectorTools::appendVectors(expected),
+    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
+                boost::test_tools::per_element() );
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
+    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
                 boost::test_tools::per_element() );
 
     bungeEulerAngles = { 0., M_PI_4, M_PI_4 };
@@ -577,7 +600,10 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-1
                  {  0.5,   0.5, -frac },
                  {  0.5,   0.5,  frac } };
     vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( vectorTools::appendVectors(directionCosines) == vectorTools::appendVectors(expected),
+    BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expected ),
+                boost::test_tools::per_element() );
+    vectorTools::rotationMatrix( bungeEulerAngles, directionCosinesVector );
+    BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expected ),
                 boost::test_tools::per_element() );
 
 }
