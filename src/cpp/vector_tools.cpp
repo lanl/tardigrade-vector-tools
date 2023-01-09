@@ -1218,7 +1218,7 @@ namespace vectorTools{
         return 0;
     }
 
-    template<typename T>
+    template< typename T >
     int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< T > &directionCosines ){
         /*!
          * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
@@ -1244,7 +1244,7 @@ namespace vectorTools{
         return return_value;
     }
 
-    template<typename T>
+    template< typename T >
     int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines ){
         /*!
          * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
@@ -1279,7 +1279,7 @@ namespace vectorTools{
         return 0;
     }
 
-    template<typename T>
+    template< typename T >
     int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines,
                         std::vector< std::vector< T > > &dDirectionCosinesdAlpha,
                         std::vector< std::vector< T > > &dDirectionCosinesdBeta,
@@ -1309,6 +1309,7 @@ namespace vectorTools{
         int return_value;
         return_value = rotationMatrix( bungeEulerAngles, directionCosines );
         return return_value;
+    }
 
     #ifdef USE_EIGEN
         template< typename T >
