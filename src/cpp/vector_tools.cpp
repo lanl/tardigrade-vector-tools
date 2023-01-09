@@ -1223,9 +1223,9 @@ namespace vectorTools{
         /*!
          * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
          *
-         * 1. rotate around z-axis
-         * 2. rotate around new x'-axis
-         * 3. rotate around new z'-axis
+         * 1. rotate around z-axis: \f$ \alpha \f$
+         * 2. rotate around new x'-axis: \f$ \beta \f$
+         * 3. rotate around new z'-axis: \f$ \gamma \f$
          *
          * Conventions:
          *
@@ -1249,9 +1249,9 @@ namespace vectorTools{
         /*!
          * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
          *
-         * 1. rotate around z-axis
-         * 2. rotate around new x'-axis
-         * 3. rotate around new z'-axis
+         * 1. rotate around z-axis: \f$ \alpha \f$
+         * 2. rotate around new x'-axis: \f$ \beta \f$
+         * 3. rotate around new z'-axis: \f$ \gamma \f$
          *
          * Conventions:
          *
@@ -1278,6 +1278,38 @@ namespace vectorTools{
                              {          s2*s3,           c3*s2,     c2 } };
         return 0;
     }
+
+    template<typename T>
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines,
+                        std::vector< std::vector< T > > dDirectionCosinesdAlpha,
+                        std::vector< std::vector< T > > dDirectionCosinesdBeta,
+                        std::vector< std::vector< T > > dDirectionCosinesdGamma ){
+        /*!
+         * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
+         *
+         * 1. rotate around z-axis: \f$ \alpha \f$
+         * 2. rotate around new x'-axis: \f$ \beta \f$
+         * 3. rotate around new z'-axis: \f$ \gamma \f$
+         *
+         * Conventions:
+         *
+         * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = vR \f$
+         * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
+         *   system.
+         *
+         * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
+         * \param &directionCosines: Matrix containing the 3x3 rotation matrix
+         * \param &dDirectionCosinesdAlpha: Matrix partial derivative of the rotation matrix with respect to the first
+         *     Euler angle: \f$ \alpha \f$.
+         * \param &dDirectionCosinesdAlpha: Matrix partial derivative of the rotation matrix with respect to the second
+         *     Euler angle: \f$ \beta \f$.
+         * \param &dDirectionCosinesdGamma: Matrix partial derivative of the rotation matrix with respect to the third
+         *     Euler angle: \f$ \gamma \f$.
+         */
+        int return_value;
+        return_value = rotationMatrix( bungeEulerAngles, directionCosines );
+        return return_value;
+
 
     #ifdef USE_EIGEN
         template< typename T >
