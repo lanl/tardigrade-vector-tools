@@ -526,6 +526,7 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-
     std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdBeta;
     std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdGamma;
     double frac = 0.70710678118654757;
+    double half = 0.5;
 
     bungeEulerAngles = {
         {   M_PI,     0.,     0. },
@@ -564,31 +565,83 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-
           {  0.5,   0.5,  frac } },
     };
     expected_dDirectionCosinesdAlpha = {
-        { {  },
-          {  },
-          {  } },
-        { {  },
-          {  },
-          {  } },
-        { {  },
-          {  },
-          {  } },
-        { {  },
-          {  },
-          {  } },
-        { {  },
-          {  },
-          {  } },
-        { {  },
-          {  },
-          {  } },
-        { {  },
-          {  },
-          {  } },
-        { {  },
-          {  },
-          {  } },
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0., -1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  0., -1. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  0.,  1. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { { -frac, -half, half },
+          {  frac, -half, half },
+          {    0.,    0.,   0. } },
+        { { -half, -half, frac },
+          {  frac, -frac,   0. },
+          {    0.,    0.,   0. } },
     };
+//    expected_dDirectionCosinesdBeta = {
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//    };
+//    expected_dDirectionCosinesdGamma = {
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//        { {  },
+//          {  },
+//          {  } },
+//    };
 
     for ( unsigned int i=0; i<bungeEulerAngles.size( ); i++ ){
 
@@ -606,6 +659,9 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-
                                      dDirectionCosinesdBeta,
                                      dDirectionCosinesdGamma );
         BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expectedDirectionCosines[ i ] ),
+                    boost::test_tools::per_element( ) );
+        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdAlpha ) ==
+                        vectorTools::appendVectors( expected_dDirectionCosinesdAlpha[ i ] ),
                     boost::test_tools::per_element( ) );
 
     }
