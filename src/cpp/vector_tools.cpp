@@ -1218,14 +1218,14 @@ namespace vectorTools{
         return 0;
     }
 
-    template<typename T>
+    template< typename T >
     int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< T > &directionCosines ){
         /*!
          * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
          *
-         * 1. rotate around z-axis
-         * 2. rotate around new x'-axis
-         * 3. rotate around new z'-axis
+         * 1. rotate around z-axis: \f$ \alpha \f$
+         * 2. rotate around new x'-axis: \f$ \beta \f$
+         * 3. rotate around new z'-axis: \f$ \gamma \f$
          *
          * Conventions:
          *
@@ -1244,14 +1244,14 @@ namespace vectorTools{
         return return_value;
     }
 
-    template<typename T>
-    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines ){
+    template< typename T >
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< std::vector< T > > &directionCosines ){
         /*!
          * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
          *
-         * 1. rotate around z-axis
-         * 2. rotate around new x'-axis
-         * 3. rotate around new z'-axis
+         * 1. rotate around z-axis: \f$ \alpha \f$
+         * 2. rotate around new x'-axis: \f$ \beta \f$
+         * 3. rotate around new z'-axis: \f$ \gamma \f$
          *
          * Conventions:
          *
@@ -1277,6 +1277,59 @@ namespace vectorTools{
                              { c3*s1+c1*c2*s3, -s1*s3+c1*c2*c3, -c1*s2 },
                              {          s2*s3,           c3*s2,     c2 } };
         return 0;
+    }
+
+    template< typename T >
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< std::vector< T > > &directionCosines,
+                        std::vector< std::vector< T > > &dDirectionCosinesdAlpha,
+                        std::vector< std::vector< T > > &dDirectionCosinesdBeta,
+                        std::vector< std::vector< T > > &dDirectionCosinesdGamma ){
+        /*!
+         * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
+         *
+         * 1. rotate around z-axis: \f$ \alpha \f$
+         * 2. rotate around new x'-axis: \f$ \beta \f$
+         * 3. rotate around new z'-axis: \f$ \gamma \f$
+         *
+         * Conventions:
+         *
+         * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = vR \f$
+         * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
+         *   system.
+         *
+         * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
+         * \param &directionCosines: Matrix containing the 3x3 rotation matrix
+         * \param &dDirectionCosinesdAlpha: Matrix partial derivative of the rotation matrix with respect to the first
+         *     Euler angle: \f$ \alpha \f$.
+         * \param &dDirectionCosinesdAlpha: Matrix partial derivative of the rotation matrix with respect to the second
+         *     Euler angle: \f$ \beta \f$.
+         * \param &dDirectionCosinesdGamma: Matrix partial derivative of the rotation matrix with respect to the third
+         *     Euler angle: \f$ \gamma \f$.
+         */
+
+        double s1 = std::sin( bungeEulerAngles[ 0 ] );
+        double c1 = std::cos( bungeEulerAngles[ 0 ] );
+        double s2 = std::sin( bungeEulerAngles[ 1 ] );
+        double c2 = std::cos( bungeEulerAngles[ 1 ] );
+        double s3 = std::sin( bungeEulerAngles[ 2 ] );
+        double c3 = std::cos( bungeEulerAngles[ 2 ] );
+
+        int return_value;
+        return_value = rotationMatrix( bungeEulerAngles, directionCosines );
+
+        dDirectionCosinesdAlpha = { { -s1*c3-c1*c2*s3,  s1*s3-c1*c2*c3, c1*s2 },
+                                    {  c1*c3-s1*c2*s3, -s1*c2*c3-c1*s3, s1*s2 },
+                                    {              0.,              0.,    0. } };
+
+        dDirectionCosinesdBeta = { {  s2*s1*s3,  s2*c3*s1,  c2*s1 },
+                                   { -s2*c1*s3, -s2*c1*c3, -c1*c2 },
+                                   {     c2*s3,     c2*c3,    -s2 } };
+
+        dDirectionCosinesdGamma = { { -c1*s3-c2*s1*c3, -c1*c3+c2*s3*s1, 0. },
+                                    { -s3*s1+c1*c2*c3, -c1*c2*s3-s1*c3, 0. },
+                                    {           s2*c3,          -s3*s2, 0. } };
+
+        return return_value;
     }
 
     #ifdef USE_EIGEN

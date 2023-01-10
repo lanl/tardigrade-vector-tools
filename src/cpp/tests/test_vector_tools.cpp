@@ -510,64 +510,167 @@ BOOST_AUTO_TEST_CASE( test_appendVectors ){
 
 }
 
-BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance(1.0e-15) ){
+BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-15 ) ){
     /*!
      * Test the Bunge-Euler rotation matrix construction: Z-X'-Z'.
      */
 
-    std::vector< double > directionCosines;
-    std::vector< double > bungeEulerAngles = { M_PI, 0., 0. };
-    std::vector< double > expected = { -1.,  0.,  0.,
-                                        0., -1.,  0.,
-                                        0.,  0.,  1. };
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
-
-    bungeEulerAngles = { 0., 0., M_PI };
-    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
-
-    bungeEulerAngles = { 0., M_PI, 0. };
-    expected = { 1.,  0.,  0.,
-                 0., -1.,  0.,
-                 0.,  0., -1. };
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
-
-    bungeEulerAngles = { M_PI, M_PI, 0. };
-    expected = { -1.,  0.,  0.,
-                  0.,  1.,  0.,
-                  0.,  0., -1. };
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
-
-    bungeEulerAngles = { M_PI, M_PI_2, 0. };
-    expected = { -1.,  0.,  0.,
-                  0.,  0.,  1.,
-                  0.,  1.,  0. };
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
-
-    bungeEulerAngles = { 0., M_PI_2, M_PI };
-    expected = { -1.,  0.,   0.,
-                  0.,  0.,  -1.,
-                  0., -1.,  0. };
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
-
+    std::vector< std::vector < double > > bungeEulerAngles;
+    std::vector< std::vector< double > > directionCosines;
+    std::vector< double > directionCosinesVector;
+    std::vector< std::vector< double > > dDirectionCosinesdAlpha;
+    std::vector< std::vector< double > > dDirectionCosinesdBeta;
+    std::vector< std::vector< double > > dDirectionCosinesdGamma;
+    std::vector< std::vector< std::vector< double > > > expectedDirectionCosines;
+    std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdAlpha;
+    std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdBeta;
+    std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdGamma;
     double frac = 0.70710678118654757;
-    bungeEulerAngles = { M_PI_4, M_PI_4, 0. };
-    expected = { frac, -0.5,  0.5,
-                 frac,  0.5, -0.5,
-                  0.0, frac, frac };
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
+    double half = 0.5;
 
-    bungeEulerAngles = { 0., M_PI_4, M_PI_4 };
-    expected = { frac, -frac,   0.0,
-                  0.5,   0.5, -frac,
-                  0.5,   0.5,  frac };
-    vectorTools::rotationMatrix( bungeEulerAngles, directionCosines );
-    BOOST_TEST( directionCosines == expected, boost::test_tools::per_element() );
+    bungeEulerAngles = {
+        {   M_PI,     0.,     0. },
+        {     0.,     0.,   M_PI },
+        {     0.,   M_PI,     0. },
+        {   M_PI,   M_PI,     0. },
+        {   M_PI, M_PI_2,     0. },
+        {     0., M_PI_2,   M_PI },
+        { M_PI_4, M_PI_4,     0. },
+        {     0., M_PI_4, M_PI_4 },
+    };
+    expectedDirectionCosines = {
+        { {  -1.,    0.,    0. },
+          {   0.,   -1.,    0. },
+          {   0.,    0.,    1. } },
+        { {  -1.,    0.,    0. },
+          {   0.,   -1.,    0. },
+          {   0.,    0.,    1. } },
+        { {   1.,    0.,    0. },
+          {   0.,   -1.,    0. },
+          {   0.,    0.,   -1. } },
+        { {  -1.,    0.,    0. },
+          {   0.,    1.,    0. },
+          {   0.,    0.,   -1. } },
+        { {  -1.,    0.,    0. },
+          {   0.,    0.,    1. },
+          {   0.,    1.,    0. } },
+        { {  -1.,    0.,    0. },
+          {   0.,    0.,   -1. },
+          {   0.,   -1.,    0. } },
+        { { frac,  -0.5,   0.5 },
+          { frac,   0.5,  -0.5 },
+          {  0.0,  frac,  frac } },
+        { { frac, -frac,   0.0 },
+          {  0.5,   0.5, -frac },
+          {  0.5,   0.5,  frac } },
+    };
+    expected_dDirectionCosinesdAlpha = {
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0., -1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  0., -1. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  0.,  1. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { { -frac, -half, half },
+          {  frac, -half, half },
+          {    0.,    0.,   0. } },
+        { { -half, -half, frac },
+          {  frac, -frac,   0. },
+          {    0.,    0.,   0. } },
+    };
+    expected_dDirectionCosinesdBeta = {
+        { {  0.,  0.,  0. },
+          {  0.,  0.,  1. },
+          {  0.,  1.,  0. } },
+        { {  0.,  0.,  0. },
+          {  0.,  0., -1. },
+          {  0., -1.,  0.} },
+        { {  0.,  0.,  0. },
+          {  0.,  0.,  1. },
+          {  0., -1.,  0. } },
+        { {  0.,  0.,  0. },
+          {  0.,  0., -1. },
+          {  0., -1.,  0. } },
+        { {  0.,  0.,  0. },
+          {  0.,  1.,  0. },
+          {  0.,  0., -1. } },
+        { {  0.,  0.,  0. },
+          {  0.,  1.,  0. },
+          {  0.,  0., -1. } },
+        { {  0.,  half,  half },
+          {  0., -half, -half },
+          {  0.,  frac, -frac } },
+        { {     0.,    0.,    0. },
+          {  -half, -half, -frac },
+          {   half,  half, -frac } },
+    };
+    expected_dDirectionCosinesdGamma = {
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0., -1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  0.,  0.,  0. },
+          {  1.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  0.,  0.,  0. },
+          { -1.,  0.,  0. } },
+        { { -half, -frac, 0. },
+          {  half, -frac, 0. },
+          {  frac,    0., 0. } },
+        { { -frac, -frac, 0. },
+          {  half, -half, 0. },
+          {  half, -half, 0. } },
+    };
+
+    for ( unsigned int i=0; i<bungeEulerAngles.size( ); i++ ){
+
+        // Matrix directionCosines interface
+        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosines );
+        BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expectedDirectionCosines[ i ] ),
+                    boost::test_tools::per_element( ) );
+        // Row-major vector interface
+        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosinesVector );
+        BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expectedDirectionCosines[ i ] ),
+                    boost::test_tools::per_element( ) );
+        // Matrix directionCosines and partial derivatives interface
+        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosines,
+                                     dDirectionCosinesdAlpha,
+                                     dDirectionCosinesdBeta,
+                                     dDirectionCosinesdGamma );
+        BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expectedDirectionCosines[ i ] ),
+                    boost::test_tools::per_element( ) );
+        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdAlpha ) ==
+                        vectorTools::appendVectors( expected_dDirectionCosinesdAlpha[ i ] ),
+                    boost::test_tools::per_element( ) );
+        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdBeta ) ==
+                        vectorTools::appendVectors( expected_dDirectionCosinesdBeta[ i ] ),
+                    boost::test_tools::per_element( ) );
+        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdGamma ) ==
+                        vectorTools::appendVectors( expected_dDirectionCosinesdGamma[ i ] ),
+                    boost::test_tools::per_element( ) );
+
+    }
 
 }
 

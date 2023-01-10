@@ -240,6 +240,12 @@ namespace vectorTools{
     template<typename T>
     int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines );
 
+    template<typename T>
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines,
+                        std::vector< std::vector< T > > &dDirectionCosinesdAlpha,
+                        std::vector< std::vector< T > > &dDirectionCosinesdBeta,
+                        std::vector< std::vector< T > > &dDirectionCosinesdGamma );
+
     //Utilities which require Eigen
     #ifdef USE_EIGEN
         //Eigen specific type definitions
