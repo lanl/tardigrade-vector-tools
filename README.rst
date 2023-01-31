@@ -1,3 +1,14 @@
+.. _`CMake`: https://cmake.org/cmake/help/v3.14/
+.. _`Doxygen`: https://www.doxygen.nl/manual/docblocks.html
+.. _`LaTeX`: https://www.latex-project.org/help/documentation/
+.. _`pipreqs`: https://github.com/bndr/pipreqs
+.. _`Anaconda Documentation`: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
+.. _`Eigen`: https://eigen.tuxfamily.org/dox/
+.. _`BOOST`: https://www.boost.org/doc/libs/1_53_0/
+.. _`Sphinx`: https://www.sphinx-doc.org/en/master/
+.. _`Sphinx style guide`: https://documentation-style-guide-sphinx.readthedocs.io/en/latest/style-guide.html
+.. _`PEP-8`: https://www.python.org/dev/peps/pep-0008/
+
 #############
 vector\_tools
 #############
@@ -30,18 +41,16 @@ Dependencies
 Executables
 ===========
 
-* [CMake](https://cmake.org/cmake/help/v3.14/) >= 3.14
-* [Doxygen](https://www.doxygen.nl/manual/docblocks.html) >= 1.8.5
-* [LaTeX](https://www.latex-project.org/help/documentation/) >= 2017
+* `CMake`_  >= 3.14
+* `Doxygen`_ >= 1.8.5
+* `LaTeX`_ >= 2017
 
 Python Modules (for documentation)
 ==================================
 
-For convenience, the minimal Python environment requirements for the
-documentation build are included in ``configuration_files/environment.yaml``.
-This file was created from the [pipreqs](https://github.com/bndr/pipreqs)
-command line tool and Sphinx configuration inspection, e.g. the extension
-packages.
+For convenience, the minimal Python environment requirements for the documentation build are included in
+``configuration_files/environment.yaml``. This file was created from the `pipreqs`_ command line tool and Sphinx
+configuration inspection, e.g. the extension packages.
 
 .. code-block:: bash
 
@@ -56,9 +65,7 @@ from an existing anaconda installation with the following commands.
 
    $ conda create --file environment.txt
 
-You can learn more about Anaconda Python environment creation and management in
-the [Anaconda
-Documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+You can learn more about Anaconda Python environment creation and management in the `Anaconda Documentation`_.
 
 C++ Libraries
 =============
@@ -67,8 +74,8 @@ C++ Libraries
 > against C++ libraries managed in Conda. See the Conda environment file and README discussion for non-admin environment
 > management.
 
-* [Eigen](https://eigen.tuxfamily.org/dox/) >= 3.3.7
-* [BOOST](https://www.boost.org/doc/libs/1_53_0/) >= 1.53.0
+* `Eigen`_ >= 3.3.7
+* `BOOST`_ >= 1.53.0
 
 **************************
 Building the documentation
@@ -217,25 +224,20 @@ doubt use ``feature/<description>``.
 reStructured Text
 =================
 
-[Sphinx](https://www.sphinx-doc.org/en/master/) reads in docstrings and other special portions of the code as
-reStructured text. Developers should follow styles in this [Sphinx style
-guide](https://documentation-style-guide-sphinx.readthedocs.io/en/latest/style-guide.html#).
+`Sphinx`_ reads in docstrings and other special portions of the code as reStructured text. Developers should follow
+styles in this Sphinx style guide`_.
 
 Style Guide
 ===========
 
-This project does not yet have a full style guide. Generally, wherever a style can't be
-inferred from surrounding code this project falls back to
-[PEP-8](https://www.python.org/dev/peps/pep-0008/)-like styles. There are two
-notable exceptions to the notional PEP-8 fall back:
+This project does not yet have a full style guide. Generally, wherever a style can't be inferred from surrounding code
+this project falls back to `PEP-8`_ -like styles. There are two notable exceptions to the notional PEP-8 fall back:
 
-1. [Doxygen](https://www.doxygen.nl/manual/docblocks.html) style docstrings are
-   required for automated, API from source documentation.
-2. This project prefers expansive whitespace surrounding parentheses, braces, and
-   brackets.
+1. `Doxygen`_ style docstrings are required for automated, API from source documentation.
+2. This project prefers expansive whitespace surrounding parentheses, braces, and brackets.
+
    * No leading space between a function and the argument list.
-   * One space following an open paranthesis ``(``, brace ``{``, or bracket
-     ``[``
+   * One space following an open paranthesis ``(``, brace ``{``, or bracket ``[``
    * One space leading a close paranthesis ``)``, brace ``}``, or bracket ``]``
 
 An example of the whitespace style:
