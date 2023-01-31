@@ -1233,6 +1233,13 @@ namespace vectorTools{
          * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
          *   system.
          *
+         * Used as:
+         *
+         * * Rotate a vector *defined in a fixed coordinate system* to a new, rotated vector *in the same fixed
+         *   coordinate system* as \f$v'_{i} = R_{ij} v_{j}f\$ or \f$v' = Rv\f$
+         * * Define a *fixed vector* in a new coordinate system by rotating the old coordinate system as
+         *   \f$v'_{j} = R_{ji} v_{j}\f$ or \f$v' = R^{T}v\f$
+         *
          * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
          * \param &directionCosines: Row-major vector containing the 3x3 rotation matrix
          */
@@ -1258,6 +1265,13 @@ namespace vectorTools{
          * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = vR \f$
          * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
          *   system.
+         *
+         * Used as:
+         *
+         * * Rotate a vector *defined in a fixed coordinate system* to a new, rotated vector *in the same fixed
+         *   coordinate system* as \f$v'_{i} = R_{ij} v_{j}f\$ or \f$v' = Rv\f$
+         * * Define a *fixed vector* in a new coordinate system by rotating the old coordinate system as
+         *   \f$v'_{j} = R_{ji} v_{j}\f$ or \f$v' = R^{T}v\f$
          *
          * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
          * \param &directionCosines: Matrix containing the 3x3 rotation matrix
@@ -1296,6 +1310,13 @@ namespace vectorTools{
          * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = vR \f$
          * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
          *   system.
+         *
+         * Used as:
+         *
+         * * Rotate a vector *defined in a fixed coordinate system* to a new, rotated vector *in the same fixed
+         *   coordinate system* as \f$v'_{i} = R_{ij} v_{j}f\$ or \f$v' = Rv\f$
+         * * Define a *fixed vector* in a new coordinate system by rotating the old coordinate system as
+         *   \f$v'_{j} = R_{ji} v_{j}\f$ or \f$v' = R^{T}v\f$
          *
          * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
          * \param &directionCosines: Matrix containing the 3x3 rotation matrix
