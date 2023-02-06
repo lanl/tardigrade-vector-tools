@@ -149,7 +149,7 @@ conda-build:
     # Override default permissions. Set group to rx with no write permissions.
     - umask 0022
     - mkdir ${conda_artifact_directory}
-    - VERSION=$(python -m setuptools_scm) conda build recipe --channel conda-forge --no-anaconda-upload --croot /scratch/${USER}/conda-build --output-folder ${conda_artifact_directory} --no-test
+    - VERSION=$(python -m setuptools_scm) conda build recipe --channel conda-forge --no-anaconda-upload --croot /scratch/${USER}/conda-build --output-folder ${conda_artifact_directory}
   artifacts:
     expire_in: '2 hrs'
     paths:
