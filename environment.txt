@@ -5,6 +5,7 @@ cython
 doxygen
 eigen>=3.3.7
 gxx_linux-64>=7.3.0
+mamba
 setuptools_scm>=6.2
 sphinx>=3.0.4
 sphinx_rtd_theme>=0.4.3
