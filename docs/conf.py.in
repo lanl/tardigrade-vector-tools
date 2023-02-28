@@ -19,12 +19,6 @@ project = '@PROJECT_NAME@'
 RECENT_GIT_TAG = '@vector_tools_RECENT_GIT_TAG@'
 VERSION_STRING_FULL = '@vector_tools_VERSION_STRING_FULL@'
 VERSION = '@vector_tools_VERSION@'
-VERSION_MAJOR = '@vector_tools_VERSION_MAJOR@'
-VERSION_MINOR = '@vector_tools_VERSION_MINOR@'
-VERSION_PATCH = '@vector_tools_VERSION_PATCH@'
-VERSION_TWEAK = '@vector_tools_VERSION_TWEAK@'
-VERSION_AHEAD = '@vector_tools_VERSION_AHEAD@'
-VERSION_GIT_SHA = '@vector_tools_VERSION_GIT_SHA@'
 
 # Hardcoded project information
 copyright = '2020, Nathan A. Miller and Kyle A. Brindley'
@@ -32,10 +26,7 @@ author = 'Nathan A. Miller and Kyle A. Brindley'
 
 # Set version to clean Git tag or else use meta data in version
 release = VERSION
-if int(VERSION_AHEAD) == 0:  # Git tag describes current commit
-    version = release
-else:
-    version = VERSION_STRING_FULL
+version = VERSION_STRING_FULL
 
 # -- Project Variables -------------------------------------------------------
 rst_prolog = f'.. |project| replace:: {project}'
@@ -55,8 +46,8 @@ breathe_default_project = project
 
 # Links to PRs, Jira issues.
 extlinks = {
-     "pull": ("https://xcp-stash.lanl.gov/projects/MM/repos/vector_tools/pull-requests/%s/overview", "PR"),
-     "jira": ("https://xcp-jira.lanl.gov/browse/VIP-%s", "VIP-"),
+     "pull": ("https://xcp-stash.lanl.gov/projects/MM/repos/vector_tools/pull-requests/%s/overview", "PR%s"),
+     "jira": ("https://xcp-jira.lanl.gov/browse/VIP-%s", "VIP-%s"),
 }
 
 # Add any paths that contain templates here, relative to this directory.

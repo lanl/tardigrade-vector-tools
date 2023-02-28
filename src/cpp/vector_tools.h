@@ -165,6 +165,9 @@ namespace vectorTools{
     double l2norm(const std::vector< std::vector< T > > &A);
 
     template<typename T>
+    std::vector< double > unitVector(const std::vector< T > &v);
+
+    template<typename T>
     std::vector< std::vector< T > > dyadic(const std::vector< T > &a, const std::vector< T > &b);
 
     template<typename T>
@@ -233,6 +236,18 @@ namespace vectorTools{
 
     template<typename T>
     int print(const std::vector< std::vector< T > > &A);
+
+    template<typename T>
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< T > &rotationMatrix );
+
+    template<typename T>
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines );
+
+    template<typename T>
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector < std::vector< T > > &directionCosines,
+                        std::vector< std::vector< T > > &dDirectionCosinesdAlpha,
+                        std::vector< std::vector< T > > &dDirectionCosinesdBeta,
+                        std::vector< std::vector< T > > &dDirectionCosinesdGamma );
 
     //Utilities which require Eigen
     #ifdef USE_EIGEN

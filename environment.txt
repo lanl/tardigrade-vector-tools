@@ -1,15 +1,13 @@
 boost>=1.59
 breathe>=4.30.0
-cmake
+cmake>=3.18
 cython
 doxygen
 eigen>=3.3.7
-gcc_linux-64==7.3.0
-gxx_linux-64==7.3.0
-setuptools_scm
-pip
-pytest
-pytest-cov
+gxx_linux-64>=7.3.0
+# TODO: Remove mamba after tracing conda issue: https://re-git.lanl.gov/aea/material-models/vector_tools/-/issues/12
+mamba
+setuptools_scm>=6.2
 sphinx>=3.0.4
 sphinx_rtd_theme>=0.4.3
 sphinxcontrib-bibtex

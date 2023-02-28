@@ -412,6 +412,52 @@ BOOST_AUTO_TEST_CASE( test_l2norm ){
 
 }
 
+BOOST_AUTO_TEST_CASE( test_unitVector ){
+    /*!
+     * Test the computation of unit vectors
+     */
+    std::vector< std::vector < int > > vector_int;
+    std::vector< std::vector < double > > expected;
+    std::vector< double > vector_double;
+    std::vector< double > answer;
+
+    double unit_cube = 1. / std::sqrt( 3. );
+
+    vector_int = {
+        {  1,  0,  0 },
+        {  0,  1,  0 },
+        {  0,  0,  1 },
+        { -1,  0,  0 },
+        {  0, -1,  0 },
+        {  0,  0, -1 },
+        {  1,  1,  1 },
+        {  2,  2,  2 },
+        { -1, -1, -1 },
+        { -2, -2, -2 }
+    };
+    expected = {
+        {  1,  0,  0 },
+        {  0,  1,  0 },
+        {  0,  0,  1 },
+        { -1,  0,  0 },
+        {  0, -1,  0 },
+        {  0,  0, -1 },
+        { unit_cube, unit_cube, unit_cube },
+        { unit_cube, unit_cube, unit_cube },
+        { -unit_cube, -unit_cube, -unit_cube },
+        { -unit_cube, -unit_cube, -unit_cube }
+    };
+
+    for ( unsigned int i=0; i<vector_int.size( ); i++ ){
+        answer = vectorTools::unitVector( vector_int[ i ] );
+        BOOST_TEST( answer == expected[ i ], boost::test_tools::per_element( ) );
+
+        vector_double = std::vector< double >( vector_int[ i ].begin( ), vector_int[ i ].end( ) );
+        answer = vectorTools::unitVector( vector_double );
+        BOOST_TEST( answer == expected[ i ], boost::test_tools::per_element( ) );
+    }
+}
+
 BOOST_AUTO_TEST_CASE( test_argsort ){
     /*!
      * Test the utility that returns the indices required to sort a vector
@@ -507,6 +553,170 @@ BOOST_AUTO_TEST_CASE( test_appendVectors ){
     v = vectorTools::appendVectors( { v1, v2 } );
 
     BOOST_CHECK( vectorTools::fuzzyEquals( v, { 1, 7, 5, 4, 6, 2 } ) );
+
+}
+
+BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-15 ) ){
+    /*!
+     * Test the Bunge-Euler rotation matrix construction: Z-X'-Z'.
+     */
+
+    std::vector< std::vector < double > > bungeEulerAngles;
+    std::vector< std::vector< double > > directionCosines;
+    std::vector< double > directionCosinesVector;
+    std::vector< std::vector< double > > dDirectionCosinesdAlpha;
+    std::vector< std::vector< double > > dDirectionCosinesdBeta;
+    std::vector< std::vector< double > > dDirectionCosinesdGamma;
+    std::vector< std::vector< std::vector< double > > > expectedDirectionCosines;
+    std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdAlpha;
+    std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdBeta;
+    std::vector< std::vector< std::vector< double > > > expected_dDirectionCosinesdGamma;
+    double frac = 0.70710678118654757;
+    double half = 0.5;
+
+    bungeEulerAngles = {
+        {   M_PI,     0.,     0. },
+        {     0.,     0.,   M_PI },
+        {     0.,   M_PI,     0. },
+        {   M_PI,   M_PI,     0. },
+        {   M_PI, M_PI_2,     0. },
+        {     0., M_PI_2,   M_PI },
+        { M_PI_4, M_PI_4,     0. },
+        {     0., M_PI_4, M_PI_4 },
+    };
+    expectedDirectionCosines = {
+        { {  -1.,    0.,    0. },
+          {   0.,   -1.,    0. },
+          {   0.,    0.,    1. } },
+        { {  -1.,    0.,    0. },
+          {   0.,   -1.,    0. },
+          {   0.,    0.,    1. } },
+        { {   1.,    0.,    0. },
+          {   0.,   -1.,    0. },
+          {   0.,    0.,   -1. } },
+        { {  -1.,    0.,    0. },
+          {   0.,    1.,    0. },
+          {   0.,    0.,   -1. } },
+        { {  -1.,    0.,    0. },
+          {   0.,    0.,    1. },
+          {   0.,    1.,    0. } },
+        { {  -1.,    0.,    0. },
+          {   0.,    0.,   -1. },
+          {   0.,   -1.,    0. } },
+        { { frac,  -0.5,   0.5 },
+          { frac,   0.5,  -0.5 },
+          {  0.0,  frac,  frac } },
+        { { frac, -frac,   0.0 },
+          {  0.5,   0.5, -frac },
+          {  0.5,   0.5,  frac } },
+    };
+    expected_dDirectionCosinesdAlpha = {
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0., -1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  0., -1. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  0.,  1. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { { -frac, -half, half },
+          {  frac, -half, half },
+          {    0.,    0.,   0. } },
+        { { -half, -half, frac },
+          {  frac, -frac,   0. },
+          {    0.,    0.,   0. } },
+    };
+    expected_dDirectionCosinesdBeta = {
+        { {  0.,  0.,  0. },
+          {  0.,  0.,  1. },
+          {  0.,  1.,  0. } },
+        { {  0.,  0.,  0. },
+          {  0.,  0., -1. },
+          {  0., -1.,  0.} },
+        { {  0.,  0.,  0. },
+          {  0.,  0.,  1. },
+          {  0., -1.,  0. } },
+        { {  0.,  0.,  0. },
+          {  0.,  0., -1. },
+          {  0., -1.,  0. } },
+        { {  0.,  0.,  0. },
+          {  0.,  1.,  0. },
+          {  0.,  0., -1. } },
+        { {  0.,  0.,  0. },
+          {  0.,  1.,  0. },
+          {  0.,  0., -1. } },
+        { {  0.,  half,  half },
+          {  0., -half, -half },
+          {  0.,  frac, -frac } },
+        { {     0.,    0.,    0. },
+          {  -half, -half, -frac },
+          {   half,  half, -frac } },
+    };
+    expected_dDirectionCosinesdGamma = {
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0., -1.,  0. },
+          { -1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  1.,  0.,  0. },
+          {  0.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  0.,  0.,  0. },
+          {  1.,  0.,  0. } },
+        { {  0.,  1.,  0. },
+          {  0.,  0.,  0. },
+          { -1.,  0.,  0. } },
+        { { -half, -frac, 0. },
+          {  half, -frac, 0. },
+          {  frac,    0., 0. } },
+        { { -frac, -frac, 0. },
+          {  half, -half, 0. },
+          {  half, -half, 0. } },
+    };
+
+    for ( unsigned int i=0; i<bungeEulerAngles.size( ); i++ ){
+
+        // Matrix directionCosines interface
+        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosines );
+        BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expectedDirectionCosines[ i ] ),
+                    boost::test_tools::per_element( ) );
+        // Row-major vector interface
+        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosinesVector );
+        BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expectedDirectionCosines[ i ] ),
+                    boost::test_tools::per_element( ) );
+        // Matrix directionCosines and partial derivatives interface
+        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosines,
+                                     dDirectionCosinesdAlpha,
+                                     dDirectionCosinesdBeta,
+                                     dDirectionCosinesdGamma );
+        BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expectedDirectionCosines[ i ] ),
+                    boost::test_tools::per_element( ) );
+        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdAlpha ) ==
+                        vectorTools::appendVectors( expected_dDirectionCosinesdAlpha[ i ] ),
+                    boost::test_tools::per_element( ) );
+        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdBeta ) ==
+                        vectorTools::appendVectors( expected_dDirectionCosinesdBeta[ i ] ),
+                    boost::test_tools::per_element( ) );
+        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdGamma ) ==
+                        vectorTools::appendVectors( expected_dDirectionCosinesdGamma[ i ] ),
+                    boost::test_tools::per_element( ) );
+
+    }
 
 }
 
@@ -860,7 +1070,7 @@ BOOST_AUTO_TEST_CASE( test_svd ){
 
      // Test the first orientation of A
 
-     vectorTools::svd( A, 3, 4, UResult, SigmaResult, VResult ); 
+     vectorTools::svd( A, 3, 4, UResult, SigmaResult, VResult );
 
      // Check that the singular values are correct
 
@@ -874,7 +1084,7 @@ BOOST_AUTO_TEST_CASE( test_svd ){
 
      // Test the second orientation of A
 
-     vectorTools::svd( A, 4, 3, UResult, SigmaResult, VResult ); 
+     vectorTools::svd( A, 4, 3, UResult, SigmaResult, VResult );
 
      // Check that the singular values are correct
 
@@ -908,7 +1118,7 @@ BOOST_AUTO_TEST_CASE( test_polar_decomposition ){
                             0.86434863,  0.16899768,  0.47364673 };
 
     vectorType UResult;
- 
+
     vectorType VResult;
 
     vectorType RResult;
@@ -919,7 +1129,7 @@ BOOST_AUTO_TEST_CASE( test_polar_decomposition ){
 
     BOOST_CHECK( vectorTools::fuzzyEquals( UResult, UAnswer ) );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) ); 
+    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) );
 
     // Test the left polar decomposition
 
@@ -927,6 +1137,6 @@ BOOST_AUTO_TEST_CASE( test_polar_decomposition ){
 
     BOOST_CHECK( vectorTools::fuzzyEquals( VResult, VAnswer ) );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) ); 
+    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) );
 
-} 
+}

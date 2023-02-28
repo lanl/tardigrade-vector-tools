@@ -644,7 +644,7 @@ namespace vectorTools{
     int inner(const std::vector< T > &A, const std::vector< T > &B, T &result){
         /*!
          * Compute the inner product between two matrices stored in row major format
-         * 
+         *
          * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix in row major format
@@ -662,7 +662,7 @@ namespace vectorTools{
     T inner(const std::vector< T > &A, const std::vector< T > &B){
         /*!
          * Compute the inner product between two matrices stored in row major format
-         * 
+         *
          * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix in row major format
@@ -681,7 +681,7 @@ namespace vectorTools{
     int inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B, T &result){
         /*!
          * Compute the inner product between two matrices stored in matrix format
-         * 
+         *
          * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix
@@ -710,7 +710,7 @@ namespace vectorTools{
     T inner(const std::vector< std::vector< T > > &A, const std::vector< std::vector< T > > &B){
         /*!
          * Compute the inner product between two matrices stored in matrix format
-         * 
+         *
          * \f$result = \sum{A_{ij}*B_{ij}}\f$
          *
          * \param &A: The first matrix
@@ -730,7 +730,7 @@ namespace vectorTools{
     int trace(const std::vector< T > &A, T &v){
         /*!
          * Compute the trace of a square matrix ( \f$A\f$ ) in row major format:
-         * 
+         *
          * \f$v = A_{ii}\f$
          *
          * \param &A: The matrix in row major format ( \f$A\f$ )
@@ -759,7 +759,7 @@ namespace vectorTools{
     T trace(const std::vector< T > &A){
         /*!
          * Compute the trace of a square matrix in row major format
-         * 
+         *
          * \f$v = A_{ii}\f$
          *
          * \param &A: The matrix in row major format ( \f$A\f$ )
@@ -774,7 +774,7 @@ namespace vectorTools{
     int trace(const std::vector< std::vector< T > > &A, T &v){
         /*!
          * Compute the trace of a square matrix
-         * 
+         *
          * \f$v = A_{ii}\f$
          *
          * \param &A: The matrix
@@ -792,7 +792,7 @@ namespace vectorTools{
     T trace(const std::vector< std::vector< T > > &A){
         /*!
          * Compute the trace of a square matrix
-         * 
+         *
          * \f$v = A_{ii}\f$
          *
          * \param &A: The matrix
@@ -827,6 +827,18 @@ namespace vectorTools{
             v += dot(*it, *it);
         }
         return std::sqrt(v);
+    }
+
+    template<typename T>
+    std::vector< double > unitVector(const std::vector< T > &v){
+        /*!
+         * Compute the unit vector v i.e. \f$v_j / (v_i v_i)^(0.5)\f$
+         *
+         * \param &v: The vector to compute the norm of
+         */
+        //Recast the incoming vectors as double
+        std::vector< double > vDouble(v.begin(), v.end());
+        return vDouble / l2norm(vDouble);
     }
 
     template<typename T>
@@ -1075,13 +1087,9 @@ namespace vectorTools{
          * \param &v2: The second vector
          */
 
-        //Recast the incoming vectors as double
-        std::vector< double > v1d(v1.begin(), v1.end());
-        std::vector< double > v2d(v2.begin(), v2.end());
-
         //Compute the unit vector for each
-        std::vector< double > nv1 = v1d/l2norm(v1d);
-        std::vector< double > nv2 = v2d/l2norm(v2d);
+        std::vector< double > nv1 = unitVector( v1 );
+        std::vector< double > nv2 = unitVector( v2 );
 
         //Compute the distance
         double d = std::abs(dot(nv1, nv2));
@@ -1218,13 +1226,148 @@ namespace vectorTools{
         return 0;
     }
 
+    template< typename T >
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< T > &directionCosines ){
+        /*!
+         * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
+         *
+         * 1. rotate around z-axis: \f$ \alpha \f$
+         * 2. rotate around new x'-axis: \f$ \beta \f$
+         * 3. rotate around new z'-axis: \f$ \gamma \f$
+         *
+         * Conventions:
+         *
+         * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = vR \f$
+         * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
+         *   system.
+         *
+         * Used as:
+         *
+         * * Rotate a vector *defined in a fixed coordinate system* to a new, rotated vector *in the same fixed
+         *   coordinate system* as \f$v'_{i} = R_{ij} v_{j}f\$ or \f$v' = Rv\f$
+         * * Define a *fixed vector* in a new coordinate system by rotating the old coordinate system as
+         *   \f$v'_{j} = R_{ji} v_{j}\f$ or \f$v' = R^{T}v\f$
+         *
+         * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
+         * \param &directionCosines: Row-major vector containing the 3x3 rotation matrix
+         */
+
+        std::vector< std::vector< T > > matrix;
+        int return_value;
+        return_value = rotationMatrix( bungeEulerAngles, matrix );
+        directionCosines = appendVectors( matrix );
+        return return_value;
+    }
+
+    template< typename T >
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< std::vector< T > > &directionCosines ){
+        /*!
+         * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
+         *
+         * 1. rotate around z-axis: \f$ \alpha \f$
+         * 2. rotate around new x'-axis: \f$ \beta \f$
+         * 3. rotate around new z'-axis: \f$ \gamma \f$
+         *
+         * Conventions:
+         *
+         * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = vR \f$
+         * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
+         *   system.
+         *
+         * Used as:
+         *
+         * * Rotate a vector *defined in a fixed coordinate system* to a new, rotated vector *in the same fixed
+         *   coordinate system* as \f$v'_{i} = R_{ij} v_{j}f\$ or \f$v' = Rv\f$
+         * * Define a *fixed vector* in a new coordinate system by rotating the old coordinate system as
+         *   \f$v'_{j} = R_{ji} v_{j}\f$ or \f$v' = R^{T}v\f$
+         *
+         * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
+         * \param &directionCosines: Matrix containing the 3x3 rotation matrix
+         */
+        if ( bungeEulerAngles.size( ) != ( 3 ) ){
+            throw std::length_error( "There must be exactly three (3) Bunge-Euler angles." );
+        }
+
+        double s1 = std::sin( bungeEulerAngles[ 0 ] );
+        double c1 = std::cos( bungeEulerAngles[ 0 ] );
+        double s2 = std::sin( bungeEulerAngles[ 1 ] );
+        double c2 = std::cos( bungeEulerAngles[ 1 ] );
+        double s3 = std::sin( bungeEulerAngles[ 2 ] );
+        double c3 = std::cos( bungeEulerAngles[ 2 ] );
+
+        directionCosines = { { c1*c3-c2*s1*s3, -c1*s3-c2*c3*s1,  s1*s2 },
+                             { c3*s1+c1*c2*s3, -s1*s3+c1*c2*c3, -c1*s2 },
+                             {          s2*s3,           c3*s2,     c2 } };
+        return 0;
+    }
+
+    template< typename T >
+    int rotationMatrix( const std::vector< T > &bungeEulerAngles, std::vector< std::vector< T > > &directionCosines,
+                        std::vector< std::vector< T > > &dDirectionCosinesdAlpha,
+                        std::vector< std::vector< T > > &dDirectionCosinesdBeta,
+                        std::vector< std::vector< T > > &dDirectionCosinesdGamma ){
+        /*!
+         * Calculate the pre-multiplying direction cosines rotation matrix from Euler angles - Bunge convention:
+         *
+         * 1. rotate around z-axis: \f$ \alpha \f$
+         * 2. rotate around new x'-axis: \f$ \beta \f$
+         * 3. rotate around new z'-axis: \f$ \gamma \f$
+         *
+         * Conventions:
+         *
+         * * Premultiply column vectors, \f$ v' = Rv \f$. Implies post-muliplying for row vectors, \f$ v' = vR \f$
+         * * Represent active rotation. Returns rotated vectors defined in the original reference frame coordinate
+         *   system.
+         *
+         * Used as:
+         *
+         * * Rotate a vector *defined in a fixed coordinate system* to a new, rotated vector *in the same fixed
+         *   coordinate system* as \f$v'_{i} = R_{ij} v_{j}f\$ or \f$v' = Rv\f$
+         * * Define a *fixed vector* in a new coordinate system by rotating the old coordinate system as
+         *   \f$v'_{j} = R_{ji} v_{j}\f$ or \f$v' = R^{T}v\f$
+         *
+         * \param &bungeEulerAngles: Vector containing three Bunge-Euler angles in radians
+         * \param &directionCosines: Matrix containing the 3x3 rotation matrix
+         * \param &dDirectionCosinesdAlpha: Matrix partial derivative of the rotation matrix with respect to the first
+         *     Euler angle: \f$ \alpha \f$.
+         * \param &dDirectionCosinesdAlpha: Matrix partial derivative of the rotation matrix with respect to the second
+         *     Euler angle: \f$ \beta \f$.
+         * \param &dDirectionCosinesdGamma: Matrix partial derivative of the rotation matrix with respect to the third
+         *     Euler angle: \f$ \gamma \f$.
+         */
+
+        double s1 = std::sin( bungeEulerAngles[ 0 ] );
+        double c1 = std::cos( bungeEulerAngles[ 0 ] );
+        double s2 = std::sin( bungeEulerAngles[ 1 ] );
+        double c2 = std::cos( bungeEulerAngles[ 1 ] );
+        double s3 = std::sin( bungeEulerAngles[ 2 ] );
+        double c3 = std::cos( bungeEulerAngles[ 2 ] );
+
+        int return_value;
+        return_value = rotationMatrix( bungeEulerAngles, directionCosines );
+
+        dDirectionCosinesdAlpha = { { -s1*c3-c1*c2*s3,  s1*s3-c1*c2*c3, c1*s2 },
+                                    {  c1*c3-s1*c2*s3, -s1*c2*c3-c1*s3, s1*s2 },
+                                    {              0.,              0.,    0. } };
+
+        dDirectionCosinesdBeta = { {  s2*s1*s3,  s2*c3*s1,  c2*s1 },
+                                   { -s2*c1*s3, -s2*c1*c3, -c1*c2 },
+                                   {     c2*s3,     c2*c3,    -s2 } };
+
+        dDirectionCosinesdGamma = { { -c1*s3-c2*s1*c3, -c1*c3+c2*s3*s1, 0. },
+                                    { -s3*s1+c1*c2*c3, -c1*c2*s3-s1*c3, 0. },
+                                    {           s2*c3,          -s3*s2, 0. } };
+
+        return return_value;
+    }
+
     #ifdef USE_EIGEN
         template< typename T >
         std::vector< double > solveLinearSystem( const std::vector< std::vector< T > > &A, const std::vector< T > &b,
             unsigned int &rank ){
             /*!
              * Solve a linear system of equations using Eigen. Note this uses a dense solver.
-             * 
+             *
              * \f$Ax = b\f$
              *
              * \param &A: The \f$A\f$ matrix
@@ -1251,7 +1394,7 @@ namespace vectorTools{
             unsigned int &rank, solverType< T > &linearSolver ){
             /*!
              * Solve a linear system of equations using Eigen. Note this uses a dense solver.
-             * 
+             *
              * \f$Ax = b\f$
              *
              * \param &A: The \f$A\f$ matrix
@@ -1283,7 +1426,7 @@ namespace vectorTools{
             const unsigned int nrows, const unsigned int ncols, unsigned int &rank ){
             /*!
              * Solve a linear system of equations using Eigen. Note this uses a dense solver.
-             * 
+             *
              * \f$Ax = b\f$
              *
              * \param &Avec: The vector form of the \f$A\f$ matrix ( row major )
@@ -1303,7 +1446,7 @@ namespace vectorTools{
             solverType< T > &linearSolver ){
             /*!
              * Solve a linear system of equations using Eigen. Note this uses a dense solver.
-             * 
+             *
              * \f$Ax = b\f$
              *
              * \param &Avec: The vector form of the \f$A\f$ matrix ( row major )
@@ -1681,7 +1824,7 @@ namespace vectorTools{
              * Compute the singular value decomposition of a real valued matrix A where A is of the form
              * A = U Sigma VT
              * where VT indicates the transpose.
-             * 
+             *
              * \param &A: The matrix in row-major format
              * \param nrows: The number of rows in A
              * \param ncols: The number of columns in A
@@ -1733,13 +1876,13 @@ namespace vectorTools{
                                   std::vector< double > &R, std::vector< double > &U, const bool left ){
             /*!
              * Perform the polar decomposition of the matrix \f$A\f$. If left is false the decomposition will be:
-             * 
+             *
              * \f$A = R U\f$
-             * 
+             *
              * If left is true the decomposition will be:
-             * 
+             *
              * \f$A = U R\f$
-             * 
+             *
              * /param &A: The matrix to be decomposed
              * /param &nrows: The number of rows in A
              * /param &ncols: The number of columns in A
