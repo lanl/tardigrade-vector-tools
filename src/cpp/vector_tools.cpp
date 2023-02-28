@@ -830,13 +830,15 @@ namespace vectorTools{
     }
 
     template<typename T>
-    std::vector< std::vector< double > > unitVector(const std::vector< T > &v){
+    std::vector< double > unitVector(const std::vector< T > &v){
         /*!
          * Compute the unit vector v i.e. \f$v_j / (v_i v_i)^(0.5)\f$
          *
          * \param &v: The vector to compute the norm of
          */
-        return v / l2norm(v);
+        //Recast the incoming vectors as double
+        std::vector< double > vDouble(v.begin(), v.end());
+        return vDouble / l2norm(vDouble);
     }
 
     template<typename T>
