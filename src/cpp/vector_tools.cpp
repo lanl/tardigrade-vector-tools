@@ -1087,13 +1087,9 @@ namespace vectorTools{
          * \param &v2: The second vector
          */
 
-        //Recast the incoming vectors as double
-        std::vector< double > v1d(v1.begin(), v1.end());
-        std::vector< double > v2d(v2.begin(), v2.end());
-
         //Compute the unit vector for each
-        std::vector< double > nv1 = v1d/l2norm(v1d);
-        std::vector< double > nv2 = v2d/l2norm(v2d);
+        std::vector< double > nv1 = unitVector( v1 );
+        std::vector< double > nv2 = unitVector( v2 );
 
         //Compute the distance
         double d = std::abs(dot(nv1, nv2));
