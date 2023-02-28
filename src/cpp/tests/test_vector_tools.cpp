@@ -417,15 +417,12 @@ BOOST_AUTO_TEST_CASE( test_unitVector ){
      * Test the computation of unit vectors
      */
     std::vector< std::vector < int > > vector_int;
-    std::vector< std::vector < double > > vector_double;
     std::vector< std::vector < double > > expected;
+    std::vector< double > vector_double;
     std::vector< double > answer;
 
     vector_int = {
         { 1, 0, 0 }
-    };
-    vector_double = {
-        { 1., 0., 0. }
     };
     expected = {
         { 1., 0., 0. }
@@ -434,7 +431,9 @@ BOOST_AUTO_TEST_CASE( test_unitVector ){
     for ( unsigned int i=0; i<vector_int.size( ); i++ ){
         answer = vectorTools::unitVector( vector_int[ i ] );
         BOOST_TEST( answer == expected[ i ], boost::test_tools::per_element( ) );
-        answer = vectorTools::unitVector( vector_double[ i ] );
+
+        vector_double = std::vector< double >( vector_int[ i ].begin( ), vector_int[ i ].end( ) );
+        answer = vectorTools::unitVector( vector_double );
         BOOST_TEST( answer == expected[ i ], boost::test_tools::per_element( ) );
     }
 }
