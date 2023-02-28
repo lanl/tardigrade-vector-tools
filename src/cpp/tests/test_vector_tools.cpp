@@ -412,6 +412,52 @@ BOOST_AUTO_TEST_CASE( test_l2norm ){
 
 }
 
+BOOST_AUTO_TEST_CASE( test_unitVector ){
+    /*!
+     * Test the computation of unit vectors
+     */
+    std::vector< std::vector < int > > vector_int;
+    std::vector< std::vector < double > > expected;
+    std::vector< double > vector_double;
+    std::vector< double > answer;
+
+    double unit_cube = 1. / std::sqrt( 3. );
+
+    vector_int = {
+        {  1,  0,  0 },
+        {  0,  1,  0 },
+        {  0,  0,  1 },
+        { -1,  0,  0 },
+        {  0, -1,  0 },
+        {  0,  0, -1 },
+        {  1,  1,  1 },
+        {  2,  2,  2 },
+        { -1, -1, -1 },
+        { -2, -2, -2 }
+    };
+    expected = {
+        {  1,  0,  0 },
+        {  0,  1,  0 },
+        {  0,  0,  1 },
+        { -1,  0,  0 },
+        {  0, -1,  0 },
+        {  0,  0, -1 },
+        { unit_cube, unit_cube, unit_cube },
+        { unit_cube, unit_cube, unit_cube },
+        { -unit_cube, -unit_cube, -unit_cube },
+        { -unit_cube, -unit_cube, -unit_cube }
+    };
+
+    for ( unsigned int i=0; i<vector_int.size( ); i++ ){
+        answer = vectorTools::unitVector( vector_int[ i ] );
+        BOOST_TEST( answer == expected[ i ], boost::test_tools::per_element( ) );
+
+        vector_double = std::vector< double >( vector_int[ i ].begin( ), vector_int[ i ].end( ) );
+        answer = vectorTools::unitVector( vector_double );
+        BOOST_TEST( answer == expected[ i ], boost::test_tools::per_element( ) );
+    }
+}
+
 BOOST_AUTO_TEST_CASE( test_argsort ){
     /*!
      * Test the utility that returns the indices required to sort a vector

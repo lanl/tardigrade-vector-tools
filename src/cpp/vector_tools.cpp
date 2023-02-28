@@ -830,6 +830,18 @@ namespace vectorTools{
     }
 
     template<typename T>
+    std::vector< double > unitVector(const std::vector< T > &v){
+        /*!
+         * Compute the unit vector v i.e. \f$v_j / (v_i v_i)^(0.5)\f$
+         *
+         * \param &v: The vector to compute the norm of
+         */
+        //Recast the incoming vectors as double
+        std::vector< double > vDouble(v.begin(), v.end());
+        return vDouble / l2norm(vDouble);
+    }
+
+    template<typename T>
     std::vector< std::vector< T > > dyadic(const std::vector< T > &a, const std::vector< T > &b){
         /*!
          * Compute the dyadic product between two vectors returning a matrix i.e. A_ij = a_i b_j;
@@ -1075,13 +1087,9 @@ namespace vectorTools{
          * \param &v2: The second vector
          */
 
-        //Recast the incoming vectors as double
-        std::vector< double > v1d(v1.begin(), v1.end());
-        std::vector< double > v2d(v2.begin(), v2.end());
-
         //Compute the unit vector for each
-        std::vector< double > nv1 = v1d/l2norm(v1d);
-        std::vector< double > nv2 = v2d/l2norm(v2d);
+        std::vector< double > nv1 = unitVector( v1 );
+        std::vector< double > nv2 = unitVector( v2 );
 
         //Compute the distance
         double d = std::abs(dot(nv1, nv2));
