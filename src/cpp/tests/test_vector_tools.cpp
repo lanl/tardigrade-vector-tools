@@ -421,15 +421,31 @@ BOOST_AUTO_TEST_CASE( test_unitVector ){
     std::vector< double > vector_double;
     std::vector< double > answer;
 
+    double unit_cube = 1. / std::sqrt( 3. );
+
     vector_int = {
-        { 1, 0, 0 },
-        { 0, 1, 0 },
-        { 0, 0, 1 }
+        {  1,  0,  0 },
+        {  0,  1,  0 },
+        {  0,  0,  1 },
+        { -1,  0,  0 },
+        {  0, -1,  0 },
+        {  0,  0, -1 },
+        {  1,  1,  1 },
+        {  2,  2,  2 },
+        { -1, -1, -1 },
+        { -2, -2, -2 }
     };
     expected = {
-        { 1, 0, 0 },
-        { 0, 1, 0 },
-        { 0, 0, 1 }
+        {  1,  0,  0 },
+        {  0,  1,  0 },
+        {  0,  0,  1 },
+        { -1,  0,  0 },
+        {  0, -1,  0 },
+        {  0,  0, -1 },
+        { unit_cube, unit_cube, unit_cube },
+        { unit_cube, unit_cube, unit_cube },
+        { -unit_cube, -unit_cube, -unit_cube },
+        { -unit_cube, -unit_cube, -unit_cube }
     };
 
     for ( unsigned int i=0; i<vector_int.size( ); i++ ){
