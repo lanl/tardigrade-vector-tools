@@ -830,6 +830,16 @@ namespace vectorTools{
     }
 
     template<typename T>
+    std::vector< std::vector< double > > unitVector(const std::vector< T > &v){
+        /*!
+         * Compute the unit vector v i.e. \f$v_j / (v_i v_i)^(0.5)\f$
+         *
+         * \param &v: The vector to compute the norm of
+         */
+        return v / l2norm(v);
+    }
+
+    template<typename T>
     std::vector< std::vector< T > > dyadic(const std::vector< T > &a, const std::vector< T > &b){
         /*!
          * Compute the dyadic product between two vectors returning a matrix i.e. A_ij = a_i b_j;

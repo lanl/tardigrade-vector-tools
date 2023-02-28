@@ -165,6 +165,9 @@ namespace vectorTools{
     double l2norm(const std::vector< std::vector< T > > &A);
 
     template<typename T>
+    std::vector< std::vector< double > > unitVector(const std::vector< T > &v);
+
+    template<typename T>
     std::vector< std::vector< T > > dyadic(const std::vector< T > &a, const std::vector< T > &b);
 
     template<typename T>
