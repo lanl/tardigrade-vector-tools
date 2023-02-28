@@ -422,10 +422,14 @@ BOOST_AUTO_TEST_CASE( test_unitVector ){
     std::vector< double > answer;
 
     vector_int = {
-        { 1, 0, 0 }
+        { 1, 0, 0 },
+        { 0, 1, 0 },
+        { 0, 0, 1 }
     };
     expected = {
-        { 1., 0., 0. }
+        { 1, 0, 0 },
+        { 0, 1, 0 },
+        { 0, 0, 1 }
     };
 
     for ( unsigned int i=0; i<vector_int.size( ); i++ ){
