@@ -15,29 +15,36 @@ before_script:
   # TODO: recover environment path from modulefile instead of assuming the sstelmo path(s)
   # https://re-git.lanl.gov/aea/python-projects/waves/-/issues/7
   - aea_projects='/projects'
-  - aea_deploy_directory="${aea_projects}/aea_compute"
-  - aea_conda_channel="${aea_deploy_directory}/aea-conda"
-  - aea_modulefiles=${aea_deploy_directory}/modulefiles
-  - environment='vector_tools-env'
-  - environment_path="${aea_deploy_directory}/${environment}"
-  - conda_options='--yes --channel conda-forge'
-  - conda_artifact_directory='conda-build-artifacts'
-  # Activate the project specific environment from the project specific modulefile
+  - aea_compute_path="${aea_projects}/aea_compute"
+  - aea_conda_channel="${aea_compute_path}/aea-conda"
+  - aea_modulefiles=${aea_compute_path}/modulefiles
+  - module use ${aea_modulefiles}
   - module use ${PWD}/modulefiles
+  # Prefer the CI environment and fall back to AEA environment(s)
+  - project_environment='vector_tools-env'
+  - environment_choices="${project_environment} aea-beta aea-release"
+  - for env in ${environment_choices}; do if [[ -d "${aea_compute_path}/${env}" ]]; then environment=${env}; break; fi; done
+  - echo ${environment}
   - module load ${environment}
+  - conda info
   # Build the Conda environment if it's missing
   # TODO: kick off 'environment' job for missing environments instead of re-creating the environment build logic here
   # https://re-git.lanl.gov/kbrindley/waves/-/issues/8
+  - environment_path="${aea_compute_path}/${project_environment}"
+  - conda_options='--yes --channel conda-forge'
   - |
       if [[ ! -d ${environment_path} ]]; then
           export ALL_PROXY="proxyout.lanl.gov:8080"
           export HTTP_PROXY="http://$ALL_PROXY"
           export HTTPS_PROXY=$HTTP_PROXY
           conda create --prefix ${environment_path} --file environment.txt ${conda_options};
+          chmod -R 755 ${environment_path}
           unset ALL_PROXY
           unset HTTP_PROXY
           unset HTTPS_PROXY
       fi
+  - if [[ ${project_environment} != ${environment} ]]; then module unload ${environment}; module load ${project_environment}; fi
+  - conda_artifact_directory='conda-build-artifacts'
   # FIXME: (1) Without setting this to false, Git webserver API calls to re-git.lanl.gov will throw errors about
   # self-signed certificates. Work on CI server and Gitlab webserver configurations so that this is no longer
   # necessary. There is a matching "FIXME: (1)" tag where the process is reversed that must also be removed when this
@@ -100,7 +107,7 @@ microbump:
     - git config user.email "${GITLAB_USER_EMAIL}"
     - git remote add oauth2-origin https://gitlab-ci-token:${GITLAB_ACCESS_TOKEN}@re-git.lanl.gov/${CI_PROJECT_PATH}.git
     - git tag -a ${production_version} -m "production release ${production_version}" || true
-    # Assume last merge was dev->master. Pick previous.
+    # Assume last merge was dev->main. Pick previous.
     - last_merge_hash=$(git log --pretty=format:"%H" --merges -n 2 | tail -n 1)
     - git tag -a ${developer_version} -m "developer pre-release ${developer_version}" ${last_merge_hash} || true
     - git push oauth2-origin --tags
@@ -109,6 +116,8 @@ microbump:
 
 fast-test:
   stage: test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
   variables:
     GIT_STRATEGY: clone
   rules:
@@ -121,7 +130,7 @@ fast-test:
     - mkdir build
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release
-    - cmake --build . --verbose
+    - cmake --build . --target all --verbose
     - ctest --verbose --output-log results.txt
     - cd ${workdir}
   artifacts:
@@ -142,6 +151,10 @@ conda-build:
     - if: $CI_COMMIT_BRANCH == "main"
     - if: $CI_COMMIT_BRANCH == "dev"
   script:
+    # Only build one compiler variant during merge request testing
+    - cxx_compiler_version="12"
+    - variants=""
+    - if [[ $CI_PIPELINE_SOURCE == "merge_request_event" ]]; then variants="--variants {'cxx_compiler_version':['${cxx_compiler_version}']}"; fi
     # Set the LANL internal proxies
     - export ALL_PROXY="proxyout.lanl.gov:8080"
     - export HTTP_PROXY="http://$ALL_PROXY"
@@ -150,7 +163,7 @@ conda-build:
     - umask 0022
     - mkdir ${conda_artifact_directory}
     # TODO: Return to 'conda build' after tracing conda issue: https://re-git.lanl.gov/aea/material-models/vector_tools/-/issues/12
-    - VERSION=$(python -m setuptools_scm) mamba build recipe --channel conda-forge --no-anaconda-upload --croot /scratch/${USER}/conda-build --output-folder ${conda_artifact_directory}
+    - VERSION=$(python -m setuptools_scm) mamba build recipe --channel conda-forge --no-anaconda-upload --croot /scratch/${USER}/conda-build --output-folder ${conda_artifact_directory} ${variants}
   artifacts:
     expire_in: '2 hrs'
     paths:
@@ -194,7 +207,6 @@ pages:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_COMMIT_BRANCH == "main"
-    - if: $CI_COMMIT_BRANCH == "dev"
   script:
     - workdir=${PWD}
     - mkdir -p public/doxygen
