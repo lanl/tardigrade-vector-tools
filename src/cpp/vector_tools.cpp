@@ -20,7 +20,7 @@ std::vector<T>& operator+=(std::vector<T> &lhs, const std::vector<T> &rhs){
      */
 
     if (lhs.size() != rhs.size()){
-        throw std::length_error("vectors must be the same size to add");
+        ERROR_TOOLS_CATCH( throw std::length_error("vectors must be the same size to add") );
     }
 
     for (vectorTools::size_type i=0; i<lhs.size(); i++){
@@ -54,7 +54,7 @@ std::vector<T> operator+(std::vector<T> lhs, const std::vector<T> &rhs){
      */
 
     if (lhs.size() != rhs.size()){
-        throw std::length_error("vectors must be the same size to add");
+        ERROR_TOOLS_CATCH( throw std::length_error("vectors must be the same size to add") );
     }
     return lhs += rhs;
 }
@@ -225,7 +225,7 @@ std::vector< std::vector< T > >& operator+=(std::vector< std::vector< T > > &lhs
      */
 
     if (lhs.size() != rhs.size()){
-        throw std::length_error("matrices must have the same numbers of rows to add");
+        ERROR_TOOLS_CATCH( throw std::length_error("matrices must have the same numbers of rows to add") );
     }
 
     for (unsigned int i=0; i<lhs.size(); i++){
@@ -270,7 +270,7 @@ std::vector< std::vector < T > >& operator-=(std::vector< std::vector< T > > &lh
      */
 
     if (lhs.size() != rhs.size()){
-        throw std::length_error("matrices must have the same numbers of rows to add");
+        ERROR_TOOLS_CATCH( throw std::length_error("matrices must have the same numbers of rows to add") );
     }
 
     for (unsigned int i=0; i<lhs.size(); i++){
@@ -357,7 +357,7 @@ namespace vectorTools{
             c[2] =  a[0]*b[1] - a[1]*b[0];
         }
         else{
-            throw std::length_error("Only 2D and 3D vectors are accepted");
+            ERROR_TOOLS_CATCH( throw std::length_error("Only 2D and 3D vectors are accepted") );
         }
 
         return 0;
@@ -393,7 +393,7 @@ namespace vectorTools{
         //Get the size and perform error handling
         size_type size = a.size();
         if (size != b.size()){
-            throw std::length_error("vectors must be the same size to add");
+            ERROR_TOOLS_CATCH( throw std::length_error("vectors must be the same size to add") );
         }
 
         //Set v to zero
@@ -451,11 +451,11 @@ namespace vectorTools{
         size_type size = A.size();
 
         if ( size == 0 ){
-            throw std::length_error("A has no rows");
+            ERROR_TOOLS_CATCH( throw std::length_error("A has no rows") );
         }
 
         if ( size != b.size() ){
-            throw std::length_error("A and b are incompatible shapes");
+            ERROR_TOOLS_CATCH( throw std::length_error("A and b are incompatible shapes") );
         }
 
         std::vector< T > c(A[0].size(), 0);
@@ -480,7 +480,7 @@ namespace vectorTools{
         size_type rows = A.size();
 
         if (B.size() == 0){
-            throw std::length_error("B has no rows");
+            ERROR_TOOLS_CATCH( throw std::length_error("B has no rows") );
         }
 
         size_type inner = B.size();
@@ -489,13 +489,13 @@ namespace vectorTools{
         //Error handling
         for (unsigned int I=0; I<rows; I++){
             if (A[I].size() != inner){
-                throw std::length_error("A and B have incompatible shapes");
+                ERROR_TOOLS_CATCH( throw std::length_error("A and B have incompatible shapes") );
             }
         }
 
         for (unsigned int I=0; I<inner; I++){
             if (B[I].size() != cols){
-                throw std::length_error("B is not a regular matrix");
+                ERROR_TOOLS_CATCH( throw std::length_error("B is not a regular matrix") );
             }
         }
 
@@ -527,7 +527,7 @@ namespace vectorTools{
         size_type Arows = A.size();
 
         if (B.size() == 0){
-            throw std::length_error("B has no rows");
+            ERROR_TOOLS_CATCH( throw std::length_error("B has no rows") );
         }
 
         size_type Brows = B.size();
@@ -536,13 +536,13 @@ namespace vectorTools{
         //Error handling
         for (unsigned int I=0; I<Arows; I++){
             if (A[I].size() != Bcols){
-                throw std::length_error("A and B have incompatible shapes");
+                ERROR_TOOLS_CATCH( throw std::length_error("A and B have incompatible shapes") );
             }
         }
 
         for (unsigned int I=0; I<Brows; I++){
             if (B[I].size() != Bcols){
-                throw std::length_error("B is not a regular matrix");
+                ERROR_TOOLS_CATCH( throw std::length_error("B is not a regular matrix") );
             }
         }
 
@@ -574,13 +574,13 @@ namespace vectorTools{
         size_type Arows = A.size();
 
         if (Arows == 0){
-            throw std::length_error("A has no rows");
+            ERROR_TOOLS_CATCH( throw std::length_error("A has no rows") );
         }
 
         size_type Acols = A[0].size();
 
         if (B.size() == 0){
-            throw std::length_error("B has no rows");
+            ERROR_TOOLS_CATCH( throw std::length_error("B has no rows") );
         }
 
         size_type Brows = B.size();
@@ -588,18 +588,18 @@ namespace vectorTools{
 
         //Error handling
         if (Arows != Brows){
-            throw std::length_error("A and B have incompatible shapes");
+            ERROR_TOOLS_CATCH( throw std::length_error("A and B have incompatible shapes") );
         }
 
         for (unsigned int I=0; I<Arows; I++){
             if (A[I].size() != Acols){
-                throw std::length_error("A is not a regular matrix");
+                ERROR_TOOLS_CATCH( throw std::length_error("A is not a regular matrix") );
             }
         }
 
         for (unsigned int I=0; I<Brows; I++){
             if (B[I].size() != Bcols){
-                throw std::length_error("B is not a regular matrix");
+                ERROR_TOOLS_CATCH( throw std::length_error("B is not a regular matrix") );
             }
         }
 
@@ -693,7 +693,7 @@ namespace vectorTools{
         unsigned int Arows = A.size();
         unsigned int Acols = A[0].size();
         if (Arows != B.size() || Acols != B[0].size()){
-            throw std::length_error("Matrices must have the same dimensions to add.");
+            ERROR_TOOLS_CATCH( throw std::length_error("Matrices must have the same dimensions to add.") );
         }
 
         //Convert to row major matrices
@@ -741,7 +741,7 @@ namespace vectorTools{
         unsigned int length = A.size();
         unsigned int dimension = std::round(std::sqrt(length));
         if (dimension*dimension != length){
-            throw std::length_error("The trace can only be computed for square matrices.");
+            ERROR_TOOLS_CATCH( throw std::length_error("The trace can only be computed for square matrices.") );
         }
 
         //Set v to zero
@@ -886,7 +886,7 @@ namespace vectorTools{
         unsigned int length = I.size();
         unsigned int dimension = std::round(std::sqrt(length));
         if (dimension*dimension != length){
-            throw std::length_error("The identity tensor can only be constructed for square matrices.");
+            ERROR_TOOLS_CATCH( throw std::length_error("The identity tensor can only be constructed for square matrices.") );
         }
 
         //Construct the identity matrix
@@ -1097,6 +1097,56 @@ namespace vectorTools{
         return fuzzyEquals(d, 1.);
     }
 
+    template<typename T>
+    void verifyLength( const std::vector< T > &verifyVector, const unsigned int &expectedLength,
+                       std::string message ){
+        /*
+         * Raise a ``std::length_error`` exception if the provided vector doesn't match the expected length.
+         *
+         * \param &verifyVector: The vector to check for length
+         * \param &expectedLength: The expected vector length
+         * \param &message: An optional message for the ``std::length_error`` exception
+         */
+        if ( verifyVector.size( ) != expectedLength ){
+            ERROR_TOOLS_CATCH( throw std::length_error( message ) );
+        }
+    }
+
+    template<typename T>
+    void verifyLength( const std::vector< T > &verifyVectorOne,
+                       const std::vector< T > &verifyVectorTwo,
+                       std::string message ){
+        /*
+         * Raise a ``std::length_error`` exception if the provided vectors don't have matching lengths.
+         *
+         * \param &verifyVectorOne: The vector to check for length
+         * \param &verifyVectorTwo: The vector to compare against
+         * \param &message: An optional message for the ``std::length_error`` exception
+         */
+        if ( verifyVectorOne.size( ) != verifyVectorTwo.size( ) ){
+            ERROR_TOOLS_CATCH( throw std::length_error( message ) );
+        }
+    }
+
+    template<typename T>
+    void verifyLength( const std::vector< std::vector< T > > &verifyVectorOne,
+                       const std::vector< std::vector< T > > &verifyVectorTwo,
+                       std::string message ){
+        /*
+         * Raise a ``std::length_error`` exception if the provided vectors don't have matching sizes.
+         *
+         * \param &verifyVectorOne: The vector to check for length
+         * \param &verifyVectorTwo: The vector to compare against
+         * \param &message: An optional message for the ``std::length_error`` exception
+         */
+        if ( verifyVectorOne.size( ) != verifyVectorTwo.size( ) ){
+            ERROR_TOOLS_CATCH( throw std::length_error( message ) );
+        }
+        for ( unsigned int row=0; row<verifyVectorOne.size( ); row++ ){
+            verifyLength( verifyVectorOne[ row ], verifyVectorTwo[ row ] );
+        }
+    }
+
     //Access Utilities
     template <typename T>
     int getValuesByIndex(const std::vector< T > &v, const std::vector< size_type > &indices,
@@ -1162,7 +1212,7 @@ namespace vectorTools{
          */
 
         if ( Avec.size() != nrows * ncols ){
-            throw std::length_error("Avec is not a consistent size with the desired dimensions of the matrix");
+            ERROR_TOOLS_CATCH( throw std::length_error("Avec is not a consistent size with the desired dimensions of the matrix") );
         }
 
         std::vector< std::vector< T > > A( nrows, std::vector< T >( ncols ) );
@@ -1285,7 +1335,7 @@ namespace vectorTools{
          * \param &directionCosines: Matrix containing the 3x3 rotation matrix
          */
         if ( bungeEulerAngles.size( ) != ( 3 ) ){
-            throw std::length_error( "There must be exactly three (3) Bunge-Euler angles." );
+            ERROR_TOOLS_CATCH( throw std::length_error( "There must be exactly three (3) Bunge-Euler angles." ) );
         }
 
         double s1 = std::sin( bungeEulerAngles[ 0 ] );
@@ -1383,7 +1433,7 @@ namespace vectorTools{
 
             unsigned int ncols = Avec.size( ) / nrows;
             if ( ( Avec.size( ) % nrows ) > 0 ){
-                throw std::length_error( "A is not a regular matrix" );
+                ERROR_TOOLS_CATCH( throw std::length_error( "A is not a regular matrix" ) );
             }
             return solveLinearSystem( Avec, b, nrows, ncols, rank );
 
@@ -1415,7 +1465,7 @@ namespace vectorTools{
 
             unsigned int ncols = Avec.size( ) / nrows;
             if ( ( Avec.size( ) % nrows ) > 0 ){
-                throw std::length_error( "A is not a regular matrix" );
+                ERROR_TOOLS_CATCH( throw std::length_error( "A is not a regular matrix" ) );
             }
             return solveLinearSystem( Avec, b, nrows, ncols, rank, linearSolver );
 
@@ -1462,11 +1512,11 @@ namespace vectorTools{
              */
 
             if ( Avec.size( ) != ( nrows * ncols ) ){
-                throw std::length_error( "The size of Avec and the dimensions nrows and ncols do not align." );
+                ERROR_TOOLS_CATCH( throw std::length_error( "The size of Avec and the dimensions nrows and ncols do not align." ) );
             }
 
             if ( b.size( ) != ncols ){
-                throw std::length_error( "The b vector's size is not consistent with A's dimension" );
+                ERROR_TOOLS_CATCH( throw std::length_error( "The b vector's size is not consistent with A's dimension" ) );
             }
 
             //Set up the Eigen maps for A and b
@@ -1554,11 +1604,11 @@ namespace vectorTools{
                 ncols = A[0].size();
             }
             else{
-                throw std::length_error("A has no size");
+                ERROR_TOOLS_CATCH( throw std::length_error("A has no size") );
             }
 
             if ( ncols == 0 ){
-                throw std::length_error("A has no columns");
+                ERROR_TOOLS_CATCH( throw std::length_error("A has no columns") );
             }
 
             std::vector< T > Avec = appendVectors( A );
@@ -1619,11 +1669,11 @@ namespace vectorTools{
 
             //Error handling
             if (A.size() != Arows*Acols){
-                throw std::length_error("A has an incompatible shape");
+                ERROR_TOOLS_CATCH( throw std::length_error("A has an incompatible shape") );
             }
 
             if (B.size() != Brows*Bcols){
-                throw std::length_error("B has an incompatible shape");
+                ERROR_TOOLS_CATCH( throw std::length_error("B has an incompatible shape") );
             }
 
             //Map A and B to Eigen matrices
@@ -1743,7 +1793,7 @@ namespace vectorTools{
              */
 
             if (A.size() != Arows * Arows){
-                throw std::length_error("A has an incompatible shape");
+                ERROR_TOOLS_CATCH( throw std::length_error("A has an incompatible shape") );
             }
 
             //Initialize the output
@@ -1771,7 +1821,7 @@ namespace vectorTools{
                 if (rank < dX.size()){
                     std::cout << "niter: " << niter << "\n";
                     vectorTools::print(J);
-                    throw std::invalid_argument("J is rank defficent");
+                    ERROR_TOOLS_CATCH( throw std::invalid_argument("J is rank defficent") );
                 }
 
                 X += dX;
@@ -1796,7 +1846,7 @@ namespace vectorTools{
                 }
 
                 if (Rnorm > (1 - 1e-4)*Rp){
-                    throw std::invalid_argument("Failure in line search");
+                    ERROR_TOOLS_CATCH( throw std::invalid_argument("Failure in line search") );
                 }
                 else{
                     Rp = Rnorm;
@@ -1807,7 +1857,7 @@ namespace vectorTools{
             }
 
             if (Rp > tol){
-                throw std::invalid_argument("Matrix square root did not converge");
+                ERROR_TOOLS_CATCH( throw std::invalid_argument("Matrix square root did not converge") );
             }
 
             //Set the jacobian
@@ -1835,7 +1885,7 @@ namespace vectorTools{
 
             if ( A.size( ) != nrows * ncols ){
 
-                throw std::invalid_argument( "A's size is not consistent with the indicated number of rows and columns" );
+                ERROR_TOOLS_CATCH( throw std::invalid_argument( "A's size is not consistent with the indicated number of rows and columns" ) );
 
             }
 

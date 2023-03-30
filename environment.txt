@@ -1,10 +1,10 @@
 boost>=1.59
 breathe>=4.30.0
 cmake>=3.18
-cython
+compilers
 doxygen
 eigen>=3.3.7
-compilers
+error_tools>=0.5
 # TODO: Remove mamba after tracing conda issue: https://re-git.lanl.gov/aea/material-models/vector_tools/-/issues/12
 mamba
 setuptools_scm>=6.2
