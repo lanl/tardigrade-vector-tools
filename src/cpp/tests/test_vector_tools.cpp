@@ -375,7 +375,7 @@ BOOST_AUTO_TEST_CASE( test_trace ){
                      0., 1., 0.,
                      0., 0., 1. };
 
-    BOOST_CHECK_THROW( vectorTools::trace( b, c ), std::length_error );
+    BOOST_CHECK_THROW( vectorTools::trace( b, c ), std::runtime_error );
 
     c = 0.;
     c = vectorTools::trace( a );
