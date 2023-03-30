@@ -1142,6 +1142,9 @@ namespace vectorTools{
         if ( verifyVectorOne.size( ) != verifyVectorTwo.size( ) ){
             ERROR_TOOLS_CATCH( throw std::length_error( message ) );
         }
+        for ( unsigned int row=0; row<verifyVectorOne.size( ); row++ ){
+            verifyLength( verifyVectorOne[ row ], verifyVectorTwo[ row ] );
+        }
     }
 
     //Access Utilities
