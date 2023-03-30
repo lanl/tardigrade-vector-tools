@@ -10,6 +10,7 @@
 #ifndef VECTOR_TOOLS_H
 #define VECTOR_TOOLS_H
 
+#include<error_tools.h>
 #include<stdio.h>
 #include<iostream>
 #include<stdexcept>
