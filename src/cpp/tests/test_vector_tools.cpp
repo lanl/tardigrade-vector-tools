@@ -514,9 +514,29 @@ BOOST_AUTO_TEST_CASE( test_equals ){
 
 BOOST_AUTO_TEST_CASE( test_verifyLength ){
 
-    std::vector testVector = { 1. };
-    BOOST_CHECK_NO_THROW( vectorTools::verifyLength( testVector, 1 ) );
-    BOOST_CHECK_THROW( vectorTools::verifyLength( testVector, 2 ), std::runtime_error );
+    std::vector< double > testVectorDouble = { 1. };
+    BOOST_CHECK_NO_THROW( vectorTools::verifyLength( testVectorDouble, 1 ) );
+    BOOST_CHECK_THROW( vectorTools::verifyLength( testVectorDouble, 2 ), std::runtime_error );
+
+    std::vector< int > testVectorInt = { 1 };
+    BOOST_CHECK_NO_THROW( vectorTools::verifyLength( testVectorInt, 1 ) );
+    BOOST_CHECK_THROW( vectorTools::verifyLength( testVectorInt, 2 ), std::runtime_error );
+
+    std::vector< std::vector< double > > testNestedVectorDouble = { { 1. }, { 2. } };
+    std::vector< std::vector< double > > testNestedVectorDoubleLonger = { { 1. }, { 2. }, { 3. } };
+    BOOST_CHECK_NO_THROW( vectorTools::verifyLength( testNestedVectorDouble, testNestedVectorDouble ) );
+    BOOST_CHECK_THROW(
+        vectorTools::verifyLength( testNestedVectorDouble, testNestedVectorDoubleLonger ),
+        std::runtime_error
+    );
+
+    std::vector< std::vector< int > > testNestedVectorInt = { { 1 }, { 2 } };
+    std::vector< std::vector< int > > testNestedVectorIntLonger = { { 1 }, { 2 }, { 3 } };
+    BOOST_CHECK_NO_THROW( vectorTools::verifyLength( testNestedVectorInt, testNestedVectorInt ) );
+    BOOST_CHECK_THROW(
+        vectorTools::verifyLength( testNestedVectorInt, testNestedVectorIntLonger ),
+        std::runtime_error
+    );
 
 }
 
