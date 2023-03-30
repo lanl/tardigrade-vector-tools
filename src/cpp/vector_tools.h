@@ -10,6 +10,7 @@
 #ifndef VECTOR_TOOLS_H
 #define VECTOR_TOOLS_H
 
+#include<error_tools.h>
 #include<stdio.h>
 #include<iostream>
 #include<stdexcept>
@@ -210,6 +211,18 @@ namespace vectorTools{
 
     template<typename T>
     bool isParallel(const std::vector< T > &v1, const std::vector< T > &v2);
+
+    template<typename T>
+    void verifyLength( const std::vector< T > &verifyVector, const unsigned int &expectedLength,
+                       std::string message = "Vector does not have expected length" );
+    template<typename T>
+    void verifyLength( const std::vector< T > &verifyVectorOne,
+                       const std::vector< T > &verifyVectorTwo,
+                       std::string message = "Vector lengths do not match" );
+    template<typename T>
+    void verifyLength( const std::vector< std::vector< T > > &verifyVectorOne,
+                       const std::vector< std::vector< T > > &verifyVectorTwo,
+                       std::string message = "Vector lengths do not match" );
 
     //Access Utilities
     template <typename T>

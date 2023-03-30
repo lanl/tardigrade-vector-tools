@@ -1097,6 +1097,56 @@ namespace vectorTools{
         return fuzzyEquals(d, 1.);
     }
 
+    template<typename T>
+    void verifyLength( const std::vector< T > &verifyVector, const unsigned int &expectedLength,
+                       std::string message ){
+        /*
+         * Raise a ``std::length_error`` exception if the provided vector doesn't match the expected length.
+         *
+         * \param &verifyVector: The vector to check for length
+         * \param &expectedLength: The expected vector length
+         * \param &message: An optional message for the ``std::length_error`` exception
+         */
+        if ( verifyVector.size( ) != expectedLength ){
+            ERROR_TOOLS_CATCH( throw std::length_error( message ) );
+        }
+    }
+
+    template<typename T>
+    void verifyLength( const std::vector< T > &verifyVectorOne,
+                       const std::vector< T > &verifyVectorTwo,
+                       std::string message ){
+        /*
+         * Raise a ``std::length_error`` exception if the provided vectors don't have matching lengths.
+         *
+         * \param &verifyVectorOne: The vector to check for length
+         * \param &verifyVectorTwo: The vector to compare against
+         * \param &message: An optional message for the ``std::length_error`` exception
+         */
+        if ( verifyVectorOne.size( ) != verifyVectorTwo.size( ) ){
+            ERROR_TOOLS_CATCH( throw std::length_error( message ) );
+        }
+    }
+
+    template<typename T>
+    void verifyLength( const std::vector< std::vector< T > > &verifyVectorOne,
+                       const std::vector< std::vector< T > > &verifyVectorTwo,
+                       std::string message ){
+        /*
+         * Raise a ``std::length_error`` exception if the provided vectors don't have matching sizes.
+         *
+         * \param &verifyVectorOne: The vector to check for length
+         * \param &verifyVectorTwo: The vector to compare against
+         * \param &message: An optional message for the ``std::length_error`` exception
+         */
+        if ( verifyVectorOne.size( ) != verifyVectorTwo.size( ) ){
+            ERROR_TOOLS_CATCH( throw std::length_error( message ) );
+        }
+        for ( unsigned int row=0; row<verifyVectorOne.size( ); row++ ){
+            verifyLength( verifyVectorOne[ row ], verifyVectorTwo[ row ] );
+        }
+    }
+
     //Access Utilities
     template <typename T>
     int getValuesByIndex(const std::vector< T > &v, const std::vector< size_type > &indices,
