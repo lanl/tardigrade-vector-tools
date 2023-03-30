@@ -512,6 +512,14 @@ BOOST_AUTO_TEST_CASE( test_equals ){
 
 }
 
+BOOST_AUTO_TEST_CASE( test_verifyLength ){
+
+    std::vector testVector = { 1. };
+    BOOST_CHECK_NO_THROW( vectorTools::verifyLength( testVector, 1 ) );
+    BOOST_CHECK_THROW( vectorTools::verifyLength( testVector, 2 ), std::runtime_error );
+
+}
+
 BOOST_AUTO_TEST_CASE( test_getValuesByIndex ){
     /*!
      * Test the retrieval of values of a vector as
