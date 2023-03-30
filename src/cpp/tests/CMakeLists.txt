@@ -3,7 +3,6 @@ add_executable (${TEST_NAME} "${TEST_NAME}.cpp")
 add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
 target_compile_options(${TEST_NAME} PRIVATE)
 target_include_directories(${TEST_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
-target_link_libraries(${TEST_NAME} error_tools)
 
 # Local builds of upstream projects require local include paths
 if(NOT cmake_build_type_lower STREQUAL "release")
