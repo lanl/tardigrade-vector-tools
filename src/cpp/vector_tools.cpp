@@ -1133,7 +1133,7 @@ namespace vectorTools{
                        const std::vector< std::vector< T > > &verifyVectorTwo,
                        std::string message ){
         /*
-         * Raise a ``std::length_error`` exception if the provided vectors don't have matching row lengths.
+         * Raise a ``std::length_error`` exception if the provided vectors don't have matching sizes.
          *
          * \param &verifyVectorOne: The vector to check for length
          * \param &verifyVectorTwo: The vector to compare against
