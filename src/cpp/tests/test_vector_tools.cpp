@@ -837,14 +837,14 @@ BOOST_AUTO_TEST_CASE( test_isOrthogonal ){
      * Test the utility that tests if two vectors are orthogonal or not
      */
 
-    vectorType v1 = { 1, 0, 0 };
-    vectorType v2 = { 0, 1, 0 };
+    std::vector< int > v1 = { 1, 0, 0 };
+    std::vector< int > v2 = { 0, 1, 0 };
 
     BOOST_CHECK( !vectorTools::isOrthogonal( v1, v1 ) );
     BOOST_CHECK( vectorTools::isOrthogonal( v1, v2 ) );
 
-    std::vector< int > v3 = { 1, 0, 0 };
-    std::vector< int > v4 = { 0, 1, 0 };
+    std::vector< double > v3( v1.begin(), v1.end() );
+    std::vector< double > v4( v2.begin(), v2.end() );
 
     BOOST_CHECK( !vectorTools::isOrthogonal( v3, v3 ) );
     BOOST_CHECK( vectorTools::isOrthogonal( v3, v4 ) );
