@@ -210,10 +210,14 @@ namespace vectorTools{
     bool equals(const std::vector< std::vector< T > > &a, const std::vector< std::vector< T > > &b);
 
     template<typename T>
-    bool isParallel(const std::vector< T > &v1, const std::vector< T > &v2);
+    bool isParallel( const std::vector< T > &v1, const std::vector< T > &v2 );
 
     template<typename T>
-    bool isOrthogonal(const std::vector< T > &v1, const std::vector< T > &v2);
+    bool isOrthogonal( const std::vector< T > &v1, const std::vector< T > &v2 );
+
+    template<typename T>
+    bool verifyOrthogonal( const std::vector< T > &v1, const std::vector< T > &v2,
+                           std::string message );
 
     template<typename T>
     void verifyLength( const std::vector< T > &verifyVector, const unsigned int &expectedLength,
