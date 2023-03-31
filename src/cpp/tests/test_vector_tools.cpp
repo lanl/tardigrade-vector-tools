@@ -850,6 +850,7 @@ BOOST_AUTO_TEST_CASE( test_isOrthogonal_verifyOrthogonal ){
         { 1, 1, 1 },
         { 1, 1, 1 }
     };
+    //Orthogonal with v1
     std::vector< std::vector< int > > v2 = {
         {  0,  1,  0 },
         {  0,  0,  1 },
@@ -862,22 +863,43 @@ BOOST_AUTO_TEST_CASE( test_isOrthogonal_verifyOrthogonal ){
         { -1,  0,  1 },
         {  0,  1, -1 },
     };
+    //Not orthogonal with v1
+    std::vector< std::vector< int > > v3 = {
+        {  1,  1,  0 },
+        {  1,  0,  1 },
+        {  1,  2,  0 },
+        {  1,  1,  1 },
+        {  1,  2,  2 },
+        {  0,  1,  1 },
+        {  0,  1,  2 },
+        {  1, -1,  1 },
+        { -1,  1,  1 },
+        {  1,  1, -1 },
+    };
     std::vector< double > v1Float;
     std::vector< double > v2Float;
+    std::vector< double > v3Float;  //Not orthogonal with v1
 
     for ( unsigned int iTest=0; iTest<v1.size( ); iTest++ ){
 
         BOOST_CHECK( !vectorTools::isOrthogonal( v1[ iTest ], v1[ iTest ] ) );
-        BOOST_CHECK( vectorTools::isOrthogonal( v1[ iTest ], v2[ iTest ] ) );
+        BOOST_CHECK( !vectorTools::isOrthogonal( v1[ iTest ], v3[ iTest ] ) );
         BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v1[ iTest ] ), std::runtime_error );
+        BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v3[ iTest ] ), std::runtime_error );
+
+        BOOST_CHECK( vectorTools::isOrthogonal( v1[ iTest ], v2[ iTest ] ) );
         BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v2[ iTest ] ) );
 
         std::copy( v1[ iTest ].begin( ), v1[ iTest ].end( ), back_inserter( v1Float ) );
         std::copy( v2[ iTest ].begin( ), v2[ iTest ].end( ), back_inserter( v2Float ) );
+        std::copy( v3[ iTest ].begin( ), v3[ iTest ].end( ), back_inserter( v3Float ) );
 
         BOOST_CHECK( !vectorTools::isOrthogonal( v1Float, v1Float ) );
-        BOOST_CHECK( vectorTools::isOrthogonal( v1Float, v2Float ) );
+        BOOST_CHECK( !vectorTools::isOrthogonal( v1Float, v3Float ) );
         BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1Float, v1Float ), std::runtime_error );
+        BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1Float, v3Float ), std::runtime_error );
+
+        BOOST_CHECK( vectorTools::isOrthogonal( v1Float, v2Float ) );
         BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v1Float, v2Float ) );
 
     }
