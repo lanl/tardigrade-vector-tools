@@ -838,10 +838,18 @@ BOOST_AUTO_TEST_CASE( test_isOrthogonal ){
      */
 
     std::vector< std::vector< int > > v1 = {
+        { 1, 0, 0 },
+        { 1, 0, 0 },
+        { 1, 0, 0 },
+        { 1, 0, 0 },
         { 1, 0, 0 }
     };
     std::vector< std::vector< int > > v2 = {
-        { 0, 1, 0 }
+        { 0, 1, 0 },
+        { 0, 0, 1 },
+        { 0, 2, 0 },
+        { 0, 1, 1 },
+        { 0, 2, 2 }
     };
     std::vector< double > v1Float;
     std::vector< double > v2Float;
