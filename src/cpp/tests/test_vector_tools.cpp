@@ -837,17 +837,27 @@ BOOST_AUTO_TEST_CASE( test_isOrthogonal ){
      * Test the utility that tests if two vectors are orthogonal or not
      */
 
-    std::vector< int > v1 = { 1, 0, 0 };
-    std::vector< int > v2 = { 0, 1, 0 };
+    std::vector< std::vector< int > > v1 = {
+        { 1, 0, 0 }
+    };
+    std::vector< std::vector< int > > v2 = {
+        { 0, 1, 0 }
+    };
+    std::vector< double > v1Float;
+    std::vector< double > v2Float;
 
-    BOOST_CHECK( !vectorTools::isOrthogonal( v1, v1 ) );
-    BOOST_CHECK( vectorTools::isOrthogonal( v1, v2 ) );
+    for ( unsigned int iTest=0; iTest<v1.size( ); iTest++ ){
 
-    std::vector< double > v3( v1.begin(), v1.end() );
-    std::vector< double > v4( v2.begin(), v2.end() );
+        BOOST_CHECK( !vectorTools::isOrthogonal( v1[ iTest ], v1[ iTest ] ) );
+        BOOST_CHECK( vectorTools::isOrthogonal( v1[ iTest ], v2[ iTest ] ) );
 
-    BOOST_CHECK( !vectorTools::isOrthogonal( v3, v3 ) );
-    BOOST_CHECK( vectorTools::isOrthogonal( v3, v4 ) );
+        std::copy( v1[ iTest ].begin( ), v1[ iTest ].end( ), back_inserter( v1Float ) );
+        std::copy( v2[ iTest ].begin( ), v2[ iTest ].end( ), back_inserter( v2Float ) );
+
+        BOOST_CHECK( !vectorTools::isOrthogonal( v1Float, v1Float ) );
+        BOOST_CHECK( vectorTools::isOrthogonal( v1Float, v2Float ) );
+
+    }
 
 }
 
