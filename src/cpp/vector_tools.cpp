@@ -1079,7 +1079,7 @@ namespace vectorTools{
     }
 
     template<typename T>
-    bool isParallel(const std::vector< T > &v1, const std::vector< T > &v2){
+    bool isParallel( const std::vector< T > &v1, const std::vector< T > &v2 ){
         /*!
          * Compare two vectors and determine if they are parallel
          *
@@ -1095,6 +1095,41 @@ namespace vectorTools{
         double d = std::abs(dot(nv1, nv2));
 
         return fuzzyEquals(d, 1.);
+    }
+
+    template<typename T>
+    bool isOrthogonal( const std::vector< T > &v1, const std::vector< T > &v2 ){
+        /*!
+         * Compare two vectors and determine if they are orthogonal
+         *
+         * \param &v1: The first vector
+         * \param &v2: The second vector
+         */
+
+        //Compute the unit vector for each
+        std::vector< double > nv1 = unitVector( v1 );
+        std::vector< double > nv2 = unitVector( v2 );
+
+        //Compute the distance
+        double d = std::abs(dot(nv1, nv2));
+
+        return fuzzyEquals(d, 0.);
+    }
+
+    template<typename T>
+    void verifyOrthogonal( const std::vector< T > &v1, const std::vector< T > &v2,
+                           std::string message ){
+        /*!
+         * Raise ``std::runtime_error`` exception if two vectors are not orthogonal
+         *
+         * \param &v1: The first vector
+         * \param &v2: The second vector
+         * \param message: Message for the ``std::runtime_error``
+         */
+        if ( !isOrthogonal( v1, v2 ) ){
+            ERROR_TOOLS_CATCH( throw std::runtime_error( message ) );
+        }
+
     }
 
     template<typename T>
