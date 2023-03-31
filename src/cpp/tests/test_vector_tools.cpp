@@ -832,6 +832,7 @@ BOOST_AUTO_TEST_CASE( test_isParallel ){
 
 }
 
+//TODO: Parametrize with BOOST_DATA_TEST_CASE
 BOOST_AUTO_TEST_CASE( test_isOrthogonal ){
     /*!
      * Test the utility that tests if two vectors are orthogonal or not
@@ -869,6 +870,7 @@ BOOST_AUTO_TEST_CASE( test_isOrthogonal ){
 
 }
 
+//TODO: Parametrize with BOOST_DATA_TEST_CASE
 BOOST_AUTO_TEST_CASE( test_verifyOrthogonal ){
     /*!
      * Test the utility that tests if two vectors are orthogonal or not
