@@ -874,17 +874,35 @@ BOOST_AUTO_TEST_CASE( test_verifyOrthogonal ){
      * Test the utility that tests if two vectors are orthogonal or not
      */
 
-    vectorType v1 = { 1, 0, 0 };
-    vectorType v2 = { 0, 1, 0 };
+    std::vector< std::vector< int > > v1 = {
+        { 1, 0, 0 },
+        { 1, 0, 0 },
+        { 1, 0, 0 },
+        { 1, 0, 0 },
+        { 1, 0, 0 }
+    };
+    std::vector< std::vector< int > > v2 = {
+        { 0, 1, 0 },
+        { 0, 0, 1 },
+        { 0, 2, 0 },
+        { 0, 1, 1 },
+        { 0, 2, 2 }
+    };
+    std::vector< double > v1Float;
+    std::vector< double > v2Float;
 
-    BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1, v1 ), std::runtime_error );
-    BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v1, v2 ) );
+    for ( unsigned int iTest=0; iTest<v1.size( ); iTest++ ){
 
-    std::vector< int > v3 = { 1, 0, 0 };
-    std::vector< int > v4 = { 0, 1, 0 };
+        BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v1[ iTest ] ), std::runtime_error );
+        BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v2[ iTest ] ) );
 
-    BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v3, v3 ), std::runtime_error );
-    BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v3, v4 ) );
+        std::copy( v1[ iTest ].begin( ), v1[ iTest ].end( ), back_inserter( v1Float ) );
+        std::copy( v2[ iTest ].begin( ), v2[ iTest ].end( ), back_inserter( v2Float ) );
+
+        BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1Float, v1Float ), std::runtime_error );
+        BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v1Float, v2Float ) );
+
+    }
 
 }
 
