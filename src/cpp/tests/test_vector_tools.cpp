@@ -851,6 +851,25 @@ BOOST_AUTO_TEST_CASE( test_isOrthogonal ){
 
 }
 
+BOOST_AUTO_TEST_CASE( test_verifyOrthogonal ){
+    /*!
+     * Test the utility that tests if two vectors are orthogonal or not
+     */
+
+    vectorType v1 = { 1, 0, 0 };
+    vectorType v2 = { 0, 1, 0 };
+
+    BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1, v1 ), std::runtime_error );
+    BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v1, v2 ) );
+
+    std::vector< int > v3 = { 1, 0, 0 };
+    std::vector< int > v4 = { 0, 1, 0 };
+
+    BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v3, v3 ), std::runtime_error );
+    BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v3, v4 ) );
+
+}
+
 BOOST_AUTO_TEST_CASE( test_dyadic ){
     /*!
      * Test the computation of the dyadic product between two vectors

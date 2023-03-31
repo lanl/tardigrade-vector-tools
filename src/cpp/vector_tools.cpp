@@ -1117,7 +1117,7 @@ namespace vectorTools{
     }
 
     template<typename T>
-    bool verifyOrthogonal( const std::vector< T > &v1, const std::vector< T > &v2,
+    void verifyOrthogonal( const std::vector< T > &v1, const std::vector< T > &v2,
                            std::string message ){
         /*!
          * Raise ``std::runtime_error`` exception if two vectors are not orthogonal
@@ -1126,7 +1126,7 @@ namespace vectorTools{
          * \param &v2: The second vector
          * \param message: Message for the ``std::runtime_error``
          */
-        if !isOrthogonal( v1, v2 ){
+        if ( !isOrthogonal( v1, v2 ) ){
             ERROR_TOOLS_CATCH( throw std::runtime_error( message ) );
         }
 
