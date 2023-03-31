@@ -882,23 +882,28 @@ BOOST_AUTO_TEST_CASE( test_isOrthogonal_verifyOrthogonal ){
 
     for ( unsigned int iTest=0; iTest<v1.size( ); iTest++ ){
 
+        //Not orthogonal. Return False or throw exception
         BOOST_CHECK( !vectorTools::isOrthogonal( v1[ iTest ], v1[ iTest ] ) );
         BOOST_CHECK( !vectorTools::isOrthogonal( v1[ iTest ], v3[ iTest ] ) );
         BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v1[ iTest ] ), std::runtime_error );
         BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v3[ iTest ] ), std::runtime_error );
 
+        //Orthogonal. Return True or no throw.
         BOOST_CHECK( vectorTools::isOrthogonal( v1[ iTest ], v2[ iTest ] ) );
         BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v2[ iTest ] ) );
 
+        //Cast to float for type template feature check
         std::copy( v1[ iTest ].begin( ), v1[ iTest ].end( ), back_inserter( v1Float ) );
         std::copy( v2[ iTest ].begin( ), v2[ iTest ].end( ), back_inserter( v2Float ) );
         std::copy( v3[ iTest ].begin( ), v3[ iTest ].end( ), back_inserter( v3Float ) );
 
+        //Not orthogonal. Return False or throw exception
         BOOST_CHECK( !vectorTools::isOrthogonal( v1Float, v1Float ) );
         BOOST_CHECK( !vectorTools::isOrthogonal( v1Float, v3Float ) );
         BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1Float, v1Float ), std::runtime_error );
         BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1Float, v3Float ), std::runtime_error );
 
+        //Orthogonal. Return True or no throw.
         BOOST_CHECK( vectorTools::isOrthogonal( v1Float, v2Float ) );
         BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v1Float, v2Float ) );
 
