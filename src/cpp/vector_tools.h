@@ -213,6 +213,9 @@ namespace vectorTools{
     bool isParallel(const std::vector< T > &v1, const std::vector< T > &v2);
 
     template<typename T>
+    bool isOrthogonal(const std::vector< T > &v1, const std::vector< T > &v2);
+
+    template<typename T>
     void verifyLength( const std::vector< T > &verifyVector, const unsigned int &expectedLength,
                        std::string message = "Vector does not have expected length" );
     template<typename T>

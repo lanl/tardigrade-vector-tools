@@ -1098,6 +1098,25 @@ namespace vectorTools{
     }
 
     template<typename T>
+    bool isOrthogonal(const std::vector< T > &v1, const std::vector< T > &v2){
+        /*!
+         * Compare two vectors and determine if they are orthogonal
+         *
+         * \param &v1: The first vector
+         * \param &v2: The second vector
+         */
+
+        //Compute the unit vector for each
+        std::vector< double > nv1 = unitVector( v1 );
+        std::vector< double > nv2 = unitVector( v2 );
+
+        //Compute the distance
+        double d = std::abs(dot(nv1, nv2));
+
+        return fuzzyEquals(d, 0.);
+    }
+
+    template<typename T>
     void verifyLength( const std::vector< T > &verifyVector, const unsigned int &expectedLength,
                        std::string message ){
         /*
