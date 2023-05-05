@@ -1286,9 +1286,9 @@ BOOST_AUTO_TEST_CASE( test_computeDinvAdA ){
 
         vectorType invAp, invAm;
 
-        BOOST_CHECK( invAp = vectorTools::inverse( A + delta, 3, 3 ) );
+        BOOST_CHECK_NO_THROW( invAp = vectorTools::inverse( A + delta, 3, 3 ) );
 
-        BOOST_CHECK( invAm = vectorTools::inverse( A - delta, 3, 3 ) );
+        BOOST_CHECK_NO_THROW( invAm = vectorTools::inverse( A - delta, 3, 3 ) );
 
         for ( unsigned int j = 0; j < A.size( ); j++ ){
 
