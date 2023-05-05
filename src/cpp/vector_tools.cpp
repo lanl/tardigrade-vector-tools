@@ -1688,6 +1688,8 @@ namespace vectorTools{
 
             }
 
+            return result;
+
         }
 
         template<typename T>
