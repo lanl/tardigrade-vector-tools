@@ -1660,8 +1660,8 @@ namespace vectorTools{
              * \param ncols: The number of columns
              */
 
-            if (Avec.size() != (nrows*ncols)){
-                ERROR_TOOLS_CATCH( throw std::length_error( "The size of Avec and the dimensions nrows and ncols do not agree.\n  Avec.size( ): " + std::to_string( Avec.size( ) ) + "\n  nrows * ncols: " + std::to_string( nrows * ncols ) ) );
+            if (invA.size() != (nrows*ncols)){
+                ERROR_TOOLS_CATCH( throw std::length_error( "The size of Avec and the dimensions nrows and ncols do not agree.\n  Avec.size( ): " + std::to_string( invA.size( ) ) + "\n  nrows * ncols: " + std::to_string( nrows * ncols ) ) );
             }
 
             if (nrows != ncols){
