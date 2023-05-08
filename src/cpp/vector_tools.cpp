@@ -1602,13 +1602,11 @@ namespace vectorTools{
              */
 
             if (Avec.size() != (nrows*ncols)){
-                std::cerr << "Error: The size of Avec and the dimensions nrows and ncols do not align.\n";
-                assert(1==0);
+                ERROR_TOOLS_CATCH( throw std::length_error( "The size of Avec and the dimensions nrows and ncols do not agree.\n  Avec.size( ): " + std::to_string( Avec.size( ) ) + "\n  nrows * ncols: " + std::to_string( nrows * ncols ) ) );
             }
 
             if (nrows != ncols){
-                std::cerr << "Error: The number of rows must equal the number of columns.\n";
-                assert(1==0);
+                ERROR_TOOLS_CATCH( throw std::runtime_error( "Error: The number of rows must equal the number of columns.\n  nrows: " + std::to_string( nrows ) + "\n  ncols: " + std::to_string(ncols) ) );
             }
 
             //Set up the Eigen map for A
@@ -1650,6 +1648,48 @@ namespace vectorTools{
             std::vector< double > Ainvvec = inverse( Avec, nrows, ncols );
 
             return inflate( Ainvvec, nrows, ncols );
+        }
+
+        template<typename T>
+        std::vector< std::vector< double > > computeDInvADA( const std::vector< T > &invA, const unsigned int nrows, const unsigned int ncols ){
+            /*!
+             * Compute the derivative of the inverse of a matrix w.r.t. the matrix
+             * 
+             * \param &invA: The vector form of the inverse of the A matrix
+             * \param nrows: The number of rows
+             * \param ncols: The number of columns
+             */
+
+            if (invA.size() != (nrows*ncols)){
+                ERROR_TOOLS_CATCH( throw std::length_error( "The size of Avec and the dimensions nrows and ncols do not agree.\n  Avec.size( ): " + std::to_string( invA.size( ) ) + "\n  nrows * ncols: " + std::to_string( nrows * ncols ) ) );
+            }
+
+            if (nrows != ncols){
+                ERROR_TOOLS_CATCH( throw std::runtime_error( "Error: The number of rows must equal the number of columns.\n  nrows: " + std::to_string( nrows ) + "\n  ncols: " + std::to_string(ncols) ) );
+            }
+
+            std::vector< std::vector< double > > result( nrows * ncols, std::vector< double >( nrows * ncols, 0 ) );            
+
+            for ( unsigned int i = 0; i < nrows; i++ ){
+
+                for ( unsigned int j = 0; j < ncols; j++ ){
+
+                    for ( unsigned int a = 0; a < nrows; a++ ){
+
+                        for ( unsigned int b = 0; b < ncols; b++ ){
+
+                            result[ ncols * i + j ][ nrows * a + b ] = -invA[ ncols * i + a ] * invA[ ncols * b + j ];
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            return result;
+
         }
 
         template<typename T>
