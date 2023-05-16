@@ -1016,7 +1016,7 @@ BOOST_AUTO_TEST_CASE( test_inflate ){
 
 }
 
-BOOST_AUTO_TEST_CASE( test_computeDDetAdJ ){
+BOOST_AUTO_TEST_CASE( test_computeDDetADA ){
     /*!
      * Test the computation of the derivative of the determinant w.r.t.
      * the matrix.
@@ -1026,7 +1026,7 @@ BOOST_AUTO_TEST_CASE( test_computeDDetAdJ ){
                                    0.14034205,  0.15851022,  1.29640525,
                                    0.26235075, -0.26051883,  0.45378251 };
 
-    std::vector< floatType > ddetAdA = vectorTools::computeDDetAdJ( A, 3, 3 );
+    std::vector< floatType > ddetAdA = vectorTools::computeDDetADA( A, 3, 3 );
 
     floatType eps = 1e-6;
     floatType detA0 = vectorTools::determinant( A, 3, 3 );
