@@ -303,7 +303,7 @@ namespace vectorTools{
         std::vector< std::vector< double > > computeDAInvDA( const std::vector< T > &invA, const unsigned int nrows, const unsigned int ncols );
 
         template<typename T>
-        std::vector< double > computeDDetAdJ(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
+        std::vector< double > computeDDetADA(const std::vector< T > &Avec, const unsigned int nrows, const unsigned int ncols);
 
         template< typename T >
         std::vector< T > matrixMultiply(const std::vector< T > &A, const std::vector< T > &B,
