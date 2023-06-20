@@ -4,7 +4,7 @@ cmake>=3.18
 compilers
 doxygen
 eigen>=3.3.7
-error_tools>=0.5
+error_tools>=0.6
 # TODO: Remove mamba after tracing conda issue: https://re-git.lanl.gov/aea/material-models/vector_tools/-/issues/12
 mamba
 setuptools_scm>=6.2
