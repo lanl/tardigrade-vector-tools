@@ -170,7 +170,7 @@ conda-build:
   artifacts:
     expire_in: '2 hrs'
     paths:
-      - conda-build-artifacts/linux-64/vector_tools-*-*.tar.bz2
+      - conda-bld/linux-64/vector_tools-*-*.tar.bz2
   tags:
     - shell-aea
 
