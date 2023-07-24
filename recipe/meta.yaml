@@ -1,12 +1,27 @@
 package:
-  name: vector_tools
+  name: tardigrade_vector_tools
   # TODO: setup and use pyproject.toml and a Conda build Jinja template
   version: {{ VERSION }}
+
+about:
+  home: https://github.com/lanl/tardigrade-vector-tools
+  license: BSD-3-Clause
+  license_file: LICENSE
+  summary: 'A collection of tools for vector manipulation'
+  description: |
+    tardigrade-vector-tools (C20048 Tardigrade) A collection of tools for C++ that make interfacing with vectors easier
+    and less prone to error. These tools also allow the user access to the powerful Eigen library which provides matrix
+    utilities in such a way that Eigen does not need to be used explicitly in the user's code.
+  doc_url: https://lanl.github.io/tardigrade-vector-tools
+  dev_url: https://github.com/lanl/tardigrade-vector-tools
 
 source:
   path: '..'
 
 build:
+  number: 0
+  script_env:
+    - SETUPTOOLS_SCM_PRETEND_VERSION={{ VERSION }}
   script:
     - mkdir build-package
     - cd build-package
@@ -16,27 +31,30 @@ build:
     - python_abi
 
 requirements:
-  build:
-    - {{ compiler('cxx') }}
-    - boost >=1.59  # TODO: Separate the package/test configuration to make BOOST an optional build dependency
-    - eigen >=3.3.7
-    - error_tools >=0.6
-    - setuptools_scm >=6.2
-    - libcxx <16  # [osx]
   host:
     - {{ compiler('cxx') }}
+    - libgcc-ng {{ libstdcxx }}     # [linux]
+    - libstdcxx-ng {{ libstdcxx }}  # [linux]
     - python
+    - setuptools_scm >=6.2
     - cmake >=3.18
+    - eigen >=3.3.7
+    - tardigrade_error_tools >=0.7
+    - boost >=1.59  # TODO: Separate the package/test configuration to make BOOST an optional build dependency
     - doxygen  # TODO: Separate the package/documentation configuration to make Doxygen an optional build dependency
     - sphinx  # TODO: Separate the package/documentation configuration to make Sphinx an optional build dependency
-    - libcxx <16  # [osx]
   run:
-    - {{ compiler('cxx') }}
     - eigen >=3.3.7
-    - error_tools >=0.6
+    - tardigrade_error_tools >=0.7
+    - libgcc-ng     # [linux]
+    - libstdcxx-ng  # [linux]
+    - libcxx        # [osx]
 
 test:
   requires:
+    - {{ compiler('cxx') }}
+    - {{ pin_compatible('libgcc-ng') }}     # [linux]
+    - {{ pin_compatible('libstdcxx-ng') }}  # [linux]
     - cmake >=3.18
     - boost >=1.59
     - doxygen  # TODO: Separate the package/documentation configuration to make Doxygen an optional build dependency
@@ -44,10 +62,10 @@ test:
   source_files:
     - CMakeLists.txt
     - src/cpp/tests/CMakeLists.txt
-    - src/cpp/tests/test_vector_tools.cpp
+    - src/cpp/tests/test_tardigrade_vector_tools.cpp
   commands:
     - mkdir build-package
     - cd build-package
     - cmake .. -DCMAKE_BUILD_TYPE=conda-test -DCMAKE_INSTALL_LIBDIR=lib
-    - cmake --build . --target test_vector_tools
-    - ctest -R test_vector_tools
+    - cmake --build . --target test_tardigrade_vector_tools
+    - ctest -R test_tardigrade_vector_tools

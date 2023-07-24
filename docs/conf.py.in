@@ -16,9 +16,9 @@ import os
 # -- Project information -----------------------------------------------------
 # Meta data from CMake configure()
 project = '@PROJECT_NAME@'
-RECENT_GIT_TAG = '@vector_tools_RECENT_GIT_TAG@'
-VERSION_STRING_FULL = '@vector_tools_VERSION_STRING_FULL@'
-VERSION = '@vector_tools_VERSION@'
+RECENT_GIT_TAG = '@tardigrade_vector_tools_RECENT_GIT_TAG@'
+VERSION_STRING_FULL = '@tardigrade_vector_tools_VERSION_STRING_FULL@'
+VERSION = '@tardigrade_vector_tools_VERSION@'
 
 # Hardcoded project information
 copyright = '2020, Nathan A. Miller and Kyle A. Brindley'
@@ -46,7 +46,7 @@ breathe_default_project = project
 
 # Links to PRs, Jira issues.
 extlinks = {
-     "pull": ("https://xcp-stash.lanl.gov/projects/MM/repos/vector_tools/pull-requests/%s/overview", "PR%s"),
+     "pull": ("https://xcp-stash.lanl.gov/projects/MM/repos/tardigrade_vector_tools/pull-requests/%s/overview", "PR%s"),
      "jira": ("https://xcp-jira.lanl.gov/browse/VIP-%s", "VIP-%s"),
 }
 

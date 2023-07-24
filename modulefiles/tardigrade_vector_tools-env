@@ -4,14 +4,14 @@
 conflict aea-release
 conflict aea-beta
 conflict waves-env
-conflict error_tools-env
+conflict tardigrade_error_tools-env
 conflict abaqus_tools-env
 conflict cpp_stub-env
 
 # Set AEA standard software version and environment names
 set anaconda_version "2021.11"
 set python_version "3.9"
-set environment "vector_tools-env"
+set environment "tardigrade_vector_tools-env"
 
 # Get current hostname
 set hostname [info hostname]
@@ -66,7 +66,7 @@ if { [module-info mode load] || [module-info mode switch2] } {
 }
 
 # Set help information
-module-whatis "Configure the common vector_tools development bash and Conda environments"
+module-whatis "Configure the common tardigrade_vector_tools development bash and Conda environments"
 proc ModulesHelp {} {
     global hostname
     global environment
@@ -80,7 +80,7 @@ proc ModulesHelp {} {
     global environment_bin
     global environment_man
 
-    puts stderr "\nvector_tools modulefiles debugging information"
+    puts stderr "\ntardigrade_vector_tools modulefiles debugging information"
     puts stderr "hostname: $hostname"
     puts stderr "environment: $environment"
     puts stderr "software_prefix: $software_prefix"
