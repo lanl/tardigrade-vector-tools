@@ -4,7 +4,7 @@
 conflict aea-release
 conflict aea-beta
 conflict waves-env
-conflict error_tools-env
+conflict tardigrade_error_tools-env
 conflict abaqus_tools-env
 conflict cpp_stub-env
 

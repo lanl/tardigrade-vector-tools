@@ -39,13 +39,13 @@ requirements:
     - setuptools_scm >=6.2
     - cmake >=3.18
     - eigen >=3.3.7
-    - error_tools >=0.6
+    - tardigrade_error_tools >=0.6
     - boost >=1.59  # TODO: Separate the package/test configuration to make BOOST an optional build dependency
     - doxygen  # TODO: Separate the package/documentation configuration to make Doxygen an optional build dependency
     - sphinx  # TODO: Separate the package/documentation configuration to make Sphinx an optional build dependency
   run:
     - eigen >=3.3.7
-    - error_tools >=0.6
+    - tardigrade_error_tools >=0.6
     - libgcc-ng     # [linux]
     - libstdcxx-ng  # [linux]
     - libcxx        # [osx]

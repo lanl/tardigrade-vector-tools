@@ -57,7 +57,7 @@ string(TOLOWER "${CMAKE_BUILD_TYPE}" cmake_build_type_lower)
 
 # Find related, but external, projects in installed environment
 include(FetchContent)
-set(upstream_packages "error_tools")
+set(upstream_packages "tardigrade_error_tools")
 foreach(package ${upstream_packages})
     string(TOUPPER "${package}" package_upper)
     find_package(${package} ${upstream_required} CONFIG)
