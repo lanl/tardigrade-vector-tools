@@ -10,7 +10,7 @@
 .. _`PEP-8`: https://www.python.org/dev/peps/pep-0008/
 
 #############
-vector\_tools
+tardigrade_vector_tools
 #############
 
 *******************
@@ -25,8 +25,8 @@ not need to be used explicitly in the user's code.
 Information
 ===========
 
-* Documentation: https://aea.re-pages.lanl.gov/material-models/vector_tools
-* Wiki: https://re-git.lanl.gov/aea/material-models/vector_tools/-/wikis/home
+* Documentation: https://aea.re-pages.lanl.gov/material-models/tardigrade_vector_tools
+* Wiki: https://re-git.lanl.gov/aea/material-models/tardigrade_vector_tools/-/wikis/home
 
 Developers
 ==========
@@ -55,7 +55,7 @@ configuration inspection, e.g. the extension packages.
 .. code-block:: bash
 
    $ pwd
-   path/to/vector_tools/
+   path/to/tardigrade_vector_tools/
    $ pipreqs --use-local --print --no-pin .
 
 A minimal anaconda environment for building the documentation can be created
@@ -94,14 +94,14 @@ Build on sstelmo
    .. code-block:: bash
 
      $ module use /projects/aea_compute/modulefiles
-     $ module load vector_tools-env
+     $ module load tardigrade_vector_tools-env
 
 2) Create the build directory and move there
 
    .. code-block:: bash
 
      $ pwd
-     /path/to/vector_tools/
+     /path/to/tardigrade_vector_tools/
      $ mkdir build/
      $ cd build/
 
@@ -110,7 +110,7 @@ Build on sstelmo
    .. code-block:: bash
 
       $ pwd
-      /path/to/vector_tools/build/
+      /path/to/tardigrade_vector_tools/build/
       $ cmake ..
 
 4) Display target options
@@ -139,14 +139,14 @@ Build on sstelmo
 
    .. code-block:: bash
 
-      vector_tools/build/docs/sphinx/html/index.html
+      tardigrade_vector_tools/build/docs/sphinx/html/index.html
 
 6) Display docs
 
    .. code-block:: bash
 
       $ pwd
-      /path/to/vector_tools/build/
+      /path/to/tardigrade_vector_tools/build/
       $ firefox docs/sphinx/html/index.html &
 
 7) While the Sphinx API is still a WIP, try the doxygen API
@@ -154,7 +154,7 @@ Build on sstelmo
    .. code-block:: bash
 
      $ pwd
-     /path/to/vector_tools/build/
+     /path/to/tardigrade_vector_tools/build/
      $ firefox docs/doxygen/html/index.html &
 
 ---

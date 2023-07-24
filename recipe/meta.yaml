@@ -1,5 +1,5 @@
 package:
-  name: vector_tools
+  name: tardigrade_vector_tools
   # TODO: setup and use pyproject.toml and a Conda build Jinja template
   version: {{ VERSION }}
 
@@ -62,10 +62,10 @@ test:
   source_files:
     - CMakeLists.txt
     - src/cpp/tests/CMakeLists.txt
-    - src/cpp/tests/test_vector_tools.cpp
+    - src/cpp/tests/test_tardigrade_vector_tools.cpp
   commands:
     - mkdir build-package
     - cd build-package
     - cmake .. -DCMAKE_BUILD_TYPE=conda-test -DCMAKE_INSTALL_LIBDIR=lib
-    - cmake --build . --target test_vector_tools
-    - ctest -R test_vector_tools
+    - cmake --build . --target test_tardigrade_vector_tools
+    - ctest -R test_tardigrade_vector_tools

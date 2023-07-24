@@ -1,14 +1,14 @@
 /**
   *****************************************************************************
-  * \file vector_tools.h
+  * \file tardigrade_vector_tools.h
   *****************************************************************************
   * A collection of functions and related utilities intended to help perform
   * vector operations in cpp.
   *****************************************************************************
   */
 
-#ifndef VECTOR_TOOLS_H
-#define VECTOR_TOOLS_H
+#ifndef TARDIGRADE_VECTOR_TOOLS_H
+#define TARDIGRADE_VECTOR_TOOLS_H
 
 #include<tardigrade_error_tools.h>
 #include<stdio.h>
@@ -92,7 +92,7 @@ std::vector<T>& operator/=(std::vector<T> &lhs, const t rhs);
 template<typename T, typename t>
 std::vector<T> operator/(std::vector<T> lhs, const t rhs);
 
-namespace vectorTools{
+namespace tardigradeVectorTools{
     //Type definitions
 
     /** Definition of the standard size type */
@@ -339,5 +339,5 @@ namespace vectorTools{
 
 }
 
-#include "vector_tools.cpp"
+#include "tardigrade_vector_tools.cpp"
 #endif

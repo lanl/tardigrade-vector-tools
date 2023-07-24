@@ -1,13 +1,13 @@
 /**
   *****************************************************************************
-  * \file vector_tools.cpp
+  * \file tardigrade_vector_tools.cpp
   *****************************************************************************
   * A collection of functions and related utilities intended to help perform
   * vector operations in cpp.
   *****************************************************************************
   */
 
-#include "vector_tools.h"
+#include "tardigrade_vector_tools.h"
 
 //Operator overloading
 template<typename T>
@@ -23,7 +23,7 @@ std::vector<T>& operator+=(std::vector<T> &lhs, const std::vector<T> &rhs){
         TARDIGRADE_ERROR_TOOLS_CATCH( throw std::length_error("vectors must be the same size to add") );
     }
 
-    for (vectorTools::size_type i=0; i<lhs.size(); i++){
+    for (tardigradeVectorTools::size_type i=0; i<lhs.size(); i++){
         lhs[i] += rhs[i];
     }
     return lhs;
@@ -38,7 +38,7 @@ std::vector<T>& operator+=(std::vector<T> &lhs, const T &rhs){
      * \param &rhs: The scalar being added to the vector
      */
 
-    for (vectorTools::size_type i=0; i<lhs.size(); i++){
+    for (tardigradeVectorTools::size_type i=0; i<lhs.size(); i++){
         lhs[i] += rhs;
     }
     return lhs;
@@ -91,7 +91,7 @@ std::vector<T> operator-(std::vector<T> v){
      * \param &v: The vector in question
      */
 
-    for (vectorTools::size_type i=0; i<v.size(); i++){
+    for (tardigradeVectorTools::size_type i=0; i<v.size(); i++){
         v[i] = -v[i];
     }
     return v;
@@ -164,7 +164,7 @@ std::vector<T>& operator*=(std::vector<T> &lhs, const t rhs){
      * \param lhs: The left-hand side vector
      * \param rhs: The right-hand side scalar
      */
-    for (vectorTools::size_type i=0; i<lhs.size(); i++){
+    for (tardigradeVectorTools::size_type i=0; i<lhs.size(); i++){
         lhs[i] *= rhs;
     }
     return lhs;
@@ -291,7 +291,7 @@ std::vector< std::vector< T > > operator-(std::vector< std::vector< T > > lhs, c
     return lhs -= rhs;
 }
 
-namespace vectorTools{
+namespace tardigradeVectorTools{
 
     //Computation Utilities
     template<typename T>
@@ -1895,7 +1895,7 @@ namespace vectorTools{
                 dX = -solveLinearSystem(J, R, rank);
                 if (rank < dX.size()){
                     std::cout << "niter: " << niter << "\n";
-                    vectorTools::print(J);
+                    tardigradeVectorTools::print(J);
                     TARDIGRADE_ERROR_TOOLS_CATCH( throw std::invalid_argument("J is rank defficent") );
                 }
 
@@ -2023,13 +2023,13 @@ namespace vectorTools{
 
             if ( left ){
 
-                Usqrd = vectorTools::matrixMultiply( A, A, nrows, ncols, ncols, nrows, 0, 1 );
+                Usqrd = tardigradeVectorTools::matrixMultiply( A, A, nrows, ncols, ncols, nrows, 0, 1 );
                 Urows = nrows;
 
             }
             else{
 
-                Usqrd = vectorTools::matrixMultiply( A, A, ncols, nrows, nrows, ncols, 1, 0 );
+                Usqrd = tardigradeVectorTools::matrixMultiply( A, A, ncols, nrows, nrows, ncols, 1, 0 );
                 Urows = ncols;
 
             }
@@ -2038,16 +2038,16 @@ namespace vectorTools{
             U = matrixSqrt( Usqrd, Urows );
 
             // Compute the rotation matrix
-            std::vector< double > Uinv = vectorTools::inverse( U, nrows, ncols );
+            std::vector< double > Uinv = tardigradeVectorTools::inverse( U, nrows, ncols );
 
             if ( left ){
 
-                R = vectorTools::matrixMultiply( Uinv, A, nrows, nrows, nrows, ncols, 0, 0 );
+                R = tardigradeVectorTools::matrixMultiply( Uinv, A, nrows, nrows, nrows, ncols, 0, 0 );
 
             }
             else{
 
-                R = vectorTools::matrixMultiply( A, Uinv, nrows, ncols, ncols, ncols, 0, 0 );
+                R = tardigradeVectorTools::matrixMultiply( A, Uinv, nrows, ncols, ncols, ncols, 0, 0 );
 
             }
 

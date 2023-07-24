@@ -1,6 +1,6 @@
 #===================================================================================================== PROJECT SETUP ===
 cmake_minimum_required(VERSION 3.14)
-project(vector_tools VERSION 0.2.0)
+project(tardigrade_vector_tools VERSION 0.2.0)
 
 # Set common project paths relative to project root directory
 set(CPP_SRC_PATH "src/cpp")

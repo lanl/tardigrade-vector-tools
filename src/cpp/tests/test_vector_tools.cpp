@@ -1,7 +1,7 @@
 /**
-  * \file test_vector_tools.cpp
+  * \file test_tardigrade_vector_tools.cpp
   *
-  * Tests for vector_tools
+  * Tests for tardigrade_vector_tools
   */
 
 #include<vector>
@@ -9,9 +9,9 @@
 #include<fstream>
 #include<math.h>
 #define USE_EIGEN
-#include<vector_tools.h>
+#include<tardigrade_vector_tools.h>
 
-#define BOOST_TEST_MODULE test_vector_tools
+#define BOOST_TEST_MODULE test_tardigrade_vector_tools
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/tools/output_test_stream.hpp>
 
@@ -57,28 +57,28 @@ BOOST_AUTO_TEST_CASE( test_addition_operators ){
 
     a += b;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { -1, 9, 5 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( a, { -1, 9, 5 } ) );
 
     c = a + b;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { -3, 16, 7 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( c, { -3, 16, 7 } ) );
 
     a += 1.;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
 
     c = a + 2.;
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 2, 12, 8 } ) && vectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( c, { 2, 12, 8 } ) && tardigradeVectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
 
     c = 2. + a;
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 2, 12, 8 } ) && vectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( c, { 2, 12, 8 } ) && tardigradeVectorTools::fuzzyEquals( a, { 0, 10, 6 } ) );
 
     A += B;
-    BOOST_CHECK( vectorTools::fuzzyEquals( A, { { 0,  -1,  0 },
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( A, { { 0,  -1,  0 },
                                                 { 6,  10, 12 } } ) );
 
     C = A + B;
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { { -1, -4, -3 },
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( C, { { -1, -4, -3 },
                                                 {  8, 15, 18 } } ) );
 
 }
@@ -99,35 +99,35 @@ BOOST_AUTO_TEST_CASE( test_subtraction_operators ){
     matrixType C;
 
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( -a, { -1, -2, -3 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( -a, { -1, -2, -3 } ) );
 
     a -= b;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 3, -5, 1 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( a, { 3, -5, 1 } ) );
 
     c = a - b;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 5, -12, -1 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( c, { 5, -12, -1 } ) );
 
     a -= 1.;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
 
     c = a - 2.;
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, -8, -2 } ) && vectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( c, { 0, -8, -2 } ) && tardigradeVectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
 
     c = 2. - a;
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, 8, 2 } ) && vectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( c, { 0, 8, 2 } ) && tardigradeVectorTools::fuzzyEquals( a, { 2, -6, 0 } ) );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( -A, { { -1, -2, -3 },
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( -A, { { -1, -2, -3 },
                                                  { -4, -5, -6 } } ) );
 
     A -= B;
-    BOOST_CHECK( vectorTools::fuzzyEquals( A, { { 2, 5, 6 },
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( A, { { 2, 5, 6 },
                                                 { 2, 0, 0 } } ) );
 
     C = A - B;
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { { 3,  8,  9 },
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( C, { { 3,  8,  9 },
                                                 { 0, -5, -6 } } ) );
 
 }
@@ -143,12 +143,12 @@ BOOST_AUTO_TEST_CASE( test_multiplication_operators ){
 
     a *= 2;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 2, 4, 6 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( a, { 2, 4, 6 } ) );
 
     b = 3*a;
     c = a*3;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( b, c ) && vectorTools::fuzzyEquals( b, { 6, 12, 18 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( b, c ) && tardigradeVectorTools::fuzzyEquals( b, { 6, 12, 18 } ) );
 
 }
 
@@ -163,11 +163,11 @@ BOOST_AUTO_TEST_CASE( test_division_operators ){
 
     a /= 2;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { 0.5, 1, 1.5 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( a, { 0.5, 1, 1.5 } ) );
 
     b = a/2;
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( b, { 0.25, 0.5, 0.75 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( b, { 0.25, 0.5, 0.75 } ) );
 
 }
 
@@ -182,12 +182,12 @@ BOOST_AUTO_TEST_CASE( test_computeMean ){
 
     vectorType answer = { -1./3, 7, 8.8/6, 5 + 1/3. };
     vectorType result;
-    vectorTools::computeMean( A, result );
+    tardigradeVectorTools::computeMean( A, result );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( result, answer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( result, answer ) );
 
-    result = vectorTools::computeMean( A );
-    BOOST_CHECK( vectorTools::fuzzyEquals( result, answer ) );
+    result = tardigradeVectorTools::computeMean( A );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( result, answer ) );
 
 }
 
@@ -200,20 +200,20 @@ BOOST_AUTO_TEST_CASE( test_cross ){
     vectorType b = { -1, 7 };
     vectorType c;
 
-    vectorTools::cross( a, b, c );
+    tardigradeVectorTools::cross( a, b, c );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { 0, 0, 9 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( c, { 0, 0, 9 } ) );
 
     a = {  1, 2, 3 };
     b = { -1, 7, -3 };
 
-    vectorTools::cross( a, b, c );
+    tardigradeVectorTools::cross( a, b, c );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { -27, 0, 9 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( c, { -27, 0, 9 } ) );
 
-    c = vectorTools::cross( a, b );
+    c = tardigradeVectorTools::cross( a, b );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( c, { -27, 0, 9 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( c, { -27, 0, 9 } ) );
 
 }
 
@@ -226,29 +226,29 @@ BOOST_AUTO_TEST_CASE( test_dot ){
     vectorType b = { -1, 7, 6 };
     floatType c;
 
-    vectorTools::dot( a, b, c );
+    tardigradeVectorTools::dot( a, b, c );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, -1 + 14 + 18 ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals<floatType>( c, -1 + 14 + 18 ) );
 
-    c = vectorTools::dot( a, b );
-    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, -1 + 14 + 18 ) );
+    c = tardigradeVectorTools::dot( a, b );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals<floatType>( c, -1 + 14 + 18 ) );
 
     matrixType A = { { 1, 2, 3 },
                      { 4, 5, 6 },
                      { 7, 8, 9 } };
     vectorType d;
 
-    d = vectorTools::dot( A, a );
+    d = tardigradeVectorTools::dot( A, a );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( d, { 14, 32, 50 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( d, { 14, 32, 50 } ) );
 
     matrixType B = { { 10, 11, 12 },
                      { 13, 14, 15 },
                      { 16, 17, 18 } };
 
-    matrixType C = vectorTools::dot( A, B );
+    matrixType C = tardigradeVectorTools::dot( A, B );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { {  84,  90,  96 },
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( C, { {  84,  90,  96 },
                                                 { 201, 216, 231 },
                                                 { 318, 342, 366 } } ) );
 
@@ -270,7 +270,7 @@ BOOST_AUTO_TEST_CASE( test_dotT ){
                           { 167, 212 },
                           { 266, 338 } };
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::dotT( A, B ), answer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::dotT( A, B ), answer ) );
 
 }
 
@@ -295,9 +295,9 @@ BOOST_AUTO_TEST_CASE( test_Tdot ){
 
     vectorType vectorAnswer = { 66, 81, 96 };
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::Tdot( A, B ), matrixAnswer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::Tdot( A, B ), matrixAnswer ) );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::Tdot( A, b ), vectorAnswer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::Tdot( A, b ), vectorAnswer ) );
 
 }
 
@@ -317,7 +317,7 @@ BOOST_AUTO_TEST_CASE( test_TdotT ){
                           { 171, 216 },
                           { 204, 258 } };
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::TdotT( A, B ), answer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::TdotT( A, B ), answer ) );
 
 }
 
@@ -337,21 +337,21 @@ BOOST_AUTO_TEST_CASE( test_inner ){
 
     //Test inner product of row major matrices
     result = 0.;
-    vectorTools::inner( Avec, Bvec, result );
-    BOOST_CHECK( vectorTools::fuzzyEquals( result, expected ) );
+    tardigradeVectorTools::inner( Avec, Bvec, result );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( result, expected ) );
 
     result = 0.;
-    result = vectorTools::inner( Avec, Bvec );
-    BOOST_CHECK( vectorTools::fuzzyEquals( result, expected ) );
+    result = tardigradeVectorTools::inner( Avec, Bvec );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( result, expected ) );
 
     //Test inner product of matrices
     result = 0.;
-    vectorTools::inner( A, B, result );
-    BOOST_CHECK( vectorTools::fuzzyEquals( result, expected ) );
+    tardigradeVectorTools::inner( A, B, result );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( result, expected ) );
 
     result = 0.;
-    result = vectorTools::inner( A, B );
-    BOOST_CHECK( vectorTools::fuzzyEquals( result, expected ) );
+    result = tardigradeVectorTools::inner( A, B );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( result, expected ) );
 
 }
 
@@ -365,9 +365,9 @@ BOOST_AUTO_TEST_CASE( test_trace ){
                      0., 0., 1. };
     floatType c;
 
-    vectorTools::trace( a, c );
+    tardigradeVectorTools::trace( a, c );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
     //TODO: Refactor with boost or pytest
     vectorType b = { 1., 0., 0.,
@@ -375,23 +375,23 @@ BOOST_AUTO_TEST_CASE( test_trace ){
                      0., 1., 0.,
                      0., 0., 1. };
 
-    BOOST_CHECK_THROW( vectorTools::trace( b, c ), std::runtime_error );
+    BOOST_CHECK_THROW( tardigradeVectorTools::trace( b, c ), std::runtime_error );
 
     c = 0.;
-    c = vectorTools::trace( a );
-    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
+    c = tardigradeVectorTools::trace( a );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
     matrixType A = { { 1., 0., 0. },
                      { 0., 1., 0. },
                      { 0., 0., 1. } };
 
     c = 0.;
-    vectorTools::trace( A, c );
-    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
+    tardigradeVectorTools::trace( A, c );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
     c = 0.;
-    c = vectorTools::trace( A );
-    BOOST_CHECK( vectorTools::fuzzyEquals<floatType>( c, 3. ) );
+    c = tardigradeVectorTools::trace( A );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals<floatType>( c, 3. ) );
 
 }
 
@@ -404,11 +404,11 @@ BOOST_AUTO_TEST_CASE( test_l2norm ){
     matrixType A = { { 1, 2, 3, 4 },
                      { 5, 6, 7, 8 } };
 
-    double r = vectorTools::l2norm( a );
-    BOOST_CHECK( vectorTools::fuzzyEquals( r, 3.7416573867739413 ) );
+    double r = tardigradeVectorTools::l2norm( a );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( r, 3.7416573867739413 ) );
 
-    r = vectorTools::l2norm( A );
-    BOOST_CHECK( vectorTools::fuzzyEquals( r, 14.2828568570857 ) );
+    r = tardigradeVectorTools::l2norm( A );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( r, 14.2828568570857 ) );
 
 }
 
@@ -449,11 +449,11 @@ BOOST_AUTO_TEST_CASE( test_unitVector ){
     };
 
     for ( unsigned int i=0; i<vector_int.size( ); i++ ){
-        answer = vectorTools::unitVector( vector_int[ i ] );
+        answer = tardigradeVectorTools::unitVector( vector_int[ i ] );
         BOOST_TEST( answer == expected[ i ], boost::test_tools::per_element( ) );
 
         vector_double = std::vector< double >( vector_int[ i ].begin( ), vector_int[ i ].end( ) );
-        answer = vectorTools::unitVector( vector_double );
+        answer = tardigradeVectorTools::unitVector( vector_double );
         BOOST_TEST( answer == expected[ i ], boost::test_tools::per_element( ) );
     }
 }
@@ -464,9 +464,9 @@ BOOST_AUTO_TEST_CASE( test_argsort ){
      */
 
     vectorType a = { 1, -2, 7, 3, 9, 11 };
-    std::vector< unsigned int > idx = vectorTools::argsort( a );
+    std::vector< unsigned int > idx = tardigradeVectorTools::argsort( a );
 
-    BOOST_CHECK( vectorTools::equals( idx, { 1, 0, 3, 2, 4, 5 } ) );
+    BOOST_CHECK( tardigradeVectorTools::equals( idx, { 1, 0, 3, 2, 4, 5 } ) );
 
 }
 
@@ -478,7 +478,7 @@ BOOST_AUTO_TEST_CASE( test_fuzzyEquals ){
     matrixType a = { {   1,  -2,        3, 2.4,    1e-9, -1e-7 },
                      { 1.4, 8.5, 1 + 1e-9,   4, -2+1e-3,   100 } };
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( a, { {   1,  -2, 3, 2.4,            0,        0 },
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( a, { {   1,  -2, 3, 2.4,            0,        0 },
                                                 { 1.4, 8.5, 1,   4, -2+1e-3+1e-9, 100+1e-4 } } ) );
 
 }
@@ -494,19 +494,19 @@ BOOST_AUTO_TEST_CASE( test_equals ){
                                                      { 4, 5, 6 },
                                                      { 7, 8, 9 } };
 
-    BOOST_CHECK( vectorTools::equals<unsigned int>( a, 1 ) );
+    BOOST_CHECK( tardigradeVectorTools::equals<unsigned int>( a, 1 ) );
 
-    BOOST_CHECK( !vectorTools::equals<unsigned int>( a, 2 ) );
+    BOOST_CHECK( !tardigradeVectorTools::equals<unsigned int>( a, 2 ) );
 
-    BOOST_CHECK( vectorTools::equals( v, { 1, 2, 3, 4 } ) );
+    BOOST_CHECK( tardigradeVectorTools::equals( v, { 1, 2, 3, 4 } ) );
 
-    BOOST_CHECK( !vectorTools::equals( v, { 1, 2, 2, 4 } ) );
+    BOOST_CHECK( !tardigradeVectorTools::equals( v, { 1, 2, 2, 4 } ) );
 
-    BOOST_CHECK( vectorTools::equals( m, { { 1, 2, 3 },
+    BOOST_CHECK( tardigradeVectorTools::equals( m, { { 1, 2, 3 },
                                            { 4, 5, 6 },
                                            { 7, 8, 9 } } ) );
 
-    BOOST_CHECK( !vectorTools::equals( m, { { 1, 2, 3 },
+    BOOST_CHECK( !tardigradeVectorTools::equals( m, { { 1, 2, 3 },
                                             { 4, 5, 4 },
                                             { 7, 8, 9 } } ) );
 
@@ -515,42 +515,42 @@ BOOST_AUTO_TEST_CASE( test_equals ){
 BOOST_AUTO_TEST_CASE( test_verifyLength ){
 
     std::vector< double > testVectorDouble = { 1. };
-    BOOST_CHECK_NO_THROW( vectorTools::verifyLength( testVectorDouble, 1 ) );
-    BOOST_CHECK_THROW( vectorTools::verifyLength( testVectorDouble, 2 ), std::runtime_error );
+    BOOST_CHECK_NO_THROW( tardigradeVectorTools::verifyLength( testVectorDouble, 1 ) );
+    BOOST_CHECK_THROW( tardigradeVectorTools::verifyLength( testVectorDouble, 2 ), std::runtime_error );
 
     std::vector< int > testVectorInt = { 1 };
-    BOOST_CHECK_NO_THROW( vectorTools::verifyLength( testVectorInt, 1 ) );
-    BOOST_CHECK_THROW( vectorTools::verifyLength( testVectorInt, 2 ), std::runtime_error );
+    BOOST_CHECK_NO_THROW( tardigradeVectorTools::verifyLength( testVectorInt, 1 ) );
+    BOOST_CHECK_THROW( tardigradeVectorTools::verifyLength( testVectorInt, 2 ), std::runtime_error );
 
     std::vector< std::vector< double > > testNestedVectorDouble = { { 1. }, { 2. } };
     std::vector< std::vector< double > > testNestedVectorDoubleLonger = { { 1. }, { 2. }, { 3. } };
     std::vector< std::vector< double > > testNestedVectorDoubleLongerRagged = { { 1. }, { 2., 3. } };
-    BOOST_CHECK_NO_THROW( vectorTools::verifyLength( testNestedVectorDouble, testNestedVectorDouble ) );
+    BOOST_CHECK_NO_THROW( tardigradeVectorTools::verifyLength( testNestedVectorDouble, testNestedVectorDouble ) );
     BOOST_CHECK_NO_THROW(
-        vectorTools::verifyLength( testNestedVectorDoubleLongerRagged, testNestedVectorDoubleLongerRagged )
+        tardigradeVectorTools::verifyLength( testNestedVectorDoubleLongerRagged, testNestedVectorDoubleLongerRagged )
     );
     BOOST_CHECK_THROW(
-        vectorTools::verifyLength( testNestedVectorDouble, testNestedVectorDoubleLonger ),
+        tardigradeVectorTools::verifyLength( testNestedVectorDouble, testNestedVectorDoubleLonger ),
         std::runtime_error
     );
     BOOST_CHECK_THROW(
-        vectorTools::verifyLength( testNestedVectorDouble, testNestedVectorDoubleLongerRagged ),
+        tardigradeVectorTools::verifyLength( testNestedVectorDouble, testNestedVectorDoubleLongerRagged ),
         std::runtime_error
     );
 
     std::vector< std::vector< int > > testNestedVectorInt = { { 1 }, { 2 } };
     std::vector< std::vector< int > > testNestedVectorIntLonger = { { 1 }, { 2 }, { 3 } };
     std::vector< std::vector< int > > testNestedVectorIntLongerRagged = { { 1 }, { 2, 3 } };
-    BOOST_CHECK_NO_THROW( vectorTools::verifyLength( testNestedVectorInt, testNestedVectorInt ) );
+    BOOST_CHECK_NO_THROW( tardigradeVectorTools::verifyLength( testNestedVectorInt, testNestedVectorInt ) );
     BOOST_CHECK_NO_THROW(
-        vectorTools::verifyLength( testNestedVectorIntLongerRagged, testNestedVectorIntLongerRagged )
+        tardigradeVectorTools::verifyLength( testNestedVectorIntLongerRagged, testNestedVectorIntLongerRagged )
     );
     BOOST_CHECK_THROW(
-        vectorTools::verifyLength( testNestedVectorInt, testNestedVectorIntLonger ),
+        tardigradeVectorTools::verifyLength( testNestedVectorInt, testNestedVectorIntLonger ),
         std::runtime_error
     );
     BOOST_CHECK_THROW(
-        vectorTools::verifyLength( testNestedVectorInt, testNestedVectorIntLongerRagged ),
+        tardigradeVectorTools::verifyLength( testNestedVectorInt, testNestedVectorIntLongerRagged ),
         std::runtime_error
     );
 }
@@ -568,15 +568,15 @@ BOOST_AUTO_TEST_CASE( test_getValuesByIndex ){
                      { 10, 11, 12 },
                      { 13, 14, 15 } };
 
-    std::vector< vectorTools::size_type > indices = { 1, 3, 0 };
+    std::vector< tardigradeVectorTools::size_type > indices = { 1, 3, 0 };
 
     vectorType rv;
-    vectorTools::getValuesByIndex( v, indices, rv );
-    BOOST_CHECK( vectorTools::fuzzyEquals( rv, { 2, 4, 1 } ) );
+    tardigradeVectorTools::getValuesByIndex( v, indices, rv );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( rv, { 2, 4, 1 } ) );
 
     matrixType rm;
-    vectorTools::getValuesByIndex( m, indices, rm );
-    BOOST_CHECK( vectorTools::fuzzyEquals( rm, { { 4, 5, 6 }, { 10, 11, 12 }, { 1, 2, 3 } } ) );
+    tardigradeVectorTools::getValuesByIndex( m, indices, rm );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( rm, { { 4, 5, 6 }, { 10, 11, 12 }, { 1, 2, 3 } } ) );
 
 }
 
@@ -586,16 +586,16 @@ BOOST_AUTO_TEST_CASE( test_appendVectors ){
      */
 
     matrixType m = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-    vectorType v = vectorTools::appendVectors( m );
+    vectorType v = tardigradeVectorTools::appendVectors( m );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( v, { 1, 2, 3, 4, 5, 6, 7, 8, 9 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( v, { 1, 2, 3, 4, 5, 6, 7, 8, 9 } ) );
 
     v.clear( );
     vectorType v1 = { 1, 7, 5 };
     vectorType v2 = { 4, 6, 2 };
-    v = vectorTools::appendVectors( { v1, v2 } );
+    v = tardigradeVectorTools::appendVectors( { v1, v2 } );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( v, { 1, 7, 5, 4, 6, 2 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( v, { 1, 7, 5, 4, 6, 2 } ) );
 
 }
 
@@ -735,28 +735,28 @@ BOOST_AUTO_TEST_CASE ( test_rotationMatrix, * boost::unit_test::tolerance( 1.0e-
     for ( unsigned int i=0; i<bungeEulerAngles.size( ); i++ ){
 
         // Matrix directionCosines interface
-        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosines );
-        BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expectedDirectionCosines[ i ] ),
+        tardigradeVectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosines );
+        BOOST_TEST( tardigradeVectorTools::appendVectors( directionCosines ) == tardigradeVectorTools::appendVectors( expectedDirectionCosines[ i ] ),
                     boost::test_tools::per_element( ) );
         // Row-major vector interface
-        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosinesVector );
-        BOOST_TEST( directionCosinesVector == vectorTools::appendVectors( expectedDirectionCosines[ i ] ),
+        tardigradeVectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosinesVector );
+        BOOST_TEST( directionCosinesVector == tardigradeVectorTools::appendVectors( expectedDirectionCosines[ i ] ),
                     boost::test_tools::per_element( ) );
         // Matrix directionCosines and partial derivatives interface
-        vectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosines,
+        tardigradeVectorTools::rotationMatrix( bungeEulerAngles[ i ], directionCosines,
                                      dDirectionCosinesdAlpha,
                                      dDirectionCosinesdBeta,
                                      dDirectionCosinesdGamma );
-        BOOST_TEST( vectorTools::appendVectors( directionCosines ) == vectorTools::appendVectors( expectedDirectionCosines[ i ] ),
+        BOOST_TEST( tardigradeVectorTools::appendVectors( directionCosines ) == tardigradeVectorTools::appendVectors( expectedDirectionCosines[ i ] ),
                     boost::test_tools::per_element( ) );
-        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdAlpha ) ==
-                        vectorTools::appendVectors( expected_dDirectionCosinesdAlpha[ i ] ),
+        BOOST_TEST( tardigradeVectorTools::appendVectors( dDirectionCosinesdAlpha ) ==
+                        tardigradeVectorTools::appendVectors( expected_dDirectionCosinesdAlpha[ i ] ),
                     boost::test_tools::per_element( ) );
-        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdBeta ) ==
-                        vectorTools::appendVectors( expected_dDirectionCosinesdBeta[ i ] ),
+        BOOST_TEST( tardigradeVectorTools::appendVectors( dDirectionCosinesdBeta ) ==
+                        tardigradeVectorTools::appendVectors( expected_dDirectionCosinesdBeta[ i ] ),
                     boost::test_tools::per_element( ) );
-        BOOST_TEST( vectorTools::appendVectors( dDirectionCosinesdGamma ) ==
-                        vectorTools::appendVectors( expected_dDirectionCosinesdGamma[ i ] ),
+        BOOST_TEST( tardigradeVectorTools::appendVectors( dDirectionCosinesdGamma ) ==
+                        tardigradeVectorTools::appendVectors( expected_dDirectionCosinesdGamma[ i ] ),
                     boost::test_tools::per_element( ) );
 
     }
@@ -778,34 +778,34 @@ BOOST_AUTO_TEST_CASE( test_solveLinearSystem ){
 
     unsigned int rank;
 
-    vectorType xAnswer = vectorTools::solveLinearSystem( A, b, rank );
+    vectorType xAnswer = tardigradeVectorTools::solveLinearSystem( A, b, rank );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( xSolution, xAnswer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( xSolution, xAnswer ) );
 
-    BOOST_CHECK( vectorTools::equals<unsigned int>( rank, 3 ) );
+    BOOST_CHECK( tardigradeVectorTools::equals<unsigned int>( rank, 3 ) );
 
-    vectorTools::solverType< floatType > linearSolver;
-    xAnswer = vectorTools::solveLinearSystem( A, b, rank, linearSolver );
+    tardigradeVectorTools::solverType< floatType > linearSolver;
+    xAnswer = tardigradeVectorTools::solveLinearSystem( A, b, rank, linearSolver );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( xSolution, xAnswer )  );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( xSolution, xAnswer )  );
 
-    BOOST_CHECK( vectorTools::equals< unsigned int >( rank, 3 )  );
+    BOOST_CHECK( tardigradeVectorTools::equals< unsigned int >( rank, 3 )  );
 
     xAnswer = vectorType( 3, 0 );
     Eigen::Map< Eigen::MatrixXd > xmat( xAnswer.data( ), 3, 1 );
     Eigen::Map< const Eigen::MatrixXd > bmat( b.data( ), 3, 1 );
     xmat = linearSolver.solve( bmat );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( xSolution, xAnswer )  );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( xSolution, xAnswer )  );
 
     A = { { 2 } };
     b = { 7 };
 
     xSolution = { 3.5 };
 
-    xAnswer = vectorTools::solveLinearSystem( A, b, rank );
+    xAnswer = tardigradeVectorTools::solveLinearSystem( A, b, rank );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( xAnswer, xSolution )  );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( xAnswer, xSolution )  );
 
 }
 
@@ -817,18 +817,18 @@ BOOST_AUTO_TEST_CASE( test_isParallel ){
     vectorType v1 = { 1, 2, 3 };
     vectorType v2 = { 2, 4, 6 };
 
-    BOOST_CHECK( vectorTools::isParallel( v1, v2 ) );
+    BOOST_CHECK( tardigradeVectorTools::isParallel( v1, v2 ) );
 
     v1 = { 0, 2, 3 };
-    BOOST_CHECK( !vectorTools::isParallel( v1, v2 ) );
+    BOOST_CHECK( !tardigradeVectorTools::isParallel( v1, v2 ) );
 
     std::vector< int > v3 = { 1, 2, 3 };
     std::vector< int > v4 = { 2, 4, 6 };
 
-    BOOST_CHECK( vectorTools::isParallel( v3, v4 ) );
+    BOOST_CHECK( tardigradeVectorTools::isParallel( v3, v4 ) );
 
     v3[ 0 ] = 0;
-    BOOST_CHECK( !vectorTools::isParallel( v3, v4 ) );
+    BOOST_CHECK( !tardigradeVectorTools::isParallel( v3, v4 ) );
 
 }
 
@@ -883,14 +883,14 @@ BOOST_AUTO_TEST_CASE( test_isOrthogonal_verifyOrthogonal ){
     for ( unsigned int iTest=0; iTest<v1.size( ); iTest++ ){
 
         //Not orthogonal. Return False or throw exception
-        BOOST_CHECK( !vectorTools::isOrthogonal( v1[ iTest ], v1[ iTest ] ) );
-        BOOST_CHECK( !vectorTools::isOrthogonal( v1[ iTest ], v3[ iTest ] ) );
-        BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v1[ iTest ] ), std::runtime_error );
-        BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v3[ iTest ] ), std::runtime_error );
+        BOOST_CHECK( !tardigradeVectorTools::isOrthogonal( v1[ iTest ], v1[ iTest ] ) );
+        BOOST_CHECK( !tardigradeVectorTools::isOrthogonal( v1[ iTest ], v3[ iTest ] ) );
+        BOOST_CHECK_THROW( tardigradeVectorTools::verifyOrthogonal( v1[ iTest ], v1[ iTest ] ), std::runtime_error );
+        BOOST_CHECK_THROW( tardigradeVectorTools::verifyOrthogonal( v1[ iTest ], v3[ iTest ] ), std::runtime_error );
 
         //Orthogonal. Return True or no throw.
-        BOOST_CHECK( vectorTools::isOrthogonal( v1[ iTest ], v2[ iTest ] ) );
-        BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v1[ iTest ], v2[ iTest ] ) );
+        BOOST_CHECK( tardigradeVectorTools::isOrthogonal( v1[ iTest ], v2[ iTest ] ) );
+        BOOST_CHECK_NO_THROW( tardigradeVectorTools::verifyOrthogonal( v1[ iTest ], v2[ iTest ] ) );
 
         //Cast to float for type template feature check
         std::copy( v1[ iTest ].begin( ), v1[ iTest ].end( ), back_inserter( v1Float ) );
@@ -898,14 +898,14 @@ BOOST_AUTO_TEST_CASE( test_isOrthogonal_verifyOrthogonal ){
         std::copy( v3[ iTest ].begin( ), v3[ iTest ].end( ), back_inserter( v3Float ) );
 
         //Not orthogonal. Return False or throw exception
-        BOOST_CHECK( !vectorTools::isOrthogonal( v1Float, v1Float ) );
-        BOOST_CHECK( !vectorTools::isOrthogonal( v1Float, v3Float ) );
-        BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1Float, v1Float ), std::runtime_error );
-        BOOST_CHECK_THROW( vectorTools::verifyOrthogonal( v1Float, v3Float ), std::runtime_error );
+        BOOST_CHECK( !tardigradeVectorTools::isOrthogonal( v1Float, v1Float ) );
+        BOOST_CHECK( !tardigradeVectorTools::isOrthogonal( v1Float, v3Float ) );
+        BOOST_CHECK_THROW( tardigradeVectorTools::verifyOrthogonal( v1Float, v1Float ), std::runtime_error );
+        BOOST_CHECK_THROW( tardigradeVectorTools::verifyOrthogonal( v1Float, v3Float ), std::runtime_error );
 
         //Orthogonal. Return True or no throw.
-        BOOST_CHECK( vectorTools::isOrthogonal( v1Float, v2Float ) );
-        BOOST_CHECK_NO_THROW( vectorTools::verifyOrthogonal( v1Float, v2Float ) );
+        BOOST_CHECK( tardigradeVectorTools::isOrthogonal( v1Float, v2Float ) );
+        BOOST_CHECK_NO_THROW( tardigradeVectorTools::verifyOrthogonal( v1Float, v2Float ) );
 
     }
 
@@ -918,9 +918,9 @@ BOOST_AUTO_TEST_CASE( test_dyadic ){
 
     vectorType v1 = { 1, 2, 3 };
     vectorType v2 = { 4, 5, 6 };
-    matrixType A = vectorTools::dyadic( v1, v2 );
+    matrixType A = tardigradeVectorTools::dyadic( v1, v2 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( A, { { 4,  5,  6 },
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( A, { { 4,  5,  6 },
                                                 { 8, 10, 12 },
                                                 { 12, 15, 18 } } ) );
 
@@ -935,21 +935,21 @@ BOOST_AUTO_TEST_CASE( test_eye ){
     std::vector< double > IvecExpected = { 1., 0., 0.,
                                            0., 1., 0.,
                                            0., 0., 1. };
-    vectorTools::eye( Ivec );
-    BOOST_CHECK( vectorTools::fuzzyEquals( Ivec, IvecExpected ) );
+    tardigradeVectorTools::eye( Ivec );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( Ivec, IvecExpected ) );
 
     unsigned int dim = 4;
-    std::vector< std::vector< double > > I = vectorTools::eye< double >( dim );
+    std::vector< std::vector< double > > I = tardigradeVectorTools::eye< double >( dim );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( I, { { 1, 0, 0, 0 },
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( I, { { 1, 0, 0, 0 },
                                                 { 0, 1, 0, 0 },
                                                 { 0, 0, 1, 0 },
                                                 { 0, 0, 0, 1 } } ) );
 
     I.clear( );
-    vectorTools::eye( dim, I );
+    tardigradeVectorTools::eye( dim, I );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( I, { { 1, 0, 0, 0 },
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( I, { { 1, 0, 0, 0 },
                                                 { 0, 1, 0, 0 },
                                                 { 0, 0, 1, 0 },
                                                 { 0, 0, 0, 1 } } ) );
@@ -962,13 +962,13 @@ BOOST_AUTO_TEST_CASE( test_determinant ){
      */
 
     std::vector< floatType > Avec = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 3, 3 ), 1. ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::determinant( Avec, 3, 3 ), 1. ) );
 
     Avec = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 3, 3 ), 0. ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::determinant( Avec, 3, 3 ), 0. ) );
 
     Avec = { 1, 2, 3, 4 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::determinant( Avec, 2, 2 ), -2. ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::determinant( Avec, 2, 2 ), -2. ) );
 
 }
 
@@ -985,20 +985,20 @@ BOOST_AUTO_TEST_CASE( test_inverse ){
                                         1.08701345,  1.49027454, -2.44933462,
                                        -0.30730183,  0.52776914,  0.18473576 };
 
-    std::vector< floatType > Avecinv = vectorTools::inverse( Avec, 3, 3 );
+    std::vector< floatType > Avecinv = tardigradeVectorTools::inverse( Avec, 3, 3 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( Avecinv, answer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( Avecinv, answer ) );
 
-    std::vector< std::vector< floatType > > A = vectorTools::inflate( Avec, 3, 3 );
-    std::vector< std::vector< double > > Ainv = vectorTools::inverse( A );
+    std::vector< std::vector< floatType > > A = tardigradeVectorTools::inflate( Avec, 3, 3 );
+    std::vector< std::vector< double > > Ainv = tardigradeVectorTools::inverse( A );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::appendVectors( Ainv ), answer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::appendVectors( Ainv ), answer ) );
 
 }
 
 BOOST_AUTO_TEST_CASE( test_inflate ){
     /*!
-     * Test the inflate command in vector_tools
+     * Test the inflate command in tardigrade_vector_tools
      */
 
     std::vector< floatType > Avec = { 1, 2, 3, 4,  5,
@@ -1010,9 +1010,9 @@ BOOST_AUTO_TEST_CASE( test_inflate ){
     std::vector< std::vector< floatType > > answer = { { 1, 2, 3, 4,  5 },
                                                        { 6, 7, 8, 9, 10 } };
 
-    std::vector< std::vector< floatType > > result = vectorTools::inflate( Avec, nrows, ncols );
+    std::vector< std::vector< floatType > > result = tardigradeVectorTools::inflate( Avec, nrows, ncols );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( answer, result ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( answer, result ) );
 
 }
 
@@ -1026,18 +1026,18 @@ BOOST_AUTO_TEST_CASE( test_computeDDetADA ){
                                    0.14034205,  0.15851022,  1.29640525,
                                    0.26235075, -0.26051883,  0.45378251 };
 
-    std::vector< floatType > ddetAdA = vectorTools::computeDDetADA( A, 3, 3 );
+    std::vector< floatType > ddetAdA = tardigradeVectorTools::computeDDetADA( A, 3, 3 );
 
     floatType eps = 1e-6;
-    floatType detA0 = vectorTools::determinant( A, 3, 3 );
+    floatType detA0 = tardigradeVectorTools::determinant( A, 3, 3 );
     floatType detA;
 
     for ( unsigned int i=0; i<A.size( ); i++ ){
         std::vector< floatType > delta( A.size( ), 0 );
         delta[ i ] = fabs( A[ i ]*eps );
-        detA = vectorTools::determinant( A + delta, 3, 3 );
+        detA = tardigradeVectorTools::determinant( A + delta, 3, 3 );
 
-        BOOST_CHECK( vectorTools::fuzzyEquals( ( detA - detA0 )/delta[ i ], ddetAdA[ i ] ) );
+        BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( ( detA - detA0 )/delta[ i ], ddetAdA[ i ] ) );
 
     }
 
@@ -1052,21 +1052,21 @@ BOOST_AUTO_TEST_CASE( test_matrixMultiply ){
     vectorType B = { 10, 11, 12, 13, 14, 15, 16, 17, 18 };
     vectorType C;
 
-    C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 0, 0 );
+    C = tardigradeVectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 0, 0 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 84,  90,  96, 201, 216, 231, 318, 342, 366 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( C, { 84,  90,  96, 201, 216, 231, 318, 342, 366 } ) );
 
-    C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 1, 0 );
+    C = tardigradeVectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 1, 0 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 174, 186, 198, 213, 228, 243, 252, 270, 288 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( C, { 174, 186, 198, 213, 228, 243, 252, 270, 288 } ) );
 
-    C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 0, 1 );
+    C = tardigradeVectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 0, 1 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 68,  86, 104, 167, 212, 257, 266, 338, 410 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( C, { 68,  86, 104, 167, 212, 257, 266, 338, 410 } ) );
 
-    C = vectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 1, 1 );
+    C = tardigradeVectorTools::matrixMultiply( A, B, 3, 3, 3, 3, 1, 1 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( C, { 138, 174, 210, 171, 216, 261, 204, 258, 312 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( C, { 138, 174, 210, 171, 216, 261, 204, 258, 312 } ) );
 
 }
 
@@ -1081,7 +1081,7 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
 
     vectorType R, RJ;
     matrixType J, JJ;
-    vectorTools::__matrixSqrtResidual( A, 3, X, R, J );
+    tardigradeVectorTools::__matrixSqrtResidual( A, 3, X, R, J );
 
     //Check that the Jacobian is consistent with the residual
     floatType eps = 1e-6;
@@ -1089,12 +1089,12 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrtResidual ){
         vectorType delta( X.size( ), 0 );
         delta[ i ] = eps*fabs( X[ i ] ) + eps;
 
-        vectorTools::__matrixSqrtResidual( A, 3, X + delta, RJ, JJ );
+        tardigradeVectorTools::__matrixSqrtResidual( A, 3, X + delta, RJ, JJ );
 
         vectorType gradCol = ( RJ - R )/delta[ i ];
 
         for ( unsigned int j=0; j<A.size( ); j++ ){
-            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], J[ j ][ i ] ) );
+            BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( gradCol[ j ], J[ j ][ i ] ) );
         }
     }
 
@@ -1110,28 +1110,28 @@ BOOST_AUTO_TEST_CASE( test_matrixSqrt ){
     floatType eps = 1e-6;
     vectorType gradCol;
 
-    vectorType X = vectorTools::matrixSqrt( A, 3 );
+    vectorType X = tardigradeVectorTools::matrixSqrt( A, 3 );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( A, vectorTools::matrixMultiply( X, X, dim, dim, dim, dim, 0, 0 ) ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( A, tardigradeVectorTools::matrixMultiply( X, X, dim, dim, dim, dim, 0, 0 ) ) );
 
     //Test the jacobian
     matrixType dAdX;
-    vectorType XJ = vectorTools::matrixSqrt( A, 3, dAdX );
+    vectorType XJ = tardigradeVectorTools::matrixSqrt( A, 3, dAdX );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( XJ, X ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( XJ, X ) );
 
-    vectorType dXdA = vectorTools::inverse( vectorTools::appendVectors( dAdX ), A.size( ), A.size( ) );
+    vectorType dXdA = tardigradeVectorTools::inverse( tardigradeVectorTools::appendVectors( dAdX ), A.size( ), A.size( ) );
 
     for ( unsigned int i=0; i<A.size( ); i++ ){
         vectorType delta( A.size( ), 0 );
         delta[ i ] = eps*A[ i ] + eps;
 
-        XJ = vectorTools::matrixSqrt( A + delta, 3 );
+        XJ = tardigradeVectorTools::matrixSqrt( A + delta, 3 );
 
         gradCol = ( XJ - X )/delta[ i ];
 
         for ( unsigned int j=0; j<gradCol.size( ); j++ ){
-            BOOST_CHECK( vectorTools::fuzzyEquals( gradCol[ j ], dXdA[ A.size( )*j + i ] ) );
+            BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( gradCol[ j ], dXdA[ A.size( )*j + i ] ) );
         }
     }
 
@@ -1143,10 +1143,10 @@ BOOST_AUTO_TEST_CASE( test_median ){
      */
 
     vectorType x = { 0.65353053, 0.97839806, 0.32387778, 0.13137077, 0.17253149, 0.03216338 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::median( x ), 0.24820463352966032 ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::median( x ), 0.24820463352966032 ) );
 
     x = { 0.82387829, 0.07615528, 0.89366009, 0.04843728, 0.81331188, 0.19575555, 0.02308312 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::median( x ), .19575554955487007 ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::median( x ), .19575554955487007 ) );
 
 }
 
@@ -1156,10 +1156,10 @@ BOOST_AUTO_TEST_CASE( test_abs ){
      */
 
     std::vector< double > x = { -1, 2, 3, 4, -5, 6 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( x ), { 1., 2., 3., 4., 5., 6. } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::abs( x ), { 1., 2., 3., 4., 5., 6. } ) );
 
     std::vector< int > y = { -1, 2, 3, 4, -5, 6 };
-    BOOST_CHECK( vectorTools::fuzzyEquals( vectorTools::abs( y ), { 1, 2, 3, 4, 5, 6 } ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( tardigradeVectorTools::abs( y ), { 1, 2, 3, 4, 5, 6 } ) );
 
 }
 
@@ -1171,20 +1171,20 @@ BOOST_AUTO_TEST_CASE( test_svd ){
      const vectorType A = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
      vectorType UAnswer1( 9, 0 );
-     vectorTools::eye( UAnswer1 );
+     tardigradeVectorTools::eye( UAnswer1 );
 
      vectorType SigmaAnswer1 = { 2.54368356e+01, 1.72261225e+00, 2.64839734e-16 };
 
      vectorType VAnswer1( 16, 0 );
-     vectorTools::eye( VAnswer1 );
+     tardigradeVectorTools::eye( VAnswer1 );
 
      vectorType UAnswer2( 16, 0 );
-     vectorTools::eye( UAnswer2 );
+     tardigradeVectorTools::eye( UAnswer2 );
 
      vectorType SigmaAnswer2 = { 2.54624074e+01, 1.29066168e+00, 1.38648772e-15 };
 
      vectorType VAnswer2( 9, 0 );
-     vectorTools::eye( VAnswer2 );
+     tardigradeVectorTools::eye( VAnswer2 );
 
      vectorType UResult;
      vectorType SigmaResult;
@@ -1192,31 +1192,31 @@ BOOST_AUTO_TEST_CASE( test_svd ){
 
      // Test the first orientation of A
 
-     vectorTools::svd( A, 3, 4, UResult, SigmaResult, VResult );
+     tardigradeVectorTools::svd( A, 3, 4, UResult, SigmaResult, VResult );
 
      // Check that the singular values are correct
 
-     BOOST_CHECK( vectorTools::fuzzyEquals( SigmaAnswer1, SigmaResult ) );
+     BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( SigmaAnswer1, SigmaResult ) );
 
      // Check that the left and right singular values are orthogonal
 
-     BOOST_CHECK( vectorTools::fuzzyEquals( UAnswer1, vectorTools::matrixMultiply( UResult, UResult, 3, 3, 3, 3, 0, 1 ) ) );
+     BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( UAnswer1, tardigradeVectorTools::matrixMultiply( UResult, UResult, 3, 3, 3, 3, 0, 1 ) ) );
 
-     BOOST_CHECK( vectorTools::fuzzyEquals( VAnswer1, vectorTools::matrixMultiply( VResult, VResult, 4, 4, 4, 4, 0, 1 ) ) );
+     BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( VAnswer1, tardigradeVectorTools::matrixMultiply( VResult, VResult, 4, 4, 4, 4, 0, 1 ) ) );
 
      // Test the second orientation of A
 
-     vectorTools::svd( A, 4, 3, UResult, SigmaResult, VResult );
+     tardigradeVectorTools::svd( A, 4, 3, UResult, SigmaResult, VResult );
 
      // Check that the singular values are correct
 
-     BOOST_CHECK( vectorTools::fuzzyEquals( SigmaAnswer2, SigmaResult ) );
+     BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( SigmaAnswer2, SigmaResult ) );
 
      // Check that the left and right singular values are orthogonal
 
-     BOOST_CHECK( vectorTools::fuzzyEquals( UAnswer2, vectorTools::matrixMultiply( UResult, UResult, 4, 4, 4, 4, 0, 1 ) ) );
+     BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( UAnswer2, tardigradeVectorTools::matrixMultiply( UResult, UResult, 4, 4, 4, 4, 0, 1 ) ) );
 
-     BOOST_CHECK( vectorTools::fuzzyEquals( VAnswer2, vectorTools::matrixMultiply( VResult, VResult, 3, 3, 3, 3, 0, 1 ) ) );
+     BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( VAnswer2, tardigradeVectorTools::matrixMultiply( VResult, VResult, 3, 3, 3, 3, 0, 1 ) ) );
 
 }
 
@@ -1247,19 +1247,19 @@ BOOST_AUTO_TEST_CASE( test_polar_decomposition ){
 
     // Test the right polar decomposition
 
-    vectorTools::polar_decomposition( A, 3, 3, RResult, UResult, false );
+    tardigradeVectorTools::polar_decomposition( A, 3, 3, RResult, UResult, false );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( UResult, UAnswer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( UResult, UAnswer ) );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( RResult, RAnswer ) );
 
     // Test the left polar decomposition
 
-    vectorTools::polar_decomposition( A, 3, 3, RResult, VResult, true );
+    tardigradeVectorTools::polar_decomposition( A, 3, 3, RResult, VResult, true );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( VResult, VAnswer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( VResult, VAnswer ) );
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( RResult, RAnswer ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( RResult, RAnswer ) );
 
 }
 
@@ -1272,7 +1272,7 @@ BOOST_AUTO_TEST_CASE( test_computeDinvAdA ){
                      0.10262954,  0.43893794, -0.15378708,
                      0.9615284 ,  0.36965948, -0.0381362 };
 
-    vectorType invA = vectorTools::inverse( A, 3, 3 );
+    vectorType invA = tardigradeVectorTools::inverse( A, 3, 3 );
 
     floatType eps = 1e-6;
 
@@ -1286,9 +1286,9 @@ BOOST_AUTO_TEST_CASE( test_computeDinvAdA ){
 
         vectorType invAp, invAm;
 
-        BOOST_CHECK_NO_THROW( invAp = vectorTools::inverse( A + delta, 3, 3 ) );
+        BOOST_CHECK_NO_THROW( invAp = tardigradeVectorTools::inverse( A + delta, 3, 3 ) );
 
-        BOOST_CHECK_NO_THROW( invAm = vectorTools::inverse( A - delta, 3, 3 ) );
+        BOOST_CHECK_NO_THROW( invAm = tardigradeVectorTools::inverse( A - delta, 3, 3 ) );
 
         for ( unsigned int j = 0; j < A.size( ); j++ ){
 
@@ -1298,6 +1298,6 @@ BOOST_AUTO_TEST_CASE( test_computeDinvAdA ){
 
     }
 
-    BOOST_CHECK( vectorTools::fuzzyEquals( gradient, vectorTools::computeDInvADA( invA, 3, 3 ) ) );
+    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( gradient, tardigradeVectorTools::computeDInvADA( invA, 3, 3 ) ) );
 
 }
