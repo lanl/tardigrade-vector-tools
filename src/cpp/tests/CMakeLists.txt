@@ -8,5 +8,5 @@ target_include_directories(${TEST_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 if(NOT cmake_build_type_lower STREQUAL "release")
     target_include_directories(${TEST_NAME} PUBLIC
                                ${Boost_INCLUDE_DIRS}  # Required for MacOSX CMake builds. Not sure if it's a CMake or clang issue.
-                               ${error_tools_SOURCE_DIR}/${CPP_SRC_PATH})
+                               ${tardigrade_error_tools_SOURCE_DIR}/${CPP_SRC_PATH})
 endif()

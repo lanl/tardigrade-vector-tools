@@ -1,6 +1,6 @@
 #===================================================================================================== PROJECT SETUP ===
 cmake_minimum_required(VERSION 3.14)
-project(vector_tools VERSION 0.2.0)
+project(tardigrade_vector_tools VERSION 0.2.0)
 
 # Set common project paths relative to project root directory
 set(CPP_SRC_PATH "src/cpp")
@@ -57,7 +57,7 @@ string(TOLOWER "${CMAKE_BUILD_TYPE}" cmake_build_type_lower)
 
 # Find related, but external, projects in installed environment
 include(FetchContent)
-set(upstream_packages "error_tools")
+set(upstream_packages "tardigrade_error_tools")
 foreach(package ${upstream_packages})
     string(TOUPPER "${package}" package_upper)
     find_package(${package} ${upstream_required} CONFIG)

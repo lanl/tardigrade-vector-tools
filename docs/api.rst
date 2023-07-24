@@ -6,13 +6,13 @@
     :maxdepth: 2
 
 ****************
-vector_tools.cpp
+tardigrade_vector_tools.cpp
 ****************
 
-.. doxygenfile:: vector_tools.h
+.. doxygenfile:: tardigrade_vector_tools.h
 
 **************
-vector_tools.h
+tardigrade_vector_tools.h
 **************
 
-.. doxygenfile:: vector_tools.h
+.. doxygenfile:: tardigrade_vector_tools.h
